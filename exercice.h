@@ -2,6 +2,8 @@
 #define EXERCICE_H
 
 #include <QtGui/QMainWindow>
+#include <QGraphicsScene>
+#include "baudruche.h"
 
 namespace Ui {
     class exercice;
@@ -13,13 +15,24 @@ class exercice : public QMainWindow {
 public:
     explicit exercice(QString,QWidget *parent = 0);
     virtual ~exercice();
-    Ui::exercice *m_ui;
 
 protected:
     virtual void changeEvent(QEvent *e);
 
 private:
-    //Ui::exercice *m_ui;
+    Ui::exercice *m_ui;
+    int m_score;
+    int m_total;
+    QChar m_operation;
+    QGraphicsScene* m_scene;
+    baudruche* m_baudruche;
+    QMultiMap<int, QString> m_trace;
+
+private slots:
+    void on_leResultat_returnPressed();
+    void on_btnFeu_clicked();
+    void on_btnBallon_clicked();
+    void on_btnQuitter_clicked();
 };
 
 #endif // EXERCICE_H

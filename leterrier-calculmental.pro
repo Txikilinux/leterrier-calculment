@@ -5,8 +5,11 @@ TARGET = leterrier-calculmental
 TEMPLATE = app
 SOURCES += main.cpp \
     interface.cpp \
-    exercice.cpp
+    exercice.cpp \
+    baudruche.cpp
 HEADERS += interface.h \
-    exercice.h
+    exercice.h \
+    baudruche.h
 FORMS += interface.ui \
     exercice.ui
+QT += script
