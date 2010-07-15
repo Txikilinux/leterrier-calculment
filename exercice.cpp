@@ -2,7 +2,7 @@
 #include "ui_exercice.h"
 
 #include <QGraphicsItemAnimation>
-const int NBTOTAL = 1;
+const int NBTOTAL = 5;
 const int NBCHIFFRE = 2;
 
 exercice::exercice(QString exo,QWidget *parent) :
@@ -10,6 +10,10 @@ exercice::exercice(QString exo,QWidget *parent) :
     m_ui(new Ui::exercice)
 {
     m_ui->setupUi(this);
+    //l'ouverture de la fenêtre exercice doit empêcher qu'on accède à la fenêtre interface
+    this ->setWindowModality( Qt::ApplicationModal ) ;
+    //le drapeau DeleteOnClose fait que l'objet créé sera détruit lors de sa fermeture
+    this->setAttribute(Qt::WA_DeleteOnClose);
     setPalette(QPalette(QColor(250, 250, 200)));
     this->setWindowTitle("Mon ballon !!");
     QPixmap* imgFond = new QPixmap("./images/philippe.jpg");
@@ -51,7 +55,7 @@ void exercice::changeEvent(QEvent *e)
 
 void exercice::on_btnQuitter_clicked()
 {
-    QApplication::quit();
+    this->close();
 }
 
 void exercice::on_btnBallon_clicked()

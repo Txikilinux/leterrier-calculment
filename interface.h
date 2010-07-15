@@ -18,6 +18,10 @@ public:
 
 private:
     Ui::interfaceClass *ui;
+
+private slots:
+    void on_btnMultiplication_clicked();
+    void on_btnAddition_clicked();
 };
 
 #endif // INTERFACE_H
