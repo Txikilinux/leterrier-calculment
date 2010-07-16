@@ -16,6 +16,9 @@ public:
     interface(QWidget *parent = 0);
     ~interface();
 
+protected:
+    void paintEvent(QPaintEvent* e );
+
 private:
     Ui::interfaceClass *ui;
 

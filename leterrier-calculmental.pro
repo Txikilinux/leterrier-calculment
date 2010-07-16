@@ -6,10 +6,12 @@ TEMPLATE = app
 SOURCES += main.cpp \
     interface.cpp \
     exercice.cpp \
-    baudruche.cpp
+    baudruche.cpp \
+    boutonspolygone.cpp
 HEADERS += interface.h \
     exercice.h \
-    baudruche.h
+    baudruche.h \
+    boutonspolygone.h
 FORMS += interface.ui \
     exercice.ui
 QT += script

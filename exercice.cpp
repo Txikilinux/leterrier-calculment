@@ -13,7 +13,7 @@ exercice::exercice(QString exo,QWidget *parent) :
     //l'ouverture de la fenêtre exercice doit empêcher qu'on accède à la fenêtre interface
     this ->setWindowModality( Qt::ApplicationModal ) ;
     //le drapeau DeleteOnClose fait que l'objet créé sera détruit lors de sa fermeture
-    this->setAttribute(Qt::WA_DeleteOnClose);
+    //this->setAttribute(Qt::WA_DeleteOnClose);
     setPalette(QPalette(QColor(250, 250, 200)));
     this->setWindowTitle("Mon ballon !!");
     QPixmap* imgFond = new QPixmap("./images/philippe.jpg");
