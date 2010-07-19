@@ -7,10 +7,13 @@ class boutonsPolygone : public QPushButton
 {
     Q_OBJECT
 public:
-    boutonsPolygone(QWidget *parent = 0);
+    boutonsPolygone(QPointF*,QWidget *parent = 0);
 
 protected:
         void paintEvent(QPaintEvent *);
+
+private:
+    QPointF* m_base;
 
 };
 

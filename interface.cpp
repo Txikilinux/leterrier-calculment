@@ -16,8 +16,13 @@ interface::interface(QWidget *parent)
     ui->fete->setScene(dessin);
     dessin->setSceneRect(0, 50, 700, 500);
 
-    boutonsPolygone* btnPoly1 = new boutonsPolygone(ui->fete);
-    connect(btnPoly1, SIGNAL(clicked()), ui->btnAddition, SLOT(click()));
+    QPointF* ptBase1= new QPointF(50,100);
+    boutonsPolygone* btnPoly1 = new boutonsPolygone(ptBase1,ui->fete);
+        connect(btnPoly1, SIGNAL(clicked()), ui->btnAddition, SLOT(click()));
+    QPointF* ptBase2= new QPointF(300,100);
+        boutonsPolygone* btnPoly2 = new boutonsPolygone(ptBase2,ui->fete);
+    connect(btnPoly2, SIGNAL(clicked()), ui->btnMultiplication, SLOT(click()));
+
 
     }
 
