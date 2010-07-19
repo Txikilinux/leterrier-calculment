@@ -17,6 +17,7 @@ public:
     float getMResultat();
     float getMGOperande();
     float getMDOperande();
+    QString getMLigne();
     QString getMOperation();
 
 //    QTimeLine getMTimer();
@@ -40,6 +41,7 @@ private:
     float d_operande;
     float m_resultat;
     QPoint m_position;
+    QString m_ligne;
 //    QTimeLine m_timer;
 };
 

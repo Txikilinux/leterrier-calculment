@@ -7,11 +7,14 @@ SOURCES += main.cpp \
     interface.cpp \
     exercice.cpp \
     baudruche.cpp \
-    boutonspolygone.cpp
+    boutonspolygone.cpp \
+    sauvegardelog.cpp
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
-    boutonspolygone.h
+    boutonspolygone.h \
+    sauvegardelog.h
 FORMS += interface.ui \
     exercice.ui
 QT += script
+QT += network

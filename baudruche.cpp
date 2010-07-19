@@ -1,6 +1,5 @@
 #include "baudruche.h"
 
-
 const float FLOATMIN = 0.0;
 const float FLOATMAX = 9.9;
 const int INTMIN = 0;
@@ -27,12 +26,12 @@ baudruche::baudruche(QString op,QPoint pos)
     m_op = op;
     m_position.setX(pos.x());
     m_position.setY(pos.y());
-    QString ligne;
+
     //Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*"
-    if (m_op=="x") ligne = QString::number(g_operande)+"*"+QString::number(d_operande);
-    else ligne = QString::number(g_operande)+m_op+QString::number(d_operande);
+    if (m_op=="x") m_ligne = QString::number(g_operande)+"*"+QString::number(d_operande);
+    else m_ligne = QString::number(g_operande)+m_op+QString::number(d_operande);
     QScriptEngine calculateur;
-    QScriptValue resultat = calculateur.evaluate(ligne);
+    QScriptValue resultat = calculateur.evaluate(m_ligne);
     m_resultat = resultat.toNumber();
     m_timer = new QTimeLine(TPS*1000,this);
 
@@ -74,9 +73,8 @@ baudruche::baudruche(QString op,QPoint pos)
         affichage->setZValue(k+1);
         affichage->setPos(40,60);
         this->addToGroup(affichage);
-
-
-   emit valueChanged(m_resultat);
+        
+    emit valueChanged(m_resultat);
 }
 
 baudruche::baudruche(int pts, QPoint pos)
@@ -138,6 +136,10 @@ QString baudruche::getMOperation()
     return this->m_op;
 }
 
+QString baudruche::getMLigne()
+{
+    return this->m_ligne;
+}
 //QTimeLine baudruche::getMTimer()
 //{
 //    return m_timer;

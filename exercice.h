@@ -26,7 +26,7 @@ private:
     QChar m_operation;
     QGraphicsScene* m_scene;
     baudruche* m_baudruche;
-    QMultiMap<int, QString> m_trace;
+    QString* m_trace;
 
 private slots:
     void on_leResultat_returnPressed();

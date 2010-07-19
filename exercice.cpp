@@ -1,5 +1,8 @@
 #include "exercice.h"
 #include "ui_exercice.h"
+#include "sauvegardelog.h"
+#include <QDate>
+#include <QTime>
 
 #include <QGraphicsItemAnimation>
 const int NBTOTAL = 5;
@@ -109,21 +112,34 @@ void exercice::on_btnFeu_clicked()
     float proposition = m_ui->leResultat->text().toFloat();
     float reponse = m_ui->lcdNumber->value();
     QString demande = "";
-    demande = m_baudruche->getMGOperande()+m_baudruche->getMOperation()+m_baudruche->getMDOperande();
+        demande = m_baudruche->getMGOperande()+m_baudruche->getMOperation()+m_baudruche->getMDOperande();
     m_score = m_ui->lblPoints->text().toInt();
 
     if (proposition==reponse) {
         m_score++;
         m_ui->lblMsg->setText("GAGNE");
-        m_trace.insert(2, demande);
         }
     else {
         m_ui->lblMsg->setText("PERDU");
-        m_trace.insert(1, demande);
         }
     QString monScore = "";
     monScore = monScore.setNum(m_score);
     m_ui->lblPoints->setText(monScore);
+
+   //envoi au journal de log
+        #ifdef Q_WS_WIN
+        QString utilisateur("bill.gates" );
+        #endif
+
+        #ifdef Q_WS_X11
+        QString utilisateur( getenv("USER") );
+        #endif
+        #ifdef Q_WS_MAC
+            QString utilisateur( "steve.jobs" );
+        #endif
+    QString reponseAttendueEnString;
+    reponseAttendueEnString.setNum(proposition);
+    sauvegardeLog* envoieRes = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, m_baudruche->getMLigne(), m_ui->leResultat->text(), reponseAttendueEnString);
 
     if (m_baudruche!=NULL) m_baudruche->detruire();
     m_ui->btnFeu->setDisabled(true);
@@ -143,14 +159,12 @@ void exercice::on_btnFeu_clicked()
             m_scene->addItem(image);
             image->setPos(depart->x()+35*(i+1),depart->y()+10*(i+1));
             image->setZValue(NBTOTAL-1-i);
-        }
+            }
 
-        m_scene->addItem(m_baudruche);
-            m_baudruche->setZValue(NBTOTAL);
+    m_scene->addItem(m_baudruche);
+        m_baudruche->setZValue(NBTOTAL);
 
-//            QList<QString> erreurs = m_trace.value("1");
-//            for (int i = 0; i < erreurs.size(); ++i)
-//                qDebug() << erreurs.at(i) << endl;
+
         }
 }
 
