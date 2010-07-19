@@ -7,6 +7,8 @@
 #include <QGraphicsItemAnimation>
 const int NBTOTAL = 5;
 const int NBCHIFFRE = 2;
+const int INTMIN = 0;
+const int INTMAX = 9;
 
 exercice::exercice(QString exo,QWidget *parent) :
     QMainWindow(parent),
@@ -65,7 +67,7 @@ void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
     QPoint* depart = new QPoint(300,400);
-    m_baudruche = new baudruche(m_operation,*depart);
+    m_baudruche = new baudruche(INTMIN,INTMAX,m_operation,*depart);
         connect(m_baudruche, SIGNAL(valueChanged(int)),m_ui->lcdNumber, SLOT(display(int)));
         if (m_total<NBTOTAL - 1) {
             connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnBallon, SLOT(setEnabled(bool)));

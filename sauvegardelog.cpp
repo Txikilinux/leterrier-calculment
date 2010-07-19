@@ -28,5 +28,5 @@ sauvegardeLog::sauvegardeLog(QDate date, QTime heure, QString utilisateur,QStrin
     const QNetworkRequest requete(*m_url);
     QNetworkAccessManager *m = new QNetworkAccessManager;
     QNetworkReply *r = m->post(requete, "");
-    //m->PostOperation;
+    //on peut peut être se servir de ce r pour détecter des erreurs
 }
