@@ -140,7 +140,9 @@ void exercice::on_btnFeu_clicked()
             QString utilisateur( "steve.jobs" );
         #endif
     QString reponseAttendueEnString;
-    reponseAttendueEnString.setNum(proposition);
+        reponseAttendueEnString.setNum(reponse);
+    QString propositionEnString;
+        propositionEnString.setNum(proposition);
     sauvegardeLog* envoieRes = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, m_baudruche->getMLigne(), m_ui->leResultat->text(), reponseAttendueEnString);
 
     if (m_baudruche!=NULL) m_baudruche->detruire();
@@ -166,7 +168,11 @@ void exercice::on_btnFeu_clicked()
     m_scene->addItem(m_baudruche);
         m_baudruche->setZValue(NBTOTAL);
 
-
+    QString scoreEnString;
+        scoreEnString.setNum(m_score);
+    QString totalEnString;
+        totalEnString.setNum(m_total);
+    sauvegardeLog* envoieScore = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, "score", totalEnString, scoreEnString);
         }
 }
 

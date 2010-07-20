@@ -1,0 +1,29 @@
+#ifndef EDITEUR_H
+#define EDITEUR_H
+
+#include <QtGui/QWidget>
+
+namespace Ui {
+    class Editeur;
+}
+
+class Editeur : public QWidget {
+    Q_OBJECT
+    Q_DISABLE_COPY(Editeur)
+public:
+    explicit Editeur(QWidget *parent = 0);
+    virtual ~Editeur();
+
+protected:
+    virtual void changeEvent(QEvent *e);
+    void closeEvent(QCloseEvent *event);
+
+
+private:
+    Ui::Editeur *m_ui;
+
+private slots:
+    void on_btnQuitter_clicked();
+};
+
+#endif // EDITEUR_H

@@ -8,13 +8,16 @@ SOURCES += main.cpp \
     exercice.cpp \
     baudruche.cpp \
     boutonspolygone.cpp \
-    sauvegardelog.cpp
+    sauvegardelog.cpp \
+    editeur.cpp
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
     boutonspolygone.h \
-    sauvegardelog.h
+    sauvegardelog.h \
+    editeur.h
 FORMS += interface.ui \
-    exercice.ui
+    exercice.ui \
+    editeur.ui
 QT += script
 QT += network

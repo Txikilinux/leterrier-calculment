@@ -1,6 +1,7 @@
 #include <QtGui/QApplication>
 #include "interface.h"
 #include "exercice.h"
+#include "editeur.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,6 +11,8 @@ int main(int argc, char *argv[])
     w.setWindowTitle("Calcul Mental");
     exercice e(exo);
     e.setWindowTitle("exercice");
+    Editeur ed;
+    ed.show();
     if (exo=="") w.show();
     else e.show();
     return a.exec();

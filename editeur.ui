@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Editeur</class>
+ <widget class="QWidget" name="Editeur">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>516</width>
+    <height>357</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>20</width>
+    <height>30</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Editeur de niveau</string>
+  </property>
+  <widget class="QLabel" name="lblNiveau">
+   <property name="geometry">
+    <rect>
+     <x>98</x>
+     <y>203</y>
+     <width>46</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Niveau</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblVitesse">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>200</y>
+     <width>48</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Vitesse</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cbNiveau">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>240</y>
+     <width>111</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>481</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="gbNbGauche">
+      <property name="styleSheet">
+       <string> QGroupBox {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
+     border: 2px solid gray;
+     border-radius: 5px;
+     margin-top: 1ex; /* leave space at the top for the title */
+ }
+
+ QGroupBox::title {
+     subcontrol-origin: margin;
+     padding: 0 3px;
+
+ }</string>
+      </property>
+      <property name="title">
+       <string>Opérande Gauche</string>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>40</y>
+         <width>183</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="lblGMin">
+          <property name="text">
+           <string>Valeur Minimum</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSpinBox" name="spbGMin"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="lblGMax">
+          <property name="text">
+           <string>Valeur Maximum</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="spbGMax">
+          <property name="value">
+           <number>9</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QGroupBox" name="gbNbDroite">
+      <property name="styleSheet">
+       <string> QGroupBox {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
+     border: 2px solid gray;
+     border-radius: 5px;
+     margin-top: 1ex; /* leave space at the top for the title */
+ }
+
+ QGroupBox::title {
+     subcontrol-origin: margin;
+     padding: 0 3px;
+   
+ }</string>
+      </property>
+      <property name="title">
+       <string>Opérande Droit</string>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>40</y>
+         <width>183</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="lblDMin">
+          <property name="text">
+           <string>Valeur Minimum</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSpinBox" name="spbDMin"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="lblDMax">
+          <property name="text">
+           <string>Valeur Maximum</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="spbDMax">
+          <property name="value">
+           <number>9</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QSlider" name="sldVitesse">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>240</y>
+     <width>160</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>10</number>
+   </property>
+   <property name="value">
+    <number>5</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QProgressBar" name="pbVitesse">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>270</y>
+     <width>118</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>10</number>
+   </property>
+   <property name="value">
+    <number>5</number>
+   </property>
+   <property name="format">
+    <string>%v s</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnQuitter">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>320</y>
+     <width>151</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Enregistrer et quitter</string>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>spbGMin</tabstop>
+  <tabstop>spbGMax</tabstop>
+  <tabstop>spbDMin</tabstop>
+  <tabstop>spbDMax</tabstop>
+  <tabstop>cbNiveau</tabstop>
+  <tabstop>sldVitesse</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
