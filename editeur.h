@@ -21,9 +21,13 @@ protected:
 
 private:
     Ui::Editeur *m_ui;
+    QString *m_niveau;
 
 private slots:
     void on_btnQuitter_clicked();
+    void sauverNiveau(QString);
+    void chargerNiveau(QString);
+    void changerNiveau(QString);
 };
 
 #endif // EDITEUR_H

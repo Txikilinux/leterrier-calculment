@@ -1,9 +1,10 @@
 #include "editeur.h"
 #include "ui_editeur.h"
 
- #include <QComboBox>
+#include <QComboBox>
 #include <QSettings>
 #include <QCloseEvent>
+#include <QDebug>
 
 
 Editeur::Editeur(QWidget *parent) :
@@ -16,28 +17,11 @@ Editeur::Editeur(QWidget *parent) :
         m_ui->cbNiveau->addItem(tr("Niveau3"), 3);
         m_ui->cbNiveau->addItem(tr("Personnel"),4);
         connect(m_ui->sldVitesse, SIGNAL(valueChanged(int)), m_ui->pbVitesse, SLOT(setValue(int)));
+        m_niveau = new QString(m_ui->cbNiveau->currentText());
+        this->chargerNiveau(*m_niveau);
+            //problème : sauver l'ancien niveau et charger le nouveau au changement de valeur du comboBox (peut être m_niveau dans editeur)
 
-   QSettings config("./maConfig.ini", QSettings::IniFormat);
-       config.setValue("langue", "fr");
-       for (int i=1;i<4;i++) {
-            QString niv = "Niveau";
-            QString iString;
-            iString.setNum(i);
-            niv.append(iString);
-            config.beginGroup(niv);
-            config.setValue("MinGauche", m_ui->spbGMin->value());
-            config.setValue("MaxGauche", m_ui->spbGMax->value());
-            config.setValue("MinDroite", m_ui->spbDMin->value());
-            config.setValue("MaxDroite", m_ui->spbDMax->value());
-            config.endGroup();
-        }
-       config.beginGroup("Personnel");
-            config.setValue("MinGauche", m_ui->spbGMin->value());
-            config.setValue("MaxGauche", m_ui->spbGMax->value());
-            config.setValue("MinDroite", m_ui->spbDMin->value());
-            config.setValue("MaxDroite", m_ui->spbDMax->value());
-            config.endGroup();
-
+        connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
 }
 
 Editeur::~Editeur()
@@ -45,15 +29,60 @@ Editeur::~Editeur()
     delete m_ui;
 }
 
-void Editeur::closeEvent(QCloseEvent *event)
+//void Editeur::sauverNiveau()
+//{
+//    QSettings config("./maConfig.ini", QSettings::IniFormat);
+//    config.beginGroup(m_ui->cbNiveau->currentText());
+//        config.setValue("MinGauche", m_ui->spbGMin->value());
+//        config.setValue("MaxGauche", m_ui->spbGMax->value());
+//        config.setValue("MinDroite", m_ui->spbDMin->value());
+//        config.setValue("MaxDroite", m_ui->spbDMax->value());
+//    config.endGroup();
+//}
+
+void Editeur::sauverNiveau(QString niveau)
 {
     QSettings config("./maConfig.ini", QSettings::IniFormat);
-    config.beginGroup(m_ui->cbNiveau->currentText());
+    config.beginGroup(niveau);
         config.setValue("MinGauche", m_ui->spbGMin->value());
         config.setValue("MaxGauche", m_ui->spbGMax->value());
         config.setValue("MinDroite", m_ui->spbDMin->value());
         config.setValue("MaxDroite", m_ui->spbDMax->value());
     config.endGroup();
+}
+
+//void Editeur::chargerNiveau()
+//{
+//    QSettings config("./maConfig.ini", QSettings::IniFormat);
+//    config.beginGroup(m_ui->cbNiveau->currentText());
+//        m_ui->spbGMax->setValue(config.value("MaxGauche").toInt());
+//        m_ui->spbGMin->setValue(config.value("MinGauche").toInt());
+//        m_ui->spbDMax->setValue(config.value("MaxDroite").toInt());
+//        m_ui->spbDMin->setValue(config.value("MinDroite").toInt());
+//    config.endGroup();
+//}
+
+void Editeur::chargerNiveau(QString niveau)
+{
+    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    config.beginGroup(niveau);
+        m_ui->spbGMax->setValue(config.value("MaxGauche").toInt());
+        m_ui->spbGMin->setValue(config.value("MinGauche").toInt());
+        m_ui->spbDMax->setValue(config.value("MaxDroite").toInt());
+        m_ui->spbDMin->setValue(config.value("MinDroite").toInt());
+    config.endGroup();
+}
+
+void Editeur::changerNiveau(QString chaine)
+{
+    this->sauverNiveau(*m_niveau);
+    this->chargerNiveau(chaine);
+    *m_niveau = chaine;
+}
+
+void Editeur::closeEvent(QCloseEvent *event)
+{
+    this->sauverNiveau(*m_niveau);
     event->accept();
 
 }
