@@ -9,19 +9,28 @@ interface::interface(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QPixmap* imgFond = new QPixmap("./images/oui.png");
+    QPixmap* imgFond = new QPixmap("./images/fondecran.png");
     QBrush* fond = new QBrush(*imgFond);
     ui->fete->setBackgroundBrush(*fond);
     QGraphicsScene* dessin = new QGraphicsScene(this);
     ui->fete->setScene(dessin);
-    dessin->setSceneRect(0, 50, 700, 500);
+    dessin->setSceneRect(0, 0, 1024, 768);
 
-    QPointF* ptBase1= new QPointF(50,100);
-    boutonsPolygone* btnPoly1 = new boutonsPolygone(ptBase1,ui->fete);
-        connect(btnPoly1, SIGNAL(clicked()), ui->btnAddition, SLOT(click()));
-    QPointF* ptBase2= new QPointF(300,100);
-        boutonsPolygone* btnPoly2 = new boutonsPolygone(ptBase2,ui->fete);
+ //   QPoint* ptBase1= new QPoint(50,100);
+//    boutonsPolygone* btnPoly1 = new boutonsPolygone(ptBase1,ui->fete);
+    boutonsPolygone* btnPoly1 = new boutonsPolygone(ui->fete);
+    btnPoly1->retaille(100,100);
+    btnPoly1->deplace(50,350);
+            connect(btnPoly1, SIGNAL(clicked()), ui->btnAddition, SLOT(click()));
+   // QPoint* ptBase2= new QPoint(300,100);
+//    boutonsPolygone* btnPoly2 = new boutonsPolygone(ptBase2,ui->fete);
+        boutonsPolygone* btnPoly2 = new boutonsPolygone(ui->fete);
     connect(btnPoly2, SIGNAL(clicked()), ui->btnMultiplication, SLOT(click()));
+
+//    if (ui->fete->itemAt(0,0)->isWidget()) qDebug() << "yes";
+//    else qDebug() << "no";
+
+
 
 
     }
@@ -46,19 +55,4 @@ void interface::on_btnMultiplication_clicked()
 void interface::paintEvent(QPaintEvent* e )
 {
     QMainWindow::paintEvent(e);
-
-//    QVector<QPointF> ensPoints(0);
-//            QPointF pt1(10,30);
-//            ensPoints.append(pt1);
-//            QPointF pt2(30,10);
-//            ensPoints.append(pt2);
-//            QPointF pt4(50,30);
-//            ensPoints.append(pt4);
-//            QPointF pt3(30,50);
-//            ensPoints.append(pt3);
-//    boutonsPolygone* btnPoly1 = new boutonsPolygone(&ensPoints);
-//        btnPoly1->setToolTip("toto");
-//        btnPoly1->setEnabled(1);
-//        connect(btnPoly1, SIGNAL(clicked()), ui->btnAddition, SLOT(click()));
-//    peintre.drawPolygon(*btnPoly1);
 }

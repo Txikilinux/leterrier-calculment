@@ -7,13 +7,21 @@ class boutonsPolygone : public QPushButton
 {
     Q_OBJECT
 public:
-    boutonsPolygone(QPointF*,QWidget *parent = 0);
+//    boutonsPolygone(QPointF*,QWidget *parent = 0);
+    boutonsPolygone(QWidget *parent = 0);
+//    boutonsPolygone(int, QWidget *parent = 0);
+    void deplace(int,int);
+    void retaille(int,int);
+    void tourne(int);
 
 protected:
-        void paintEvent(QPaintEvent *);
+    void paintEvent(QPaintEvent *);
 
 private:
-    QPointF* m_base;
+    QPoint* m_base;
+    int m_angle;
+    int m_zoom;
+    QSize* m_taille;
 
 };
 
