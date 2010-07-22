@@ -28,35 +28,6 @@ void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->drawRect(rect.adjusted(0, 0, -1, -1));
 }
 
-                //void boutonsPolygone::paintEvent(QPaintEvent * event)
-                //{
-                //
-                //     QPainterPath zone;
-                ////        QPoint* pt1 = new QPointF(0 + m_taille->width()*sin(m_angle),0 + m_taille->width()*cos(m_angle));
-                ////        QPoint*pt2 = new QPointF(m_taille->width() + m_taille->width()*sin(m_angle)-1,0 + m_taille->width()*cos(m_angle));
-                ////        QPoint*pt3 = new QPointF(m_taille->width() + m_taille->width()*sin(m_angle)-1,m_taille->height() + m_taille->width()*cos(m_angle)-1);
-                ////        QPoint*pt4 = new QPointF(0 + m_taille->width()*sin(m_angle),m_taille->height() + m_taille->width()*cos(m_angle)-1);
-                //        QPoint* pt1 = new QPoint(0,0);
-                //        QPoint*pt2 = new QPoint(m_taille->width()-1,0);
-                //        QPoint*pt3 = new QPoint(m_taille->width()-1,m_taille->height()-1);
-                //        QPoint*pt4 = new QPoint(0,m_taille->height()-1);
-                //        zone.lineTo(*pt2);
-                //        zone.lineTo(*pt3);
-                //        zone.lineTo(*pt4);
-                //        zone.lineTo(*pt1);
-                //
-                //     QPainter painter(this);
-                //     //painter.setPen(QPen(QColor(79, 106, 25), 3, Qt::NoPen ,Qt::FlatCap, Qt::MiterJoin));
-                //     //Si besoin de visualiser les contours
-                //     painter.setPen(QPen(QColor(79, 106, 25), 3, Qt::DashLine ,Qt::FlatCap, Qt::MiterJoin));
-                //     painter.rotate(m_angle);
-                //     painter.drawPath(zone);
-                //
-                //     painter.end();
-                //     event->accept();
-                //     this->setCursor(Qt::PointingHandCursor);
-                //}
-
 void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
 {
     QGraphicsItem::mousePressEvent(e);

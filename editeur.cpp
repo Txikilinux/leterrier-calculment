@@ -19,7 +19,6 @@ Editeur::Editeur(QWidget *parent) :
         connect(m_ui->sldVitesse, SIGNAL(valueChanged(int)), m_ui->pbVitesse, SLOT(setValue(int)));
         m_niveau = new QString(m_ui->cbNiveau->currentText());
         this->chargerNiveau(*m_niveau);
-            //problème : sauver l'ancien niveau et charger le nouveau au changement de valeur du comboBox (peut être m_niveau dans editeur)
 
         connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
 }
@@ -28,17 +27,6 @@ Editeur::~Editeur()
 {
     delete m_ui;
 }
-
-//void Editeur::sauverNiveau()
-//{
-//    QSettings config("./maConfig.ini", QSettings::IniFormat);
-//    config.beginGroup(m_ui->cbNiveau->currentText());
-//        config.setValue("MinGauche", m_ui->spbGMin->value());
-//        config.setValue("MaxGauche", m_ui->spbGMax->value());
-//        config.setValue("MinDroite", m_ui->spbDMin->value());
-//        config.setValue("MaxDroite", m_ui->spbDMax->value());
-//    config.endGroup();
-//}
 
 void Editeur::sauverNiveau(QString niveau)
 {
@@ -50,17 +38,6 @@ void Editeur::sauverNiveau(QString niveau)
         config.setValue("MaxDroite", m_ui->spbDMax->value());
     config.endGroup();
 }
-
-//void Editeur::chargerNiveau()
-//{
-//    QSettings config("./maConfig.ini", QSettings::IniFormat);
-//    config.beginGroup(m_ui->cbNiveau->currentText());
-//        m_ui->spbGMax->setValue(config.value("MaxGauche").toInt());
-//        m_ui->spbGMin->setValue(config.value("MinGauche").toInt());
-//        m_ui->spbDMax->setValue(config.value("MaxDroite").toInt());
-//        m_ui->spbDMin->setValue(config.value("MinDroite").toInt());
-//    config.endGroup();
-//}
 
 void Editeur::chargerNiveau(QString niveau)
 {

@@ -6,9 +6,9 @@ const float FLOATMAX = 9.9;
 //const int INTMAX = 9;
 const int TPS = 6;
 
-baudruche::baudruche(int intMin, int intMax,QString op,QPoint pos)
+baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos)
 {
-    g_operande = intMin + rand()%(intMax-intMin);
+    g_operande = intMinG + rand()%(intMaxG-intMinG);
             //J'aurais bien aimé mettre des réels mais à une décimale...
             //    g_operande = ((FLOATMAX-FLOATMIN)*((float)rand()/RAND_MAX))+FLOATMIN;
             //    int arr_g_operande=floor(g_operande*10);
@@ -16,7 +16,7 @@ baudruche::baudruche(int intMin, int intMax,QString op,QPoint pos)
             //    //debug valeur réel
             //        qDebug() << "avant :" << g_operande << " et après:" << arr_g_operande ;
             //d_operande = b;
-    d_operande = intMin + rand()%(intMax-intMin);
+    d_operande = intMinD + rand()%(intMaxD-intMinD);
     //Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes...
     if (d_operande>g_operande) {
         int tmp=g_operande;

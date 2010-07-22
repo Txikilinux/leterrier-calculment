@@ -10,9 +10,7 @@ class boutonsPolygone : public QPushButton, public QGraphicsItem
 {
     Q_OBJECT
 public:
-//    boutonsPolygone(QPointF*,QWidget *parent = 0);
     boutonsPolygone(QString);
-//    boutonsPolygone(int, QWidget *parent = 0);
     void deplace(int,int);
     void retaille(int,int);
     void tourne(int);

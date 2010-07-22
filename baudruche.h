@@ -11,7 +11,7 @@ class baudruche : public QObject, public QGraphicsItemGroup
 {
    Q_OBJECT
 public:
-    baudruche(int intMin, int intMax,QString op,QPoint pos);
+    baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos);
     baudruche(int pts, QPoint pos);
     QPoint getMPosition();
     float getMResultat();
