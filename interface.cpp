@@ -18,14 +18,20 @@ interface::interface(QWidget *parent)
 
  //   QPoint* ptBase1= new QPoint(50,100);
 //    boutonsPolygone* btnPoly1 = new boutonsPolygone(ptBase1,ui->fete);
-    boutonsPolygone* btnPoly1 = new boutonsPolygone(ui->fete);
-    btnPoly1->retaille(100,100);
-    btnPoly1->deplace(50,350);
-            connect(btnPoly1, SIGNAL(clicked()), ui->btnAddition, SLOT(click()));
+    boutonsPolygone* btnPoly1 = new boutonsPolygone("addition");
+    btnPoly1->deplace(-75,340);
+    btnPoly1->retaille(60,90);
+    btnPoly1->tourne(-20);
+//    btnPoly1->QGraphicsItem::setCursor(Qt::PointingHandCursor);
+//    btnPoly1->QGraphicsItem::setEnabled(true);
+    dessin->addItem(btnPoly1);
+   // QPushButton::connect(btnPoly1,SIGNAL(clicked()), ui->btnAddition, SLOT(click()));
    // QPoint* ptBase2= new QPoint(300,100);
 //    boutonsPolygone* btnPoly2 = new boutonsPolygone(ptBase2,ui->fete);
-        boutonsPolygone* btnPoly2 = new boutonsPolygone(ui->fete);
-    connect(btnPoly2, SIGNAL(clicked()), ui->btnMultiplication, SLOT(click()));
+        boutonsPolygone* btnPoly2 = new boutonsPolygone("multiplication");
+        btnPoly2->deplace(250,310);
+        btnPoly2->retaille(70,80);
+        dessin->addItem(btnPoly2);
 
 //    if (ui->fete->itemAt(0,0)->isWidget()) qDebug() << "yes";
 //    else qDebug() << "no";
