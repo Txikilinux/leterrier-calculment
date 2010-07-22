@@ -13,6 +13,7 @@ class Editeur : public QWidget {
 public:
     explicit Editeur(QWidget *parent = 0);
     virtual ~Editeur();
+    QString getNiveauEnCours();
 
 protected:
     virtual void changeEvent(QEvent *e);
@@ -22,6 +23,8 @@ protected:
 private:
     Ui::Editeur *m_ui;
     QString *m_niveauEnCours;
+    bool nouvelUtilisateur;
+    void initialiser();
 
 private slots:
     void on_btnQuitter_clicked();

@@ -1,6 +1,7 @@
 #include "exercice.h"
 #include "ui_exercice.h"
 #include "sauvegardelog.h"
+#include "editeur.h"
 #include <QDate>
 #include <QTime>
 
@@ -38,7 +39,8 @@ exercice::exercice(QString exo,QWidget *parent) :
     else if (exo=="soustraction") m_operation='-';
          else if (exo=="multiplication") m_operation='x';
 
-    m_niveau = new QString("Niveau1");
+    Editeur ed;
+    m_niveau = new QString(ed.getNiveauEnCours()); //mais en fait en faisant comme ça c'est toujours le niveau 1 !!!
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     config.beginGroup(*m_niveau);
         m_maxG = config.value("MaxGauche").toInt();

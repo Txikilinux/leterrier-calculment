@@ -18,6 +18,7 @@ Editeur::Editeur(QWidget *parent) :
         m_ui->cbNiveau->addItem(tr("Personnel"),4);
         connect(m_ui->sldVitesse, SIGNAL(valueChanged(int)), m_ui->pbVitesse, SLOT(setValue(int)));
         m_niveauEnCours = new QString(m_ui->cbNiveau->currentText());
+        initialiser();
         this->chargerNiveau(*m_niveauEnCours);
 
         connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
@@ -28,6 +29,35 @@ Editeur::~Editeur()
     delete m_ui;
 }
 
+QString Editeur::getNiveauEnCours()
+{
+    return *m_niveauEnCours;
+}
+
+void Editeur::initialiser()
+{
+    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    config.setValue("NiveauEnCours", "Niveau1");
+    config.beginGroup("Niveau1");
+        config.setValue("MinGauche", 0);
+        config.setValue("MaxGauche", 5);
+        config.setValue("MinDroite", 0);
+        config.setValue("MaxDroite", 5);
+    config.endGroup();
+    config.beginGroup("Niveau2");
+        config.setValue("MinGauche", 5);
+        config.setValue("MaxGauche", 9);
+        config.setValue("MinDroite", 5);
+        config.setValue("MaxDroite", 9);
+    config.endGroup();
+    config.beginGroup("Niveau3");
+        config.setValue("MinGauche", 10);
+        config.setValue("MaxGauche", 99);
+        config.setValue("MinDroite", 10);
+        config.setValue("MaxDroite", 99);
+    config.endGroup();
+    nouvelUtilisateur = false;
+}
 void Editeur::sauverNiveau(QString niveau)
 {
     QSettings config("./maConfig.ini", QSettings::IniFormat);
@@ -37,6 +67,7 @@ void Editeur::sauverNiveau(QString niveau)
         config.setValue("MinDroite", m_ui->spbDMin->value());
         config.setValue("MaxDroite", m_ui->spbDMax->value());
     config.endGroup();
+    *m_niveauEnCours = niveau;
 }
 
 void Editeur::chargerNiveau(QString niveau)
