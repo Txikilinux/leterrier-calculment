@@ -3,34 +3,20 @@
 #include "editeur.h"
 #include <QtGui>
 
-//boutonsPolygone::boutonsPolygone(QPoint* ptBase,QWidget* parent)
 boutonsPolygone::boutonsPolygone(QString operation)
         : QGraphicsItem()
 {
-    //m_base = ptBase;
     m_base = new QPoint(0,0);
     m_taille = new QSize(100,100);
-   // this->setGeometry(m_base->x(),m_base->y(),m_taille->width(),m_taille->height());
     m_angle = 0;
     m_zoom = 0;
     m_action = new QString(operation);
     this->QGraphicsItem::setCursor(Qt::PointingHandCursor);
 }
 
-//boutonsPolygone::boutonsPolygone(int angle,QWidget* parent)
-//        : QPushButton(parent)
-//{
-//    //m_base = ptBase;
-//    m_base = new QPoint(0,0);
-//    m_taille = new QSize(201,201);
-//    this->setGeometry(m_base->x(),m_base->y(),m_taille->width(),m_taille->height());
-//    m_angle = angle;
-//    m_zoom = 0;
-//}
-
+//redéfinition de la zone sensible : je la mets comme le bouton
 QRectF boutonsPolygone::boundingRect() const
     {
-    // sans cette redéfinition - que j'ai copiée sur un forum - erreur de compil, par contre les changements de x,y,w,h ne font rien...
     return QRectF(m_base->x(),m_base->y(),m_taille->width(),m_taille->height());
     }
 
