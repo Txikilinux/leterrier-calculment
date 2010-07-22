@@ -23,6 +23,8 @@ public:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent*);
 
+signals:
+    void sortie();
 
 private:
     QPoint* m_base;

@@ -1,5 +1,6 @@
 #include "boutonspolygone.h"
 #include "exercice.h"
+#include "editeur.h"
 #include <QtGui>
 
 //boutonsPolygone::boutonsPolygone(QPoint* ptBase,QWidget* parent)
@@ -73,8 +74,15 @@ void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
 {
     QGraphicsItem::mousePressEvent(e);
-    exercice* ex = new exercice(*m_action);
-    ex->show();
+    if (*m_action=="editeur") {
+        Editeur* ed = new Editeur;
+        ed->show();
+        }
+    else if (*m_action=="sortie") emit sortie();
+        else {
+        exercice* ex = new exercice(*m_action);
+        ex->show();
+        }
     e->accept();
 
 }

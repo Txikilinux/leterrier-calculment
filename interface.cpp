@@ -33,6 +33,16 @@ interface::interface(QWidget *parent)
         btnPoly2->retaille(70,80);
         dessin->addItem(btnPoly2);
 
+        boutonsPolygone* btnPoly3 = new boutonsPolygone("editeur");
+        btnPoly3->deplace(930,640);
+        btnPoly3->retaille(50,100);
+        dessin->addItem(btnPoly3);
+
+        boutonsPolygone* btnPoly4 = new boutonsPolygone("sortie");
+        btnPoly4->deplace(160,590);
+        btnPoly4->retaille(60,30);
+        connect(btnPoly4, SIGNAL(sortie()), this, SLOT(close()));
+        dessin->addItem(btnPoly4);
 //    if (ui->fete->itemAt(0,0)->isWidget()) qDebug() << "yes";
 //    else qDebug() << "no";
 
