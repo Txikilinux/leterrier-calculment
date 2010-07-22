@@ -27,6 +27,11 @@ private:
     QGraphicsScene* m_scene;
     baudruche* m_baudruche;
     QString* m_trace;
+    QString* m_niveau;
+    int m_minG;
+    int m_maxG;
+    int m_minD;
+    int m_maxD;
 
 private slots:
     void on_leResultat_returnPressed();

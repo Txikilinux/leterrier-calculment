@@ -38,6 +38,15 @@ exercice::exercice(QString exo,QWidget *parent) :
     else if (exo=="soustraction") m_operation='-';
          else if (exo=="multiplication") m_operation='x';
 
+    m_niveau = new QString("Niveau1");
+    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    config.beginGroup(*m_niveau);
+        m_maxG = config.value("MaxGauche").toInt();
+        m_minG = config.value("MinGauche").toInt();
+        m_maxD = config.value("MaxDroite").toInt();
+        m_minD = config.value("MinDroite").toInt();
+        qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD;
+    config.endGroup();
 
     m_ui->btnBallon->setFocus();
 
@@ -69,7 +78,7 @@ void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
     QPoint* depart = new QPoint(300,400);
-    m_baudruche = new baudruche(INTMING,INTMAXG,INTMIND,INTMAXD,m_operation,*depart);
+    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_operation,*depart);
         connect(m_baudruche, SIGNAL(valueChanged(int)),m_ui->lcdNumber, SLOT(display(int)));
         if (m_total<NBTOTAL - 1) {
             connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnBallon, SLOT(setEnabled(bool)));
