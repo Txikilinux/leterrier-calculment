@@ -17,8 +17,8 @@ Editeur::Editeur(QWidget *parent) :
         m_ui->cbNiveau->addItem(tr("Niveau3"), 3);
         m_ui->cbNiveau->addItem(tr("Personnel"),4);
         connect(m_ui->sldVitesse, SIGNAL(valueChanged(int)), m_ui->pbVitesse, SLOT(setValue(int)));
-        m_niveau = new QString(m_ui->cbNiveau->currentText());
-        this->chargerNiveau(*m_niveau);
+        m_niveauEnCours = new QString(m_ui->cbNiveau->currentText());
+        this->chargerNiveau(*m_niveauEnCours);
 
         connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
 }
@@ -52,14 +52,14 @@ void Editeur::chargerNiveau(QString niveau)
 
 void Editeur::changerNiveau(QString chaine)
 {
-    this->sauverNiveau(*m_niveau);
+    this->sauverNiveau(*m_niveauEnCours);
     this->chargerNiveau(chaine);
-    *m_niveau = chaine;
+    *m_niveauEnCours = chaine;
 }
 
 void Editeur::closeEvent(QCloseEvent *event)
 {
-    this->sauverNiveau(*m_niveau);
+    this->sauverNiveau(*m_niveauEnCours);
     event->accept();
 
 }

@@ -8,7 +8,8 @@ const int TPS = 6;
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos)
 {
-    g_operande = intMinG + rand()%(intMaxG-intMinG);
+    if (intMinG==intMaxG) g_operande=intMaxG;
+    else g_operande = intMinG + rand()%(intMaxG-intMinG);
             //J'aurais bien aimé mettre des réels mais à une décimale...
             //    g_operande = ((FLOATMAX-FLOATMIN)*((float)rand()/RAND_MAX))+FLOATMIN;
             //    int arr_g_operande=floor(g_operande*10);
@@ -16,7 +17,8 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
             //    //debug valeur réel
             //        qDebug() << "avant :" << g_operande << " et après:" << arr_g_operande ;
             //d_operande = b;
-    d_operande = intMinD + rand()%(intMaxD-intMinD);
+    if (intMinD==intMaxD) d_operande=intMaxD;
+    else d_operande = intMinD + rand()%(intMaxD-intMinD);
     //Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes...
     if (d_operande>g_operande) {
         int tmp=g_operande;
@@ -89,10 +91,10 @@ baudruche::baudruche(int pts, QPoint pos)
     m_position.setY(pos.y());
     QString resultStr;
     resultStr = resultStr.setNum(pts);
-    QString* msg = new QString("Ton score est de ");
+    QString* msg = new QString(tr("Ton score est de "));
     msg->append(resultStr);
-    if (pts==0 || pts==1) msg->append(" point.");
-    else msg->append(" points.");
+    if (pts==0 || pts==1) msg->append(tr(" point."));
+    else msg->append(tr(" points."));
     QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
         QString illustration = "./images/ballonRose.png";
         pixmap->setPixmap(illustration);
@@ -161,7 +163,7 @@ void baudruche::detruireTps()
         emit valueChanged(m_resultat);//pas sûr utile si baudruche termine temps
         emit destroyed(true);
         emit destroyed();
-        emit tempsFini("TROP TARD...");
+        emit tempsFini(tr("TROP TARD..."));
         delete this;
         }
 }

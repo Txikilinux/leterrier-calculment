@@ -21,7 +21,7 @@ protected:
 
 private:
     Ui::Editeur *m_ui;
-    QString *m_niveau;
+    QString *m_niveauEnCours;
 
 private slots:
     void on_btnQuitter_clicked();
