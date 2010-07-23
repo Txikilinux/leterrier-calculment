@@ -23,7 +23,7 @@ exercice::exercice(QString exo,QWidget *parent) :
     //le drapeau DeleteOnClose fait que l'objet créé sera détruit lors de sa fermeture
     //this->setAttribute(Qt::WA_DeleteOnClose);
     setPalette(QPalette(QColor(250, 250, 200)));
-    this->setWindowTitle("Mon ballon !!");
+    this->setWindowTitle(tr("Mon ballon !!"));
     QPixmap* imgFond = new QPixmap("./images/philippe.jpg");
     QBrush* fond = new QBrush(*imgFond);
     m_ui->vue->setBackgroundBrush(*fond);
@@ -43,10 +43,10 @@ exercice::exercice(QString exo,QWidget *parent) :
     m_niveau = new QString(ed.getNiveauEnCours()); //mais en fait en faisant comme ça c'est toujours le niveau 1 !!!
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     config.beginGroup(*m_niveau);
-        m_maxG = config.value("MaxGauche").toInt();
-        m_minG = config.value("MinGauche").toInt();
-        m_maxD = config.value("MaxDroite").toInt();
-        m_minD = config.value("MinDroite").toInt();
+        m_maxG = config.value(tr("MaxGauche")).toInt();
+        m_minG = config.value(tr("MinGauche")).toInt();
+        m_maxD = config.value(tr("MaxDroite")).toInt();
+        m_minD = config.value(tr("MinDroite")).toInt();
         qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD;
     config.endGroup();
 
@@ -132,10 +132,10 @@ void exercice::on_btnFeu_clicked()
 
     if (proposition==reponse) {
         m_score++;
-        m_ui->lblMsg->setText("GAGNE");
+        m_ui->lblMsg->setText(tr("GAGNE"));
         }
     else {
-        m_ui->lblMsg->setText("PERDU");
+        m_ui->lblMsg->setText(tr("PERDU"));
         }
     QString monScore = "";
     monScore = monScore.setNum(m_score);

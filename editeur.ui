@@ -45,7 +45,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Vitesse</string>
+    <string>Temps</string>
    </property>
   </widget>
   <widget class="QComboBox" name="cbNiveau">

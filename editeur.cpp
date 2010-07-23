@@ -37,24 +37,24 @@ QString Editeur::getNiveauEnCours()
 void Editeur::initialiser()
 {
     QSettings config("./maConfig.ini", QSettings::IniFormat);
-    config.setValue("NiveauEnCours", "Niveau1");
-    config.beginGroup("Niveau1");
-        config.setValue("MinGauche", 0);
-        config.setValue("MaxGauche", 5);
-        config.setValue("MinDroite", 0);
-        config.setValue("MaxDroite", 5);
+    config.setValue(tr("NiveauEnCours"), tr("Niveau1"));
+    config.beginGroup(tr("Niveau1"));
+        config.setValue(tr("MinGauche"), 0);
+        config.setValue(tr("MaxGauche"), 5);
+        config.setValue(tr("MinDroite"), 0);
+        config.setValue(tr("MaxDroite"), 5);
     config.endGroup();
-    config.beginGroup("Niveau2");
-        config.setValue("MinGauche", 5);
-        config.setValue("MaxGauche", 9);
-        config.setValue("MinDroite", 5);
-        config.setValue("MaxDroite", 9);
+    config.beginGroup(tr("Niveau2"));
+        config.setValue(tr("MinGauche"), 5);
+        config.setValue(tr("MaxGauche"), 9);
+        config.setValue(tr("MinDroite"), 5);
+        config.setValue(tr("MaxDroite"), 9);
     config.endGroup();
-    config.beginGroup("Niveau3");
-        config.setValue("MinGauche", 10);
-        config.setValue("MaxGauche", 99);
-        config.setValue("MinDroite", 10);
-        config.setValue("MaxDroite", 99);
+    config.beginGroup(tr("Niveau3"));
+        config.setValue(tr("MinGauche"), 10);
+        config.setValue(tr("MaxGauche"), 99);
+        config.setValue(tr("MinDroite"), 10);
+        config.setValue(tr("MaxDroite"), 99);
     config.endGroup();
     nouvelUtilisateur = false;
 }
@@ -62,10 +62,10 @@ void Editeur::sauverNiveau(QString niveau)
 {
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     config.beginGroup(niveau);
-        config.setValue("MinGauche", m_ui->spbGMin->value());
-        config.setValue("MaxGauche", m_ui->spbGMax->value());
-        config.setValue("MinDroite", m_ui->spbDMin->value());
-        config.setValue("MaxDroite", m_ui->spbDMax->value());
+        config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
+        config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
+        config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
+        config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
     config.endGroup();
     *m_niveauEnCours = niveau;
 }
@@ -74,10 +74,10 @@ void Editeur::chargerNiveau(QString niveau)
 {
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     config.beginGroup(niveau);
-        m_ui->spbGMax->setValue(config.value("MaxGauche").toInt());
-        m_ui->spbGMin->setValue(config.value("MinGauche").toInt());
-        m_ui->spbDMax->setValue(config.value("MaxDroite").toInt());
-        m_ui->spbDMin->setValue(config.value("MinDroite").toInt());
+        m_ui->spbGMax->setValue(config.value(tr("MaxGauche")).toInt());
+        m_ui->spbGMin->setValue(config.value(tr("MinGauche")).toInt());
+        m_ui->spbDMax->setValue(config.value(tr("MaxDroite")).toInt());
+        m_ui->spbDMin->setValue(config.value(tr("MinDroite")).toInt());
     config.endGroup();
 }
 
