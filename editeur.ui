@@ -240,6 +240,16 @@
     <string>Enregistrer et quitter</string>
    </property>
   </widget>
+  <widget class="QComboBox" name="cbOperation">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>20</y>
+     <width>151</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>spbGMin</tabstop>

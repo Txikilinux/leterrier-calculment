@@ -14,6 +14,7 @@ public:
     explicit Editeur(QWidget *parent = 0);
     virtual ~Editeur();
     QString getNiveauEnCours();
+    void initialiser();
 
 protected:
     virtual void changeEvent(QEvent *e);
@@ -23,8 +24,8 @@ protected:
 private:
     Ui::Editeur *m_ui;
     QString *m_niveauEnCours;
-    bool nouvelUtilisateur;
-    void initialiser();
+   // bool nouvelUtilisateur;
+    void initialiserOperation(QString);
 
 private slots:
     void on_btnQuitter_clicked();

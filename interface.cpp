@@ -2,6 +2,7 @@
 #include "ui_interface.h"
 #include "exercice.h"
 #include "ui_exercice.h"
+#include "editeur.h"
 #include "boutonspolygone.h"
 
 interface::interface(QWidget *parent)
@@ -9,6 +10,9 @@ interface::interface(QWidget *parent)
 {
     ui->setupUi(this);
 
+    QFile* fichierConf = new QFile("./maConfig.ini");
+    if (!fichierConf->exists()) qDebug()<<QString::fromUtf8("Fichier config NON trouvé");
+    else qDebug() << QString::fromUtf8("Fichier config trouvé");
     QPixmap* imgFond = new QPixmap("./images/fondecran.png");
     QBrush* fond = new QBrush(*imgFond);
     ui->fete->setBackgroundBrush(*fond);

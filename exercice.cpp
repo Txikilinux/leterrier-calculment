@@ -40,16 +40,31 @@ exercice::exercice(QString exo,QWidget *parent) :
          else if (exo=="multiplication") m_operation='x';
 
     Editeur ed;
-    m_niveau = new QString(ed.getNiveauEnCours()); //mais en fait en faisant comme ça c'est toujours le niveau 1 !!!
+   // m_niveau = new QString(ed.getNiveauEnCours()); //mais en fait en faisant comme ça c'est toujours le niveau 1 !!!
+    m_niveau = new QString("Niveau3");
     QSettings config("./maConfig.ini", QSettings::IniFormat);
-    config.beginGroup(*m_niveau);
-        m_maxG = config.value(tr("MaxGauche")).toInt();
-        m_minG = config.value(tr("MinGauche")).toInt();
-        m_maxD = config.value(tr("MaxDroite")).toInt();
-        m_minD = config.value(tr("MinDroite")).toInt();
-        qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD;
-    config.endGroup();
+    QString opCourante="Addition";
+    QHash<QChar, int> hash;
+        hash['+']=1;
+        hash['-']=2;
+        hash['x']=3;
 
+    switch (hash.value(m_operation)) {
+        case 1 : opCourante = "Addition"; break;
+        case 3 : opCourante = "Multiplication"; break;
+        }
+    qDebug() <<"L'opération en cours est une "<<opCourante;
+
+    config.beginGroup(opCourante);
+        *m_niveau = config.value("NiveauEnCours"+opCourante).toString();
+        config.beginGroup(*m_niveau);
+            m_maxG = config.value(tr("MaxGauche")).toInt();
+            m_minG = config.value(tr("MinGauche")).toInt();
+            m_maxD = config.value(tr("MaxDroite")).toInt();
+            m_minD = config.value(tr("MinDroite")).toInt();
+            qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau;
+        config.endGroup();
+    config.endGroup();
     m_ui->btnBallon->setFocus();
 
     m_ui->btnFeu->setDisabled(true);
@@ -185,7 +200,31 @@ void exercice::on_btnFeu_clicked()
         scoreEnString.setNum(m_score);
     QString totalEnString;
         totalEnString.setNum(m_total);
+    //écriture du SCORE et du NBTOTAL dans le journal des logs
     sauvegardeLog* envoieScore = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, "score", totalEnString, scoreEnString);
+
+    //mise à jour ou pas du niveau
+    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    QString opCourante="Addition";
+    QHash<QChar, int> hash;
+        hash['+']=1;
+        hash['-']=2;
+        hash['x']=3;
+    switch (hash.value(m_operation)) {
+        case 1 : opCourante = "Addition"; break;
+        case 3 : opCourante = "Multiplication"; break;
+        }
+
+    config.beginGroup(opCourante);
+        if (m_score==m_total) {
+            if (*m_niveau=="Niveau1") config.setValue("NiveauEnCours"+opCourante, "Niveau2");
+            else if (*m_niveau=="Niveau2") config.setValue("NiveauEnCours"+opCourante, "Niveau3");
+    }
+
+
+       //*m_niveau = config.value("NiveauEnCours"+opCourante).toString();
+
+    config.endGroup();
         }
 }
 
