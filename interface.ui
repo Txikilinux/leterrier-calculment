@@ -14,32 +14,6 @@
    <string>interface</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="btnAddition">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>10</y>
-      <width>92</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Addition</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnMultiplication">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>10</y>
-      <width>92</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Multiplication</string>
-    </property>
-   </widget>
    <widget class="QGraphicsView" name="fete">
     <property name="geometry">
      <rect>
