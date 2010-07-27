@@ -58,11 +58,16 @@ void Editeur::initialiserOperation(QString operation)
             config.endGroup();
             config.beginGroup(tr("Niveau3"));
                 config.setValue(tr("MinGauche"), 10);
-                config.setValue(tr("MaxGauche"), 99);
+                config.setValue(tr("MaxGauche"), 19);
                 config.setValue(tr("MinDroite"), 10);
-                config.setValue(tr("MaxDroite"), 99);
+                config.setValue(tr("MaxDroite"), 19);
             config.endGroup();
-
+            config.beginGroup(tr("Personnel"));
+                config.setValue(tr("MinGauche"), 0);
+                config.setValue(tr("MaxGauche"), 5);
+                config.setValue(tr("MinDroite"), 0);
+                config.setValue(tr("MaxDroite"), 5);
+            config.endGroup();
     config.setValue("NiveauEnCours"+operation, "Niveau1");
     config.endGroup();
 }

@@ -219,6 +219,7 @@ void exercice::on_btnFeu_clicked()
         if (m_score==m_total) {
             if (*m_niveau=="Niveau1") config.setValue("NiveauEnCours"+opCourante, "Niveau2");
             else if (*m_niveau=="Niveau2") config.setValue("NiveauEnCours"+opCourante, "Niveau3");
+                 else if (*m_niveau=="Niveau3") config.setValue("NiveauEnCours"+opCourante, "Personnel");
     }
 
 
