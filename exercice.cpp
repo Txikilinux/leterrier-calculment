@@ -1,17 +1,12 @@
 #include "exercice.h"
 #include "ui_exercice.h"
 #include "sauvegardelog.h"
-#include "editeur.h"
 #include <QDate>
 #include <QTime>
 
 #include <QGraphicsItemAnimation>
 const int NBTOTAL = 5;
 const int NBCHIFFRE = 2;
-const int INTMING = 0;
-const int INTMAXG = 9;
-const int INTMIND = 0;
-const int INTMAXD = 9;
 
 //1 exercice::exercice(QString exo,QWidget *parent) :
 exercice::exercice(QString exo,int val, QWidget *parent) :
@@ -40,8 +35,6 @@ exercice::exercice(QString exo,int val, QWidget *parent) :
     else if (exo=="soustraction") m_operation='-';
          else if (exo=="multiplication" || exo=="tableM") m_operation='x';
 
-    Editeur ed;
-   // m_niveau = new QString(ed.getNiveauEnCours()); //mais en fait en faisant comme ça c'est toujours le niveau 1 !!!
     m_niveau = new QString("Niveau3");
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     QString opCourante="Addition";

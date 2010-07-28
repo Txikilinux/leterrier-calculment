@@ -2,6 +2,7 @@
 #define INTERFACE_H
 
 #include <QtGui/QMainWindow>
+#include "editeur.h"
 
 namespace Ui
 {
@@ -15,6 +16,7 @@ class interface : public QMainWindow
 public:
     interface(QWidget *parent = 0);
     ~interface();
+    Editeur* m_editeur;
 
 protected:
     void paintEvent(QPaintEvent* e );

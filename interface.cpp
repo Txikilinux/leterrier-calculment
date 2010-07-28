@@ -14,6 +14,8 @@ interface::interface(QWidget *parent)
     if (!fichierConf->exists()) qDebug()<<QString::fromUtf8("Fichier config NON trouvé");
     else qDebug() << QString::fromUtf8("Fichier config trouvé");
 
+    m_editeur = new Editeur();
+
     QPixmap* imgFond = new QPixmap("./images/fondecran.png");
     QBrush* fond = new QBrush(*imgFond);
     ui->fete->setBackgroundBrush(*fond);
