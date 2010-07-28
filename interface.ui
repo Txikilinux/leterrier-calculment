@@ -34,6 +34,62 @@
      <height>25</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFichier">
+    <property name="title">
+     <string>&amp;Fichier</string>
+    </property>
+    <addaction name="actionQuitter"/>
+   </widget>
+   <widget class="QMenu" name="menuExercices">
+    <property name="title">
+     <string>Exercices</string>
+    </property>
+    <widget class="QMenu" name="menuTables_d_addition">
+     <property name="title">
+      <string>Tables d'addition</string>
+     </property>
+     <addaction name="actionp2"/>
+     <addaction name="actionp3"/>
+     <addaction name="actionp4"/>
+     <addaction name="actionp5"/>
+     <addaction name="actionp6"/>
+     <addaction name="actionp7"/>
+     <addaction name="actionp8"/>
+     <addaction name="actionp9"/>
+    </widget>
+    <widget class="QMenu" name="menuTables_de_multiplication">
+     <property name="title">
+      <string>Tables de multiplication</string>
+     </property>
+     <addaction name="actionX_2"/>
+     <addaction name="actionX_3"/>
+     <addaction name="actionX_4"/>
+     <addaction name="actionX_5"/>
+     <addaction name="actionX_6"/>
+     <addaction name="actionX_7"/>
+     <addaction name="actionX_8"/>
+     <addaction name="actionX_9"/>
+    </widget>
+    <addaction name="actionAdditions"/>
+    <addaction name="actionMultiplications"/>
+    <addaction name="menuTables_d_addition"/>
+    <addaction name="menuTables_de_multiplication"/>
+   </widget>
+   <widget class="QMenu" name="menuEditeur">
+    <property name="title">
+     <string>Editeur</string>
+    </property>
+    <addaction name="actionAfficher_l_diteur"/>
+   </widget>
+   <widget class="QMenu" name="menuA_propos">
+    <property name="title">
+     <string>A propos</string>
+    </property>
+   </widget>
+   <addaction name="menuFichier"/>
+   <addaction name="menuExercices"/>
+   <addaction name="menuEditeur"/>
+   <addaction name="menuA_propos"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -44,6 +100,106 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionQuitter">
+   <property name="text">
+    <string>&amp;Quitter</string>
+   </property>
+  </action>
+  <action name="actionAdditions">
+   <property name="text">
+    <string>Additions</string>
+   </property>
+  </action>
+  <action name="actionMultiplications">
+   <property name="text">
+    <string>Multiplications</string>
+   </property>
+  </action>
+  <action name="actionp2">
+   <property name="text">
+    <string>+ 2</string>
+   </property>
+  </action>
+  <action name="actionp3">
+   <property name="text">
+    <string>+ 3</string>
+   </property>
+  </action>
+  <action name="actionp4">
+   <property name="text">
+    <string>+ 4</string>
+   </property>
+  </action>
+  <action name="actionp5">
+   <property name="text">
+    <string>+ 5</string>
+   </property>
+  </action>
+  <action name="actionp6">
+   <property name="text">
+    <string>+ 6</string>
+   </property>
+  </action>
+  <action name="actionp7">
+   <property name="text">
+    <string>+ 7</string>
+   </property>
+  </action>
+  <action name="actionp8">
+   <property name="text">
+    <string>+ 8</string>
+   </property>
+  </action>
+  <action name="actionp9">
+   <property name="text">
+    <string>+ 9</string>
+   </property>
+  </action>
+  <action name="actionX_2">
+   <property name="text">
+    <string>x 2</string>
+   </property>
+  </action>
+  <action name="actionX_3">
+   <property name="text">
+    <string>x 3</string>
+   </property>
+  </action>
+  <action name="actionX_4">
+   <property name="text">
+    <string>x 4</string>
+   </property>
+  </action>
+  <action name="actionX_5">
+   <property name="text">
+    <string>x 5</string>
+   </property>
+  </action>
+  <action name="actionX_6">
+   <property name="text">
+    <string>x 6</string>
+   </property>
+  </action>
+  <action name="actionX_7">
+   <property name="text">
+    <string>x 7</string>
+   </property>
+  </action>
+  <action name="actionX_8">
+   <property name="text">
+    <string>x 8</string>
+   </property>
+  </action>
+  <action name="actionX_9">
+   <property name="text">
+    <string>x 9</string>
+   </property>
+  </action>
+  <action name="actionAfficher_l_diteur">
+   <property name="text">
+    <string>Afficher l'éditeur</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
