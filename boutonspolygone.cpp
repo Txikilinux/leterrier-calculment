@@ -5,13 +5,14 @@
 
 boutonsPolygone::boutonsPolygone(QString operation, int val)
         : QGraphicsItem()
+        //:QPushButton() 
 {
     m_base = new QPoint(0,0);
     m_taille = new QSize(100,100);
     m_val = val;
     m_angle = 0;
     m_zoom = 0;
-    m_image = new QIcon("./images/pomme.png");
+    m_image = new QPixmap("");
     m_action = new QString(operation);
     this->QGraphicsItem::setCursor(Qt::PointingHandCursor);
     this->setIcon(*m_image);
@@ -26,11 +27,12 @@ QRectF boutonsPolygone::boundingRect() const
 void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget)
 {
     //changer laquelle des 2 lignes ci-dessous est commentée selon qu'on veut que les contours du bouton soient visibles ou pas
-    //painter->setPen(Qt::NoPen);
-    painter->setPen(Qt::black);
+    painter->setPen(Qt::NoPen);
+    //painter->setPen(Qt::black);
     painter->setBrush(Qt::NoBrush);
     QRect rect(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
     painter->drawRect(rect.adjusted(0, 0, -1, -1));
+    painter->drawPixmap(rect, *m_image);
 }
 
 void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)

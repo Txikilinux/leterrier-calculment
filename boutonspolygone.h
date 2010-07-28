@@ -18,7 +18,6 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget);
 
-
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent*);
 
@@ -32,7 +31,7 @@ private:
     QSize* m_taille;
     QString* m_action;
     int m_val;
-    QIcon* m_image;//2
+    QPixmap* m_image;
 };
 
 #endif // BOUTONSPOLYGONE_H
