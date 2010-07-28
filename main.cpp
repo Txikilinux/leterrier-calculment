@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QString exo = argv[1];
     interface w;
     w.setWindowTitle("Calcul Mental");
-    exercice e(exo);
+    exercice e(exo,0);
     e.setWindowTitle("exercice");
 //    Editeur ed;
 //    ed.show();

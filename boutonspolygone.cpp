@@ -3,15 +3,18 @@
 #include "editeur.h"
 #include <QtGui>
 
-boutonsPolygone::boutonsPolygone(QString operation)
+boutonsPolygone::boutonsPolygone(QString operation, int val)
         : QGraphicsItem()
 {
     m_base = new QPoint(0,0);
     m_taille = new QSize(100,100);
+    m_val = val;
     m_angle = 0;
     m_zoom = 0;
+    m_image = new QIcon("./images/pomme.png");
     m_action = new QString(operation);
     this->QGraphicsItem::setCursor(Qt::PointingHandCursor);
+    this->setIcon(*m_image);
 }
 
 //redéfinition de la zone sensible : je la mets comme le bouton
@@ -39,7 +42,7 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
         }
     else if (*m_action=="sortie") emit sortie();
         else {
-        exercice* ex = new exercice(*m_action);
+        exercice* ex = new exercice(*m_action,m_val);
         ex->show();
         }
     e->accept();
@@ -62,4 +65,9 @@ void boutonsPolygone::tourne(int angle)
 {
     m_angle = angle;
     this->rotate(angle);
+}
+
+void boutonsPolygone::setImage(QPixmap image)
+{
+    *m_image = image;
 }

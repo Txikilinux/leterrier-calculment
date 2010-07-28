@@ -13,7 +13,8 @@ const int INTMAXG = 9;
 const int INTMIND = 0;
 const int INTMAXD = 9;
 
-exercice::exercice(QString exo,QWidget *parent) :
+//1 exercice::exercice(QString exo,QWidget *parent) :
+exercice::exercice(QString exo,int val, QWidget *parent) :
     QMainWindow(parent),
     m_ui(new Ui::exercice)
 {
@@ -35,9 +36,9 @@ exercice::exercice(QString exo,QWidget *parent) :
     m_ui->lblPoints->setText("0");
     m_ui->lblTotal->setText("0");
     m_ui->lblArg->setText(exo);
-    if (exo=="addition" || exo=="") m_operation='+';
+    if (exo=="addition" || exo=="" || exo=="tableA") m_operation='+';
     else if (exo=="soustraction") m_operation='-';
-         else if (exo=="multiplication") m_operation='x';
+         else if (exo=="multiplication" || exo=="tableM") m_operation='x';
 
     Editeur ed;
    // m_niveau = new QString(ed.getNiveauEnCours()); //mais en fait en faisant comme ça c'est toujours le niveau 1 !!!
@@ -65,9 +66,15 @@ exercice::exercice(QString exo,QWidget *parent) :
             qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau;
         config.endGroup();
     config.endGroup();
-    m_ui->btnBallon->setFocus();
 
+    m_ui->btnBallon->setFocus();
     m_ui->btnFeu->setDisabled(true);
+
+    if (exo=="tableA" || exo=="tableM") {
+        m_minD=m_maxD=val;
+        m_minG=0;
+        m_maxG=9;
+        }
 }
 
 exercice::~exercice()

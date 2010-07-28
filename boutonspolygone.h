@@ -10,10 +10,11 @@ class boutonsPolygone : public QPushButton, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    boutonsPolygone(QString);
+    boutonsPolygone(QString,int);
     void deplace(int,int);
     void retaille(int,int);
     void tourne(int);
+    void setImage(QPixmap);//2
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget);
 
@@ -30,7 +31,8 @@ private:
     int m_zoom;
     QSize* m_taille;
     QString* m_action;
-
+    int m_val;
+    QIcon* m_image;//2
 };
 
 #endif // BOUTONSPOLYGONE_H
