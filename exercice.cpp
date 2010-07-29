@@ -105,6 +105,7 @@ void exercice::on_btnBallon_clicked()
         connect(m_baudruche, SIGNAL(destroyed()), m_ui->leResultat, SLOT(clear()));
         connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
+        //connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui
         m_baudruche->emetRes();
         m_scene->addItem(m_baudruche);
 
@@ -115,6 +116,8 @@ void exercice::on_btnBallon_clicked()
     monTotal = monTotal.setNum(m_total);
     m_ui->lblTotal->setText(monTotal);
     m_ui->lblMsg->setText("");
+    QPixmap* rien = new QPixmap("");
+    m_ui->lblImgMsg->setPixmap(*rien);
 
     //accessibilité des boutons
     m_ui->btnFeu->setEnabled(true);
@@ -148,9 +151,13 @@ void exercice::on_btnFeu_clicked()
     if (proposition==reponse) {
         m_score++;
         m_ui->lblMsg->setText(tr("GAGNE"));
+        QPixmap* imgO = new QPixmap("./images/gagne.png");
+        m_ui->lblImgMsg->setPixmap(*imgO);
         }
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
+        QPixmap* imgN = new QPixmap("./images/perdu.png");
+        m_ui->lblImgMsg->setPixmap(*imgN);
         }
     QString monScore = "";
     monScore = monScore.setNum(m_score);
