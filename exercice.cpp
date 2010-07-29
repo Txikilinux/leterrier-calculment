@@ -105,7 +105,8 @@ void exercice::on_btnBallon_clicked()
         connect(m_baudruche, SIGNAL(destroyed()), m_ui->leResultat, SLOT(clear()));
         connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
-        //connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui
+        connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
+//        connect(m_ui
         m_baudruche->emetRes();
         m_scene->addItem(m_baudruche);
 

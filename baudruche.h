@@ -34,6 +34,7 @@ signals:
      void destroyed(bool);
      void destroyed();
      void tempsFini(QString msg);
+     void tempsFini(QPixmap pix);
 
 private:
     QString m_op;
