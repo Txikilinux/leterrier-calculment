@@ -17,6 +17,8 @@ public:
     void setImage(QPixmap);//2
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget);
+    QPoint getMBase();
+    QSize getMTaille();
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent*);

@@ -59,6 +59,8 @@ interface::interface(QWidget *parent)
         QPixmap im("./images/pomme.png");
         btnPoly5->setImage(im);
         dessin->addItem(btnPoly5);
+
+       // dessin->update(btnPoly5->getMBase().x(), btnPoly5->getMBase().y(),btnPoly5->getMTaille().width(), btnPoly5->getMTaille().height());
         }
 
     }

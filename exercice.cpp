@@ -105,7 +105,7 @@ void exercice::on_btnBallon_clicked()
         if (m_total<NBTOTAL - 1) {
             connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnBallon, SLOT(setEnabled(bool)));
             connect(m_baudruche, SIGNAL(destroyed()), m_ui->btnBallon, SLOT(setFocus()));
-        }
+            }
         connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnFeu, SLOT(setDisabled(bool)));
         connect(m_baudruche, SIGNAL(destroyed()), m_ui->leResultat, SLOT(clear()));
         connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));
@@ -248,6 +248,8 @@ void exercice::on_leResultat_returnPressed()
 
 void exercice::on_btnEditeur_clicked()
 {
-    Editeur edit;
-    edit.show();
+//    Editeur edit;
+//    edit.show();
+    //idee eric, fait appel a l objet "global"
+   // parent->m_editeur->show();
 }

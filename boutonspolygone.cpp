@@ -16,6 +16,7 @@ boutonsPolygone::boutonsPolygone(QString operation, int val)
     m_action = new QString(operation);
     this->QGraphicsItem::setCursor(Qt::PointingHandCursor);
     this->setIcon(*m_image);
+    this->setFlag(QGraphicsItem::ItemIsMovable);
 }
 
 //redéfinition de la zone sensible : je la mets comme le bouton
@@ -27,8 +28,8 @@ QRectF boutonsPolygone::boundingRect() const
 void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget)
 {
     //changer laquelle des 2 lignes ci-dessous est commentée selon qu'on veut que les contours du bouton soient visibles ou pas
-    painter->setPen(Qt::NoPen);
-    //painter->setPen(Qt::black);
+    //painter->setPen(Qt::NoPen);
+    painter->setPen(Qt::black);
     painter->setBrush(Qt::NoBrush);
     QRect rect(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
     painter->drawRect(rect.adjusted(0, 0, -1, -1));
@@ -48,7 +49,20 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
         ex->show();
         }
     e->accept();
+QGraphicsItem::hide();
+    this->deplace(m_base->x(), m_base->y()+100);
 
+QGraphicsItem::update(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
+QGraphicsItem::show();
+
+
+//    QGraphicsItemAnimation *animation = new QGraphicsItemAnimation(m_scene);
+//        animation->setItem(m_baudruche);
+//        animation->setTimeLine(m_baudruche->m_timer);
+//        for (int i = 0; i < 200; i++) {
+//            animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
+//           }
+//        m_baudruche->m_timer->start();
 }
 
 void boutonsPolygone::deplace(int x, int y)
@@ -72,4 +86,14 @@ void boutonsPolygone::tourne(int angle)
 void boutonsPolygone::setImage(QPixmap image)
 {
     *m_image = image;
+}
+
+QPoint boutonsPolygone::getMBase()
+{
+    return *m_base;
+}
+
+QSize boutonsPolygone::getMTaille()
+{
+    return *m_taille;
 }
