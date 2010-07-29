@@ -1,6 +1,7 @@
 #include "exercice.h"
 #include "ui_exercice.h"
 #include "sauvegardelog.h"
+#include "editeur.h"
 #include <QDate>
 #include <QTime>
 
@@ -23,6 +24,7 @@ exercice::exercice(QString exo,int val, QWidget *parent) :
     QPixmap* imgFond = new QPixmap("./images/philippe.jpg");
     QBrush* fond = new QBrush(*imgFond);
     m_ui->vue->setBackgroundBrush(*fond);
+
     m_scene = new QGraphicsScene();
     m_ui->vue->setScene(m_scene);
     m_scene->setSceneRect(0, 100, 700, 700);
@@ -31,6 +33,7 @@ exercice::exercice(QString exo,int val, QWidget *parent) :
     m_ui->lblPoints->setText("0");
     m_ui->lblTotal->setText("0");
     m_ui->lblArg->setText(exo);
+
     if (exo=="addition" || exo=="" || exo=="tableA") m_operation='+';
     else if (exo=="soustraction") m_operation='-';
          else if (exo=="multiplication" || exo=="tableM") m_operation='x';
@@ -60,6 +63,8 @@ exercice::exercice(QString exo,int val, QWidget *parent) :
         config.endGroup();
     config.endGroup();
 
+    if (*m_niveau=="Personnel") m_ui->btnEditeur->setEnabled(true);
+    else m_ui->btnEditeur->setDisabled(true);
     m_ui->btnBallon->setFocus();
     m_ui->btnFeu->setDisabled(true);
 
@@ -106,7 +111,6 @@ void exercice::on_btnBallon_clicked()
         connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
         connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
-//        connect(m_ui
         m_baudruche->emetRes();
         m_scene->addItem(m_baudruche);
 
@@ -240,4 +244,10 @@ void exercice::on_btnFeu_clicked()
 void exercice::on_leResultat_returnPressed()
 {
     if (!m_ui->leResultat->text().isEmpty()) on_btnFeu_clicked();
+}
+
+void exercice::on_btnEditeur_clicked()
+{
+    Editeur edit;
+    edit.show();
 }

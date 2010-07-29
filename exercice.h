@@ -35,6 +35,7 @@ private:
     int m_maxD;
 
 private slots:
+    void on_btnEditeur_clicked();
     void on_leResultat_returnPressed();
     void on_btnFeu_clicked();
     void on_btnBallon_clicked();

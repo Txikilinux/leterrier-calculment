@@ -184,13 +184,19 @@
      <string>&amp;Quitter</string>
     </property>
    </widget>
-   <zorder>layoutWidget</zorder>
-   <zorder>btnQuitter</zorder>
-   <zorder>lcdNumber</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>vue</zorder>
-   <zorder>lblArg</zorder>
-   <zorder>lblImgMsg</zorder>
+   <widget class="QPushButton" name="btnEditeur">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>760</y>
+      <width>92</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Editeur</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
