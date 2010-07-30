@@ -58,6 +58,7 @@ interface::interface(QWidget *parent)
         btnPoly5->QGraphicsItem::setToolTip("table x"+QString::number(i+2));
         QPixmap im("./images/pomme.png");
         btnPoly5->setImage(im);
+        btnPoly5->setMTransformable(2);
         dessin->addItem(btnPoly5);
 
        // dessin->update(btnPoly5->getMBase().x(), btnPoly5->getMBase().y(),btnPoly5->getMTaille().width(), btnPoly5->getMTaille().height());

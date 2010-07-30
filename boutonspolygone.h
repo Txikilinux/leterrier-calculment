@@ -12,13 +12,18 @@ class boutonsPolygone : public QPushButton, public QGraphicsItem
 public:
     boutonsPolygone(QString,int);
     void deplace(int,int);
+    void bouge(int,int);
+    //void eclate();
+    //void tombe(int,int,int,QGraphicsScene);
     void retaille(int,int);
     void tourne(int);
-    void setImage(QPixmap);//2
+    void setImage(QPixmap);
+    void setTexte(QString);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget);
     QPoint getMBase();
     QSize getMTaille();
+    void setMTransformable(int);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent*);
@@ -32,8 +37,10 @@ private:
     int m_zoom;
     QSize* m_taille;
     QString* m_action;
+    QString* m_texte;
     int m_val;
     QPixmap* m_image;
+    int m_transformable;
 };
 
 #endif // BOUTONSPOLYGONE_H

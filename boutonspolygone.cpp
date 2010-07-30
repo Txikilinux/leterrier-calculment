@@ -17,6 +17,8 @@ boutonsPolygone::boutonsPolygone(QString operation, int val)
     this->QGraphicsItem::setCursor(Qt::PointingHandCursor);
     this->setIcon(*m_image);
     this->setFlag(QGraphicsItem::ItemIsMovable);
+    m_transformable = 0;
+    m_texte = new QString("");
 }
 
 //redéfinition de la zone sensible : je la mets comme le bouton
@@ -34,6 +36,7 @@ void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     QRect rect(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
     painter->drawRect(rect.adjusted(0, 0, -1, -1));
     painter->drawPixmap(rect, *m_image);
+    painter->drawText(rect,Qt::AlignCenter, *m_texte);
 }
 
 void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
@@ -49,20 +52,11 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
         ex->show();
         }
     e->accept();
-QGraphicsItem::hide();
-    this->deplace(m_base->x(), m_base->y()+100);
+    switch (m_transformable) {
+        case 1 :bouge(0,300);break;
+        case 2 : QPixmap img("./images/pomme2.png"); setImage(img);setTexte("Fait");break;
+        }
 
-QGraphicsItem::update(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
-QGraphicsItem::show();
-
-
-//    QGraphicsItemAnimation *animation = new QGraphicsItemAnimation(m_scene);
-//        animation->setItem(m_baudruche);
-//        animation->setTimeLine(m_baudruche->m_timer);
-//        for (int i = 0; i < 200; i++) {
-//            animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
-//           }
-//        m_baudruche->m_timer->start();
 }
 
 void boutonsPolygone::deplace(int x, int y)
@@ -86,6 +80,13 @@ void boutonsPolygone::tourne(int angle)
 void boutonsPolygone::setImage(QPixmap image)
 {
     *m_image = image;
+    QGraphicsItem::update(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
+}
+
+void boutonsPolygone::setTexte(QString texte)
+{
+    *m_texte = texte;
+    QGraphicsItem::update(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
 }
 
 QPoint boutonsPolygone::getMBase()
@@ -96,4 +97,17 @@ QPoint boutonsPolygone::getMBase()
 QSize boutonsPolygone::getMTaille()
 {
     return *m_taille;
+}
+
+void boutonsPolygone::setMTransformable(int entier)
+{
+    m_transformable = entier;
+}
+
+void boutonsPolygone::bouge(int dx, int dy)
+{
+    QGraphicsItem::hide();
+    deplace(m_base->x() + dx, m_base->y()+dy);
+    QGraphicsItem::update(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
+    QGraphicsItem::show();
 }
