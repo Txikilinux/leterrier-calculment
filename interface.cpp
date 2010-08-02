@@ -67,10 +67,16 @@ interface::interface(QWidget *parent)
         }
 
      boutonsPolygone* btnPoly6 = new boutonsPolygone("complementA",100);
-        dessin->addItem(btnPoly6);
         btnPoly6->deplace(450,40);
         btnPoly6->retaille(60,80);
         btnPoly6->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments à 100"));
+        dessin->addItem(btnPoly6);
+
+    boutonsPolygone* btnPoly7 = new boutonsPolygone("complementM",25);
+        btnPoly7->deplace(510,270);
+        btnPoly7->retaille(40,50);
+        btnPoly7->QGraphicsItem::setToolTip("Multiples de 25");
+        dessin->addItem(btnPoly7);
     }
 
 interface::~interface()

@@ -2,6 +2,7 @@
 
 const float FLOATMIN = 0.0;
 const float FLOATMAX = 9.9;
+const int MULTIPLE_MAX=11;
 //const int INTMIN = 0;
 //const int INTMAX = 9;
 const int TPS = 10;
@@ -80,20 +81,31 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
 }
 
 //constructeur spécifique aux compléments
-baudruche::baudruche(int intDroite,QString op,QPoint pos)
+baudruche::baudruche(int nombreVise,QString op,QPoint pos)
 {
-    g_operande = rand()%(intDroite);
+    g_operande = 0;
     d_operande = 0;
     m_op = op;
     m_position.setX(pos.x());
     m_position.setY(pos.y());
 
     //Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*"
-    if (m_op=="x") m_ligne = QString::number(intDroite)+"/"+QString::number(g_operande);
-    else m_ligne = QString::number(intDroite)+"-"+QString::number(g_operande);
-    QScriptEngine calculateur;
-    QScriptValue resultat = calculateur.evaluate(m_ligne);
-    m_resultat = resultat.toNumber();
+    if (m_op=="x") {
+        g_operande = nombreVise;
+        int sort = rand()%MULTIPLE_MAX;
+        d_operande = nombreVise*sort;
+        //m_ligne = QString::number(nombreVise)+"/"+QString::number(g_operande);
+        m_resultat = sort;
+        }
+    else {
+        g_operande = rand()%(nombreVise);
+        d_operande = nombreVise;
+        m_ligne = QString::number(d_operande)+"-"+QString::number(g_operande);
+        QScriptEngine calculateur;
+        QScriptValue resultat = calculateur.evaluate(m_ligne);
+        m_resultat = resultat.toNumber();
+        }
+
     m_timer = new QTimeLine(TPS*1000,this);
 
     //à réfléchir la place de cette constante : ici ? dans exempledessin1.cpp où on va instancier des baudruche, dans le main ?
@@ -102,7 +114,7 @@ baudruche::baudruche(int intDroite,QString op,QPoint pos)
     //Je dois convertir mes entiers en QString pour les concatener
     QString aGauche, aDroite;
         aGauche = aGauche.setNum(g_operande);
-        aDroite = aDroite.setNum(intDroite);
+        aDroite = aDroite.setNum(d_operande);
     //Je peux maintenant construire mon opération en ligne
     QString* operation = new QString("");
         operation->append(aGauche);
