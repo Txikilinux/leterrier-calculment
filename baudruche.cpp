@@ -4,7 +4,7 @@ const float FLOATMIN = 0.0;
 const float FLOATMAX = 9.9;
 //const int INTMIN = 0;
 //const int INTMAX = 9;
-const int TPS = 6;
+const int TPS = 10;
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos)
 {
@@ -79,6 +79,66 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
     emit valueChanged(m_resultat);
 }
 
+//constructeur spécifique aux compléments
+baudruche::baudruche(int intDroite,QString op,QPoint pos)
+{
+    g_operande = rand()%(intDroite);
+    d_operande = 0;
+    m_op = op;
+    m_position.setX(pos.x());
+    m_position.setY(pos.y());
+
+    //Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*"
+    if (m_op=="x") m_ligne = QString::number(intDroite)+"/"+QString::number(g_operande);
+    else m_ligne = QString::number(intDroite)+"-"+QString::number(g_operande);
+    QScriptEngine calculateur;
+    QScriptValue resultat = calculateur.evaluate(m_ligne);
+    m_resultat = resultat.toNumber();
+    m_timer = new QTimeLine(TPS*1000,this);
+
+    //à réfléchir la place de cette constante : ici ? dans exempledessin1.cpp où on va instancier des baudruche, dans le main ?
+    const int k=100;
+
+    //Je dois convertir mes entiers en QString pour les concatener
+    QString aGauche, aDroite;
+        aGauche = aGauche.setNum(g_operande);
+        aDroite = aDroite.setNum(intDroite);
+    //Je peux maintenant construire mon opération en ligne
+    QString* operation = new QString("");
+        operation->append(aGauche);
+        operation->append(" ");
+        operation->append(op);
+        operation->append(" ? = ");
+        operation->append(aDroite);
+
+    QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
+        int coulAlea = rand()%(5);
+        QString illustration;
+        switch (coulAlea) {
+            case 0 : illustration = "./images/ballonVert.png"; break;
+            case 1 : illustration = "./images/ballonJaune.png"; break;
+            case 2 : illustration = "./images/ballonRouge.png"; break;
+            case 3 : illustration = "./images/ballonOrange.png"; break;
+            case 4 : illustration = "./images/ballonBleu.png"; break;
+            case 5 : illustration = "./images/ballonRose.png"; break;
+            }
+
+        pixmap->setPixmap(illustration);
+        pixmap->setZValue(k);
+        pixmap->setPos(pos);
+        this->addToGroup(pixmap);
+
+    QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
+        affichage->setFont( QFont( "dejaVuSans",14 ) );
+        affichage->setHtml(*operation);
+        affichage->setZValue(k+1);
+        affichage->setPos(10,60);
+        this->addToGroup(affichage);
+
+    emit valueChanged(m_resultat);
+}
+
+//constructeur spécifique à l'affichage du résultat
 baudruche::baudruche(int pts, QPoint pos)
 {
     //à réfléchir la place de cette constante : ici ? dans exempledessin1.cpp où on va instancier des baudruche, dans le main ?

@@ -24,7 +24,7 @@ private:
     Ui::exercice *m_ui;
     int m_score;
     int m_total;
-    QChar m_operation;
+    QString m_operation;
     QGraphicsScene* m_scene;
     baudruche* m_baudruche;
     QString* m_trace;

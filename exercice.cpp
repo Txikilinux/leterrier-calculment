@@ -34,22 +34,24 @@ exercice::exercice(QString exo,int val, QWidget *parent) :
     m_ui->lblTotal->setText("0");
     m_ui->lblArg->setText(exo);
 
-    if (exo=="addition" || exo=="" || exo=="tableA") m_operation='+';
-    else if (exo=="soustraction") m_operation='-';
-         else if (exo=="multiplication" || exo=="tableM") m_operation='x';
+    m_operation=exo;
 
     m_niveau = new QString("Niveau3");
     QSettings config("./maConfig.ini", QSettings::IniFormat);
-    QString opCourante="Addition";
-    QHash<QChar, int> hash;
-        hash['+']=1;
-        hash['-']=2;
-        hash['x']=3;
+    QChar initialeExo = exo[0];
+    initialeExo = initialeExo.toUpper();
+    QString opCourante = exo;
+    opCourante.remove(0,1);
+    opCourante.push_front(initialeExo);
 
-    switch (hash.value(m_operation)) {
-        case 1 : opCourante = "Addition"; break;
-        case 3 : opCourante = "Multiplication"; break;
-        }
+//    QHash<QChar, int> hash;
+//        hash['+']=1;
+//        hash['-']=2;
+//        hash['x']=3;
+//    switch (hash.value(m_operation)) {
+//        case 1 : opCourante = "Addition"; break;
+//        case 3 : opCourante = "Multiplication"; break;
+//        }
     qDebug() <<"L'opération en cours est une "<<opCourante;
 
     config.beginGroup(opCourante);
@@ -72,6 +74,10 @@ exercice::exercice(QString exo,int val, QWidget *parent) :
         m_minD=m_maxD=val;
         m_minG=0;
         m_maxG=9;
+        }
+
+    if (exo=="complementA" || exo=="complementM") {
+        m_minG=m_maxG=m_minD=m_maxD=val;
         }
 }
 
@@ -100,7 +106,25 @@ void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
     QPoint* depart = new QPoint(300,400);
-    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_operation,*depart);
+
+    if (m_operation=="addition"
+        || m_operation==""
+        || m_operation=="tableA")
+                m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,"+",*depart);
+
+    else    if (m_operation=="soustraction")
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,"-",*depart);
+
+            else if (m_operation=="multiplication"
+                     || m_operation=="tableM")
+                            m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,"x",*depart);
+
+                 else if (m_operation=="complementA")
+                            m_baudruche = new baudruche(m_minG,"+", *depart);
+
+                      else if(m_operation=="complementM")
+                                m_baudruche = new baudruche(m_minG, "x", *depart);
+
         connect(m_baudruche, SIGNAL(valueChanged(int)),m_ui->lcdNumber, SLOT(display(int)));
         if (m_total<NBTOTAL - 1) {
             connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnBallon, SLOT(setEnabled(bool)));
@@ -217,15 +241,19 @@ void exercice::on_btnFeu_clicked()
 
     //mise à jour ou pas du niveau
     QSettings config("./maConfig.ini", QSettings::IniFormat);
-    QString opCourante="Addition";
-    QHash<QChar, int> hash;
-        hash['+']=1;
-        hash['-']=2;
-        hash['x']=3;
-    switch (hash.value(m_operation)) {
-        case 1 : opCourante = "Addition"; break;
-        case 3 : opCourante = "Multiplication"; break;
-        }
+    QChar initialeExo = m_operation[0];
+    initialeExo = initialeExo.toUpper();
+    QString opCourante = m_operation;
+    opCourante.remove(0,1);
+    opCourante.push_front(initialeExo);
+//    QHash<QChar, int> hash;
+//        hash['+']=1;
+//        hash['-']=2;
+//        hash['x']=3;
+//    switch (hash.value(m_operation)) {
+//        case 1 : opCourante = "Addition"; break;
+//        case 3 : opCourante = "Multiplication"; break;
+//        }
 
     config.beginGroup(opCourante);
         if (m_score==m_total) {

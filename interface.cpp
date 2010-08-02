@@ -28,21 +28,25 @@ interface::interface(QWidget *parent)
         btnPoly1->deplace(-75,340);
         btnPoly1->retaille(60,90);
         btnPoly1->tourne(-20);
+        btnPoly1->QGraphicsItem::setToolTip("Faire des additions");
         dessin->addItem(btnPoly1);
 
     boutonsPolygone* btnPoly2 = new boutonsPolygone("multiplication",0);
         btnPoly2->deplace(250,310);
         btnPoly2->retaille(70,80);
+        btnPoly2->QGraphicsItem::setToolTip("Faire des multiplications");
         dessin->addItem(btnPoly2);
 
     boutonsPolygone* btnPoly3 = new boutonsPolygone("editeur",0);
         btnPoly3->deplace(930,640);
         btnPoly3->retaille(50,100);
+        btnPoly3->QGraphicsItem::setToolTip(QString::fromUtf8("Lancer l'éditeur"));
         dessin->addItem(btnPoly3);
 
     boutonsPolygone* btnPoly4 = new boutonsPolygone("sortie",0);
         btnPoly4->deplace(160,590);
         btnPoly4->retaille(60,30);
+        btnPoly4->QGraphicsItem::setToolTip("Quitter");
         connect(btnPoly4, SIGNAL(sortie()), this, SLOT(close()));
         dessin->addItem(btnPoly4);
         
@@ -60,10 +64,13 @@ interface::interface(QWidget *parent)
         btnPoly5->setImage(im);
         btnPoly5->setMTransformable(2);
         dessin->addItem(btnPoly5);
-
-       // dessin->update(btnPoly5->getMBase().x(), btnPoly5->getMBase().y(),btnPoly5->getMTaille().width(), btnPoly5->getMTaille().height());
         }
 
+     boutonsPolygone* btnPoly6 = new boutonsPolygone("complementA",100);
+        dessin->addItem(btnPoly6);
+        btnPoly6->deplace(450,40);
+        btnPoly6->retaille(60,80);
+        btnPoly6->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments à 100"));
     }
 
 interface::~interface()
