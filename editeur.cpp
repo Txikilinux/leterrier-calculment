@@ -75,6 +75,7 @@ void Editeur::initialiser()
 {
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     config.setValue(tr("NombreBallons"), 10);
+    config.setValue(tr("TempsAccorde"),8);
     initialiserOperation("Addition");
     initialiserOperation("Multiplication");
 }
@@ -95,6 +96,7 @@ void Editeur::sauverNiveau(QString niveau)
 void Editeur::chargerNiveau(QString niveau)
 {
     QSettings config("./maConfig.ini", QSettings::IniFormat);
+    m_ui->sldVitesse->setValue(config.value(tr("TempsAccorde")).toInt());
     config.beginGroup(m_ui->cbOperation->currentText());
         config.beginGroup(niveau);
             m_ui->spbGMax->setValue(config.value(tr("MaxGauche")).toInt());
@@ -115,6 +117,8 @@ void Editeur::changerNiveau(QString chaine)
 void Editeur::closeEvent(QCloseEvent *event)
 {
     this->sauverNiveau(*m_niveauEnCours);
+    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
     event->accept();
 
 }
@@ -133,5 +137,4 @@ void Editeur::changeEvent(QEvent *e)
 void Editeur::on_btnQuitter_clicked()
 {
     this->close();
-
 }

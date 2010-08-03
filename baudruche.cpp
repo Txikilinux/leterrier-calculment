@@ -1,11 +1,6 @@
 #include "baudruche.h"
 
-const float FLOATMIN = 0.0;
-const float FLOATMAX = 9.9;
 const int MULTIPLE_MAX=11;
-//const int INTMIN = 0;
-//const int INTMAX = 9;
-const int TPS = 10;
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos)
 {
@@ -36,7 +31,8 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
     QScriptEngine calculateur;
     QScriptValue resultat = calculateur.evaluate(m_ligne);
     m_resultat = resultat.toNumber();
-    m_timer = new QTimeLine(TPS*1000,this);
+    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
 
     //à réfléchir la place de cette constante : ici ? dans exempledessin1.cpp où on va instancier des baudruche, dans le main ?
     const int k=100;
@@ -106,7 +102,8 @@ baudruche::baudruche(int nombreVise,QString op,QPoint pos)
         m_resultat = resultat.toNumber();
         }
 
-    m_timer = new QTimeLine(TPS*1000,this);
+    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
 
     //à réfléchir la place de cette constante : ici ? dans exempledessin1.cpp où on va instancier des baudruche, dans le main ?
     const int k=100;
@@ -180,7 +177,7 @@ baudruche::baudruche(int pts, QPoint pos)
         affichage->setPos(40,100);
         //affichage->setPos(m_position.x()+30, m_position.y()+60);
         this->addToGroup(affichage);
-        m_timer = new QTimeLine(TPS*1000,this);
+        //m_timer = new QTimeLine(TPS*1000,this);
 
 }
 
