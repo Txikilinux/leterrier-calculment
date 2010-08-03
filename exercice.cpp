@@ -8,6 +8,8 @@
 #include <QGraphicsItemAnimation>
 
 const int NBCHIFFRE = 2;
+const float SEUIL_NON_ACQUIS=0.4;
+const float SEUIL_ACQUIS=0.8;
 
 //1 exercice::exercice(QString exo,QWidget *parent) :
 exercice::exercice(QString exo,int val, QWidget *parent) :
@@ -219,9 +221,21 @@ void exercice::on_btnFeu_clicked()
         //debug eric
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbMaxBallons << "et score :: " << m_score;
 
-        QPoint* depart = new QPoint(200,300);
+        QPoint* depart = new QPoint(200,400);
         m_baudruche = new baudruche(m_score,*depart);
         m_ui->vue->setScene(m_scene);
+
+        QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
+        QPixmap* prof = new QPixmap("./images/bof.png");
+        if (m_score<m_total*SEUIL_NON_ACQUIS)
+            prof = new QPixmap("./images/rate.png");
+        else if (m_score>=m_total*SEUIL_ACQUIS)
+                prof = new QPixmap("./images/bien.png");
+            fondProf->setPixmap(*prof);
+            m_scene->addItem(fondProf);
+            fondProf->setPos(depart->x(),depart->y()-prof->height()/1.5);
+            fondProf->setZValue(m_nbMaxBallons-1-10);
+
         QString tabBallons[] = {"./images/ballonBleu.png","./images/ballonJaune.png","./images/ballonRouge.png","./images/ballonVert.png","./images/ballonOrange.png"};
         for (int i=0;i<5;i++) {
             QGraphicsPixmapItem* image = new QGraphicsPixmapItem();
