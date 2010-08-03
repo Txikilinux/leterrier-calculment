@@ -19,22 +19,6 @@
   <property name="windowTitle">
    <string>Editeur de niveau</string>
   </property>
-  <widget class="QLabel" name="lblNiveau">
-   <property name="geometry">
-    <rect>
-     <x>98</x>
-     <y>203</y>
-     <width>46</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Niveau</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="lblVitesse">
    <property name="geometry">
     <rect>
@@ -52,7 +36,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>240</y>
+     <y>20</y>
      <width>111</width>
      <height>27</height>
     </rect>
@@ -243,11 +227,46 @@
   <widget class="QComboBox" name="cbOperation">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>310</x>
      <y>20</y>
      <width>151</width>
      <height>27</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spbNombreBallons">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>270</y>
+     <width>55</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="wrapping">
+    <bool>true</bool>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
+   <property name="value">
+    <number>10</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblNombreBallons">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>240</y>
+     <width>111</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nombre Ballons</string>
    </property>
   </widget>
  </widget>

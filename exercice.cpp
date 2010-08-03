@@ -6,7 +6,7 @@
 #include <QTime>
 
 #include <QGraphicsItemAnimation>
-const int NBTOTAL = 5;
+
 const int NBCHIFFRE = 2;
 
 //1 exercice::exercice(QString exo,QWidget *parent) :
@@ -36,8 +36,11 @@ exercice::exercice(QString exo,int val, QWidget *parent) :
 
     m_operation=exo;
 
-    m_niveau = new QString("Niveau3");
     QSettings config("./maConfig.ini", QSettings::IniFormat);
+    m_nbMaxBallons = config.value("NombreBallons").toInt();
+
+    m_niveau = new QString("Niveau3");
+
     QChar initialeExo = exo[0];
     initialeExo = initialeExo.toUpper();
     QString opCourante = exo;
@@ -126,7 +129,7 @@ void exercice::on_btnBallon_clicked()
                                 m_baudruche = new baudruche(m_minG, "x", *depart);
 
         connect(m_baudruche, SIGNAL(valueChanged(int)),m_ui->lcdNumber, SLOT(display(int)));
-        if (m_total<NBTOTAL - 1) {
+        if (m_total<m_nbMaxBallons - 1) {
             connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnBallon, SLOT(setEnabled(bool)));
             connect(m_baudruche, SIGNAL(destroyed()), m_ui->btnBallon, SLOT(setFocus()));
             }
@@ -212,9 +215,9 @@ void exercice::on_btnFeu_clicked()
     if (m_baudruche!=NULL) m_baudruche->detruire();
     m_ui->btnFeu->setDisabled(true);
 
-    if (m_total==NBTOTAL) {
+    if (m_total==m_nbMaxBallons) {
         //debug eric
-        qDebug() << "m_total:" << m_total << " et NBTOTAL:" << NBTOTAL << "et score :: " << m_score;
+        qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbMaxBallons << "et score :: " << m_score;
 
         QPoint* depart = new QPoint(200,300);
         m_baudruche = new baudruche(m_score,*depart);
@@ -226,11 +229,11 @@ void exercice::on_btnFeu_clicked()
             image->setPixmap(*img);
             m_scene->addItem(image);
             image->setPos(depart->x()+35*(i+1),depart->y()+10*(i+1));
-            image->setZValue(NBTOTAL-1-i);
+            image->setZValue(m_nbMaxBallons-1-i);
             }
 
     m_scene->addItem(m_baudruche);
-        m_baudruche->setZValue(NBTOTAL);
+        m_baudruche->setZValue(m_nbMaxBallons);
 
     QString scoreEnString;
         scoreEnString.setNum(m_score);

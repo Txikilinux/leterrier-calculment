@@ -24,6 +24,7 @@ private:
     Ui::exercice *m_ui;
     int m_score;
     int m_total;
+    int m_nbMaxBallons;
     QString m_operation;
     QGraphicsScene* m_scene;
     baudruche* m_baudruche;
