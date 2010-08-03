@@ -36,6 +36,7 @@ void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     QRect rect(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
     painter->drawRect(rect.adjusted(0, 0, -1, -1));
     painter->drawPixmap(rect, *m_image);
+    painter->setPen(Qt::black);
     painter->drawText(rect,Qt::AlignCenter, *m_texte);
 }
 
