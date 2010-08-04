@@ -1,5 +1,6 @@
 #include "boutonspolygone.h"
 #include "exercice.h"
+#include "interfacecompetence.h"
 #include "editeur.h"
 #include <QtGui>
 
@@ -42,20 +43,29 @@ void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
 {
+    QChar initialeAction;
+    initialeAction=(QChar)m_action->operator [](0);
+    
+    qDebug() << "initialeAction : "<<initialeAction << " mais début de m_action : " << m_action->operator [](0);
     QGraphicsItem::mousePressEvent(e);
     if (*m_action=="editeur") {
         Editeur* ed = new Editeur;
         ed->show();
         }
     else if (*m_action=="sortie") emit sortie();
-        else {
-        exercice* ex = new exercice(*m_action,m_val);
-        ex->show();
-        }
+        else if (initialeAction.isNumber()) {
+        //exercice* ex = new exercice(*m_action,m_val);
+                InterfaceCompetence* inter = new InterfaceCompetence(*m_action);
+                inter->show();
+                }
+            else {
+                exercice* ex = new exercice(*m_action,m_val);
+                ex->show();
+                }
     e->accept();
     switch (m_transformable) {
         case 1 :bouge(0,300);break;
-        case 2 : QPixmap img("./images/pomme2.png"); setImage(img);setTexte("Fait");break;
+        case 2 : /*QPixmap img("./images/pomme2.png"); setImage(img);*/setTexte("Fait");break;
         }
 
 }

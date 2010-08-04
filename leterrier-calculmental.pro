@@ -9,15 +9,18 @@ SOURCES += main.cpp \
     baudruche.cpp \
     boutonspolygone.cpp \
     sauvegardelog.cpp \
-    editeur.cpp
+    editeur.cpp \
+    interfacecompetence.cpp
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
     boutonspolygone.h \
     sauvegardelog.h \
-    editeur.h
+    editeur.h \
+    interfacecompetence.h
 FORMS += interface.ui \
     exercice.ui \
-    editeur.ui
+    editeur.ui \
+    interfacecompetence.ui
 QT += script
 QT += network

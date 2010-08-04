@@ -50,21 +50,27 @@ interface::interface(QWidget *parent)
         connect(btnPoly4, SIGNAL(sortie()), this, SLOT(close()));
         dessin->addItem(btnPoly4);
         
-        QPoint origine(870,70);
-        int R=90;
-        int nb=8;
-        float deformation=0.8;
-    for (int i=0;i<nb;i++) {
-        boutonsPolygone* btnPoly5 = new boutonsPolygone("tableM",i+2);
-        //btnPoly5->deplace(700+30*i,170 -(((10*i)%3))*80);
-        btnPoly5->deplace(origine.x()+R*cos((2*3.14/nb)*i), origine.y()+deformation*R*sin((2*3.14/nb)*i));
-        btnPoly5->retaille(40,34);
-        btnPoly5->QGraphicsItem::setToolTip("table x"+QString::number(i+2));
-        QPixmap im("./images/pomme.png");
-        btnPoly5->setImage(im);
-        btnPoly5->setMTransformable(2);
+//        QPoint origine(870,70);
+//        int R=90;
+//        int nb=8;
+//        float deformation=0.8;
+//    for (int i=0;i<nb;i++) {
+//        boutonsPolygone* btnPoly5 = new boutonsPolygone("tableM",i+2);
+//        //btnPoly5->deplace(700+30*i,170 -(((10*i)%3))*80);
+//        btnPoly5->deplace(origine.x()+R*cos((2*3.14/nb)*i), origine.y()+deformation*R*sin((2*3.14/nb)*i));
+//        btnPoly5->retaille(40,34);
+//        btnPoly5->QGraphicsItem::setToolTip("table x"+QString::number(i+2));
+//        QPixmap im("./images/pomme.png");
+//        btnPoly5->setImage(im);
+//        btnPoly5->setMTransformable(2);
+//        dessin->addItem(btnPoly5);
+//        }
+
+     boutonsPolygone* btnPoly5 = new boutonsPolygone("1tableM",0);
+        btnPoly5->deplace(850,150);
+        btnPoly5->retaille(100,100);
+        btnPoly5->QGraphicsItem::setToolTip("Tables de multiplication");
         dessin->addItem(btnPoly5);
-        }
 
      boutonsPolygone* btnPoly6 = new boutonsPolygone("complementA",100);
         btnPoly6->deplace(450,40);
