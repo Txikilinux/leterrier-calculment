@@ -27,7 +27,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 boutonsPolygone* btn = new boutonsPolygone("tableM",i+2);
                 btn->deplace(origine.x()+R*cos((2*3.14/nb)*i), origine.y()+deformation*R*sin((2*3.14/nb)*i));
                 btn->retaille(50,42);
-                btn->QGraphicsItem::setToolTip("table x"+QString::number(i+2));
+                btn->QGraphicsItem::setToolTip("Table x"+QString::number(i+2));
                 QPixmap im("./images/nacellePourrie.png");
                 btn->setImage(im);
                 btn->setMTransformable(2);
@@ -91,6 +91,26 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btn->retaille(100,84);
                 btn->QGraphicsItem::setToolTip(QString::fromUtf8("Multiples de ")+QString::number(i+2));
                 QPixmap im("./images/carabine.png");
+                btn->setImage(im);
+                btn->setMTransformable(2);
+                m_scene->addItem(btn);
+                }
+            }
+            break;
+            
+        case 4 : {
+            m_decor = new QPixmap("./images/4booster.png");
+            adapte(*m_decor);
+            QPoint origine(m_decor->width()/2 - 35,m_decor->height()/2 - 20);
+            int R=m_decor->width()/2.7;
+            int nb=8;
+            float deformation=0.5;
+            for (int i=0;i<nb;i++) {
+                boutonsPolygone* btn = new boutonsPolygone("tableA",i+2);
+                btn->deplace(origine.x()+R*cos((2*3.14/nb)*i), origine.y()+deformation*R*sin((2*3.14/nb)*i));
+                btn->retaille(50,42);
+                btn->QGraphicsItem::setToolTip(QString::fromUtf8("Table +")+QString::number(i+2));
+                QPixmap im("./images/vomito.png");
                 btn->setImage(im);
                 btn->setMTransformable(2);
                 m_scene->addItem(btn);
