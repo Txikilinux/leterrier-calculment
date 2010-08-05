@@ -20,6 +20,7 @@ Editeur::Editeur(QWidget *parent) :
 
         m_ui->cbOperation->addItem(tr("Addition"), 1);
         m_ui->cbOperation->addItem(tr("Multiplication"), 2);
+        m_ui->cbOperation->addItem(tr("Soustraction"),3);
 
         connect(m_ui->sldVitesse, SIGNAL(valueChanged(int)), m_ui->pbVitesse, SLOT(setValue(int)));
         m_niveauEnCours = new QString(m_ui->cbNiveau->currentText());
@@ -78,6 +79,7 @@ void Editeur::initialiser()
     config.setValue(tr("TempsAccorde"),8);
     initialiserOperation("Addition");
     initialiserOperation("Multiplication");
+    initialiserOperation("Soustraction");
 }
 void Editeur::sauverNiveau(QString niveau)
 {

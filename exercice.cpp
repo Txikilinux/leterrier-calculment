@@ -24,8 +24,8 @@ exercice::exercice(QString exo,int val, QWidget *parent) :
     setPalette(QPalette(QColor(250, 250, 200)));
     this->setWindowTitle(tr("Mon ballon !!"));
     QPixmap* imgFond = new QPixmap("./images/philippe.jpg");
-    QBrush* fond = new QBrush(*imgFond);
-    m_ui->vue->setBackgroundBrush(*fond);
+        QBrush* fond = new QBrush(*imgFond);
+        m_ui->vue->setBackgroundBrush(*fond);
 
     m_scene = new QGraphicsScene();
     m_ui->vue->setScene(m_scene);
@@ -293,8 +293,9 @@ void exercice::on_leResultat_returnPressed()
 
 void exercice::on_btnEditeur_clicked()
 {
-//    Editeur edit;
-//    edit.show();
+   // this ->hide();
+   Editeur* ed = new Editeur(this);
+   ed->show();
     //idee eric, fait appel a l objet "global"
    // parent->m_editeur->show();
 }

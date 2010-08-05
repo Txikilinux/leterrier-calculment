@@ -72,6 +72,13 @@ interface::interface(QWidget *parent)
         btnPoly7->QGraphicsItem::setToolTip("Multiples");
         btnPoly7->setTexte("Multiples");
         dessin->addItem(btnPoly7);
+
+    boutonsPolygone* btnPoly8 = new boutonsPolygone("soustraction",0);
+        btnPoly8->deplace(125,310);
+        btnPoly8->retaille(100,80);
+        btnPoly8->QGraphicsItem::setToolTip(QString::fromUtf8("Soustractions"));
+        btnPoly8->setTexte("Soustractions");
+        dessin->addItem(btnPoly8);
     }
 
 interface::~interface()
