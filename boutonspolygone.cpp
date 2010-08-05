@@ -54,7 +54,6 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
         }
     else if (*m_action=="sortie") emit sortie();
         else if (initialeAction.isNumber()) {
-        //exercice* ex = new exercice(*m_action,m_val);
                 InterfaceCompetence* inter = new InterfaceCompetence(*m_action);
                 inter->show();
                 }

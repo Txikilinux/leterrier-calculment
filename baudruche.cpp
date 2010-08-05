@@ -2,6 +2,8 @@
 
 const int MULTIPLE_MAX=11;
 
+//à faire : réfléchir à une fonction permettant de factoriser dans les constructeurs
+
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos)
 {
     if (intMinG==intMaxG) g_operande=intMaxG;
@@ -77,8 +79,13 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
 }
 
 //constructeur spécifique aux compléments
-baudruche::baudruche(int nombreVise,QString op,QPoint pos)
+baudruche::baudruche(int valeurCible,QString op,QPoint pos)
 {
+    //1 ajout de 4 lignes
+        int nombreVise;
+    if (valeurCible!=0)
+        nombreVise=valeurCible;
+    else nombreVise=rand()%100;
     g_operande = 0;
     d_operande = 0;
     m_op = op;
