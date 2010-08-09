@@ -240,7 +240,7 @@ void baudruche::detruireTps()
         emit destroyed(true);
         emit destroyed();
         emit tempsFini(tr("TROP TARD..."));
-        QPixmap image("./images/passe.png");
+        QPixmap image("./images/will-let.png");
         emit tempsFini(image);
         delete this;
         }

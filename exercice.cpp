@@ -185,12 +185,12 @@ void exercice::on_btnFeu_clicked()
     if (proposition==reponse) {
         m_score++;
         m_ui->lblMsg->setText(tr("GAGNE"));
-        QPixmap* imgO = new QPixmap("./images/gagne.png");
+        QPixmap* imgO = new QPixmap("./images/will-win.png");
         m_ui->lblImgMsg->setPixmap(*imgO);
         }
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
-        QPixmap* imgN = new QPixmap("./images/perdu.png");
+        QPixmap* imgN = new QPixmap("./images/will-lose.png");
         m_ui->lblImgMsg->setPixmap(*imgN);
         }
     QString monScore = "";
