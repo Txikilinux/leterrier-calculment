@@ -104,109 +104,109 @@ void interface::on_actionQuitter_triggered()
 
 void interface::on_actionAdditions_triggered()
 {
-    m_exercice = new exercice("addition",0,this);
+    m_exercice = new exercice("addition",0,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionMultiplications_triggered()
 {
-    m_exercice = new exercice("multiplication",0,this);
+    m_exercice = new exercice("multiplication",0,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionp2_triggered()
 {
-    m_exercice = new exercice("tableA",2,this);
+    m_exercice = new exercice("tableA",2,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionp3_triggered()
 {
-    m_exercice = new exercice("tableA",3,this);
+    m_exercice = new exercice("tableA",3,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionp4_triggered()
 {
-    m_exercice = new exercice("tableA",4,this);
+    m_exercice = new exercice("tableA",4,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionp5_triggered()
 {
-    m_exercice = new exercice("tableA",5,this);
+    m_exercice = new exercice("tableA",5,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionp6_triggered()
 {
-    m_exercice = new exercice("tableA",6,this);
+    m_exercice = new exercice("tableA",6,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionp7_triggered()
 {
-    m_exercice = new exercice("tableA",7,this);
+    m_exercice = new exercice("tableA",7,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionp8_triggered()
 {
-    m_exercice = new exercice("tableA",8,this);
+    m_exercice = new exercice("tableA",8,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionp9_triggered()
 {
-    m_exercice = new exercice("tableA",9,this);
+    m_exercice = new exercice("tableA",9,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionX_2_triggered()
 {
-    m_exercice = new exercice("tableM",2,this);
+    m_exercice = new exercice("tableM",2,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionX_3_triggered()
 {
-    m_exercice = new exercice("tableM",3,this);
+    m_exercice = new exercice("tableM",3,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionX_4_triggered()
 {
-    m_exercice = new exercice("tableM",4,this);
+    m_exercice = new exercice("tableM",4,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionX_5_triggered()
 {
-    m_exercice = new exercice("tableM",5,this);
+    m_exercice = new exercice("tableM",5,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionX_6_triggered()
 {
-    m_exercice = new exercice("tableM",6,this);
+    m_exercice = new exercice("tableM",6,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionX_7_triggered()
 {
-    m_exercice = new exercice("tableM",7,this);
+    m_exercice = new exercice("tableM",7,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionX_8_triggered()
 {
-    m_exercice = new exercice("tableM",8,this);
+    m_exercice = new exercice("tableM",8,"",this);
     m_exercice->show();
 }
 
 void interface::on_actionX_9_triggered()
 {
-    m_exercice = new exercice("tableM",9,this);
+    m_exercice = new exercice("tableM",9,"",this);
     m_exercice->show();
 }
 

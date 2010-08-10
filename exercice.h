@@ -13,8 +13,8 @@ class exercice : public QMainWindow {
     Q_OBJECT
     Q_DISABLE_COPY(exercice)
 public:
-   //1 explicit exercice(QString,QWidget *parent = 0);
-    explicit exercice(QString, int, QWidget *parent = 0);
+   //1 explicit exercice(QString,int,QWidget *parent = 0);
+    explicit exercice(QString, int, QString niveau=0,QWidget *parent = 0);
     virtual ~exercice();
 
 protected:

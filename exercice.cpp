@@ -11,8 +11,7 @@ const int NBCHIFFRE = 2;
 const float SEUIL_NON_ACQUIS=0.4;
 const float SEUIL_ACQUIS=0.8;
 
-//1 exercice::exercice(QString exo,QWidget *parent) :
-exercice::exercice(QString exo,int val, QWidget *parent) :
+exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     QMainWindow(parent),
     m_ui(new Ui::exercice)
 {
@@ -41,7 +40,7 @@ exercice::exercice(QString exo,int val, QWidget *parent) :
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     m_nbMaxBallons = config.value("NombreBallons").toInt();
 
-    m_niveau = new QString("Niveau3");
+    m_niveau = new QString(niveau);
 
     QChar initialeExo = exo[0];
     initialeExo = initialeExo.toUpper();
@@ -57,10 +56,10 @@ exercice::exercice(QString exo,int val, QWidget *parent) :
 //        case 1 : opCourante = "Addition"; break;
 //        case 3 : opCourante = "Multiplication"; break;
 //        }
-    qDebug() <<"L'opération en cours est une "<<opCourante;
+    qDebug() <<"L'opération en cours est une "<<opCourante<<" et m_niveau valait "<<*m_niveau;
 
     config.beginGroup(opCourante);
-        *m_niveau = config.value("NiveauEnCours"+opCourante).toString();
+        if (*m_niveau=="") *m_niveau = config.value("NiveauEnCours"+opCourante).toString();
         config.beginGroup(*m_niveau);
             m_maxG = config.value(tr("MaxGauche")).toInt();
             m_minG = config.value(tr("MinGauche")).toInt();
