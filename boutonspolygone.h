@@ -10,7 +10,7 @@ class boutonsPolygone : public QPushButton, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    boutonsPolygone(QString,int);
+    boutonsPolygone(QString,int=0);//
     void deplace(int,int);
     void bouge(int,int);
     //void eclate();
