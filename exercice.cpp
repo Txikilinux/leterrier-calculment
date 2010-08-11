@@ -6,6 +6,7 @@
 #include <QTime>
 
 #include <QGraphicsItemAnimation>
+ #include <QMessageBox>
 
 const int NBCHIFFRE = 2;
 const float SEUIL_NON_ACQUIS=0.4;
@@ -65,7 +66,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
             m_minG = config.value(tr("MinGauche")).toInt();
             m_maxD = config.value(tr("MaxDroite")).toInt();
             m_minD = config.value(tr("MinDroite")).toInt();
-            qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau;
+            qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau<< "Gilles : ";
         config.endGroup();
     config.endGroup();
 
@@ -128,6 +129,9 @@ void exercice::on_btnBallon_clicked()
 
                       else if(m_operation=="complementM")
                                 m_baudruche = new baudruche(m_minG, "x", *depart);
+                    else  QMessageBox::critical(this, "Opération inexistante", m_operation.append(QString::fromUtf8(", ça n'existe pas comme opération...")));
+
+                  //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
 
         connect(m_baudruche, SIGNAL(valueChanged(int)),m_ui->lcdNumber, SLOT(display(int)));
         if (m_total<m_nbMaxBallons - 1) {

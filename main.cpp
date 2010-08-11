@@ -6,21 +6,23 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QString exo = argv[1];
+    QString exo;
+    if (argc>1) {
+        exo= argv[1];
         exo.remove("--exercice=", Qt::CaseInsensitive);
-        exo.toLower();
-    QString nivo = argv[2];
-        if (!nivo.isNull()) {
-            nivo.remove("--niveau=", Qt::CaseInsensitive);
-            nivo.prepend("Niveau");
-            }
+        exo.toLower();}
+    QString nivo;
+    if (argc>2){
+        nivo= argv[2];
+        nivo.remove("--niveau=", Qt::CaseInsensitive);
+        nivo.prepend("Niveau");
+        }
+    //à améliorer : dans un cas l'interface est créée pour rien, dans l'autre c'est l'exercice... de toute façon c'est de la mémoire utilisée pour rien !!
     interface w;
     w.setWindowTitle("Calcul Mental");
     exercice e(exo,0,nivo);
     e.setWindowTitle("exercice");
-//    Editeur ed;
-//    ed.show();
-    if (exo=="") w.show();
+    if (argc==1) w.show();
     else e.show();
     return a.exec();
 }
