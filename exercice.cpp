@@ -7,6 +7,8 @@
 
 #include <QGraphicsItemAnimation>
  #include <QMessageBox>
+#include <QApplication>
+ #include <QDesktopWidget>
 
 const int NBCHIFFRE = 2;
 const float SEUIL_NON_ACQUIS=0.4;
@@ -17,6 +19,9 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui(new Ui::exercice)
 {
     m_ui->setupUi(this);
+    QRect fenetre;
+    //fenetre=QA
+    m_ui->vue->setGeometry(fenetre);
     //l'ouverture de la fenêtre exercice doit empêcher qu'on accède à la fenêtre interface
     this ->setWindowModality( Qt::ApplicationModal ) ;
     //le drapeau DeleteOnClose fait que l'objet créé sera détruit lors de sa fermeture
@@ -66,7 +71,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
             m_minG = config.value(tr("MinGauche")).toInt();
             m_maxD = config.value(tr("MaxDroite")).toInt();
             m_minD = config.value(tr("MinDroite")).toInt();
-            qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau<< "Gilles : ";
+            qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau;
         config.endGroup();
     config.endGroup();
 
@@ -110,7 +115,7 @@ void exercice::on_btnQuitter_clicked()
 void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
-    QPoint* depart = new QPoint(300,400);
+    QPoint* depart = new QPoint(m_scene->width()/2,400);
 
     if (m_operation=="addition"
         || m_operation==""

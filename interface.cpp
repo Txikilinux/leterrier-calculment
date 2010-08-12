@@ -40,64 +40,67 @@ interface::interface(QWidget *parent)
     m_editeur = new Editeur();
 
     boutonsPolygone* btnPoly1 = new boutonsPolygone("addition");
-        btnPoly1->deplace(-75*kw,340*kh);
-        btnPoly1->retaille(60*kw,90*kh);
-        btnPoly1->tourne(-20);
+        btnPoly1->deplace(0*kw,350*kh);
+        btnPoly1->retaille(380*kw,170*kh);
+        //btnPoly1->tourne(-20);
         btnPoly1->QGraphicsItem::setToolTip("Faire des additions");
         btnPoly1->setTexte("Additions");
         dessin->addItem(btnPoly1);
 
     boutonsPolygone* btnPoly2 = new boutonsPolygone("multiplication");
-        btnPoly2->deplace(250*kw,310*kh);
-        btnPoly2->retaille(100*kw,80*kh);
+        btnPoly2->deplace(400*kw,450*kh);
+        btnPoly2->retaille(270*kw,270*kh);
         btnPoly2->QGraphicsItem::setToolTip("Faire des multiplications");
         btnPoly2->setTexte("Multiplications");
         dessin->addItem(btnPoly2);
 
     boutonsPolygone* btnPoly3 = new boutonsPolygone("editeur");
-        btnPoly3->deplace(930*kw,640*kh);
-        btnPoly3->retaille(50*kw,100*kh);
+        btnPoly3->deplace(60*kw,520*kh);
+        btnPoly3->retaille(100*kw,200*kh);
         btnPoly3->QGraphicsItem::setToolTip(QString::fromUtf8("Lancer l'éditeur"));
         dessin->addItem(btnPoly3);
 
     boutonsPolygone* btnPoly4 = new boutonsPolygone("sortie");
-        btnPoly4->deplace(160*kw,590*kh);
-        btnPoly4->retaille(60*kw,30*kh);
+        btnPoly4->deplace(840*kw,610*kh);
+        btnPoly4->retaille(120*kw,40*kh);
         btnPoly4->QGraphicsItem::setToolTip("Quitter");
         connect(btnPoly4, SIGNAL(sortie()), this, SLOT(close()));
         dessin->addItem(btnPoly4);
         
     boutonsPolygone* btnPoly5 = new boutonsPolygone("1tableM");
-        btnPoly5->deplace(830*kw,90*kh);
-        btnPoly5->retaille(160*kw,30*kh);
+        btnPoly5->deplace(20*kw,15*kh);
+        btnPoly5->retaille(230*kw,250*kh);
         btnPoly5->QGraphicsItem::setToolTip("Tables de multiplication");
         btnPoly5->setTexte("Tables de multiplication");
         dessin->addItem(btnPoly5);
 
      boutonsPolygone* btnPoly6 = new boutonsPolygone("2complementA");
-        btnPoly6->deplace(400*kw,90*kh);
-        btnPoly6->retaille(150*kw,30*kh);
+        btnPoly6->deplace(530*kw,60*kh);
+        btnPoly6->retaille(250*kw,180*kh);
+        btnPoly6->tourne(12);
         btnPoly6->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments additifs"));
         btnPoly6->setTexte("Complements additifs");
         dessin->addItem(btnPoly6);
 
     boutonsPolygone* btnPoly7 = new boutonsPolygone("3complementM");
-        btnPoly7->deplace(490*kw,280*kh);
-        btnPoly7->retaille(70*kw,30*kh);
+        btnPoly7->deplace(780*kw,220*kh);
+        btnPoly7->retaille(110*kw,90*kh);
+        btnPoly7->tourne(10);
         btnPoly7->QGraphicsItem::setToolTip("Multiples");
         btnPoly7->setTexte("Multiples");
         dessin->addItem(btnPoly7);
 
     boutonsPolygone* btnPoly8 = new boutonsPolygone("soustraction");
-        btnPoly8->deplace(125*kw,310*kh);
-        btnPoly8->retaille(100*kw,80*kh);
+        btnPoly8->deplace(330*kw,140*kh);
+        btnPoly8->retaille(150*kw,180*kh);
         btnPoly8->QGraphicsItem::setToolTip(QString::fromUtf8("Soustractions"));
         btnPoly8->setTexte("Soustractions");
         dessin->addItem(btnPoly8);
 
     boutonsPolygone* btnPoly9 = new boutonsPolygone("4tableA");
-        btnPoly9->deplace(720*kw,210*kh);
-        btnPoly9->retaille(160*kw,30*kh);
+        btnPoly9->deplace(170*kw,255*kh);
+        btnPoly9->retaille(190*kw,30*kh);
+        btnPoly9->tourne(-27);
         btnPoly9->QGraphicsItem::setToolTip("Tables d'addition");
         btnPoly9->setTexte("Tables d'addition");
         dessin->addItem(btnPoly9);

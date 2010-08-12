@@ -19,17 +19,17 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
         case 1 : {
             m_decor = new QPixmap("./images/1gdRoue.png");
             adapte(*m_decor);
-            QPoint origine(m_decor->width()/2 - 35,m_decor->height()/2 - 20);
-            int R=m_decor->width()/2.7;
+            QPoint origine(m_decor->width()/2 - 60,m_decor->height()/2 - 100);
+            int R=m_decor->width()/2.3;
             int nb=8;
-            float deformation=0.9;
+            float deformation=1;
             for (int i=0;i<nb;i++) {
                 boutonsPolygone* btn = new boutonsPolygone("tableM",i+2);
                 btn->deplace(origine.x()+R*cos((2*3.14/nb)*i), origine.y()+deformation*R*sin((2*3.14/nb)*i));
-                btn->retaille(50,42);
+                btn->retaille(100,100);
                 btn->QGraphicsItem::setToolTip("Table x"+QString::number(i+2));
-                QPixmap im("./images/nacellePourrie.png");
-                btn->setImage(im);
+//                QPixmap im("./images/nacellePourrie.png");
+//                btn->setImage(im);
                 btn->setMTransformable(2);
                 m_scene->addItem(btn);
                 }
