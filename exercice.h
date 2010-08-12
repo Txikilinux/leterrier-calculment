@@ -15,6 +15,7 @@ class exercice : public QMainWindow {
 public:
     explicit exercice(QString, int val=0, QString niveau=0,QWidget *parent = 0);//
     virtual ~exercice();
+    void setImgFond();
 
 protected:
     virtual void changeEvent(QEvent *e);
@@ -26,6 +27,7 @@ private:
     int m_nbMaxBallons;
     QString m_operation;
     QGraphicsScene* m_scene;
+    QPixmap* m_imgFond;
     baudruche* m_baudruche;
     QString* m_trace;
     QString* m_niveau;

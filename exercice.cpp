@@ -19,18 +19,20 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui(new Ui::exercice)
 {
     m_ui->setupUi(this);
-    QRect fenetre;
+    m_imgFond = new QPixmap("./images/philippe.jpg");
+    QRect fenetre(0,0,m_imgFond->width(),m_imgFond->height());
+    qDebug()<<"Image fond "<<fenetre.width()<<" X "<<fenetre.height()<<" dans l'exercice";
     //fenetre=QA
     m_ui->vue->setGeometry(fenetre);
+    qDebug()<<"Vue "<<fenetre.width()<<" X "<<fenetre.height()<<" dans l'exercice";
     //l'ouverture de la fenêtre exercice doit empêcher qu'on accède à la fenêtre interface
     this ->setWindowModality( Qt::ApplicationModal ) ;
     //le drapeau DeleteOnClose fait que l'objet créé sera détruit lors de sa fermeture
     //this->setAttribute(Qt::WA_DeleteOnClose);
     setPalette(QPalette(QColor(250, 250, 200)));
     this->setWindowTitle(tr("Mon ballon !!"));
-    QPixmap* imgFond = new QPixmap("./images/philippe.jpg");
-        QBrush* fond = new QBrush(*imgFond);
-        m_ui->vue->setBackgroundBrush(*fond);
+
+    this->setImgFond();
 
     m_scene = new QGraphicsScene();
     m_ui->vue->setScene(m_scene);
@@ -107,6 +109,24 @@ void exercice::changeEvent(QEvent *e)
     }
 }
 
+// void exercice::resizeEvent(QResizeEvent *event)
+// {
+//     if (width() > image.width() || height() > image.height()) {
+//         int newWidth = qMax(width() + 128, image.width());
+//         int newHeight = qMax(height() + 128, image.height());
+//         resizeImage(&image, QSize(newWidth, newHeight));
+//         update();
+//     }
+//     QWidget::resizeEvent(event);
+// }
+
+
+void exercice::setImgFond()
+{
+         QBrush* fond = new QBrush(*m_imgFond);
+         m_ui->vue->setBackgroundBrush(*fond);
+}
+
 void exercice::on_btnQuitter_clicked()
 {
     this->close();
@@ -115,7 +135,7 @@ void exercice::on_btnQuitter_clicked()
 void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
-    QPoint* depart = new QPoint(m_scene->width()/2,400);
+    QPoint* depart = new QPoint(m_ui->vue->width()/2,400);
 
     if (m_operation=="addition"
         || m_operation==""
