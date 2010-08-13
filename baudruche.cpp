@@ -1,10 +1,11 @@
 #include "baudruche.h"
+ #include <QFontMetrics>
 
 const int MULTIPLE_MAX=11;
 
 //à faire : réfléchir à une fonction permettant de factoriser dans les constructeurs
 
-baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos)
+baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos,QString image)
 {
     if (intMinG==intMaxG) g_operande=intMaxG;
     else g_operande = intMinG + rand()%(intMaxG-intMinG);
@@ -54,13 +55,15 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
     QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
         int coulAlea = rand()%(5);
         QString illustration;
+        QString imageBase="ballon";
+        if (image!=0) imageBase=image;
         switch (coulAlea) {
-            case 0 : illustration = "./images/ballonVert.png"; break;
-            case 1 : illustration = "./images/ballonJaune.png"; break;
-            case 2 : illustration = "./images/ballonRouge.png"; break;
-            case 3 : illustration = "./images/ballonOrange.png"; break;
-            case 4 : illustration = "./images/ballonBleu.png"; break;
-            case 5 : illustration = "./images/ballonRose.png"; break;
+            case 0 : illustration = "./images/"+imageBase+"Vert.png"; break;
+            case 1 : illustration = "./images/"+imageBase+"Jaune.png"; break;
+            case 2 : illustration = "./images/"+imageBase+"Rouge.png"; break;
+            case 3 : illustration = "./images/"+imageBase+"Orange.png"; break;
+            case 4 : illustration = "./images/"+imageBase+"Bleu.png"; break;
+            case 5 : illustration = "./images/"+imageBase+"Rose.png"; break;
             }
 
         pixmap->setPixmap(illustration);
@@ -79,7 +82,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
 }
 
 //constructeur spécifique aux compléments
-baudruche::baudruche(int valeurCible,QString op,QPoint pos)
+baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
 {
     //1 ajout de 4 lignes
         int nombreVise;
@@ -130,32 +133,41 @@ baudruche::baudruche(int valeurCible,QString op,QPoint pos)
     QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
         int coulAlea = rand()%(5);
         QString illustration;
-        switch (coulAlea) {
-            case 0 : illustration = "./images/ballonVert.png"; break;
-            case 1 : illustration = "./images/ballonJaune.png"; break;
-            case 2 : illustration = "./images/ballonRouge.png"; break;
-            case 3 : illustration = "./images/ballonOrange.png"; break;
-            case 4 : illustration = "./images/ballonBleu.png"; break;
-            case 5 : illustration = "./images/ballonRose.png"; break;
-            }
 
-        pixmap->setPixmap(illustration);
+        QString imageBase="ballon";
+        if (image!=0) imageBase=image;
+        switch (coulAlea) {
+            case 0 : illustration = "./images/"+imageBase+"Vert.png"; break;
+            case 1 : illustration = "./images/"+imageBase+"Jaune.png"; break;
+            case 2 : illustration = "./images/"+imageBase+"Rouge.png"; break;
+            case 3 : illustration = "./images/"+imageBase+"Orange.png"; break;
+            case 4 : illustration = "./images/"+imageBase+"Bleu.png"; break;
+            case 5 : illustration = "./images/"+imageBase+"Rose.png"; break;
+            }
+        QPixmap imageIllustration(illustration);
+        pixmap->setPixmap(imageIllustration);
         pixmap->setZValue(k);
         pixmap->setPos(pos);
         this->addToGroup(pixmap);
 
     QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
         affichage->setFont( QFont( "dejaVuSans",14 ) );
+        QFontMetrics mesureur(QFont("dejaVuSans",14));
+        int longueurAffichage,largeurIllustration,decalageCentrage;
+        longueurAffichage=mesureur.width(*operation);
+        largeurIllustration=imageIllustration.width();
+        decalageCentrage=(largeurIllustration-longueurAffichage)/2;
         affichage->setHtml(*operation);
+      //affichage->setPos(QFontMetrics::width(operation),0);
+        affichage->setPos(decalageCentrage,80);
         affichage->setZValue(k+1);
-        affichage->setPos(10,60);
         this->addToGroup(affichage);
 
     emit valueChanged(m_resultat);
 }
 
 //constructeur spécifique à l'affichage du résultat
-baudruche::baudruche(int pts, QPoint pos)
+baudruche::baudruche(int pts, QPoint pos,QString image)
 {
     //à réfléchir la place de cette constante : ici ? dans exempledessin1.cpp où on va instancier des baudruche, dans le main ?
     const int k=100;
@@ -172,7 +184,10 @@ baudruche::baudruche(int pts, QPoint pos)
     if (pts==0 || pts==1) msg->append(tr(" point."));
     else msg->append(tr(" points."));
     QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
-        QString illustration = "./images/ballonRose.png";
+        QString illustration;
+        QString imageBase="ballon";
+        if (image!=0) imageBase=image;
+        illustration = "./images/"+image+"Rose.png";
         pixmap->setPixmap(illustration);
         pixmap->setZValue(k);
         pixmap->setPos(pos);

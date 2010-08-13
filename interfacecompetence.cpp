@@ -12,6 +12,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
     m_ui(new Ui::InterfaceCompetence)
 {
     m_ui->setupUi(this);
+    this->setWindowModality(Qt::ApplicationModal);
     QString initialeCompetence = competence;
         initialeCompetence.truncate(1);
     competence.remove(0,1);

@@ -150,7 +150,7 @@ void exercice::on_btnBallon_clicked()
                             m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,"x",*depart);
 
                  else if (m_operation=="complementA")
-                            m_baudruche = new baudruche(m_minG,"+", *depart);
+                            m_baudruche = new baudruche(m_minG,"+", *depart,"fantome");
 
                       else if(m_operation=="complementM")
                                 m_baudruche = new baudruche(m_minG, "x", *depart);
