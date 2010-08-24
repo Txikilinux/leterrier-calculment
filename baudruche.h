@@ -20,10 +20,11 @@ public:
     float getMDOperande();
     QString getMLigne();
     QString getMOperation();
-
+    int valeurApprochee(int,int);
 //    QTimeLine getMTimer();
     QTimeLine* m_timer;
     void emetRes();
+    void emetApprox();
     void emetMort();
 
 public slots:
@@ -42,9 +43,12 @@ private:
     float g_operande;
     float d_operande;
     float m_resultat;
+    float m_approximation;
     QPoint m_position;
     QString m_ligne;
+    QString* m_affichage;
 //    QTimeLine m_timer;
+    void dessineMoi(QString,int);
 };
 
 #endif // BAUDRUCHE_H

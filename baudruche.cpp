@@ -7,6 +7,10 @@ const int MULTIPLE_MAX=11;
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos,QString image)
 {
+    m_op = op;
+    m_position.setX(pos.x());
+    m_position.setY(pos.y());
+
     if (intMinG==intMaxG) g_operande=intMaxG;
     else g_operande = intMinG + rand()%(intMaxG-intMinG);
             //J'aurais bien aimé mettre des réels mais à une décimale...
@@ -24,59 +28,38 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
         g_operande=d_operande;
         d_operande=tmp;
         }
-    m_op = op;
-    m_position.setX(pos.x());
-    m_position.setY(pos.y());
 
-    //Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*"
+    //Calcul du résultat à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*")
     if (m_op=="x") m_ligne = QString::number(g_operande)+"*"+QString::number(d_operande);
     else m_ligne = QString::number(g_operande)+m_op+QString::number(d_operande);
-    QScriptEngine calculateur;
-    QScriptValue resultat = calculateur.evaluate(m_ligne);
-    m_resultat = resultat.toNumber();
+        QScriptEngine calculateur;
+        QScriptValue resultat = calculateur.evaluate(m_ligne);
+        m_resultat = resultat.toNumber();
+
+    //Calcul de la valeur approchée à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*")
+    if (m_op=="x") m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+"*"+QString::number(valeurApprochee(d_operande,intMaxD));
+    else m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+m_op+QString::number(valeurApprochee(d_operande,intMaxD));
+        //QScriptEngine calculateur;
+        resultat = calculateur.evaluate(m_ligne);
+        m_approximation = resultat.toNumber();
+
+
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
-
-    //à réfléchir la place de cette constante : ici ? dans exempledessin1.cpp où on va instancier des baudruche, dans le main ?
-    const int k=100;
 
     //Je dois convertir mes entiers en QString pour les concatener
     QString aGauche, aDroite;
         aGauche = aGauche.setNum(g_operande);
         aDroite = aDroite.setNum(d_operande);
     //Je peux maintenant construire mon opération en ligne
-    QString* operation = new QString("");
-        operation->append(aGauche);
-        operation->append(" ");
-        operation->append(op);
-        operation->append(" ");
-        operation->append(aDroite);
+    m_affichage = new QString("");
+        m_affichage->append(aGauche);
+        m_affichage->append(" ");
+        m_affichage->append(op);
+        m_affichage->append(" ");
+        m_affichage->append(aDroite);
 
-    QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
-        int coulAlea = rand()%(5);
-        QString illustration;
-        QString imageBase="ballon";
-        if (image!=0) imageBase=image;
-        switch (coulAlea) {
-            case 0 : illustration = "./images/"+imageBase+"Vert.png"; break;
-            case 1 : illustration = "./images/"+imageBase+"Jaune.png"; break;
-            case 2 : illustration = "./images/"+imageBase+"Rouge.png"; break;
-            case 3 : illustration = "./images/"+imageBase+"Orange.png"; break;
-            case 4 : illustration = "./images/"+imageBase+"Bleu.png"; break;
-            case 5 : illustration = "./images/"+imageBase+"Rose.png"; break;
-            }
-
-        pixmap->setPixmap(illustration);
-        pixmap->setZValue(k);
-        pixmap->setPos(pos);
-        this->addToGroup(pixmap);
-
-    QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
-        affichage->setFont( QFont( "dejaVuSans",16 ) );
-        affichage->setHtml(*operation);
-        affichage->setZValue(k+1);
-        affichage->setPos(40,60);
-        this->addToGroup(affichage);
+    dessineMoi(image,16);
         
     emit valueChanged(m_resultat);
 }
@@ -84,23 +67,23 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
 //constructeur spécifique aux compléments
 baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
 {
-    //1 ajout de 4 lignes
-        int nombreVise;
+    m_op = op;
+    m_position.setX(pos.x());
+    m_position.setY(pos.y());
+
+    int nombreVise;
     if (valeurCible!=0)
         nombreVise=valeurCible;
     else nombreVise=rand()%100;
     g_operande = 0;
     d_operande = 0;
-    m_op = op;
-    m_position.setX(pos.x());
-    m_position.setY(pos.y());
+
 
     //Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*"
     if (m_op=="x") {
         g_operande = nombreVise;
         int sort = rand()%MULTIPLE_MAX;
         d_operande = nombreVise*sort;
-        //m_ligne = QString::number(nombreVise)+"/"+QString::number(g_operande);
         m_resultat = sort;
         }
     else {
@@ -115,53 +98,19 @@ baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
 
-    //à réfléchir la place de cette constante : ici ? dans exempledessin1.cpp où on va instancier des baudruche, dans le main ?
-    const int k=100;
-
     //Je dois convertir mes entiers en QString pour les concatener
     QString aGauche, aDroite;
         aGauche = aGauche.setNum(g_operande);
         aDroite = aDroite.setNum(d_operande);
     //Je peux maintenant construire mon opération en ligne
-    QString* operation = new QString("");
-        operation->append(aGauche);
-        operation->append(" ");
-        operation->append(op);
-        operation->append(" ? = ");
-        operation->append(aDroite);
+    m_affichage = new QString("");
+        m_affichage->append(aGauche);
+        m_affichage->append(" ");
+        m_affichage->append(op);
+        m_affichage->append(" ? = ");
+        m_affichage->append(aDroite);
 
-    QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
-        int coulAlea = rand()%(5);
-        QString illustration;
-
-        QString imageBase="ballon";
-        if (image!=0) imageBase=image;
-        switch (coulAlea) {
-            case 0 : illustration = "./images/"+imageBase+"Vert.png"; break;
-            case 1 : illustration = "./images/"+imageBase+"Jaune.png"; break;
-            case 2 : illustration = "./images/"+imageBase+"Rouge.png"; break;
-            case 3 : illustration = "./images/"+imageBase+"Orange.png"; break;
-            case 4 : illustration = "./images/"+imageBase+"Bleu.png"; break;
-            case 5 : illustration = "./images/"+imageBase+"Rose.png"; break;
-            }
-        QPixmap imageIllustration(illustration);
-        pixmap->setPixmap(imageIllustration);
-        pixmap->setZValue(k);
-        pixmap->setPos(pos);
-        this->addToGroup(pixmap);
-
-    QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
-        affichage->setFont( QFont( "dejaVuSans",14 ) );
-        QFontMetrics mesureur(QFont("dejaVuSans",14));
-        int longueurAffichage,largeurIllustration,decalageCentrage;
-        longueurAffichage=mesureur.width(*operation);
-        largeurIllustration=imageIllustration.width();
-        decalageCentrage=(largeurIllustration-longueurAffichage)/2;
-        affichage->setHtml(*operation);
-      //affichage->setPos(QFontMetrics::width(operation),0);
-        affichage->setPos(decalageCentrage,80);
-        affichage->setZValue(k+1);
-        this->addToGroup(affichage);
+    dessineMoi(image,14);
 
     emit valueChanged(m_resultat);
 }
@@ -169,7 +118,6 @@ baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
 //constructeur spécifique à l'affichage du résultat
 baudruche::baudruche(int pts, QPoint pos,QString image)
 {
-    //à réfléchir la place de cette constante : ici ? dans exempledessin1.cpp où on va instancier des baudruche, dans le main ?
     const int k=100;
     g_operande = 0;
     d_operande = 0;
@@ -197,12 +145,45 @@ baudruche::baudruche(int pts, QPoint pos,QString image)
         affichage->setHtml(*msg);
         affichage->setZValue(k+1);
         affichage->setPos(40,100);
-        //affichage->setPos(m_position.x()+30, m_position.y()+60);
         this->addToGroup(affichage);
         //m_timer = new QTimeLine(TPS*1000,this);
 
 }
 
+void baudruche::dessineMoi(QString image, int taillePolice)
+{
+    const int k=100;
+    QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
+        int coulAlea = rand()%(5);
+        QString illustration;
+        QString imageBase="ballon";
+        if (image!=0) imageBase=image;
+        switch (coulAlea) {
+            case 0 : illustration = "./images/"+imageBase+"Vert.png"; break;
+            case 1 : illustration = "./images/"+imageBase+"Jaune.png"; break;
+            case 2 : illustration = "./images/"+imageBase+"Rouge.png"; break;
+            case 3 : illustration = "./images/"+imageBase+"Orange.png"; break;
+            case 4 : illustration = "./images/"+imageBase+"Bleu.png"; break;
+            case 5 : illustration = "./images/"+imageBase+"Rose.png"; break;
+            }
+        QPixmap imageIllustration(illustration);
+        pixmap->setPixmap(imageIllustration);
+        pixmap->setZValue(k);
+        pixmap->setPos(m_position);
+        this->addToGroup(pixmap);
+
+    QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
+        affichage->setFont( QFont( "dejaVuSans",taillePolice ) );
+        QFontMetrics mesureur(QFont("dejaVuSans",taillePolice));
+        int longueurAffichage,largeurIllustration,decalageCentrage;
+        longueurAffichage=mesureur.width(*m_affichage);
+        largeurIllustration=imageIllustration.width();
+        decalageCentrage=(largeurIllustration-longueurAffichage)/2;
+        affichage->setHtml(*m_affichage);
+        affichage->setPos(decalageCentrage,80);
+        affichage->setZValue(k+1);
+        this->addToGroup(affichage);
+}
 QPoint baudruche::getMPosition()
 {
     return this->m_position;
@@ -233,6 +214,16 @@ QString baudruche::getMLigne()
 {
     return this->m_ligne;
 }
+
+int baudruche::valeurApprochee(int operande, int maximum)
+{
+    if (maximum==100 || maximum==1000) {
+        if ((operande%(maximum/10))< maximum/20) operande=(operande/(maximum/10))*10;
+        else operande=((operande/(maximum/10))+(maximum/100))*10;
+        }
+        return operande;
+}
+
 //QTimeLine baudruche::getMTimer()
 //{
 //    return m_timer;
@@ -264,6 +255,11 @@ void baudruche::detruireTps()
 void baudruche::emetRes()
 {
        emit valueChanged(m_resultat);
+}
+
+void baudruche::emetApprox()
+{
+    emit valueChanged(m_approximation);
 }
 
 void baudruche::emetMort()
