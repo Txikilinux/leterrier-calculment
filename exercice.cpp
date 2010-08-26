@@ -88,7 +88,11 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
         m_maxG=9;
         }
 
-    if (exo=="complementA" || exo=="complementM") {
+    if (exo=="complementA"
+        || exo=="complementM"
+        || exo=="approcheA"
+        || exo=="approcheS"
+        || exo=="approcheM") {
         m_minG=m_maxG=m_minD=m_maxD=val;
         }
 }
@@ -154,11 +158,15 @@ void exercice::on_btnBallon_clicked()
 
                       else if(m_operation=="complementM")
                                 m_baudruche = new baudruche(m_minG, "x", *depart);
-                    else  QMessageBox::critical(this, "Opération inexistante", m_operation.append(QString::fromUtf8(", ça n'existe pas comme opération...")));
+
+                            else if(m_operation=="approcheA")
+                                      m_baudruche = new baudruche(m_maxG,m_maxD,"+", *depart);
+                                 else  QMessageBox::critical(this, "Opération inexistante", m_operation.append(QString::fromUtf8(", ça n'existe pas comme opération...")));
 
                   //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
 
         connect(m_baudruche, SIGNAL(valueChanged(int)),m_ui->lcdNumber, SLOT(display(int)));
+        qDebug()<<" lcdNumb : "<<m_ui->lcdNumber->value();
         if (m_total<m_nbMaxBallons - 1) {
             connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnBallon, SLOT(setEnabled(bool)));
             connect(m_baudruche, SIGNAL(destroyed()), m_ui->btnBallon, SLOT(setFocus()));

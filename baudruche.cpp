@@ -3,10 +3,9 @@
 
 const int MULTIPLE_MAX=11;
 
-//à faire : réfléchir à une fonction permettant de factoriser dans les constructeurs
-
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos,QString image)
 {
+    m_approximation=0;
     m_op = op;
     m_position.setX(pos.x());
     m_position.setY(pos.y());
@@ -61,7 +60,55 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
 
     dessineMoi(image,16);
         
-    emit valueChanged(m_resultat);
+    this->emetRes();
+}
+
+//constructeur spécifique aux valeurs approchées
+baudruche::baudruche(int intMaxG, int intMaxD,QString op,QPoint pos,QString image)
+{
+    m_approximation=0;
+    m_op = op;
+    m_position.setX(pos.x());
+    m_position.setY(pos.y());
+
+    g_operande = rand()%(intMaxG);
+    d_operande = rand()%(intMaxD);
+
+    //Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes...
+    if (d_operande>g_operande) {
+        int tmp=g_operande;
+        g_operande=d_operande;
+        d_operande=tmp;
+        }
+
+    //Calcul de la valeur approchée à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*")
+    if (m_op=="x") m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+"*"+QString::number(valeurApprochee(d_operande,intMaxD));
+    else m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+m_op+QString::number(valeurApprochee(d_operande,intMaxD));
+
+        QScriptEngine calculateur;
+        QScriptValue resultat = calculateur.evaluate(m_ligne);
+        m_approximation = resultat.toNumber();
+qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeurApprochee(d_operande, intMaxD)<<" valeurAppro : "<<m_approximation;
+
+    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
+
+    //Je dois convertir mes entiers en QString pour les concatener
+    QString aGauche, aDroite;
+        aGauche = aGauche.setNum(g_operande);
+        aDroite = aDroite.setNum(d_operande);
+    //Je peux maintenant construire mon opération en ligne
+    m_affichage = new QString("");
+        m_affichage->append(aGauche);
+        m_affichage->append(" ");
+        m_affichage->append(op);
+        m_affichage->append(" ");
+        m_affichage->append(aDroite);
+        m_affichage->append(QString::fromUtf8(" ≈"));
+
+    dessineMoi(image,16);
+
+    this->emetApprox();
 }
 
 //constructeur spécifique aux compléments
@@ -70,6 +117,7 @@ baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
     m_op = op;
     m_position.setX(pos.x());
     m_position.setY(pos.y());
+    m_approximation=0;
 
     int nombreVise;
     if (valeurCible!=0)
@@ -78,8 +126,6 @@ baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
     g_operande = 0;
     d_operande = 0;
 
-
-    //Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*"
     if (m_op=="x") {
         g_operande = nombreVise;
         int sort = rand()%MULTIPLE_MAX;
@@ -112,7 +158,7 @@ baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
 
     dessineMoi(image,14);
 
-    emit valueChanged(m_resultat);
+    this->emetRes();
 }
 
 //constructeur spécifique à l'affichage du résultat
@@ -232,7 +278,8 @@ int baudruche::valeurApprochee(int operande, int maximum)
 void baudruche::detruire()
 {
     if (this!=NULL) {
-        emit valueChanged(m_resultat);
+        if (m_approximation==0) emit valueChanged(m_resultat);//ici le problème
+        else emit valueChanged(m_approximation);
         emit destroyed(true);
         emit destroyed();
         delete this;
