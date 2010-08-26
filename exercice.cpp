@@ -19,7 +19,10 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui(new Ui::exercice)
 {
     m_ui->setupUi(this);
-    m_imgFond = new QPixmap("./images/philippe.jpg");
+    QString nomImage = "./images/";
+        nomImage.append(exo);
+        nomImage.append(".png");
+        m_imgFond = new QPixmap(nomImage);
     QRect fenetre(0,0,m_imgFond->width(),m_imgFond->height());
     qDebug()<<"Image fond "<<fenetre.width()<<" X "<<fenetre.height()<<" dans l'exercice";
     //fenetre=QA
