@@ -43,7 +43,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             break;
 
         case 2 : {
-            m_decor = new QPixmap("./images/2trainFantome.png");
+            m_decor = new QPixmap("./images/2trainFantome.jpg");
             this->setWindowTitle(QString::fromUtf8(tr("Trouve le complément à...").toStdString().c_str()));
             adapte(*m_decor);
             this->move(400,0);
