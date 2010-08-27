@@ -44,28 +44,28 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
 
         case 2 : {
             m_decor = new QPixmap("./images/2trainFantome.png");
-            this->setWindowTitle(QString::fromUtf8("Trouve le complément à..."));
+            this->setWindowTitle(QString::fromUtf8(tr("Trouve le complément à...").toStdString().c_str()));
             adapte(*m_decor);
             this->move(400,0);
             //QPoint origine(m_decor->width()/4 ,m_decor->height()/4);
             QPoint origine((m_decor->width()/4)-80,(m_decor->height()/4)-80);
             QPixmap im("./images/fantome.png");
             boutonsPolygone* btn1 = new boutonsPolygone("complementA",10);
-                btn1->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments à 10"));
+                btn1->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Compléments à 10").toStdString().c_str()));
                 btn1->deplace(origine.x(), origine.y());
                 btn1->retaille(im.width(),im.height());
                 btn1->setImage(im);
                 btn1->setMTransformable(2);
                 m_scene->addItem(btn1);
             boutonsPolygone* btn2 = new boutonsPolygone("complementA",20);
-                btn2->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments à 20"));
+                btn2->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Compléments à 20").toStdString().c_str()));
                 btn2->deplace(origine.x()+ m_decor->width()/2, origine.y());
                 btn2->retaille(im.width(),im.height());
                 btn2->setImage(im);
                 btn2->setMTransformable(2);
                 m_scene->addItem(btn2);
             boutonsPolygone* btn3 = new boutonsPolygone("complementA",100);
-                btn3->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments à 100"));
+                btn3->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Compléments à 100").toStdString().c_str()));
                 btn3->deplace(origine.x(), origine.y()+ m_decor->height()/2);
                 btn3->retaille(im.width(),im.height());
                 btn3->setImage(im);
@@ -77,7 +77,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
      parce qu'avec cette façon de faire on a 2 problèmes : il faut se rappeler que pour avoir "complément libre" il faut lui passer 0 ET la valeur max du nombre
      et écrite en dur dans le constructeur pour compléments de baudruche
    */
-                btn4->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments libres"));
+                btn4->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Compléments libres").toStdString().c_str()));
                 btn4->deplace(origine.x()+ m_decor->width()/2, origine.y()+ m_decor->height()/2);
                 btn4->retaille(im.width(),im.height());
                 btn4->setImage(im);
@@ -97,7 +97,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 boutonsPolygone* btn = new boutonsPolygone("complementM",i+2);
                 btn->deplace(origine.x()+m_decor->width()/6*i, origine.y()+m_decor->height()/16*i);
                 btn->retaille(80,44);
-                btn->QGraphicsItem::setToolTip(QString::fromUtf8("Multiples de ")+QString::number(i+2));
+                btn->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Multiples de ").toStdString().c_str())+QString::number(i+2));
                 QPixmap im("./images/carabine.png");
                 btn->setImage(im);
                 btn->setMTransformable(2);
@@ -107,7 +107,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 boutonsPolygone* btn = new boutonsPolygone("complementM",i+6);
                 btn->deplace(origine2.x()+m_decor->width()/6*i, origine2.y()+m_decor->height()/15*i);
                 btn->retaille(80,44);
-                btn->QGraphicsItem::setToolTip(QString::fromUtf8("Multiples de ")+QString::number(i+6));
+                btn->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Multiples de ").toStdString().c_str())+QString::number(i+6));
                 QPixmap im("./images/carabine.png");
                 btn->setImage(im);
                 btn->setMTransformable(2);
@@ -130,7 +130,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 boutonsPolygone* btn = new boutonsPolygone("tableA",i+2);
                 btn->deplace(origine.x()+R*cos((2*3.14/nb)*i), origine.y()+deformation*R*sin((2*3.14/nb)*i));
                 btn->retaille(50,42);
-                btn->QGraphicsItem::setToolTip(QString::fromUtf8("Table +")+QString::number(i+2));
+                btn->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Table +").toStdString().c_str())+QString::number(i+2));
                 QPixmap im("./images/vomito.png");
                 btn->setImage(im);
                 btn->setMTransformable(2);

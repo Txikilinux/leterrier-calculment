@@ -164,7 +164,7 @@ void exercice::on_btnBallon_clicked()
 
                             else if(m_operation=="approcheA")
                                       m_baudruche = new baudruche(m_maxG,m_maxD,"+", *depart);
-                                 else  QMessageBox::critical(this, "Opération inexistante", m_operation.append(QString::fromUtf8(", ça n'existe pas comme opération...")));
+                                 else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
 
                   //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
 

@@ -17,8 +17,8 @@ interface::interface(QWidget *parent)
     ecran=QApplication::desktop()->screenGeometry();
 
     QFile* fichierConf = new QFile("./maConfig.ini");
-    if (!fichierConf->exists()) qDebug()<<QString::fromUtf8("Fichier config NON trouvé");
-    else qDebug() << QString::fromUtf8("Fichier config trouvé");
+    if (!fichierConf->exists()) qDebug()<<QString::fromUtf8(tr("Fichier config NON trouvé").toStdString().c_str());
+    else qDebug() << QString::fromUtf8(tr("Fichier config trouvé").toStdString().c_str());
     qDebug() << "Taille ecran : " << ecran.width()<< " X "<<ecran.height();
     this->resize(ecran.width(),ecran.height());
     ui->fete->resize(ecran.width()*0.85,ecran.height()*0.85);
@@ -57,7 +57,7 @@ interface::interface(QWidget *parent)
     boutonsPolygone* btnPoly3 = new boutonsPolygone("editeur");
         btnPoly3->deplace(60*kw,520*kh);
         btnPoly3->retaille(100*kw,200*kh);
-        btnPoly3->QGraphicsItem::setToolTip(QString::fromUtf8("Lancer l'éditeur"));
+        btnPoly3->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Lancer l'éditeur").toStdString().c_str()));
         dessin->addItem(btnPoly3);
 
     boutonsPolygone* btnPoly4 = new boutonsPolygone("sortie");
@@ -78,7 +78,7 @@ interface::interface(QWidget *parent)
         btnPoly6->deplace(530*kw,60*kh);
         btnPoly6->retaille(250*kw,170*kh);
         btnPoly6->tourne(12);
-        btnPoly6->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments additifs"));
+        btnPoly6->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Compléments additifs").toStdString().c_str()));
         btnPoly6->setTexte("Complements additifs");
         dessin->addItem(btnPoly6);
 
@@ -93,7 +93,7 @@ interface::interface(QWidget *parent)
     boutonsPolygone* btnPoly8 = new boutonsPolygone("soustraction");
         btnPoly8->deplace(330*kw,140*kh);
         btnPoly8->retaille(150*kw,180*kh);
-        btnPoly8->QGraphicsItem::setToolTip(QString::fromUtf8("Soustractions"));
+        btnPoly8->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Soustractions").toStdString().c_str()));
         btnPoly8->setTexte("Soustractions");
         dessin->addItem(btnPoly8);
 
