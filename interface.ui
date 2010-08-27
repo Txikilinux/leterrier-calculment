@@ -17,11 +17,20 @@
    <widget class="QGraphicsView" name="fete">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>30</y>
+      <x>0</x>
+      <y>0</y>
       <width>1024</width>
       <height>768</height>
      </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="optimizationFlags">
+     <set>QGraphicsView::DontAdjustForAntialiasing</set>
     </property>
    </widget>
   </widget>
@@ -91,15 +100,6 @@
    <addaction name="menuEditeur"/>
    <addaction name="menuA_propos"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuitter">
    <property name="text">
     <string>&amp;Quitter</string>

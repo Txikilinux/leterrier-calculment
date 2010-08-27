@@ -24,7 +24,7 @@ interface::interface(QWidget *parent)
     ui->fete->resize(ecran.width()*0.85,ecran.height()*0.85);
 
     QPixmap imgFond("./images/fondecran.jpg");
-    QPixmap imgFond2=imgFond.scaled(ecran.width()*0.85,ecran.height()*0.85);
+    QPixmap imgFond2=imgFond.scaled(ecran.width()*0.85,ecran.height()*0.85,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
     qDebug() << "Taille imageFond : " << imgFond.width()<< " X "<<imgFond.height();
     qDebug() << "Taille imageFond2 : " << imgFond2.width()<< " X "<<imgFond2.height();
     QBrush* fond = new QBrush(imgFond2);
