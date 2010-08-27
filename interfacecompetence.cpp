@@ -20,7 +20,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
    qDebug() << "choix vaut " << choix << " et compétence : "<<competence;
     switch (choix) {
         case 1 : {
-            m_decor = new QPixmap("./images/1gdRoue.png");
+            m_decor = new QPixmap("./images/1gdRoue.jpg");
             this->setGeometry(0,0, m_decor->width()+26,m_decor->height()+60);
             this->setWindowTitle("Tables de multiplication");
             adapte(*m_decor);
