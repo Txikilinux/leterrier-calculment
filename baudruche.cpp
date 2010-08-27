@@ -156,7 +156,7 @@ baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
         m_affichage->append(" ? = ");
         m_affichage->append(aDroite);
 
-    dessineMoi(image,14);
+    dessineMoi(image,12);
 
     this->emetRes();
 }

@@ -25,12 +25,13 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             this->setWindowTitle("Tables de multiplication");
             adapte(*m_decor);
             QPoint origine(m_decor->width()/2 - 60,m_decor->height()/2 - 100);
-            int R=m_decor->width()/2.3;
+            int R=m_decor->width()/2.5;
             int nb=8;
+            int angleDepart=20;
             float deformation=1;
             for (int i=0;i<nb;i++) {
                 boutonsPolygone* btn = new boutonsPolygone("tableM",i+2);
-                btn->deplace(origine.x()+R*cos((2*3.14/nb)*i), origine.y()+deformation*R*sin((2*3.14/nb)*i));
+                btn->deplace(origine.x()+R*cos((2*3.14/nb)*i+angleDepart), origine.y()+deformation*R*sin((2*3.14/nb)*i+angleDepart));
                 btn->retaille(100,100);
                 btn->QGraphicsItem::setToolTip("Table x"+QString::number(i+2));
 //                QPixmap im("./images/nacellePourrie.png");
@@ -47,26 +48,26 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             adapte(*m_decor);
             this->move(400,0);
             //QPoint origine(m_decor->width()/4 ,m_decor->height()/4);
-            QPoint origine(m_decor->width()/4,m_decor->height()/4);
+            QPoint origine((m_decor->width()/4)-80,(m_decor->height()/4)-80);
             QPixmap im("./images/fantome.png");
             boutonsPolygone* btn1 = new boutonsPolygone("complementA",10);
                 btn1->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments à 10"));
                 btn1->deplace(origine.x(), origine.y());
-                btn1->retaille(50,42);
+                btn1->retaille(im.width(),im.height());
                 btn1->setImage(im);
                 btn1->setMTransformable(2);
                 m_scene->addItem(btn1);
             boutonsPolygone* btn2 = new boutonsPolygone("complementA",20);
                 btn2->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments à 20"));
                 btn2->deplace(origine.x()+ m_decor->width()/2, origine.y());
-                btn2->retaille(50,42);
+                btn2->retaille(im.width(),im.height());
                 btn2->setImage(im);
                 btn2->setMTransformable(2);
                 m_scene->addItem(btn2);
             boutonsPolygone* btn3 = new boutonsPolygone("complementA",100);
                 btn3->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments à 100"));
                 btn3->deplace(origine.x(), origine.y()+ m_decor->height()/2);
-                btn3->retaille(50,42);
+                btn3->retaille(im.width(),im.height());
                 btn3->setImage(im);
                 btn3->setMTransformable(2);
                 m_scene->addItem(btn3);
@@ -78,7 +79,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
    */
                 btn4->QGraphicsItem::setToolTip(QString::fromUtf8("Compléments libres"));
                 btn4->deplace(origine.x()+ m_decor->width()/2, origine.y()+ m_decor->height()/2);
-                btn4->retaille(50,42);
+                btn4->retaille(im.width(),im.height());
                 btn4->setImage(im);
                 btn4->setMTransformable(2);
                 m_scene->addItem(btn4);
@@ -91,7 +92,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             adapte(*m_decor);
             this->move(800,300);
             QPoint origine(m_decor->width()/8,m_decor->height()/5.5);
-            QPoint origine2(m_decor->width()/20, m_decor->height()/2.1);
+            QPoint origine2(m_decor->width()/20, m_decor->height()/2.1+20);
             for (int i=0;i<4;i++) {
                 boutonsPolygone* btn = new boutonsPolygone("complementM",i+2);
                 btn->deplace(origine.x()+m_decor->width()/6*i, origine.y()+m_decor->height()/16*i);
@@ -121,7 +122,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             this->setWindowTitle("Tables d'addition");
             adapte(*m_decor);
             move(200,0);
-            QPoint origine(m_decor->width()/2 - 35,m_decor->height()/2 - 80);
+            QPoint origine(m_decor->width()/2 - 35,m_decor->height()/2 - 130);
             int R=m_decor->width()/2.7;
             int nb=8;
             float deformation=0.5;
