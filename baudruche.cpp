@@ -35,14 +35,6 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
         QScriptValue resultat = calculateur.evaluate(m_ligne);
         m_resultat = resultat.toNumber();
 
-    //Calcul de la valeur approchée à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*")
-    if (m_op=="x") m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+"*"+QString::number(valeurApprochee(d_operande,intMaxD));
-    else m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+m_op+QString::number(valeurApprochee(d_operande,intMaxD));
-        //QScriptEngine calculateur;
-        resultat = calculateur.evaluate(m_ligne);
-        m_approximation = resultat.toNumber();
-
-
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
 
@@ -61,6 +53,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
     dessineMoi(image,16);
         
     this->emetRes();
+    qDebug()<<"res emis instanciation "<<m_resultat;
 }
 
 //constructeur spécifique aux valeurs approchées
@@ -240,6 +233,10 @@ float baudruche::getMResultat()
     return this->m_resultat;
 }
 
+float baudruche::getMApproximation()
+{
+    return this->m_approximation;
+}
 
 float baudruche::getMGOperande()
 {
@@ -278,8 +275,12 @@ int baudruche::valeurApprochee(int operande, int maximum)
 void baudruche::detruire()
 {
     if (this!=NULL) {
-        if (m_approximation==0) emit valueChanged(m_resultat);//ici le problème
-        else emit valueChanged(m_approximation);
+        if (m_approximation==0) {emit valueChanged(m_resultat);//ici le problème
+            qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
+        }
+        else {emit valueChanged(m_approximation);
+            qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
+        }
         emit destroyed(true);
         emit destroyed();
         delete this;

@@ -17,6 +17,7 @@ public:
     baudruche(int pts, QPoint pos, QString image=0);
     QPoint getMPosition();
     float getMResultat();
+    float getMApproximation();
     float getMGOperande();
     float getMDOperande();
     QString getMLigne();

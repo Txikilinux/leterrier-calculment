@@ -35,6 +35,7 @@ private:
     int m_maxG;
     int m_minD;
     int m_maxD;
+    int m_resultatEnCours;
 
 private slots:
     void on_btnEditeur_clicked();

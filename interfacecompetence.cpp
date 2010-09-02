@@ -138,6 +138,40 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 }
             }
             break;
+
+        case 5 : {
+            m_decor = new QPixmap("./images/5palaisGlaces.png");
+            this->setWindowTitle("Ordres de grandeur");
+            adapte(*m_decor);
+            move(900,300);
+            QPoint origine(m_decor->width()/5,m_decor->height()/2.5);
+                boutonsPolygone* btnA = new boutonsPolygone("approcheA",100);
+                btnA->deplace(origine.x(), origine.y());
+                btnA->retaille(70,60);
+                btnA->QGraphicsItem::setToolTip(QString::fromUtf8(tr("... d'additions").toStdString().c_str()));
+                QPixmap im("./images/aie.png");
+                btnA->setImage(im);
+                btnA->setMTransformable(2);
+                m_scene->addItem(btnA);
+
+                boutonsPolygone* btnS = new boutonsPolygone("approcheS",100);
+                btnS->deplace(origine.x()+m_decor->width()/4, origine.y()+m_decor->height()/6);
+                btnS->retaille(70,60);
+                btnS->QGraphicsItem::setToolTip(QString::fromUtf8(tr("... de soustractions").toStdString().c_str()));
+                btnS->setImage(im);
+                btnS->setMTransformable(2);
+                m_scene->addItem(btnS);
+
+                boutonsPolygone* btnM = new boutonsPolygone("approcheM",100);
+                btnM->deplace(origine.x()+2*m_decor->width()/4, origine.y()+2*m_decor->height()/6);
+                btnM->retaille(70,60);
+                btnM->QGraphicsItem::setToolTip(QString::fromUtf8(tr("... de multiplications").toStdString().c_str()));
+                btnM->setImage(im);
+                btnM->setMTransformable(2);
+                m_scene->addItem(btnM);
+
+            }
+            break;
         }
 }
 

@@ -164,12 +164,19 @@ void exercice::on_btnBallon_clicked()
 
                             else if(m_operation=="approcheA")
                                       m_baudruche = new baudruche(m_maxG,m_maxD,"+", *depart);
-                                 else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
+                                 else if(m_operation=="approcheS")
+                                      m_baudruche = new baudruche(m_maxG,m_maxD,"-", *depart);
+                                      else if(m_operation=="approcheM")
+                                      m_baudruche = new baudruche(m_maxG,m_maxD,"x", *depart);
+                                           else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
 
                   //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
 
-        connect(m_baudruche, SIGNAL(valueChanged(int)),m_ui->lcdNumber, SLOT(display(int)));
-        qDebug()<<" lcdNumb : "<<m_ui->lcdNumber->value();
+        if (m_operation=="approcheA"
+            || m_operation=="approcheS"
+            || m_operation=="approcheM") this->m_resultatEnCours=m_baudruche->getMApproximation();
+        else this->m_resultatEnCours=m_baudruche->getMResultat();
+        qDebug()<<" attribut résultat de l'exercice "<<m_resultatEnCours;
         if (m_total<m_nbMaxBallons - 1) {
             connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnBallon, SLOT(setEnabled(bool)));
             connect(m_baudruche, SIGNAL(destroyed()), m_ui->btnBallon, SLOT(setFocus()));
@@ -216,7 +223,7 @@ void exercice::on_btnBallon_clicked()
 void exercice::on_btnFeu_clicked()
 {
     float proposition = m_ui->leResultat->text().toFloat();
-    float reponse = m_ui->lcdNumber->value();
+    float reponse = m_resultatEnCours;
     QString demande = "";
         demande = m_baudruche->getMGOperande()+m_baudruche->getMOperation()+m_baudruche->getMDOperande();
     m_score = m_ui->lblPoints->text().toInt();

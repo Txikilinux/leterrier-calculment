@@ -105,8 +105,11 @@ interface::interface(QWidget *parent)
         btnPoly9->setTexte("Tables d'addition");
         dessin->addItem(btnPoly9);
 
-  //  boutonsPolygone* btnPoly10 = new boutonsPolygone("approcheA", 100);
-     //   dessin->addItem(btnPoly10);
+    boutonsPolygone* btnPoly10 = new boutonsPolygone("5approche",100);
+        btnPoly10->deplace(850*kw,410*kh);
+        btnPoly10->retaille(150*kw,90*kh);
+        dessin->addItem(btnPoly10);
+
     }
 
 interface::~interface()
