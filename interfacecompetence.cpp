@@ -24,8 +24,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             this->setGeometry(0,0, m_decor->width()+26,m_decor->height()+60);
             this->setWindowTitle("Tables de multiplication");
             adapte(*m_decor);
-            QPoint origine(m_decor->width()/2 - 60,m_decor->height()/2 - 100);
-            int R=m_decor->width()/2.5;
+            QPoint origine(m_decor->width()/2 - 60,m_decor->height()/2 - 60);
+            int R=m_decor->width()/2.7;
             int nb=8;
             int angleDepart=20;
             float deformation=1;
@@ -190,6 +190,7 @@ InterfaceCompetence::~InterfaceCompetence()
 {
     delete m_ui;
 }
+
 
 void InterfaceCompetence::changeEvent(QEvent *e)
 {
