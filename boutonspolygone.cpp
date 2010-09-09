@@ -33,7 +33,7 @@ void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 {
     //changer laquelle des 2 lignes ci-dessous est commentée selon qu'on veut que les contours du bouton soient visibles ou pas
     painter->setPen(Qt::NoPen);
-    painter->setPen(Qt::black);
+    //painter->setPen(Qt::black);
     //painter->setBrush(Qt::NoBrush);
     QRect rect(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
     painter->drawRect(rect.adjusted(0, 0, -1, -1));
@@ -72,7 +72,7 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
     e->accept();
     switch (m_transformable) {
         case 1 :bouge(0,300);break;
-        case 2 : /*QPixmap img("./images/pomme2.png"); setImage(img);*/setTexte("Fait");break;
+        case 2 : /*QPixmap img(QCoreApplication::applicationDirPath()+"/images/pomme2.png"); setImage(img);*/setTexte("Fait");break;
         }
 
 }

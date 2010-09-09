@@ -174,7 +174,7 @@ baudruche::baudruche(int pts, QPoint pos,QString image)
         QString illustration;
         QString imageBase="ballon";
         if (image!=0) imageBase=image;
-        illustration = "./images/"+image+"Rose.png";
+        illustration = QCoreApplication::applicationDirPath()+"/images/"+image+"Rose.png";
         pixmap->setPixmap(illustration);
         pixmap->setZValue(k);
         pixmap->setPos(pos);
@@ -198,18 +198,18 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         QString imageBase="ballon";
         if (image!=0) imageBase=image;
         switch (coulAlea) {
-            case 0 : illustration = "./images/"+imageBase+"Vert.png"; break;
-            case 1 : illustration = "./images/"+imageBase+"Jaune.png"; break;
-            case 2 : illustration = "./images/"+imageBase+"Rouge.png"; break;
-            case 3 : illustration = "./images/"+imageBase+"Orange.png"; break;
-            case 4 : illustration = "./images/"+imageBase+"Bleu.png"; break;
-            case 5 : illustration = "./images/"+imageBase+"Rose.png"; break;
+            case 0 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Vert.png"; break;
+            case 1 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Jaune.png"; break;
+            case 2 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Rouge.png"; break;
+            case 3 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Orange.png"; break;
+            case 4 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Bleu.png"; break;
+            case 5 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Rose.png"; break;
             }
         QPixmap imageIllustration(illustration);
-        pixmap->setPixmap(imageIllustration);
-        pixmap->setZValue(k);
-        pixmap->setPos(m_position);
-        this->addToGroup(pixmap);
+            pixmap->setPixmap(imageIllustration);
+            pixmap->setZValue(k);
+            pixmap->setPos(m_position);
+            this->addToGroup(pixmap);
 
     QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
         affichage->setFont( QFont( "dejaVuSans",taillePolice ) );
