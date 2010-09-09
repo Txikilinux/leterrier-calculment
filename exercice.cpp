@@ -44,6 +44,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui->lblArg->setText(exo);
 
     m_operation=exo;
+    m_cible=val;
 
     QSettings config("./maConfig.ini", QSettings::IniFormat);
     m_nbMaxBallons = config.value("NombreBallons").toInt();
@@ -81,6 +82,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     else m_ui->btnEditeur->setDisabled(true);
     m_ui->btnBallon->setFocus();
     m_ui->btnFeu->setDisabled(true);
+    m_ui->btnRejouer->setDisabled(true);
 
     if (exo=="tableA" || exo=="tableM") {
         m_minD=m_maxD=val;
@@ -261,6 +263,8 @@ void exercice::on_btnFeu_clicked()
     m_ui->btnFeu->setDisabled(true);
 
     if (m_total==m_nbMaxBallons) {
+
+        m_ui->btnRejouer->setEnabled(true);
         //debug eric
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbMaxBallons << "et score :: " << m_score;
 
@@ -341,4 +345,11 @@ void exercice::on_btnEditeur_clicked()
    ed->show();
     //idee eric, fait appel a l objet "global"
    // parent->m_editeur->show();
+}
+
+void exercice::on_btnRejouer_clicked()
+{
+    exercice* ex = new exercice(m_operation,m_cible);
+    ex->show();
+    this->close();
 }

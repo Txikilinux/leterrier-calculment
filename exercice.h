@@ -36,8 +36,10 @@ private:
     int m_minD;
     int m_maxD;
     int m_resultatEnCours;
+    int m_cible;
 
 private slots:
+    void on_btnRejouer_clicked();
     void on_btnEditeur_clicked();
     void on_leResultat_returnPressed();
     void on_btnFeu_clicked();
