@@ -25,7 +25,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             this->setWindowTitle("Tables de multiplication");
             adapte(*m_decor);
             QPoint origine(m_decor->width()/2 - 60,m_decor->height()/2 - 60);
-            int R=m_decor->width()/2.7;
+            int R=m_decor->width()/2.5;
             int nb=8;
             int angleDepart=20;
             float deformation=1;
@@ -87,7 +87,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             break;
 
         case 3 : {
-            m_decor = new QPixmap("./images/3standTir.png");
+            m_decor = new QPixmap("./images/3standTir.jpg");
             this->setWindowTitle("Les multiples");
             adapte(*m_decor);
             this->move(800,300);
@@ -118,7 +118,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             break;
             
         case 4 : {
-            m_decor = new QPixmap("./images/4booster.png");
+            m_decor = new QPixmap("./images/4booster.jpg");
             this->setWindowTitle("Tables d'addition");
             adapte(*m_decor);
             move(200,0);
@@ -140,7 +140,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             break;
 
         case 5 : {
-            m_decor = new QPixmap("./images/5palaisGlaces.png");
+            m_decor = new QPixmap("./images/5palaisGlaces.jpg");
             this->setWindowTitle("Ordres de grandeur");
             adapte(*m_decor);
             move(900,300);
