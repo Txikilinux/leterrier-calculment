@@ -16,7 +16,7 @@ interface::interface(QWidget *parent)
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
 
-    QFile* fichierConf = new QFile("./maConfig.ini");
+    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf");
     if (!fichierConf->exists()) qDebug()<<QString::fromUtf8(tr("Fichier config NON trouvé").toStdString().c_str());
     else qDebug() << QString::fromUtf8(tr("Fichier config trouvé").toStdString().c_str());
     qDebug() << "Taille ecran : " << ecran.width()<< " X "<<ecran.height();

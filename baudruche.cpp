@@ -35,7 +35,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
         QScriptValue resultat = calculateur.evaluate(m_ligne);
         m_resultat = resultat.toNumber();
 
-    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
 
     //Je dois convertir mes entiers en QString pour les concatener
@@ -83,7 +83,7 @@ baudruche::baudruche(int intMaxG, int intMaxD,QString op,QPoint pos,QString imag
         m_approximation = resultat.toNumber();
 qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeurApprochee(d_operande, intMaxD)<<" valeurAppro : "<<m_approximation;
 
-    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
 
     //Je dois convertir mes entiers en QString pour les concatener
@@ -134,7 +134,7 @@ baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
         m_resultat = resultat.toNumber();
         }
 
-    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
 
     //Je dois convertir mes entiers en QString pour les concatener

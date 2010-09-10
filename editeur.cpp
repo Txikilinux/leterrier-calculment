@@ -6,6 +6,7 @@
 #include <QCloseEvent>
 #include <QDebug>
 #include <QFile>
+#include <QDir>
 
 
 Editeur::Editeur(QWidget *parent) :
@@ -24,7 +25,7 @@ Editeur::Editeur(QWidget *parent) :
 
         connect(m_ui->sldVitesse, SIGNAL(valueChanged(int)), m_ui->pbVitesse, SLOT(setValue(int)));
         m_niveauEnCours = new QString(m_ui->cbNiveau->currentText());
-        QFile* fichierConf = new QFile("./maConfig.ini");
+        QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf");
              if (!fichierConf->exists()) initialiser();
         this->chargerNiveau(*m_niveauEnCours);
 
@@ -43,7 +44,7 @@ QString Editeur::getNiveauEnCours()
 
 void Editeur::initialiserOperation(QString operation)
 {
-    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     config.beginGroup(operation);
             config.beginGroup(tr("Niveau1"));
                 config.setValue(tr("MinGauche"), 0);
@@ -74,7 +75,11 @@ void Editeur::initialiserOperation(QString operation)
 }
 void Editeur::initialiser()
 {
-    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    //On aurait pu initialiser dans le répertoire conf de l'application, mais l'utilisateur n'aurait pas eu les droits
+    //QSettings config(QCoreApplication::applicationDirPath()+"/conf/parametres.conf", QSettings::IniFormat);
+
+    //On initialise donc directement dans le /home de l'utilisateur
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     config.setValue(tr("NombreBallons"), 10);
     config.setValue(tr("TempsAccorde"),8);
     initialiserOperation("Addition");
@@ -83,7 +88,9 @@ void Editeur::initialiser()
 }
 void Editeur::sauverNiveau(QString niveau)
 {
-    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
+    config.setValue(tr("NombreBallons"), m_ui->spbNombreBallons->value());
     config.beginGroup(m_ui->cbOperation->currentText());
         config.beginGroup(niveau);
             config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
@@ -97,7 +104,7 @@ void Editeur::sauverNiveau(QString niveau)
 
 void Editeur::chargerNiveau(QString niveau)
 {
-    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_ui->sldVitesse->setValue(config.value(tr("TempsAccorde")).toInt());
     m_ui->spbNombreBallons->setValue(config.value(tr("NombreBallons")).toInt());
     config.beginGroup(m_ui->cbOperation->currentText());
@@ -120,9 +127,6 @@ void Editeur::changerNiveau(QString chaine)
 void Editeur::closeEvent(QCloseEvent *event)
 {
     this->sauverNiveau(*m_niveauEnCours);
-    QSettings config("./maConfig.ini", QSettings::IniFormat);
-    config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
-    config.setValue(tr("NombreBallons"), m_ui->spbNombreBallons->value());
     event->accept();
 
 }

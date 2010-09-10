@@ -46,7 +46,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_operation=exo;
     m_cible=val;
 
-    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_nbMaxBallons = config.value("NombreBallons").toInt();
 
     m_niveau = new QString(niveau);
@@ -304,7 +304,7 @@ void exercice::on_btnFeu_clicked()
     sauvegardeLog* envoieScore = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, "score", totalEnString, scoreEnString);
 
     //mise à jour ou pas du niveau
-    QSettings config("./maConfig.ini", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     QChar initialeExo = m_operation[0];
     initialeExo = initialeExo.toUpper();
     QString opCourante = m_operation;
