@@ -3,22 +3,18 @@
 
 const int MULTIPLE_MAX=11;
 
-baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString op,QPoint pos,QString image)
+baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QString image)
 {
     m_approximation=0;
-    m_op = op;
+    if (operation=="addition" || operation=="tableA" || operation=="") m_op = "+";
+    else if (operation=="soustraction") m_op = "-";
+        else if (operation=="multiplication" || operation=="tableM") m_op = "x";
     m_position.setX(pos.x());
     m_position.setY(pos.y());
 
     if (intMinG==intMaxG) g_operande=intMaxG;
     else g_operande = intMinG + rand()%(intMaxG-intMinG);
-            //J'aurais bien aimé mettre des réels mais à une décimale...
-            //    g_operande = ((FLOATMAX-FLOATMIN)*((float)rand()/RAND_MAX))+FLOATMIN;
-            //    int arr_g_operande=floor(g_operande*10);
-            //    g_operande=(arr_g_operande/10);
-            //    //debug valeur réel
-            //        qDebug() << "avant :" << g_operande << " et après:" << arr_g_operande ;
-            //d_operande = b;
+
     if (intMinD==intMaxD) d_operande=intMaxD;
     else d_operande = intMinD + rand()%(intMaxD-intMinD);
     //Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes...
@@ -35,8 +31,8 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
         QScriptValue resultat = calculateur.evaluate(m_ligne);
         m_resultat = resultat.toNumber();
 
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-    m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
+    //QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    m_timer = new QTimeLine(tempsAccorde*1000,this);
 
     //Je dois convertir mes entiers en QString pour les concatener
     QString aGauche, aDroite;
@@ -46,7 +42,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
     m_affichage = new QString("");
         m_affichage->append(aGauche);
         m_affichage->append(" ");
-        m_affichage->append(op);
+        m_affichage->append(m_op);
         m_affichage->append(" ");
         m_affichage->append(aDroite);
 
@@ -57,10 +53,12 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD,QString 
 }
 
 //constructeur spécifique aux valeurs approchées
-baudruche::baudruche(int intMaxG, int intMaxD,QString op,QPoint pos,QString image)
+baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QString image)
 {
     m_approximation=0;
-    m_op = op;
+        if (operation=="approcheA") m_op = "+";
+        else if (operation=="approcheS") m_op = "-";
+             else if (operation=="approcheM") m_op = "x";
     m_position.setX(pos.x());
     m_position.setY(pos.y());
 
@@ -83,8 +81,8 @@ baudruche::baudruche(int intMaxG, int intMaxD,QString op,QPoint pos,QString imag
         m_approximation = resultat.toNumber();
 qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeurApprochee(d_operande, intMaxD)<<" valeurAppro : "<<m_approximation;
 
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-    m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
+    //QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    m_timer = new QTimeLine(tempsAccorde*1000,this);
 
     //Je dois convertir mes entiers en QString pour les concatener
     QString aGauche, aDroite;
@@ -94,7 +92,7 @@ qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeu
     m_affichage = new QString("");
         m_affichage->append(aGauche);
         m_affichage->append(" ");
-        m_affichage->append(op);
+        m_affichage->append(m_op);
         m_affichage->append(" ");
         m_affichage->append(aDroite);
         m_affichage->append(QString::fromUtf8(" ≈"));
@@ -105,9 +103,10 @@ qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeu
 }
 
 //constructeur spécifique aux compléments
-baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
+baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QString image)
 {
-    m_op = op;
+    if (operation=="complementA") m_op = "+";
+    else m_op = "x";
     m_position.setX(pos.x());
     m_position.setY(pos.y());
     m_approximation=0;
@@ -134,8 +133,8 @@ baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
         m_resultat = resultat.toNumber();
         }
 
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-    m_timer = new QTimeLine(config.value(tr("TempsAccorde")).toInt()*1000,this);
+    //QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    m_timer = new QTimeLine(tempsAccorde*1000,this);
 
     //Je dois convertir mes entiers en QString pour les concatener
     QString aGauche, aDroite;
@@ -145,7 +144,7 @@ baudruche::baudruche(int valeurCible,QString op,QPoint pos,QString image)
     m_affichage = new QString("");
         m_affichage->append(aGauche);
         m_affichage->append(" ");
-        m_affichage->append(op);
+        m_affichage->append(m_op);
         m_affichage->append(" ? = ");
         m_affichage->append(aDroite);
 

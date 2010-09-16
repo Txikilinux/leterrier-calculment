@@ -51,28 +51,61 @@ void Editeur::initialiserOperation(QString operation)
                 config.setValue(tr("MaxGauche"), 5);
                 config.setValue(tr("MinDroite"), 0);
                 config.setValue(tr("MaxDroite"), 5);
+                config.setValue(tr("TempsAccorde"),8);
             config.endGroup();
             config.beginGroup(tr("Niveau2"));
                 config.setValue(tr("MinGauche"), 5);
                 config.setValue(tr("MaxGauche"), 9);
                 config.setValue(tr("MinDroite"), 5);
                 config.setValue(tr("MaxDroite"), 9);
+                config.setValue(tr("TempsAccorde"),8);
             config.endGroup();
             config.beginGroup(tr("Niveau3"));
                 config.setValue(tr("MinGauche"), 10);
                 config.setValue(tr("MaxGauche"), 19);
                 config.setValue(tr("MinDroite"), 10);
                 config.setValue(tr("MaxDroite"), 19);
+                config.setValue(tr("TempsAccorde"),8);
             config.endGroup();
             config.beginGroup(tr("Personnel"));
                 config.setValue(tr("MinGauche"), 0);
                 config.setValue(tr("MaxGauche"), 5);
                 config.setValue(tr("MinDroite"), 0);
                 config.setValue(tr("MaxDroite"), 5);
+                config.setValue(tr("TempsAccorde"),8);
             config.endGroup();
-    config.setValue("NiveauEnCours"+operation, "Niveau1");
+            config.setValue("NiveauEnCours"+operation, "Niveau1");
     config.endGroup();
 }
+
+void Editeur::initialiserApproche(QString operation)
+{
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    config.beginGroup(operation);
+            config.beginGroup(tr("Niveau1"));
+                config.setValue(tr("MaxGauche"), 100);
+                config.setValue(tr("MaxDroite"), 100);
+                config.setValue(tr("TempsAccorde"),8);
+            config.endGroup();
+            config.beginGroup(tr("Niveau2"));
+                config.setValue(tr("MaxGauche"), 1000);
+                config.setValue(tr("MaxDroite"), 100);
+                config.setValue(tr("TempsAccorde"),8);
+            config.endGroup();
+            config.beginGroup(tr("Niveau3"));
+                config.setValue(tr("MaxGauche"), 1000);
+                config.setValue(tr("MaxDroite"), 1000);
+                config.setValue(tr("TempsAccorde"),8);
+            config.endGroup();
+            config.beginGroup(tr("Personnel"));
+                config.setValue(tr("MaxGauche"), 1000);
+                config.setValue(tr("MaxDroite"), 1000);
+                config.setValue(tr("TempsAccorde"),8);
+            config.endGroup();
+            config.setValue("NiveauEnCours"+operation, "Niveau1");
+    config.endGroup();
+}
+
 void Editeur::initialiser()
 {
     //On aurait pu initialiser dans le répertoire conf de l'application, mais l'utilisateur n'aurait pas eu les droits
@@ -81,15 +114,17 @@ void Editeur::initialiser()
     //On initialise donc directement dans le /home de l'utilisateur
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     config.setValue(tr("NombreBallons"), 10);
-    config.setValue(tr("TempsAccorde"),8);
-    initialiserOperation("Addition");
-    initialiserOperation("Multiplication");
-    initialiserOperation("Soustraction");
+    initialiserOperation("addition");
+    initialiserOperation("multiplication");
+    initialiserOperation("soustraction");
+    initialiserApproche("approcheA");
+    initialiserApproche("approcheS");
+    initialiserApproche("approcheM");
 }
+
 void Editeur::sauverNiveau(QString niveau)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-    config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
     config.setValue(tr("NombreBallons"), m_ui->spbNombreBallons->value());
     config.beginGroup(m_ui->cbOperation->currentText());
         config.beginGroup(niveau);
@@ -97,6 +132,7 @@ void Editeur::sauverNiveau(QString niveau)
             config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
             config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
             config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
+            config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
         config.endGroup();
     config.endGroup();
     *m_niveauEnCours = niveau;
@@ -105,7 +141,6 @@ void Editeur::sauverNiveau(QString niveau)
 void Editeur::chargerNiveau(QString niveau)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-    m_ui->sldVitesse->setValue(config.value(tr("TempsAccorde")).toInt());
     m_ui->spbNombreBallons->setValue(config.value(tr("NombreBallons")).toInt());
     config.beginGroup(m_ui->cbOperation->currentText());
         config.beginGroup(niveau);
@@ -113,6 +148,7 @@ void Editeur::chargerNiveau(QString niveau)
             m_ui->spbGMin->setValue(config.value(tr("MinGauche")).toInt());
             m_ui->spbDMax->setValue(config.value(tr("MaxDroite")).toInt());
             m_ui->spbDMin->setValue(config.value(tr("MinDroite")).toInt());
+            m_ui->sldVitesse->setValue(config.value(tr("TempsAccorde")).toInt());
         config.endGroup();
     config.endGroup();
 }

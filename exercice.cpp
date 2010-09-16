@@ -51,11 +51,12 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
 
     m_niveau = new QString(niveau);
 
-    QChar initialeExo = exo[0];
-    initialeExo = initialeExo.toUpper();
-    QString opCourante = exo;
-    opCourante.remove(0,1);
-    opCourante.push_front(initialeExo);
+                    //    //remplacement de "addition" par "Addition" - c'est une connerie !!
+                    //    QChar initialeExo = exo[0];
+                    //    initialeExo = initialeExo.toUpper();
+                    //    QString opCourante = exo;
+                    //    opCourante.remove(0,1);
+                    //    opCourante.push_front(initialeExo);
 
 //    QHash<QChar, int> hash;
 //        hash['+']=1;
@@ -65,15 +66,16 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
 //        case 1 : opCourante = "Addition"; break;
 //        case 3 : opCourante = "Multiplication"; break;
 //        }
-    qDebug() <<"L'opération en cours est une "<<opCourante<<" et m_niveau valait "<<*m_niveau;
+    qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_niveau valait "<<*m_niveau;
 
-    config.beginGroup(opCourante);
-        if (*m_niveau=="") *m_niveau = config.value("NiveauEnCours"+opCourante).toString();
+    config.beginGroup(m_operation);
+        if (*m_niveau=="") *m_niveau = config.value("NiveauEnCours"+m_operation).toString();
         config.beginGroup(*m_niveau);
             m_maxG = config.value(tr("MaxGauche")).toInt();
             m_minG = config.value(tr("MinGauche")).toInt();
             m_maxD = config.value(tr("MaxDroite")).toInt();
             m_minD = config.value(tr("MinDroite")).toInt();
+            m_temps = config.value(tr("TempsAccorde")).toInt();
             qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau;
         config.endGroup();
     config.endGroup();
@@ -84,17 +86,17 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui->btnFeu->setDisabled(true);
     m_ui->btnRejouer->setDisabled(true);
 
-    if (exo=="tableA" || exo=="tableM") {
+    if (m_operation=="tableA" || m_operation=="tableM") {
         m_minD=m_maxD=val;
         m_minG=0;
         m_maxG=9;
         }
 
-    if (exo=="complementA"
-        || exo=="complementM"
-        || exo=="approcheA"
-        || exo=="approcheS"
-        || exo=="approcheM") {
+    if (m_operation=="complementA"
+        || m_operation=="complementM"
+        || m_operation=="approcheA"
+        || m_operation=="approcheS"
+        || m_operation=="approcheM") {
         m_minG=m_maxG=m_minD=m_maxD=val;
         }
 }
@@ -145,29 +147,25 @@ void exercice::on_btnBallon_clicked()
 
     if (m_operation=="addition"
         || m_operation==""
-        || m_operation=="tableA")
-                m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,"+",*depart);
+        || m_operation=="tableA"
+        || m_operation=="soustraction"
+        || m_operation=="multiplication"
+        || m_operation=="tableM")
+                m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*depart);
 
-    else    if (m_operation=="soustraction")
-                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,"-",*depart);
 
-            else if (m_operation=="multiplication"
-                     || m_operation=="tableM")
-                            m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,"x",*depart);
 
-                 else if (m_operation=="complementA")
-                            m_baudruche = new baudruche(m_minG,"+", *depart,"fantome");
+    else if (m_operation=="complementA"
+             || m_operation=="complementM")
+                m_baudruche = new baudruche(m_minG,m_temps,m_operation, *depart,"fantome");
 
-                      else if(m_operation=="complementM")
-                                m_baudruche = new baudruche(m_minG, "x", *depart);
 
-                            else if(m_operation=="approcheA")
-                                      m_baudruche = new baudruche(m_maxG,m_maxD,"+", *depart);
-                                 else if(m_operation=="approcheS")
-                                      m_baudruche = new baudruche(m_maxG,m_maxD,"-", *depart);
-                                      else if(m_operation=="approcheM")
-                                      m_baudruche = new baudruche(m_maxG,m_maxD,"x", *depart);
-                                           else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
+         else if (m_operation=="approcheA"
+                  || m_operation=="approcheS"
+                  || m_operation=="approcheM")
+                          m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *depart);
+
+              else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
 
                   //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
 

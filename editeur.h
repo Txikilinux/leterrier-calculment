@@ -26,6 +26,7 @@ private:
     QString *m_niveauEnCours;
    // bool nouvelUtilisateur;
     void initialiserOperation(QString);
+    void initialiserApproche(QString operation);
 
 private slots:
     void on_btnQuitter_clicked();
