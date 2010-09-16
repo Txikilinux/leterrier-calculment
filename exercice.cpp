@@ -68,17 +68,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
 //        }
     qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_niveau valait "<<*m_niveau;
 
-    config.beginGroup(m_operation);
-        if (*m_niveau=="") *m_niveau = config.value("NiveauEnCours"+m_operation).toString();
-        config.beginGroup(*m_niveau);
-            m_maxG = config.value(tr("MaxGauche")).toInt();
-            m_minG = config.value(tr("MinGauche")).toInt();
-            m_maxD = config.value(tr("MaxDroite")).toInt();
-            m_minD = config.value(tr("MinDroite")).toInt();
-            m_temps = config.value(tr("TempsAccorde")).toInt();
-            qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau;
-        config.endGroup();
-    config.endGroup();
+    chargerParametres();
 
     if (*m_niveau=="Personnel") m_ui->btnEditeur->setEnabled(true);
     else m_ui->btnEditeur->setDisabled(true);
@@ -86,19 +76,6 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui->btnFeu->setDisabled(true);
     m_ui->btnRejouer->setDisabled(true);
 
-    if (m_operation=="tableA" || m_operation=="tableM") {
-        m_minD=m_maxD=val;
-        m_minG=0;
-        m_maxG=9;
-        }
-
-    if (m_operation=="complementA"
-        || m_operation=="complementM"
-        || m_operation=="approcheA"
-        || m_operation=="approcheS"
-        || m_operation=="approcheM") {
-        m_minG=m_maxG=m_minD=m_maxD=val;
-        }
 }
 
 exercice::~exercice()
@@ -135,6 +112,36 @@ void exercice::setImgFond()
          m_ui->vue->setBackgroundBrush(*fond);
 }
 
+void exercice::chargerParametres()
+{
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+        config.beginGroup(m_operation);
+        if (*m_niveau=="") *m_niveau = config.value("NiveauEnCours"+m_operation).toString();
+        config.beginGroup(*m_niveau);
+            m_maxG = config.value(tr("MaxGauche")).toInt();
+            m_minG = config.value(tr("MinGauche")).toInt();
+            m_maxD = config.value(tr("MaxDroite")).toInt();
+            m_minD = config.value(tr("MinDroite")).toInt();
+            m_temps = config.value(tr("TempsAccorde")).toInt();
+            qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau<<"Tps : "<<m_temps;
+        config.endGroup();
+    config.endGroup();
+
+    if (m_operation=="tableA" || m_operation=="tableM") {
+        m_minD=m_maxD=m_cible;
+        m_minG=0;
+        m_maxG=9;
+        }
+
+    else if(m_operation=="complementA"
+           || m_operation=="complementM"){
+                m_minG=m_maxG=m_minD=m_maxD=m_cible;
+                }
+
+}
+
+
+
 void exercice::on_btnQuitter_clicked()
 {
     this->close();
@@ -144,7 +151,7 @@ void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
     QPoint* depart = new QPoint(m_ui->vue->width()/2,400);
-
+qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     if (m_operation=="addition"
         || m_operation==""
         || m_operation=="tableA"
@@ -303,26 +310,12 @@ void exercice::on_btnFeu_clicked()
 
     //mise à jour ou pas du niveau
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-    QChar initialeExo = m_operation[0];
-    initialeExo = initialeExo.toUpper();
-    QString opCourante = m_operation;
-    opCourante.remove(0,1);
-    opCourante.push_front(initialeExo);
-//    QHash<QChar, int> hash;
-//        hash['+']=1;
-//        hash['-']=2;
-//        hash['x']=3;
-//    switch (hash.value(m_operation)) {
-//        case 1 : opCourante = "Addition"; break;
-//        case 3 : opCourante = "Multiplication"; break;
-//        }
-
-    config.beginGroup(opCourante);
+    config.beginGroup(m_operation);
         if (m_score==m_total) {
-            if (*m_niveau=="Niveau1") config.setValue("NiveauEnCours"+opCourante, "Niveau2");
-            else if (*m_niveau=="Niveau2") config.setValue("NiveauEnCours"+opCourante, "Niveau3");
-                 else if (*m_niveau=="Niveau3") config.setValue("NiveauEnCours"+opCourante, "Personnel");
-    }
+            if (*m_niveau=="Niveau1") config.setValue("NiveauEnCours"+m_operation, "Niveau2");
+            else if (*m_niveau=="Niveau2") config.setValue("NiveauEnCours"+m_operation, "Niveau3");
+                 else if (*m_niveau=="Niveau3") config.setValue("NiveauEnCours"+m_operation, "Personnel");
+            }
 
 
        //*m_niveau = config.value("NiveauEnCours"+opCourante).toString();

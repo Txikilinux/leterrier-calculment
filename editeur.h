@@ -27,6 +27,7 @@ private:
    // bool nouvelUtilisateur;
     void initialiserOperation(QString);
     void initialiserApproche(QString operation);
+    void initialiserComplement(QString operation);
 
 private slots:
     void on_btnQuitter_clicked();

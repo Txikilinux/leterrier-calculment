@@ -106,6 +106,27 @@ void Editeur::initialiserApproche(QString operation)
     config.endGroup();
 }
 
+void Editeur::initialiserComplement(QString operation)
+{
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    config.beginGroup(operation);
+            config.beginGroup(tr("Niveau1"));
+                config.setValue(tr("TempsAccorde"),8);
+            config.endGroup();
+            config.beginGroup(tr("Niveau2"));
+                config.setValue(tr("TempsAccorde"),6);
+            config.endGroup();
+            config.beginGroup(tr("Niveau3"));
+                config.setValue(tr("TempsAccorde"),4);
+            config.endGroup();
+            config.beginGroup(tr("Personnel"));
+                config.setValue(tr("TempsAccorde"),6);
+            config.endGroup();
+            config.setValue("NiveauEnCours"+operation, "Niveau1");
+    config.endGroup();
+}
+
+
 void Editeur::initialiser()
 {
     //On aurait pu initialiser dans le répertoire conf de l'application, mais l'utilisateur n'aurait pas eu les droits
@@ -120,6 +141,8 @@ void Editeur::initialiser()
     initialiserApproche("approcheA");
     initialiserApproche("approcheS");
     initialiserApproche("approcheM");
+    initialiserComplement("complementA");
+    initialiserComplement("complementM");
 }
 
 void Editeur::sauverNiveau(QString niveau)

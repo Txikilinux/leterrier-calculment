@@ -38,6 +38,7 @@ private:
     int m_temps;
     int m_resultatEnCours;
     int m_cible;
+    void chargerParametres();
 
 private slots:
     void on_btnRejouer_clicked();
