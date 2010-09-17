@@ -159,6 +159,9 @@ void Editeur::sauverNiveau(QString niveau)
         config.endGroup();
     config.endGroup();
     *m_niveauEnCours = niveau;
+
+    //je supprime pas pour l'instant, je garde dans un coin :
+//else QMessageBox::information(this, QString::fromUtf8(tr("Erreur dans les paramètres").toStdString().c_str()), QString::fromUtf8(tr("Les Maxima doivent être supérieurs aux minima !!").toStdString().c_str()));
 }
 
 void Editeur::chargerNiveau(QString niveau)

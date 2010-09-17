@@ -51,21 +51,6 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
 
     m_niveau = new QString(niveau);
 
-                    //    //remplacement de "addition" par "Addition" - c'est une connerie !!
-                    //    QChar initialeExo = exo[0];
-                    //    initialeExo = initialeExo.toUpper();
-                    //    QString opCourante = exo;
-                    //    opCourante.remove(0,1);
-                    //    opCourante.push_front(initialeExo);
-
-//    QHash<QChar, int> hash;
-//        hash['+']=1;
-//        hash['-']=2;
-//        hash['x']=3;
-//    switch (hash.value(m_operation)) {
-//        case 1 : opCourante = "Addition"; break;
-//        case 3 : opCourante = "Multiplication"; break;
-//        }
     qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_niveau valait "<<*m_niveau;
 
     chargerParametres();
