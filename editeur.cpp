@@ -148,7 +148,9 @@ void Editeur::initialiser()
     initialiserApproche("approcheA");
     initialiserApproche("approcheS");
     initialiserApproche("approcheM");
-    initialiserComplement("complementA");
+    initialiserComplement("complementA10");
+    initialiserComplement("complementA20");
+    initialiserComplement("complementA100");
     initialiserComplement("complementM");
 }
 

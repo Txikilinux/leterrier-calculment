@@ -19,6 +19,13 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui(new Ui::exercice)
 {
     m_ui->setupUi(this);
+    m_operation=exo;
+    m_cible=val;
+
+    if (exo=="complementA10"
+        || exo=="complementA20"
+        || exo=="complementA100")
+            exo="complementA";
     m_imgFond = new QPixmap(QCoreApplication::applicationDirPath()+"/images/"+exo+".jpg");
     QRect fenetre(0,0,m_imgFond->width(),m_imgFond->height());
     qDebug()<<"Image fond "<<fenetre.width()<<" X "<<fenetre.height()<<" dans l'exercice";
@@ -42,9 +49,6 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui->lblPoints->setText("0");
     m_ui->lblTotal->setText("0");
     m_ui->lblArg->setText(exo);
-
-    m_operation=exo;
-    m_cible=val;
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_nbMaxBallons = config.value("NombreBallons").toInt();
@@ -118,8 +122,8 @@ void exercice::chargerParametres()
         m_maxG=9;
         }
 
-    else if(m_operation=="complementA"
-           || m_operation=="complementM"){
+    else if(m_operation.left(11)=="complementA"
+           || m_operation.left(11)=="complementM"){
                 m_minG=m_maxG=m_minD=m_maxD=m_cible;
                 }
 
@@ -147,9 +151,10 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
 
 
 
-    else if (m_operation=="complementA"
-             || m_operation=="complementM")
-                m_baudruche = new baudruche(m_minG,m_temps,m_operation, *depart,"fantome");
+    else if (m_operation.left(11)=="complementA"
+             || m_operation.left(11)=="complementM")
+                m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *depart,"fantome");
+
 
 
          else if (m_operation=="approcheA"
@@ -160,7 +165,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
               else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
 
                   //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
-
+ qDebug()<<"opé tronquée  : "<<m_operation.left(11);
         if (m_operation=="approcheA"
             || m_operation=="approcheS"
             || m_operation=="approcheM") this->m_resultatEnCours=m_baudruche->getMApproximation();
