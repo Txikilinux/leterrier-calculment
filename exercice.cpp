@@ -21,11 +21,11 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui->setupUi(this);
     m_operation=exo;
     m_cible=val;
-qDebug()<<"étape 1,exo vaut alors "<<exo;
     if (exo.left(11)=="complementA") exo.truncate(11);
-    qDebug()<<"étape 2,exo vaut alors "<<exo;
     if(exo.left(11)=="complementM") exo.truncate(11);
-qDebug()<<"étape 3,exo vaut alors "<<exo;
+    if (exo.left(6)=="tableM") exo.truncate(6);
+    if (exo.left(6)=="tableA") exo.truncate(6);
+
     m_imgFond = new QPixmap(QCoreApplication::applicationDirPath()+"/images/"+exo+".jpg");
     QRect fenetre(0,0,m_imgFond->width(),m_imgFond->height());
     qDebug()<<"Image fond "<<fenetre.width()<<" X "<<fenetre.height()<<" dans l'exercice";
@@ -116,7 +116,7 @@ void exercice::chargerParametres()
         config.endGroup();
     config.endGroup();
 
-    if (m_operation=="tableA" || m_operation=="tableM") {
+    if (m_operation.left(6)=="tableA" || m_operation.left(6)=="tableM") {
         m_minD=m_maxD=m_cible;
         m_minG=0;
         m_maxG=9;
@@ -143,19 +143,16 @@ void exercice::on_btnBallon_clicked()
 qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     if (m_operation=="addition"
         || m_operation==""
-        || m_operation=="tableA"
         || m_operation=="soustraction"
-        || m_operation=="multiplication"
-        || m_operation=="tableM")
+        || m_operation=="multiplication")
                 m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*depart);
 
-
+    else if (m_operation.left(6)=="tableA" || m_operation.left(6)=="tableM")
+                m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*depart);
 
     else if (m_operation.left(11)=="complementA"
              || m_operation.left(11)=="complementM")
                 m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *depart,"fantome");
-
-
 
          else if (m_operation=="approcheA"
                   || m_operation=="approcheS"

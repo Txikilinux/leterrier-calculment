@@ -155,6 +155,9 @@ void Editeur::initialiser()
         initialiserComplement("complementM"+QString::number(i*5));
         }
     initialiserComplement("complementM50");
+    for (int i=2;i<=9;i++) initialiserComplement("tableM"+QString::number(i));
+    for (int i=2;i<=9;i++) initialiserComplement("tableA"+QString::number(i));
+
 }
 
 void Editeur::sauverNiveau(QString niveau)

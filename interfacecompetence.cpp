@@ -30,7 +30,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             int angleDepart=20;
             float deformation=1;
             for (int i=0;i<nb;i++) {
-                boutonsPolygone* btn = new boutonsPolygone("tableM",i+2);
+                boutonsPolygone* btn = new boutonsPolygone("tableM"+QString::number(i+2),i+2);
                 btn->deplace(origine.x()+R*cos((2*3.14/nb)*i+angleDepart), origine.y()+deformation*R*sin((2*3.14/nb)*i+angleDepart));
                 btn->retaille(100,100);
                 btn->QGraphicsItem::setToolTip("Table x"+QString::number(i+2));
@@ -127,7 +127,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             int nb=8;
             float deformation=0.5;
             for (int i=0;i<nb;i++) {
-                boutonsPolygone* btn = new boutonsPolygone("tableA",i+2);
+                boutonsPolygone* btn = new boutonsPolygone("tableA"+QString::number(i+2),i+2);
                 btn->deplace(origine.x()+R*cos((2*3.14/nb)*i), origine.y()+deformation*R*sin((2*3.14/nb)*i));
                 btn->retaille(50,42);
                 btn->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Table +").toStdString().c_str())+QString::number(i+2));
