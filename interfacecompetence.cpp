@@ -94,20 +94,20 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             QPoint origine(m_decor->width()/8,m_decor->height()/5.5);
             QPoint origine2(m_decor->width()/20, m_decor->height()/2.1+20);
             for (int i=0;i<4;i++) {
-                boutonsPolygone* btn = new boutonsPolygone("complementM",i+2);
+                boutonsPolygone* btn = new boutonsPolygone("complementM",(i+1)*5);
                 btn->deplace(origine.x()+m_decor->width()/6*i, origine.y()+m_decor->height()/16*i);
                 btn->retaille(80,44);
-                btn->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Multiples de ").toStdString().c_str())+QString::number(i+2));
+                btn->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Multiples de ").toStdString().c_str())+QString::number((i+1)*5));
                 QPixmap im(QCoreApplication::applicationDirPath()+"/images/carabine.png");
                 btn->setImage(im);
                 btn->setMTransformable(2);
                 m_scene->addItem(btn);
                 }
-            for (int i=0;i<4;i++) {
-                boutonsPolygone* btn = new boutonsPolygone("complementM",i+6);
+            for (int i=0;i<2;i++) {
+                boutonsPolygone* btn = new boutonsPolygone("complementM",(i+1)*25);
                 btn->deplace(origine2.x()+m_decor->width()/6*i, origine2.y()+m_decor->height()/15*i);
                 btn->retaille(80,44);
-                btn->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Multiples de ").toStdString().c_str())+QString::number(i+6));
+                btn->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Multiples de ").toStdString().c_str())+QString::number((i+1)*25));
                 QPixmap im(QCoreApplication::applicationDirPath()+"/images/carabine.png");
                 btn->setImage(im);
                 btn->setMTransformable(2);

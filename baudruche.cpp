@@ -259,18 +259,18 @@ QString baudruche::getMLigne()
 
 int baudruche::valeurApprochee(int operande, int maximum)
 {
-    int approximation;
+    int apeupres;
     if (operande>10 || m_op!="x"){
         if (maximum==100 || maximum==1000) {
-            if ((operande%(maximum/10))< maximum/20) approximation=(operande/(maximum/10))*(maximum/10);
-            else approximation=((operande/(maximum/10))+1)*(maximum/10);
+            if ((operande%(maximum/10))< maximum/20) apeupres=(operande/(maximum/10))*(maximum/10);
+            else apeupres=((operande/(maximum/10))+1)*(maximum/10);
             }
         if (maximum==1000 && operande<100) {
-            if ((operande%(maximum/100))< maximum/200) approximation=(operande/(maximum/100))*(maximum/100);
-            else approximation=((operande/(maximum/100))+1)*(maximum/100);
+            if ((operande%(maximum/100))< maximum/200) apeupres=(operande/(maximum/100))*(maximum/100);
+            else apeupres=((operande/(maximum/100))+1)*(maximum/100);
             }
         }
-    return approximation;
+    return apeupres;
 }
 
 //QTimeLine baudruche::getMTimer()

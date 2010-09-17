@@ -20,11 +20,9 @@ protected:
     virtual void changeEvent(QEvent *e);
     void closeEvent(QCloseEvent *event);
 
-
 private:
     Ui::Editeur *m_ui;
     QString *m_niveauEnCours;
-   // bool nouvelUtilisateur;
     void initialiserOperation(QString);
     void initialiserApproche(QString operation);
     void initialiserComplement(QString operation);
@@ -34,6 +32,7 @@ private slots:
     void sauverNiveau(QString);
     void chargerNiveau(QString);
     void changerNiveau(QString);
+    bool testerValeurs(int);
 };
 
 #endif // EDITEUR_H

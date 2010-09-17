@@ -14,6 +14,7 @@ Editeur::Editeur(QWidget *parent) :
     QWidget(parent),
     m_ui(new Ui::Editeur)
 {
+    this->setWindowModality(Qt::ApplicationModal);
     m_ui->setupUi(this);
         m_ui->cbNiveau->addItem(tr("Niveau1"), 1);
         m_ui->cbNiveau->addItem(tr("Niveau2"), 2);
@@ -31,6 +32,11 @@ Editeur::Editeur(QWidget *parent) :
         this->chargerNiveau(*m_niveauEnCours);
 
         connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
+        connect(m_ui->spbGMin, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
+        connect(m_ui->spbGMax, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
+        connect(m_ui->spbDMin, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
+        connect(m_ui->spbDMax, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
+
 }
 
 Editeur::~Editeur()
@@ -148,25 +154,19 @@ void Editeur::initialiser()
 
 void Editeur::sauverNiveau(QString niveau)
 {
-    int t=0;;
-    if (m_ui->spbDMin<=m_ui->spbDMax && m_ui->spbGMin<=m_ui->spbGMax) { QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-    config.setValue(tr("NombreBallons"), m_ui->spbNombreBallons->value());
-    config.beginGroup(m_ui->cbOperation->currentText());
-        config.beginGroup(niveau);
-            config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
-            config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
-            config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
-            config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
-            config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+        config.setValue(tr("NombreBallons"), m_ui->spbNombreBallons->value());
+        config.beginGroup(m_ui->cbOperation->currentText());
+            config.beginGroup(niveau);
+                config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
+                config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
+                config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
+                config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
+                config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
+            config.endGroup();
         config.endGroup();
-    config.endGroup();
-    *m_niveauEnCours = niveau;
-    }
-
+        *m_niveauEnCours = niveau;
     //je supprime pas pour l'instant, je garde dans un coin :
-else t = QMessageBox::information(this, QString::fromUtf8(tr("Erreur dans les paramètres").toStdString().c_str()), QString::fromUtf8(tr("Les Maxima doivent être supérieurs aux minima !!").toStdString().c_str()));
-qDebug()<<"t vaut alors "<<t;
-
 }
 
 void Editeur::chargerNiveau(QString niveau)
@@ -195,6 +195,7 @@ void Editeur::closeEvent(QCloseEvent *event)
 {
     this->sauverNiveau(*m_niveauEnCours);
     event->accept();
+    delete(this);
 
 }
 
@@ -212,4 +213,16 @@ void Editeur::changeEvent(QEvent *e)
 void Editeur::on_btnQuitter_clicked()
 {
     this->close();
+    //delete(this);
+}
+
+bool Editeur::testerValeurs(int valeurNouvelle)
+{
+    if (m_ui->spbDMin<=m_ui->spbDMax && m_ui->spbGMin<=m_ui->spbGMax) return true;
+
+    else {
+        QMessageBox::information(this, QString::fromUtf8(tr("Erreur dans les paramètres").toStdString().c_str()), QString::fromUtf8(tr("Les Maxima doivent être supérieurs aux minima !!").toStdString().c_str()));
+        return false;
+    }
+    qDebug()<<valeurNouvelle;
 }
