@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QDir>
+#include <QMessageBox>
 
 
 Editeur::Editeur(QWidget *parent) :
@@ -147,7 +148,8 @@ void Editeur::initialiser()
 
 void Editeur::sauverNiveau(QString niveau)
 {
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    int t=0;;
+    if (m_ui->spbDMin<=m_ui->spbDMax && m_ui->spbGMin<=m_ui->spbGMax) { QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     config.setValue(tr("NombreBallons"), m_ui->spbNombreBallons->value());
     config.beginGroup(m_ui->cbOperation->currentText());
         config.beginGroup(niveau);
@@ -159,9 +161,12 @@ void Editeur::sauverNiveau(QString niveau)
         config.endGroup();
     config.endGroup();
     *m_niveauEnCours = niveau;
+    }
 
     //je supprime pas pour l'instant, je garde dans un coin :
-//else QMessageBox::information(this, QString::fromUtf8(tr("Erreur dans les paramètres").toStdString().c_str()), QString::fromUtf8(tr("Les Maxima doivent être supérieurs aux minima !!").toStdString().c_str()));
+else t = QMessageBox::information(this, QString::fromUtf8(tr("Erreur dans les paramètres").toStdString().c_str()), QString::fromUtf8(tr("Les Maxima doivent être supérieurs aux minima !!").toStdString().c_str()));
+qDebug()<<"t vaut alors "<<t;
+
 }
 
 void Editeur::chargerNiveau(QString niveau)

@@ -30,6 +30,7 @@ private slots:
 
 
 private slots:
+    void on_btnInitialise_clicked();
     void on_actionAfficher_l_diteur_triggered();
     void on_actionX_9_triggered();
     void on_actionX_8_triggered();

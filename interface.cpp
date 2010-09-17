@@ -37,6 +37,8 @@ interface::interface(QWidget *parent)
         ui->fete->setScene(dessin);
         dessin->setSceneRect(0, 0, ecran.width()*0.85,ecran.height()*0.85);
 
+    ui->btnInitialise->setGeometry(ecran.width()*0.86,0,150,30);
+
     m_editeur = new Editeur();
 
     boutonsPolygone* btnPoly1 = new boutonsPolygone("addition");
@@ -237,4 +239,9 @@ void interface::on_actionX_9_triggered()
 void interface::on_actionAfficher_l_diteur_triggered()
 {
     m_editeur->show();
+}
+
+void interface::on_btnInitialise_clicked()
+{
+    m_editeur->initialiser();
 }

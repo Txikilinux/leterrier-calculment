@@ -33,6 +33,19 @@
      <set>QGraphicsView::DontAdjustForAntialiasing</set>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnInitialise">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>20</y>
+      <width>141</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Initialiser l'éditeur</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
