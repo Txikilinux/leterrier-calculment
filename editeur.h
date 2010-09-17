@@ -32,7 +32,7 @@ private slots:
     void sauverNiveau(QString);
     void chargerNiveau(QString);
     void changerNiveau(QString);
-    bool testerValeurs(int);
+    void testerValeurs(int);
 };
 
 #endif // EDITEUR_H

@@ -25,6 +25,7 @@ private:
     int m_score;
     int m_total;
     int m_nbMaxBallons;
+    QPoint* m_depart;
     QString m_operation;
     QGraphicsScene* m_scene;
     QPixmap* m_imgFond;

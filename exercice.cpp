@@ -64,7 +64,6 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui->btnBallon->setFocus();
     m_ui->btnFeu->setDisabled(true);
     m_ui->btnRejouer->setDisabled(true);
-
 }
 
 exercice::~exercice()
@@ -126,10 +125,7 @@ void exercice::chargerParametres()
            || m_operation.left(11)=="complementM"){
                 m_minG=m_maxG=m_minD=m_maxD=m_cible;
                 }
-
 }
-
-
 
 void exercice::on_btnQuitter_clicked()
 {
@@ -139,25 +135,26 @@ void exercice::on_btnQuitter_clicked()
 void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
-    QPoint* depart = new QPoint(m_ui->vue->width()/2,400);
+    m_depart = new QPoint(m_ui->vue->width()/2,400);
+    //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
 qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     if (m_operation=="addition"
         || m_operation==""
         || m_operation=="soustraction"
         || m_operation=="multiplication")
-                m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*depart);
+                m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart);
 
     else if (m_operation.left(6)=="tableA" || m_operation.left(6)=="tableM")
-                m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*depart);
+                m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart);
 
     else if (m_operation.left(11)=="complementA"
              || m_operation.left(11)=="complementM")
-                m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *depart,"fantome");
+                m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,"fantome");
 
          else if (m_operation=="approcheA"
                   || m_operation=="approcheS"
                   || m_operation=="approcheM")
-                          m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *depart);
+                          m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart);
 
               else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
 
@@ -205,6 +202,9 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         animation->setTimeLine(m_baudruche->m_timer);
         for (int i = 0; i < 200; i++) {
             animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
+            // animation->setPosAt(i/200.0, QPointF(0 , (3*i)+(i*0.8))); --> pour la faire tomber
+            //animation->setPosAt(i/200.0, QPointF((-3*i)-(i*0.8) ,0 )); --> pour la faire aller à gauche
+            //animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 )); --> pour la faire aller à droite
            }
         m_baudruche->m_timer->start();
 
@@ -260,8 +260,8 @@ void exercice::on_btnFeu_clicked()
         //debug eric
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbMaxBallons << "et score :: " << m_score;
 
-        QPoint* depart = new QPoint(200,400);
-        m_baudruche = new baudruche(m_score,*depart);
+        m_depart = new QPoint(200,400);
+        m_baudruche = new baudruche(m_score,*m_depart);
         m_ui->vue->setScene(m_scene);
 
         QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
@@ -272,7 +272,7 @@ void exercice::on_btnFeu_clicked()
                 prof = new QPixmap(QCoreApplication::applicationDirPath()+"/images/bien.png");
             fondProf->setPixmap(*prof);
             m_scene->addItem(fondProf);
-            fondProf->setPos(depart->x(),depart->y()-prof->height()/1.5);
+            fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.5);
             fondProf->setZValue(m_nbMaxBallons-1-10);
 
         QString tabBallons[] = {QCoreApplication::applicationDirPath()+"/images/ballonBleu.png",QCoreApplication::applicationDirPath()+"/images/ballonJaune.png",QCoreApplication::applicationDirPath()+"/images/ballonRouge.png",QCoreApplication::applicationDirPath()+"/images/ballonVert.png",QCoreApplication::applicationDirPath()+"/images/ballonOrange.png"};
@@ -281,7 +281,7 @@ void exercice::on_btnFeu_clicked()
             QPixmap* img = new QPixmap(tabBallons[i]);
             image->setPixmap(*img);
             m_scene->addItem(image);
-            image->setPos(depart->x()+35*(i+1),depart->y()+10*(i+1));
+            image->setPos(m_depart->x()+35*(i+1),m_depart->y()+10*(i+1));
             image->setZValue(m_nbMaxBallons-1-i);
             }
 

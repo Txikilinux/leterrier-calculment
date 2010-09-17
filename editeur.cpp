@@ -224,13 +224,10 @@ void Editeur::on_btnQuitter_clicked()
     //delete(this);
 }
 
-bool Editeur::testerValeurs(int valeurNouvelle)
+void Editeur::testerValeurs(int valeurNouvelle)
 {
-    if (m_ui->spbDMin<=m_ui->spbDMax && m_ui->spbGMin<=m_ui->spbGMax) return true;
-
-    else {
-        QMessageBox::information(this, QString::fromUtf8(tr("Erreur dans les paramètres").toStdString().c_str()), QString::fromUtf8(tr("Les Maxima doivent être supérieurs aux minima !!").toStdString().c_str()));
-        return false;
-    }
-    qDebug()<<valeurNouvelle;
+       m_ui->spbDMin->setMaximum(m_ui->spbDMax->value());
+       m_ui->spbGMin->setMaximum(m_ui->spbGMax->value());
+       m_ui->spbDMax->setMinimum(m_ui->spbDMin->value());
+       m_ui->spbGMax->setMinimum(m_ui->spbGMin->value());
 }
