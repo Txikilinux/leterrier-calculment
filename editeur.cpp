@@ -151,7 +151,10 @@ void Editeur::initialiser()
     initialiserComplement("complementA10");
     initialiserComplement("complementA20");
     initialiserComplement("complementA100");
-    initialiserComplement("complementM");
+    for (int i=1;i<=5;i++) {
+        initialiserComplement("complementM"+QString::number(i*5));
+        }
+    initialiserComplement("complementM50");
 }
 
 void Editeur::sauverNiveau(QString niveau)

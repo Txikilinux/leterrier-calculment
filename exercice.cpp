@@ -21,11 +21,11 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui->setupUi(this);
     m_operation=exo;
     m_cible=val;
-
-    if (exo=="complementA10"
-        || exo=="complementA20"
-        || exo=="complementA100")
-            exo="complementA";
+qDebug()<<"étape 1,exo vaut alors "<<exo;
+    if (exo.left(11)=="complementA") exo.truncate(11);
+    qDebug()<<"étape 2,exo vaut alors "<<exo;
+    if(exo.left(11)=="complementM") exo.truncate(11);
+qDebug()<<"étape 3,exo vaut alors "<<exo;
     m_imgFond = new QPixmap(QCoreApplication::applicationDirPath()+"/images/"+exo+".jpg");
     QRect fenetre(0,0,m_imgFond->width(),m_imgFond->height());
     qDebug()<<"Image fond "<<fenetre.width()<<" X "<<fenetre.height()<<" dans l'exercice";

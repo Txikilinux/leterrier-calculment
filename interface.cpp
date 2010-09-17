@@ -243,5 +243,7 @@ void interface::on_actionAfficher_l_diteur_triggered()
 
 void interface::on_btnInitialise_clicked()
 {
+    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf");
+    fichierConf->remove();
     m_editeur->initialiser();
 }
