@@ -83,8 +83,8 @@
         <rect>
          <x>20</x>
          <y>40</y>
-         <width>183</width>
-         <height>71</height>
+         <width>203</width>
+         <height>97</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout">
@@ -96,7 +96,11 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="spbGMin"/>
+         <widget class="QSpinBox" name="spbGMin">
+          <property name="maximum">
+           <number>99</number>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="lblGMax">
@@ -107,8 +111,21 @@
         </item>
         <item row="1" column="1">
          <widget class="QSpinBox" name="spbGMax">
+          <property name="maximum">
+           <number>99</number>
+          </property>
           <property name="value">
            <number>9</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="cbMaxG"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="lblGMax_2">
+          <property name="text">
+           <string>Valeur Maximum</string>
           </property>
          </widget>
         </item>
@@ -141,8 +158,8 @@
         <rect>
          <x>20</x>
          <y>40</y>
-         <width>183</width>
-         <height>71</height>
+         <width>203</width>
+         <height>97</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -154,7 +171,11 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="spbDMin"/>
+         <widget class="QSpinBox" name="spbDMin">
+          <property name="maximum">
+           <number>99</number>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="lblDMax">
@@ -165,8 +186,21 @@
         </item>
         <item row="1" column="1">
          <widget class="QSpinBox" name="spbDMax">
+          <property name="maximum">
+           <number>99</number>
+          </property>
           <property name="value">
            <number>9</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="cbMaxD"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="lblDMax_2">
+          <property name="text">
+           <string>Valeur Maximum</string>
           </property>
          </widget>
         </item>
@@ -233,9 +267,9 @@
   <widget class="QComboBox" name="cbOperation">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>260</x>
      <y>20</y>
-     <width>151</width>
+     <width>201</width>
      <height>27</height>
     </rect>
    </property>

@@ -16,26 +16,49 @@ Editeur::Editeur(QWidget *parent) :
 {
     this->setWindowModality(Qt::ApplicationModal);
     m_ui->setupUi(this);
+
+        //Ajout des items dans les comboBox - celles concernant les min et max sont cachées par défaut -
         m_ui->cbNiveau->addItem(tr("Niveau1"), 1);
-        m_ui->cbNiveau->addItem(tr("Niveau2"), 2);
-        m_ui->cbNiveau->addItem(tr("Niveau3"), 3);
-        m_ui->cbNiveau->addItem(tr("Personnel"),4);
+            m_ui->cbNiveau->addItem(tr("Niveau2"), 2);
+            m_ui->cbNiveau->addItem(tr("Niveau3"), 3);
+            m_ui->cbNiveau->addItem(tr("Personnel"),4);
 
         m_ui->cbOperation->addItem(tr("Addition"), 1);
-        m_ui->cbOperation->addItem(tr("Multiplication"), 2);
-        m_ui->cbOperation->addItem(tr("Soustraction"),3);
+            m_ui->cbOperation->addItem(tr("Multiplication"), 2);
+            m_ui->cbOperation->addItem(tr("Soustraction"),3);
+            m_ui->cbOperation->addItem(tr("approcheA"),4);
+            m_ui->cbOperation->addItem(tr("approcheS"),4);
+            m_ui->cbOperation->addItem(tr("approcheM"),4);
+
+        m_ui->cbMaxG->addItem("10",1);
+            m_ui->cbMaxG->addItem("100",2);
+            m_ui->cbMaxG->addItem("1000",3);
+            m_ui->cbMaxG->hide();
+            m_ui->lblGMax_2->hide();
+        m_ui->cbMaxD->addItem("10",1);
+            m_ui->cbMaxD->addItem("100",2);
+            m_ui->cbMaxD->addItem("1000",3);
+            m_ui->cbMaxD->hide();
+            m_ui->lblDMax_2->hide();
 
         connect(m_ui->sldVitesse, SIGNAL(valueChanged(int)), m_ui->pbVitesse, SLOT(setValue(int)));
+
+        //Initialisation attributs de la classe
         m_niveauEnCours = new QString(m_ui->cbNiveau->currentText());
+        m_operationEnCours = new QString(m_ui->cbOperation->currentText());
+        m_minG=m_maxG=m_minD=m_maxD=0;
+
         QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf");
              if (!fichierConf->exists()) initialiser();
         this->chargerNiveau(*m_niveauEnCours);
 
         connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
-        connect(m_ui->spbGMin, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
-        connect(m_ui->spbGMax, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
-        connect(m_ui->spbDMin, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
-        connect(m_ui->spbDMax, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
+        connect(m_ui->cbOperation, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerOperation(QString)));
+
+//        connect(m_ui->spbGMin, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
+//        connect(m_ui->spbGMax, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
+//        connect(m_ui->spbDMin, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
+//        connect(m_ui->spbDMax, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
 
 }
 
@@ -113,6 +136,34 @@ void Editeur::initialiserApproche(QString operation)
     config.endGroup();
 }
 
+void Editeur::initialiserApprocheM(QString operation)
+{
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    config.beginGroup(operation);
+            config.beginGroup(tr("Niveau1"));
+                config.setValue(tr("MaxGauche"), 100);
+                config.setValue(tr("MaxDroite"), 10);
+                config.setValue(tr("TempsAccorde"),8);
+            config.endGroup();
+            config.beginGroup(tr("Niveau2"));
+                config.setValue(tr("MaxGauche"), 1000);
+                config.setValue(tr("MaxDroite"), 10);
+                config.setValue(tr("TempsAccorde"),8);
+            config.endGroup();
+            config.beginGroup(tr("Niveau3"));
+                config.setValue(tr("MaxGauche"), 100);
+                config.setValue(tr("MaxDroite"), 100);
+                config.setValue(tr("TempsAccorde"),8);
+            config.endGroup();
+            config.beginGroup(tr("Personnel"));
+                config.setValue(tr("MaxGauche"), 1000);
+                config.setValue(tr("MaxDroite"), 1000);
+                config.setValue(tr("TempsAccorde"),8);
+            config.endGroup();
+            config.setValue("NiveauEnCours"+operation, "Niveau1");
+    config.endGroup();
+}
+
 void Editeur::initialiserComplement(QString operation)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
@@ -147,7 +198,7 @@ void Editeur::initialiser()
     initialiserOperation("soustraction");
     initialiserApproche("approcheA");
     initialiserApproche("approcheS");
-    initialiserApproche("approcheM");
+    initialiserApprocheM("approcheM");
     initialiserComplement("complementA10");
     initialiserComplement("complementA20");
     initialiserComplement("complementA100");
@@ -164,16 +215,22 @@ void Editeur::sauverNiveau(QString niveau)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
         config.setValue(tr("NombreBallons"), m_ui->spbNombreBallons->value());
-        config.beginGroup(m_ui->cbOperation->currentText());
+        config.beginGroup(*m_operationEnCours);
             config.beginGroup(niveau);
-                config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
-                config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
-                config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
-                config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
+                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
+                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
+                else config.setValue(tr("MaxGauche"),m_ui->cbMaxG->currentText().toInt());
+                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
+                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
+                else config.setValue(tr("MaxDroite"),m_ui->cbMaxD->currentText().toInt());
                 config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
             config.endGroup();
         config.endGroup();
         *m_niveauEnCours = niveau;
+        m_minG = m_ui->spbGMin->value();
+        m_maxG = m_ui->spbGMax->value();
+        m_minD = m_ui->spbDMin->value();
+        m_maxD = m_ui->spbDMax->value();
     //je supprime pas pour l'instant, je garde dans un coin :
 }
 
@@ -181,15 +238,34 @@ void Editeur::chargerNiveau(QString niveau)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_ui->spbNombreBallons->setValue(config.value(tr("NombreBallons")).toInt());
-    config.beginGroup(m_ui->cbOperation->currentText());
+    config.beginGroup(*m_operationEnCours);
         config.beginGroup(niveau);
-            m_ui->spbGMax->setValue(config.value(tr("MaxGauche")).toInt());
             m_ui->spbGMin->setValue(config.value(tr("MinGauche")).toInt());
-            m_ui->spbDMax->setValue(config.value(tr("MaxDroite")).toInt());
+            m_maxG = config.value(tr("MaxGauche")).toInt();
+            m_ui->spbGMax->setValue(m_maxG);
             m_ui->spbDMin->setValue(config.value(tr("MinDroite")).toInt());
+            m_maxD = config.value(tr("MaxDroite")).toInt();
+            m_ui->spbDMax->setValue(m_maxD);
             m_ui->sldVitesse->setValue(config.value(tr("TempsAccorde")).toInt());
         config.endGroup();
     config.endGroup();
+
+        if (m_operationEnCours->left(8)=="approche") {
+        switch (m_maxG) {
+            case 10 : m_ui->cbMaxG->setCurrentIndex(0);break;
+            case 100 : m_ui->cbMaxG->setCurrentIndex(1);break;
+            case 1000 : m_ui->cbMaxG->setCurrentIndex(2);break;
+            default : m_ui->cbMaxG->setCurrentIndex(2);break;
+            }
+
+        switch (m_maxD) {
+            case 10 : m_ui->cbMaxD->setCurrentIndex(0);break;
+            case 100 : m_ui->cbMaxD->setCurrentIndex(1);break;
+            case 1000 : m_ui->cbMaxD->setCurrentIndex(2);break;
+            default : m_ui->cbMaxD->setCurrentIndex(2);break;
+            }
+        qDebug()<<"maxgauchelu"<<m_maxG<<" et maxdroitlu "<<m_maxD;
+        }
 }
 
 void Editeur::changerNiveau(QString chaine)
@@ -199,9 +275,97 @@ void Editeur::changerNiveau(QString chaine)
     *m_niveauEnCours = chaine;
 }
 
+void Editeur::sauverOperation(QString operation)
+{
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+        config.setValue(tr("NombreBallons"), m_ui->spbNombreBallons->value());
+        config.beginGroup(operation);
+            config.beginGroup(*m_niveauEnCours);
+                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
+                if (operation.left(8)!="approche") config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
+                else config.setValue(tr("MaxGauche"),m_ui->cbMaxG->currentText().toInt());
+                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
+                if (operation.left(8)!="approche") config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
+                else config.setValue(tr("MaxDroite"),m_ui->cbMaxD->currentText().toInt());
+                config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
+            config.endGroup();
+        config.endGroup();
+        *m_operationEnCours = operation;
+}
+
+void Editeur::chargerOperation(QString operation)
+{
+     if (operation.left(8)=="approche") {
+            m_ui->spbGMin->setDisabled(true);
+            m_ui->spbDMin->setDisabled(true);
+            m_ui->spbGMax->hide();
+                m_ui->spbDMax->hide();
+                m_ui->lblGMax->hide();
+                m_ui->lblDMax->hide();
+                m_ui->cbMaxG->show();
+                m_ui->cbMaxD->show();
+                m_ui->lblGMax_2->show();
+                m_ui->lblDMax_2->show();
+            }
+    else {
+        m_ui->spbGMin->setEnabled(true);
+        m_ui->spbDMin->setEnabled(true);
+        m_ui->spbGMax->setMaximum(99);
+        m_ui->spbDMax->setMaximum(99);
+        m_ui->spbGMax->show();
+            m_ui->spbDMax->show();
+            m_ui->lblGMax->show();
+            m_ui->lblDMax->show();
+            m_ui->cbMaxG->hide();
+            m_ui->cbMaxD->hide();
+            m_ui->lblGMax_2->hide();
+            m_ui->lblDMax_2->hide();
+        }
+
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    m_ui->spbNombreBallons->setValue(config.value(tr("NombreBallons")).toInt());
+    config.beginGroup(operation);
+        config.beginGroup(*m_niveauEnCours);
+            m_maxG = config.value(tr("MaxGauche")).toInt();
+            m_ui->spbGMax->setValue(m_maxG);
+            m_ui->spbGMin->setValue(config.value(tr("MinGauche")).toInt());
+            m_maxD = config.value(tr("MaxDroite")).toInt();
+            m_ui->spbDMax->setValue(m_maxD);
+            m_ui->spbDMin->setValue(config.value(tr("MinDroite")).toInt());
+            m_ui->sldVitesse->setValue(config.value(tr("TempsAccorde")).toInt());
+        config.endGroup();
+    config.endGroup();
+
+    if (operation.left(8)=="approche") {
+        switch (m_maxG) {
+            case 10 : m_ui->cbMaxG->setCurrentIndex(0);break;
+            case 100 : m_ui->cbMaxG->setCurrentIndex(1);break;
+            case 1000 : m_ui->cbMaxG->setCurrentIndex(2);break;
+            default : m_ui->cbMaxG->setCurrentIndex(2);break;
+            }
+
+        switch (m_maxD) {
+            case 10 : m_ui->cbMaxD->setCurrentIndex(0);break;
+            case 100 : m_ui->cbMaxD->setCurrentIndex(1);break;
+            case 1000 : m_ui->cbMaxD->setCurrentIndex(2);break;
+            default : m_ui->cbMaxD->setCurrentIndex(2);break;
+            }
+        qDebug()<<"maxgauchelu"<<m_maxG<<" et maxdroitlu "<<m_maxD;
+        }
+
+}
+
+void Editeur::changerOperation(QString operation)
+{
+    this->sauverOperation(*m_operationEnCours);
+    this->chargerOperation(operation);
+    *m_operationEnCours = operation;
+}
+
 void Editeur::closeEvent(QCloseEvent *event)
 {
     this->sauverNiveau(*m_niveauEnCours);
+    this->sauverOperation(*m_operationEnCours);
     event->accept();
     delete(this);
 

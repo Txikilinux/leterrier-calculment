@@ -23,8 +23,14 @@ protected:
 private:
     Ui::Editeur *m_ui;
     QString *m_niveauEnCours;
+    QString *m_operationEnCours;
+    int m_minG;
+    int m_maxG;
+    int m_minD;
+    int m_maxD;
     void initialiserOperation(QString);
     void initialiserApproche(QString operation);
+    void initialiserApprocheM(QString operation);
     void initialiserComplement(QString operation);
 
 private slots:
@@ -32,6 +38,9 @@ private slots:
     void sauverNiveau(QString);
     void chargerNiveau(QString);
     void changerNiveau(QString);
+    void sauverOperation(QString);
+    void chargerOperation(QString);
+    void changerOperation(QString);
     void testerValeurs(int);
 };
 

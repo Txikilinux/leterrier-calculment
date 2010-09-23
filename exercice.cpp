@@ -10,7 +10,7 @@
 #include <QApplication>
  #include <QDesktopWidget>
 
-const int NBCHIFFRE = 2;
+const int NBCHIFFRE = 3;
 const float SEUIL_NON_ACQUIS=0.4;
 const float SEUIL_ACQUIS=0.8;
 
@@ -272,8 +272,8 @@ void exercice::on_btnFeu_clicked()
                 prof = new QPixmap(QCoreApplication::applicationDirPath()+"/images/bien.png");
             fondProf->setPixmap(*prof);
             m_scene->addItem(fondProf);
-            fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.5);
-            fondProf->setZValue(m_nbMaxBallons-1-10);
+            fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.2);
+            fondProf->setZValue(m_nbMaxBallons);
 
         QString tabBallons[] = {QCoreApplication::applicationDirPath()+"/images/ballonBleu.png",QCoreApplication::applicationDirPath()+"/images/ballonJaune.png",QCoreApplication::applicationDirPath()+"/images/ballonRouge.png",QCoreApplication::applicationDirPath()+"/images/ballonVert.png",QCoreApplication::applicationDirPath()+"/images/ballonOrange.png"};
         for (int i=0;i<5;i++) {
