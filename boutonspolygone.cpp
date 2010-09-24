@@ -72,7 +72,7 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
     e->accept();
     switch (m_transformable) {
         case 1 :bouge(0,300);break;
-        case 2 : /*QPixmap img(QCoreApplication::applicationDirPath()+"/images/pomme2.png"); setImage(img);*/setTexte("Fait");break;
+        case 2 : /*QPixmap img(QCoreApplication::applicationDirPath()+"/data/images/pomme2.png"); setImage(img);*/setTexte("Fait");break;
         }
 
 }

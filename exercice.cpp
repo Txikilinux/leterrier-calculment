@@ -26,7 +26,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     if (exo.left(6)=="tableM") exo.truncate(6);
     if (exo.left(6)=="tableA") exo.truncate(6);
 
-    m_imgFond = new QPixmap(QCoreApplication::applicationDirPath()+"/images/"+exo+".jpg");
+    m_imgFond = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/"+exo+".jpg");
     this->setGeometry(0,0, m_imgFond->width()+60,m_imgFond->height()+20);
             this->setWindowTitle("Calcul Mental - "+exo);
             adapte(*m_imgFond);
@@ -224,12 +224,12 @@ void exercice::on_btnFeu_clicked()
     if (proposition==reponse) {
         m_score++;
         m_ui->lblMsg->setText(tr("GAGNE"));
-        QPixmap* imgO = new QPixmap(QCoreApplication::applicationDirPath()+"/images/will-win.png");
+        QPixmap* imgO = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/will-win.png");
         m_ui->lblImgMsg->setPixmap(*imgO);
         }
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
-        QPixmap* imgN = new QPixmap(QCoreApplication::applicationDirPath()+"/images/will-lose.png");
+        QPixmap* imgN = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/will-lose.png");
         m_ui->lblImgMsg->setPixmap(*imgN);
         }
     QString monScore = "";
@@ -267,17 +267,17 @@ void exercice::on_btnFeu_clicked()
         m_ui->vue->setScene(m_scene);
 
         QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
-        QPixmap* prof = new QPixmap(QCoreApplication::applicationDirPath()+"/images/bof.png");
+        QPixmap* prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bof.png");
         if (m_score<m_total*SEUIL_NON_ACQUIS)
-            prof = new QPixmap(QCoreApplication::applicationDirPath()+"/images/rate.png");
+            prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/rate.png");
         else if (m_score>=m_total*SEUIL_ACQUIS)
-                prof = new QPixmap(QCoreApplication::applicationDirPath()+"/images/bien.png");
+                prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bien.png");
             fondProf->setPixmap(*prof);
             m_scene->addItem(fondProf);
             fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.2);
             fondProf->setZValue(m_nbMaxBallons);
 
-        QString tabBallons[] = {QCoreApplication::applicationDirPath()+"/images/ballonBleu.png",QCoreApplication::applicationDirPath()+"/images/ballonJaune.png",QCoreApplication::applicationDirPath()+"/images/ballonRouge.png",QCoreApplication::applicationDirPath()+"/images/ballonVert.png",QCoreApplication::applicationDirPath()+"/images/ballonOrange.png"};
+        QString tabBallons[] = {QCoreApplication::applicationDirPath()+"/data/images/ballonBleu.png",QCoreApplication::applicationDirPath()+"/data/images/ballonJaune.png",QCoreApplication::applicationDirPath()+"/data/images/ballonRouge.png",QCoreApplication::applicationDirPath()+"/data/images/ballonVert.png",QCoreApplication::applicationDirPath()+"/data/images/ballonOrange.png"};
         for (int i=0;i<5;i++) {
             QGraphicsPixmapItem* image = new QGraphicsPixmapItem();
             QPixmap* img = new QPixmap(tabBallons[i]);

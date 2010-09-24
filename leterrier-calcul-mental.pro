@@ -10,17 +10,20 @@ SOURCES += main.cpp \
     boutonspolygone.cpp \
     sauvegardelog.cpp \
     editeur.cpp \
-    interfacecompetence.cpp
+    interfacecompetence.cpp \
+    dialogapropos.cpp
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
     boutonspolygone.h \
     sauvegardelog.h \
     editeur.h \
-    interfacecompetence.h
+    interfacecompetence.h \
+    dialogapropos.h
 FORMS += interface.ui \
     exercice.ui \
     editeur.ui \
-    interfacecompetence.ui
+    interfacecompetence.ui \
+    dialogapropos.ui
 QT += script
 QT += network
