@@ -40,6 +40,7 @@ private:
     int m_resultatEnCours;
     int m_cible;
     void chargerParametres();
+    void adapte(QPixmap);
 
 private slots:
     void on_btnRejouer_clicked();
