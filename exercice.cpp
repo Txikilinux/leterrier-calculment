@@ -28,7 +28,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
 
     m_imgFond = new QPixmap(QCoreApplication::applicationDirPath()+"/images/"+exo+".jpg");
     this->setGeometry(0,0, m_imgFond->width()+60,m_imgFond->height()+20);
-            this->setWindowTitle(exo);
+            this->setWindowTitle("Calcul Mental - "+exo);
             adapte(*m_imgFond);
 
     this->m_score=0;
@@ -132,30 +132,33 @@ void exercice::on_btnQuitter_clicked()
 void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
-    m_depart = new QPoint(m_ui->vue->width()/2,400);
+    if (m_operation=="addition") m_depart = new QPoint(0,m_ui->vue->height()*0.5);
+    else m_depart = new QPoint(m_ui->vue->width()/2,400);
+
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
 qDebug()<<"Creation de baudruche avec temps "<<m_temps;
-    if (m_operation=="addition"
-        || m_operation==""
-        || m_operation=="soustraction"
-        || m_operation=="multiplication")
-                m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart);
+    if (m_operation=="addition")
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,"autoTamponneuse.png");
+    else if(m_operation==""
+            || m_operation=="soustraction"
+            || m_operation=="multiplication")
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart);
 
-    else if (m_operation.left(6)=="tableA" || m_operation.left(6)=="tableM")
-                m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart);
+        else if (m_operation.left(6)=="tableA" || m_operation.left(6)=="tableM")
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart);
 
-    else if (m_operation.left(11)=="complementA"
-             || m_operation.left(11)=="complementM")
-                m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,"fantome");
+        else if (m_operation.left(11)=="complementA"
+                 || m_operation.left(11)=="complementM")
+                    m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,"fantome");
 
-         else if (m_operation=="approcheA"
-                  || m_operation=="approcheS"
-                  || m_operation=="approcheM")
-                          m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart);
+             else if (m_operation=="approcheA"
+                      || m_operation=="approcheS"
+                      || m_operation=="approcheM")
+                              m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart);
 
-              else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
+                  else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
 
-                  //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
+                      //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
  qDebug()<<"opé tronquée  : "<<m_operation.left(11);
         if (m_operation=="approcheA"
             || m_operation=="approcheS"
@@ -197,12 +200,14 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     QGraphicsItemAnimation *animation = new QGraphicsItemAnimation(m_scene);
         animation->setItem(m_baudruche);
         animation->setTimeLine(m_baudruche->m_timer);
-        for (int i = 0; i < 200; i++) {
-            animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
+        if (m_operation=="addition") for (int i = 0; i < 200; i++)
+                                        animation->setPosAt(i/200.0, QPointF((4.1*i) ,0 ));
+        else for (int i = 0; i < 200; i++)
+                animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
             // animation->setPosAt(i/200.0, QPointF(0 , (3*i)+(i*0.8))); --> pour la faire tomber
             //animation->setPosAt(i/200.0, QPointF((-3*i)-(i*0.8) ,0 )); --> pour la faire aller à gauche
             //animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 )); --> pour la faire aller à droite
-           }
+
         m_baudruche->m_timer->start();
 
 

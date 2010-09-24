@@ -196,14 +196,18 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         QString illustration;
         QString imageBase="ballon";
         if (image!=0) imageBase=image;
-        switch (coulAlea) {
-            case 0 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Vert.png"; break;
-            case 1 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Jaune.png"; break;
-            case 2 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Rouge.png"; break;
-            case 3 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Orange.png"; break;
-            case 4 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Bleu.png"; break;
-            case 5 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Rose.png"; break;
-            }
+        QFile* fichierImage = new QFile(QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Vert.png");
+        if (fichierImage->exists()) {
+                switch (coulAlea) {
+                    case 0 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Vert.png"; break;
+                    case 1 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Jaune.png"; break;
+                    case 2 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Rouge.png"; break;
+                    case 3 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Orange.png"; break;
+                    case 4 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Bleu.png"; break;
+                    case 5 : illustration = QCoreApplication::applicationDirPath()+"/images/"+imageBase+"Rose.png"; break;
+                    }
+                }
+        else illustration=QCoreApplication::applicationDirPath()+"/images/"+imageBase;
         QPixmap imageIllustration(illustration);
             pixmap->setPixmap(imageIllustration);
             pixmap->setZValue(k);
@@ -222,6 +226,7 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         affichage->setZValue(k+1);
         this->addToGroup(affichage);
 }
+
 QPoint baudruche::getMPosition()
 {
     return this->m_position;
