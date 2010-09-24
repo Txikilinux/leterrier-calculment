@@ -103,15 +103,17 @@
     </property>
     <addaction name="actionAfficher_l_diteur"/>
    </widget>
-   <widget class="QMenu" name="menuA_propos">
+   <widget class="QMenu" name="menuAide">
     <property name="title">
-     <string>A propos</string>
+     <string>&amp;Aide</string>
     </property>
+    <addaction name="actionDocumentation_utilisateurs"/>
+    <addaction name="actionA_propos"/>
    </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuExercices"/>
    <addaction name="menuEditeur"/>
-   <addaction name="menuA_propos"/>
+   <addaction name="menuAide"/>
   </widget>
   <action name="actionQuitter">
    <property name="text">
@@ -211,6 +213,16 @@
   <action name="actionAfficher_l_diteur">
    <property name="text">
     <string>Afficher l'éditeur</string>
+   </property>
+  </action>
+  <action name="actionA_propos">
+   <property name="text">
+    <string>A &amp;propos</string>
+   </property>
+  </action>
+  <action name="actionDocumentation_utilisateurs">
+   <property name="text">
+    <string>Documentation utilisateurs</string>
    </property>
   </action>
  </widget>

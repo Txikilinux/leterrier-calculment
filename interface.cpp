@@ -4,6 +4,7 @@
 #include "ui_exercice.h"
 #include "editeur.h"
 #include "boutonspolygone.h"
+#include "dialogapropos.h"
 
 #include <QApplication>
  #include <QDesktopWidget>
@@ -246,4 +247,11 @@ void interface::on_btnInitialise_clicked()
     QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf");
     fichierConf->remove();
     m_editeur->initialiser();
+}
+
+void interface::on_actionA_propos_triggered()
+{
+    DialogAPropos* afficheAPropos = new DialogAPropos(this);
+    afficheAPropos->setWindowTitle("A propos de Calcul Mental...");
+    afficheAPropos->show();
 }
