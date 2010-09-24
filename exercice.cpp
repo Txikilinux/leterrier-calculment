@@ -106,11 +106,11 @@ void exercice::chargerParametres()
         config.beginGroup(m_operation);
         if (*m_niveau=="") *m_niveau = config.value("NiveauEnCours"+m_operation).toString();
         config.beginGroup(*m_niveau);
-            m_maxG = config.value(tr("MaxGauche")).toInt();
-            m_minG = config.value(tr("MinGauche")).toInt();
-            m_maxD = config.value(tr("MaxDroite")).toInt();
-            m_minD = config.value(tr("MinDroite")).toInt();
-            m_temps = config.value(tr("TempsAccorde")).toInt();
+            m_maxG = config.value("MaxGauche").toInt();
+            m_minG = config.value("MinGauche").toInt();
+            m_maxD = config.value("MaxDroite").toInt();
+            m_minD = config.value("MinDroite").toInt();
+            m_temps = config.value("TempsAccorde").toInt();
             qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau<<"Tps : "<<m_temps;
         config.endGroup();
     config.endGroup();
