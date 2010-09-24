@@ -55,11 +55,10 @@ Editeur::Editeur(QWidget *parent) :
         connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
         connect(m_ui->cbOperation, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerOperation(QString)));
 
-//        connect(m_ui->spbGMin, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
-//        connect(m_ui->spbGMax, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
-//        connect(m_ui->spbDMin, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
-//        connect(m_ui->spbDMax, SIGNAL(valueChanged(int)), this, SLOT(testerValeurs(int)));
-
+//        connect(m_ui->spbGMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+//        connect(m_ui->spbGMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+//        connect(m_ui->spbDMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+//        connect(m_ui->spbDMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
 }
 
 Editeur::~Editeur()
@@ -217,25 +216,35 @@ void Editeur::sauverNiveau(QString niveau)
         config.setValue(tr("NombreBallons"), m_ui->spbNombreBallons->value());
         config.beginGroup(*m_operationEnCours);
             config.beginGroup(niveau);
-                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
-                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
-                else config.setValue(tr("MaxGauche"),m_ui->cbMaxG->currentText().toInt());
-                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
-                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
-                else config.setValue(tr("MaxDroite"),m_ui->cbMaxD->currentText().toInt());
+                if (m_operationEnCours->left(8)!="approche") {
+                    config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
+                    config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
+                    config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
+                    config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
+                }
+                else {
+                    config.setValue(tr("MaxGauche"),m_ui->cbMaxG->currentText().toInt());
+                    config.setValue(tr("MaxDroite"),m_ui->cbMaxD->currentText().toInt());
+                }
                 config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
             config.endGroup();
         config.endGroup();
         *m_niveauEnCours = niveau;
-        m_minG = m_ui->spbGMin->value();
-        m_maxG = m_ui->spbGMax->value();
-        m_minD = m_ui->spbDMin->value();
-        m_maxD = m_ui->spbDMax->value();
-    //je supprime pas pour l'instant, je garde dans un coin :
+        disconnect(m_ui->spbGMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+        disconnect(m_ui->spbGMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+        disconnect(m_ui->spbDMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+        disconnect(m_ui->spbDMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+
+        qDebug() << "Editeur.cpp :fin de sauverniveau";
 }
 
 void Editeur::chargerNiveau(QString niveau)
 {
+       m_ui->spbDMin->setMaximum(1000);
+       m_ui->spbGMin->setMaximum(1000);
+       m_ui->spbDMax->setMinimum(0);
+       m_ui->spbGMax->setMinimum(0);
+
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_ui->spbNombreBallons->setValue(config.value(tr("NombreBallons")).toInt());
     config.beginGroup(*m_operationEnCours);
@@ -264,8 +273,11 @@ void Editeur::chargerNiveau(QString niveau)
             case 1000 : m_ui->cbMaxD->setCurrentIndex(2);break;
             default : m_ui->cbMaxD->setCurrentIndex(2);break;
             }
-        qDebug()<<"maxgauchelu"<<m_maxG<<" et maxdroitlu "<<m_maxD;
         }
+        connect(m_ui->spbGMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+        connect(m_ui->spbGMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+        connect(m_ui->spbDMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+        connect(m_ui->spbDMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
 }
 
 void Editeur::changerNiveau(QString chaine)
@@ -281,16 +293,26 @@ void Editeur::sauverOperation(QString operation)
         config.setValue(tr("NombreBallons"), m_ui->spbNombreBallons->value());
         config.beginGroup(operation);
             config.beginGroup(*m_niveauEnCours);
-                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
-                if (operation.left(8)!="approche") config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
-                else config.setValue(tr("MaxGauche"),m_ui->cbMaxG->currentText().toInt());
-                if (m_operationEnCours->left(8)!="approche") config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
-                if (operation.left(8)!="approche") config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
-                else config.setValue(tr("MaxDroite"),m_ui->cbMaxD->currentText().toInt());
+                if (m_operationEnCours->left(8)!="approche") {
+                    config.setValue(tr("MinGauche"), m_ui->spbGMin->value());
+                    config.setValue(tr("MaxGauche"), m_ui->spbGMax->value());
+                    config.setValue(tr("MinDroite"), m_ui->spbDMin->value());
+                    config.setValue(tr("MaxDroite"), m_ui->spbDMax->value());
+                    }
+                else {
+                    config.setValue(tr("MaxGauche"),m_ui->cbMaxG->currentText().toInt());
+                    config.setValue(tr("MaxDroite"),m_ui->cbMaxD->currentText().toInt());
+                    }
                 config.setValue(tr("TempsAccorde"),m_ui->sldVitesse->value());
             config.endGroup();
         config.endGroup();
         *m_operationEnCours = operation;
+
+        disconnect(m_ui->spbGMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+        disconnect(m_ui->spbGMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+        disconnect(m_ui->spbDMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+        disconnect(m_ui->spbDMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+
 }
 
 void Editeur::chargerOperation(QString operation)
@@ -350,8 +372,12 @@ void Editeur::chargerOperation(QString operation)
             case 1000 : m_ui->cbMaxD->setCurrentIndex(2);break;
             default : m_ui->cbMaxD->setCurrentIndex(2);break;
             }
-        qDebug()<<"maxgauchelu"<<m_maxG<<" et maxdroitlu "<<m_maxD;
         }
+
+    connect(m_ui->spbGMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+    connect(m_ui->spbGMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+    connect(m_ui->spbDMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
+    connect(m_ui->spbDMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
 
 }
 
@@ -388,8 +414,9 @@ void Editeur::on_btnQuitter_clicked()
     //delete(this);
 }
 
-void Editeur::testerValeurs(int valeurNouvelle)
+void Editeur::ajusterValeurs(int valeurNouvelle)
 {
+       qDebug() << "Editeur.cpp : appel de ajusterValeurs";
        m_ui->spbDMin->setMaximum(m_ui->spbDMax->value());
        m_ui->spbGMin->setMaximum(m_ui->spbGMax->value());
        m_ui->spbDMax->setMinimum(m_ui->spbDMin->value());

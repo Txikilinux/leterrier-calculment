@@ -41,7 +41,7 @@ private slots:
     void sauverOperation(QString);
     void chargerOperation(QString);
     void changerOperation(QString);
-    void testerValeurs(int);
+    void ajusterValeurs(int);
 };
 
 #endif // EDITEUR_H
