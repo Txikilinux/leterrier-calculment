@@ -19,6 +19,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_ui(new Ui::exercice)
 {
     m_ui->setupUi(this);
+    this->setWindowModality(Qt::ApplicationModal);
     m_operation=exo;
     m_cible=val;
     if (exo.left(11)=="complementA") exo.truncate(11);
@@ -83,7 +84,7 @@ void exercice::changeEvent(QEvent *e)
 
 void exercice::setImgFond()
 {
-         QBrush* fond = new QBrush(*m_imgFond);
+         QBrush* fond = new QBrush(*m_imgFond);this->setWindowModality(Qt::ApplicationModal);
          m_ui->vue->setBackgroundBrush(*fond);
 }
 
