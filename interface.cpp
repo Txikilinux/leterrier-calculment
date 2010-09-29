@@ -255,3 +255,64 @@ void interface::on_actionA_propos_triggered()
     afficheAPropos->setWindowTitle("A propos de Calcul Mental...");
     afficheAPropos->show();
 }
+
+void interface::on_actionDe_5_triggered()
+{
+    m_exercice = new exercice("complementM5", 5,"",this);
+    m_exercice->show();
+}
+
+void interface::on_actionDe_10_triggered()
+{
+    m_exercice = new exercice("complementM10", 10,"",this);
+    m_exercice->show();
+}
+void interface::on_actionDe_15_triggered()
+{
+    m_exercice = new exercice("complementM15", 15,"",this);
+    m_exercice->show();
+}
+void interface::on_actionDe_20_triggered()
+{
+    m_exercice = new exercice("complementM20", 20,"",this);
+    m_exercice->show();
+}
+void interface::on_actionDe_25_triggered()
+{
+    m_exercice = new exercice("complementM25", 25,"",this);
+    m_exercice->show();
+}
+void interface::on_actionDe_50_triggered()
+{
+    m_exercice = new exercice("complementM50", 50,"",this);
+    m_exercice->show();
+}
+
+void interface::on_actionSoustractions_triggered()
+{
+    m_exercice = new exercice("soustraction",0,"",this);
+    m_exercice->show();
+}
+
+void interface::on_action_10_triggered()
+{
+    m_exercice = new exercice("complementA10", 10,"",this);
+    m_exercice->show();
+}
+
+void interface::on_action_20_triggered()
+{
+    m_exercice = new exercice("complementA20", 20,"",this);
+    m_exercice->show();
+}
+
+void interface::on_action_100_triggered()
+{
+    m_exercice = new exercice("complementA100", 100,"",this);
+    m_exercice->show();
+}
+
+void interface::on_action_un_nombre_al_atoire_triggered()
+{
+
+}

@@ -92,10 +92,33 @@
      <addaction name="actionX_8"/>
      <addaction name="actionX_9"/>
     </widget>
+    <widget class="QMenu" name="menuMultiples">
+     <property name="title">
+      <string>Multiples</string>
+     </property>
+     <addaction name="actionDe_5"/>
+     <addaction name="actionDe_10"/>
+     <addaction name="actionDe_15"/>
+     <addaction name="actionDe_20"/>
+     <addaction name="actionDe_25"/>
+     <addaction name="actionDe_50"/>
+    </widget>
+    <widget class="QMenu" name="menuCompl_ments">
+     <property name="title">
+      <string>Compléments</string>
+     </property>
+     <addaction name="action_10"/>
+     <addaction name="action_20"/>
+     <addaction name="action_100"/>
+     <addaction name="action_un_nombre_al_atoire"/>
+    </widget>
     <addaction name="actionAdditions"/>
     <addaction name="actionMultiplications"/>
+    <addaction name="actionSoustractions"/>
     <addaction name="menuTables_d_addition"/>
     <addaction name="menuTables_de_multiplication"/>
+    <addaction name="menuMultiples"/>
+    <addaction name="menuCompl_ments"/>
    </widget>
    <widget class="QMenu" name="menuEditeur">
     <property name="title">
@@ -223,6 +246,61 @@
   <action name="actionDocumentation_utilisateurs">
    <property name="text">
     <string>Documentation utilisateurs</string>
+   </property>
+  </action>
+  <action name="actionSoustractions">
+   <property name="text">
+    <string>Soustractions</string>
+   </property>
+  </action>
+  <action name="actionDe_5">
+   <property name="text">
+    <string>de 5</string>
+   </property>
+  </action>
+  <action name="actionDe_10">
+   <property name="text">
+    <string>de 10</string>
+   </property>
+  </action>
+  <action name="actionDe_15">
+   <property name="text">
+    <string>de 15</string>
+   </property>
+  </action>
+  <action name="actionDe_20">
+   <property name="text">
+    <string>de 20</string>
+   </property>
+  </action>
+  <action name="actionDe_25">
+   <property name="text">
+    <string>de 25</string>
+   </property>
+  </action>
+  <action name="actionDe_50">
+   <property name="text">
+    <string>de 50</string>
+   </property>
+  </action>
+  <action name="action_10">
+   <property name="text">
+    <string>à 10</string>
+   </property>
+  </action>
+  <action name="action_20">
+   <property name="text">
+    <string>à 20</string>
+   </property>
+  </action>
+  <action name="action_100">
+   <property name="text">
+    <string>à 100</string>
+   </property>
+  </action>
+  <action name="action_un_nombre_al_atoire">
+   <property name="text">
+    <string>à un nombre aléatoire</string>
    </property>
   </action>
  </widget>
