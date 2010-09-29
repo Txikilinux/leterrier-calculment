@@ -19,6 +19,7 @@ public:
     ~interface();
     Editeur* m_editeur;
     exercice* m_exercice;
+    int m_hauteurMax;
 
 protected:
     void paintEvent(QPaintEvent* e );

@@ -32,8 +32,8 @@ QRectF boutonsPolygone::boundingRect() const
 void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget)
 {
     //changer laquelle des 2 lignes ci-dessous est commentée selon qu'on veut que les contours du bouton soient visibles ou pas
-    painter->setPen(Qt::NoPen);
-    //painter->setPen(Qt::black);
+    //painter->setPen(Qt::NoPen);
+    painter->setPen(Qt::black);
     //painter->setBrush(Qt::NoBrush);
     QRect rect(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
     painter->drawRect(rect.adjusted(0, 0, -1, -1));
@@ -92,7 +92,9 @@ void boutonsPolygone::retaille(int w, int h)
 void boutonsPolygone::tourne(int angle)
 {
     m_angle = angle;
-    this->rotate(angle);
+    //this->rotate(angle);
+    this->setTransform(QTransform().translate(this->m_base->x(), this->m_base->y()).rotate(angle).translate(-1*this->m_base->x(),-1*this->m_base->y()));
+
 }
 
 void boutonsPolygone::setImage(QPixmap image)
