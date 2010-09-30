@@ -183,7 +183,7 @@ void InterfaceCompetence::adapte(QPixmap cheminImage)
     ecran=QApplication::desktop()->screenGeometry();
 
     QPixmap imgFond2=cheminImage.scaledToHeight(ecran.height()-140, Qt::SmoothTransformation);
-qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
+    qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
 
     m_ratioTaille = static_cast<double>(imgFond2.width())/static_cast<double>(cheminImage.width());
     qDebug()<<"Ratio taille = "<<m_ratioTaille;

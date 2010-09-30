@@ -92,14 +92,17 @@ void exercice::adapte(QPixmap cheminImage)
 {
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
-    cheminImage.scaledToHeight(ecran.width()-50, Qt::SmoothTransformation);
-    QBrush* fond = new QBrush(cheminImage);
+    QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-100, Qt::SmoothTransformation);
+     qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
+    //m_ratioTaille = static_cast<double>(imgFond2.width())/static_cast<double>(cheminImage.width());
+    *m_imgFond = imgFond2;
+    QBrush* fond = new QBrush(imgFond2);
             m_ui->vue->setBackgroundBrush(*fond);
             m_scene = new QGraphicsScene(this);
             m_ui->vue->setScene(m_scene);
-            m_scene->setSceneRect(0, 0, cheminImage.width(), cheminImage.height());
-            //this->setGeometry(0,150, cheminImage.width()+147,cheminImage.height()+47);
-            this->setFixedSize(cheminImage.width()+147,cheminImage.height()+47);
+            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()-50);
+            this->setGeometry(0,150, cheminImage.width()+147,cheminImage.height()+47);
+            this->setFixedSize(imgFond2.width()+147,imgFond2.height());
 }
 
 void exercice::chargerParametres()
@@ -152,16 +155,17 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         else if (m_operation.left(6)=="tableA" || m_operation.left(6)=="tableM")
                     m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart);
 
-        else if (m_operation.left(11)=="complementA"
-                 || m_operation.left(11)=="complementM")
-                    m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,"fantome");
+        else if (m_operation.left(11)=="complementA")
+                        m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,"fantome");
+            else if (m_operation.left(11)=="complementM")
+                    m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart);
 
-             else if (m_operation=="approcheA"
-                      || m_operation=="approcheS"
-                      || m_operation=="approcheM")
-                              m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart);
+                 else if (m_operation=="approcheA"
+                          || m_operation=="approcheS"
+                          || m_operation=="approcheM")
+                                  m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart);
 
-                  else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
+                      else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
 
                       //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
  qDebug()<<"opé tronquée  : "<<m_operation.left(11);
