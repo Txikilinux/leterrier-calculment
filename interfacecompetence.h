@@ -23,6 +23,7 @@ private:
     void adapte(QPixmap);
     QGraphicsScene* m_scene;
     QPixmap* m_decor;
+    double m_ratioTaille;
 
 private slots:
     void on_btnFermer_clicked();

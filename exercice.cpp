@@ -28,7 +28,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     if (exo.left(6)=="tableA") exo.truncate(6);
 
     m_imgFond = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/"+exo+".jpg");
-    this->setGeometry(0,0, m_imgFond->width()+60,m_imgFond->height()+20);
+//    this->setGeometry(0,50, m_imgFond->width()+60,m_imgFond->height()+20);
             this->setWindowTitle("Calcul Mental - "+exo);
             adapte(*m_imgFond);
 
@@ -90,12 +90,16 @@ void exercice::setImgFond()
 
 void exercice::adapte(QPixmap cheminImage)
 {
-            QBrush* fond = new QBrush(cheminImage);
+    QRect ecran;
+    ecran=QApplication::desktop()->screenGeometry();
+    cheminImage.scaledToHeight(ecran.width()-50, Qt::SmoothTransformation);
+    QBrush* fond = new QBrush(cheminImage);
             m_ui->vue->setBackgroundBrush(*fond);
             m_scene = new QGraphicsScene(this);
             m_ui->vue->setScene(m_scene);
-            m_scene->setSceneRect(0, 0, m_imgFond->width(), m_imgFond->height());
-            this->resize(m_imgFond->width()+147,m_imgFond->height()+47);
+            m_scene->setSceneRect(0, 0, cheminImage.width(), cheminImage.height());
+            //this->setGeometry(0,150, cheminImage.width()+147,cheminImage.height()+47);
+            this->setFixedSize(cheminImage.width()+147,cheminImage.height()+47);
 }
 
 void exercice::chargerParametres()
