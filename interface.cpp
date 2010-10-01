@@ -27,7 +27,7 @@ interface::interface(QWidget *parent)
     ui->btnInitialise->setGeometry(ecran.width()-180,10,170,30);
 
     QPixmap imgFond(QCoreApplication::applicationDirPath()+"/data/images/fondecran.jpg");
-    QPixmap imgFond2=imgFond.scaled(ecran.width(),m_hauteurMax,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
+    QPixmap imgFond2=imgFond.scaled(ecran.width(),m_hauteurMax,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     qDebug() << "Taille imageFond : " << imgFond.width()<< " X "<<imgFond.height();
     qDebug() << "Taille imageFond2 : " << imgFond2.width()<< " X "<<imgFond2.height();
     QBrush* fond = new QBrush(imgFond2);
