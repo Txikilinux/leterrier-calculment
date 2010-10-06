@@ -73,7 +73,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btn3->setImage(im);
                 btn3->setMTransformable(2);
                 m_scene->addItem(btn3);
-            boutonsPolygone* btn4 = new boutonsPolygone("complementA",0);
+            boutonsPolygone* btn4 = new boutonsPolygone("travaux",0);
    /*
      c'est pas bon il faut charger dans le fichier config un nombre aléatoire ré-généré et écrit dans le fichier config à la fin d'exécution d'InterfaceCompetence
      parce qu'avec cette façon de faire on a 2 problèmes : il faut se rappeler que pour avoir "complément libre" il faut lui passer 0 ET la valeur max du nombre

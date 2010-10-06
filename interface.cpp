@@ -129,6 +129,12 @@ interface::interface(QWidget *parent)
         btnPoly10->retaille(280*kw,150*kh);
         dessin->addItem(btnPoly10);
 
+    boutonsPolygone* btnPoly11 = new boutonsPolygone("travaux");
+        btnPoly11->deplace(1210*kw, 320*kh);
+        btnPoly11->retaille(330*kw,100*kh);
+        btnPoly11->QGraphicsItem::setToolTip(QString::fromUtf8(tr("Doubles et moitiés").toStdString().c_str()));
+        dessin->addItem(btnPoly11);
+
     }
 
 interface::~interface()

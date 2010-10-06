@@ -101,7 +101,7 @@ void exercice::adapte(QPixmap cheminImage)
             m_scene = new QGraphicsScene(this);
             m_ui->vue->setScene(m_scene);
             m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()-50);
-            this->setGeometry(0,150, cheminImage.width()+147,cheminImage.height()+47);
+            this->setGeometry(0,0, cheminImage.width()+147,cheminImage.height()+47);
             this->setFixedSize(imgFond2.width()+147,imgFond2.height());
 }
 

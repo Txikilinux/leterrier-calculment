@@ -65,10 +65,16 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
 //                    animation.setEndValue(QRect(250, 250, 100, 30));
 //                    animation.start();
                 }
-            else {
-                exercice* ex = new exercice(*m_action,m_val);
-                ex->show();
-                }
+            else if (*m_action=="travaux") {
+                    //QMessageBox::warning(this, "En travaux", QString::fromUtf8(tr("Fonctionnalité non encore disponible").toStdString().c_str()));
+                QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,tr("En travaux"),QString::fromUtf8(tr("Fonctionnalité non encore disponible").toStdString().c_str()));
+                alertBox->setGeometry(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
+                alertBox->show();
+                        }
+                else {
+                    exercice* ex = new exercice(*m_action,m_val);
+                    ex->show();
+                    }
     e->accept();
     switch (m_transformable) {
         case 1 :bouge(0,300);break;
