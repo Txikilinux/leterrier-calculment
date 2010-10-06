@@ -48,7 +48,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             m_decor = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/2trainFantome.jpg");
             this->setWindowTitle(QString::fromUtf8(tr("Trouve le complément à...").toStdString().c_str()));
             adapte(*m_decor);
-            //this->move(400,0);
+            this->move(150,0);
             //QPoint origine(m_decor->width()/4 ,m_decor->height()/4);
             QPoint origine((m_decor->width()/4)-80,(m_decor->height()/4)-80);
             QPixmap im(QCoreApplication::applicationDirPath()+"/data/images/fantome.png");
@@ -92,7 +92,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             m_decor = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/3standTir.jpg");
             this->setWindowTitle("Les multiples");
             adapte(*m_decor);
-            this->move(800,300);
+            this->move(200,0);
             QPoint origine(m_decor->width()/8,m_decor->height()/5.5);
             QPoint origine2(m_decor->width()/8, m_decor->height()/1.8);
             for (int i=0;i<4;i++) {
@@ -123,7 +123,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             m_decor = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/4booster.jpg");
             this->setWindowTitle("Tables d'addition");
             adapte(*m_decor);
-            move(200,0);
+            move(250,0);
             QPoint origine(m_decor->width()/2 - 35,m_decor->height()/2 - 130);
             int R=m_decor->width()/2.7;
             int nb=8;
@@ -145,7 +145,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             m_decor = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/5palaisGlaces.jpg");
             this->setWindowTitle("Ordres de grandeur");
             adapte(*m_decor);
-            move(900,300);
+            move(300,0);
             QPoint origine(m_decor->width()/5,m_decor->height()/2.5);
                 boutonsPolygone* btnA = new boutonsPolygone("approcheA",100);
                 btnA->deplace(origine.x(), origine.y());
