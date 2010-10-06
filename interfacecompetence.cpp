@@ -193,7 +193,7 @@ void InterfaceCompetence::adapte(QPixmap cheminImage)
             m_scene = new QGraphicsScene(this);
             m_ui->grvFond->setScene(m_scene);
             m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height());
-            this->setGeometry(10,10, imgFond2.width()+26,imgFond2.height()+60);
+            this->setGeometry(10,20, imgFond2.width()+26,imgFond2.height()+60);
             this->setFixedSize(imgFond2.width()+26,imgFond2.height()+60);
 }
 
