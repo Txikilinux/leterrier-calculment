@@ -24,7 +24,7 @@ interface::interface(QWidget *parent)
     qDebug() << "Taille ecran : " << ecran.width()<< " X "<<ecran.height();
     this->resize(ecran.width(),ecran.height());
     ui->fete->resize(ecran.width(),m_hauteurMax);
-    ui->btnInitialise->setGeometry(ecran.width()-180,10,170,30);
+
 
     QPixmap imgFond(QCoreApplication::applicationDirPath()+"/data/images/fondecran.jpg");
     QPixmap imgFond2=imgFond.scaled(ecran.width(),m_hauteurMax,Qt::KeepAspectRatio,Qt::SmoothTransformation);
@@ -32,6 +32,8 @@ interface::interface(QWidget *parent)
     qDebug() << "Taille imageFond2 : " << imgFond2.width()<< " X "<<imgFond2.height();
     QBrush* fond = new QBrush(imgFond2);
     ui->fete->setBackgroundBrush(*fond);
+    this->setFixedSize(imgFond2.width(),imgFond2.height());
+    ui->btnInitialise->setGeometry(imgFond2.width()-180,10,170,30);
 
     double kw=static_cast<double>(imgFond2.width())/static_cast<double>(imgFond.width());
     double kh=static_cast<double>(imgFond2.height())/static_cast<double>(imgFond.height());
