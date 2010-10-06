@@ -92,17 +92,20 @@ void exercice::adapte(QPixmap cheminImage)
 {
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
-    QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-100, Qt::SmoothTransformation);
-     qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
+    //QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-100, Qt::SmoothTransformation);
+
+   //Essai : je mets ecran.width()*2 pour forcer keepAspectRatio à utiliser la hauteur
+    QPixmap imgFond2 = cheminImage.scaled(ecran.width()*2,ecran.height()-100, Qt::KeepAspectRatio,Qt::SmoothTransformation);
+     qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
     //m_ratioTaille = static_cast<double>(imgFond2.width())/static_cast<double>(cheminImage.width());
     *m_imgFond = imgFond2;
     QBrush* fond = new QBrush(imgFond2);
             m_ui->vue->setBackgroundBrush(*fond);
             m_scene = new QGraphicsScene(this);
             m_ui->vue->setScene(m_scene);
-            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()-50);
-            this->setGeometry(10,20, cheminImage.width()+147,cheminImage.height()+47);
-            this->setFixedSize(imgFond2.width()+147,imgFond2.height()-10);
+            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()*0.9);
+            this->setGeometry(10,20, imgFond2.width()+147,imgFond2.height()+47);
+            this->setFixedSize(imgFond2.width()+147,imgFond2.height()+47);
 }
 
 void exercice::chargerParametres()
