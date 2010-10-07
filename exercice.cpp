@@ -36,7 +36,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     this->m_total=0;
     m_ui->lblPoints->setText("0");
     m_ui->lblTotal->setText("0");
-    m_ui->lblArg->setText(exo);
+    //m_ui->lblArg->setText(exo);
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_nbMaxBallons = config.value("NombreBallons").toInt();
@@ -111,9 +111,9 @@ void exercice::adapte(QPixmap cheminImage)
             qDebug()<<"Taille grScene = "<<m_ui->vue->scene()->width()<<" X "<<m_ui->vue->scene()->height();
             qDebug()<<"Taille imgFond = "<<imgFond2.width()<<" X "<<imgFond2.height();
             qDebug()<<"Taille fenetre exercice = "<<this->width()<<" X "<<this->height();
-            QRect rectPourLayoutGauche(0,0,imgFond2.width()*1.223,imgFond2.height()*1.05);
-            m_ui->verticalLayout_4->setGeometry(rectPourLayoutGauche);
-            qDebug()<<"Taille layout  = "<<rectPourLayoutGauche.width()<<" X "<<rectPourLayoutGauche.height();
+//            QRect rectPourLayoutGauche(0,0,imgFond2.width()*1.223,imgFond2.height()*1.05);
+//            m_ui->verticalLayout_3->setGeometry(rectPourLayoutGauche);
+//            qDebug()<<"Taille layout  = "<<rectPourLayoutGauche.width()<<" X "<<rectPourLayoutGauche.height();
 
 }
 

@@ -37,42 +37,19 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetNoConstraint</enum>
-      </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QLabel" name="lblArg">
-          <property name="text">
-           <string>.</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnQuitter">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>120</width>
-            <height>40</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>&amp;Quitter</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QPushButton" name="btnQuitter">
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>&amp;Quitter</string>
+        </property>
+       </widget>
       </item>
       <item>
        <spacer name="verticalSpacer">
@@ -94,12 +71,6 @@
         </property>
         <item>
          <widget class="QPushButton" name="btnBallon">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>20</height>
-           </size>
-          </property>
           <property name="maximumSize">
            <size>
             <width>120</width>
@@ -116,12 +87,6 @@
         </item>
         <item>
          <widget class="QLineEdit" name="leResultat">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>20</height>
-           </size>
-          </property>
           <property name="maximumSize">
            <size>
             <width>120</width>
@@ -132,12 +97,6 @@
         </item>
         <item>
          <widget class="QPushButton" name="btnFeu">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>20</height>
-           </size>
-          </property>
           <property name="maximumSize">
            <size>
             <width>120</width>
@@ -168,12 +127,6 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QLabel" name="lblImgMsg">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>60</height>
-           </size>
-          </property>
           <property name="maximumSize">
            <size>
             <width>120</width>
@@ -190,12 +143,6 @@
         </item>
         <item>
          <widget class="QLabel" name="lblMsg">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>20</height>
-           </size>
-          </property>
           <property name="maximumSize">
            <size>
             <width>120</width>
@@ -212,12 +159,6 @@
         </item>
         <item>
          <widget class="QLabel" name="lblPoints">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>20</height>
-           </size>
-          </property>
           <property name="maximumSize">
            <size>
             <width>120</width>
@@ -234,12 +175,6 @@
         </item>
         <item>
          <widget class="QLabel" name="lblSur">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>20</height>
-           </size>
-          </property>
           <property name="maximumSize">
            <size>
             <width>120</width>
@@ -256,12 +191,6 @@
         </item>
         <item>
          <widget class="QLabel" name="lblTotal">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>20</height>
-           </size>
-          </property>
           <property name="maximumSize">
            <size>
             <width>120</width>
@@ -293,12 +222,6 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnRejouer">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
-        </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -328,12 +251,6 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnEditeur">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
-        </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
