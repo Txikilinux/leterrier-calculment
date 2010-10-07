@@ -13,12 +13,6 @@
     <height>1000</height>
    </rect>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>450</width>
-    <height>600</height>
-   </size>
-  </property>
   <property name="maximumSize">
    <size>
     <width>1500</width>
@@ -44,6 +38,9 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetNoConstraint</enum>
+      </property>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
