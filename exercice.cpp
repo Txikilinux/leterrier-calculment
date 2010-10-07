@@ -92,7 +92,7 @@ void exercice::adapte(QPixmap cheminImage)
 {
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
-    QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()*0.85, Qt::SmoothTransformation);
+    QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()*0.9, Qt::SmoothTransformation);
 
     //QPixmap imgFond2 = cheminImage.scaled(ecran.width(),ecran.height()*0.9, Qt::KeepAspectRatio,Qt::SmoothTransformation);
      qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
