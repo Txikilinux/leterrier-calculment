@@ -92,7 +92,7 @@ void exercice::adapte(QPixmap cheminImage)
 {
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
-    QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()*0.9, Qt::SmoothTransformation);
+    QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()*0.88, Qt::SmoothTransformation);
 
     //QPixmap imgFond2 = cheminImage.scaled(ecran.width(),ecran.height()*0.9, Qt::KeepAspectRatio,Qt::SmoothTransformation);
      qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
@@ -111,10 +111,6 @@ void exercice::adapte(QPixmap cheminImage)
             qDebug()<<"Taille grScene = "<<m_ui->vue->scene()->width()<<" X "<<m_ui->vue->scene()->height();
             qDebug()<<"Taille imgFond = "<<imgFond2.width()<<" X "<<imgFond2.height();
             qDebug()<<"Taille fenetre exercice = "<<this->width()<<" X "<<this->height();
-//            QRect rectPourLayoutGauche(0,0,imgFond2.width()*1.223,imgFond2.height()*1.05);
-//            m_ui->verticalLayout_3->setGeometry(rectPourLayoutGauche);
-//            qDebug()<<"Taille layout  = "<<rectPourLayoutGauche.width()<<" X "<<rectPourLayoutGauche.height();
-
 }
 
 void exercice::chargerParametres()

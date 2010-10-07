@@ -1,4 +1,6 @@
 #include "baudruche.h"
+#include <QApplication>
+ #include <QDesktopWidget>
  #include <QFontMetrics>
 
 const int MULTIPLE_MAX=11;
@@ -209,9 +211,13 @@ void baudruche::dessineMoi(QString image, int taillePolice)
                 }
         else illustration=QCoreApplication::applicationDirPath()+"/data/images/"+imageBase;
         QPixmap imageIllustration(illustration);
+        QRect ecran;
+            ecran=QApplication::desktop()->screenGeometry();
+        //QPixmap imageIllustration2 = imageIllustration.scaledToHeight(ecran.height()*0.3, Qt::SmoothTransformation);
             pixmap->setPixmap(imageIllustration);
             pixmap->setZValue(k);
             pixmap->setPos(m_position);
+
             this->addToGroup(pixmap);
 
     QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
@@ -225,6 +231,8 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         affichage->setPos(decalageCentrage,80);
         affichage->setZValue(k+1);
         this->addToGroup(affichage);
+
+        this->scale(ecran.width()/1600,ecran.height()/1050);
 }
 
 QPoint baudruche::getMPosition()
