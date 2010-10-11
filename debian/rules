@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+  
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/qmake.mk
+
+# Add here any variable or target overrides you need.
+QMAKE=qmake-qt4
+CFLAGS=-O3
+CXXFLAGS=-O3
+
+install/leterrier-calcul-mental::
+	mkdir -p $(CURDIR)/debian/leterrier-calcul-mental/usr/bin/
+	mkdir -p $(CURDIR)/debian/leterrier-calcul-mental/usr/share/leterrier-calcul-mental
+	mkdir -p $(CURDIR)/debian/leterrier-calcul-mental/usr/share/applications
+	install -D --mode=0755 $(CURDIR)/leterrier-calcul-mental.sh $(CURDIR)/debian/leterrier-calcul-mental/usr/bin/leterrier-calcul-mental
+	install -D --mode=0644 $(CURDIR)/debian/*.desktop $(CURDIR)/debian/leterrier-calcul-mental/usr/share/applications/
+	install -D --mode=0644 $(CURDIR)/data $(CURDIR)/debian/leterrier-calcul-mental/usr/share/leterrier-calcul-mental/

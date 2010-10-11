@@ -1,0 +1,5 @@
+#!/bin/bash
+
+xdg-desktop-menu install --novendor /usr/share/applications/leterrier-calcul-mental.desktop
+
+#DEBHELPER#
