@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
         else if (deuze[2]=='a') {
             deuze.remove("--argument=", Qt::CaseInsensitive);
             argument=deuze.toInt();
+            qDebug()<<"argument : "<<argument;
             }
         if (troize[2]=='n') {
             troize.remove("--niveau=", Qt::CaseInsensitive);
@@ -39,11 +40,14 @@ int main(int argc, char *argv[])
         else if (troize[2]=='a') {
             troize.remove("--argument=", Qt::CaseInsensitive);
             argument=troize.toInt();
+            qDebug()<<"argument : "<<argument;
             }
         }
     //à améliorer : dans un cas l'interface est créée pour rien, dans l'autre c'est l'exercice... de toute façon c'est de la mémoire utilisée pour rien !!
     interface w;
     w.setWindowTitle("Calcul Mental");
+    if (argument!=0) exo.append(QString::number(argument));
+    qDebug()<<"exo : "<<exo;
     exercice e(exo,argument,nivo);
     e.setWindowTitle("exercice");
     if (argc==1) w.show();
