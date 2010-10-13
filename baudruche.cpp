@@ -7,6 +7,8 @@ const int MULTIPLE_MAX=11;
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QString image)
 {
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+
     m_approximation=0;
     if (operation=="addition" || operation=="tableA" || operation=="") m_op = "+";
     else if (operation=="soustraction") m_op = "-";
@@ -48,7 +50,8 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
         m_affichage->append(" ");
         m_affichage->append(aDroite);
 
-    dessineMoi(image,16);
+    dessineMoi(image,16*factX);
+    qDebug()<<" Taille police "<<16*factX;
         
     this->emetRes();
     qDebug()<<"res emis instanciation "<<m_resultat;
@@ -57,6 +60,8 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
 //constructeur spécifique aux valeurs approchées
 baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QString image)
 {
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+
     m_approximation=0;
         if (operation=="approcheA") m_op = "+";
         else if (operation=="approcheS") m_op = "-";
@@ -99,7 +104,7 @@ qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeu
         m_affichage->append(aDroite);
         m_affichage->append(QString::fromUtf8(" ≈"));
 
-    dessineMoi(image,16);
+    dessineMoi(image,16*factX);
 
     this->emetApprox();
 }
@@ -107,6 +112,8 @@ qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeu
 //constructeur spécifique aux compléments
 baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QString image)
 {
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+
     if (operation=="complementA") m_op = "+";
     else m_op = "x";
     m_position.setX(pos.x());
@@ -150,7 +157,9 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
         m_affichage->append(" ? = ");
         m_affichage->append(aDroite);
 
-    dessineMoi(image,12);
+    QRect ecran;
+            ecran=QApplication::desktop()->screenGeometry();
+    dessineMoi(image,12*factX);
 
     this->emetRes();
 }
@@ -158,6 +167,8 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
 //constructeur spécifique à l'affichage du résultat
 baudruche::baudruche(int pts, QPoint pos,QString image)
 {
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+
     const int k=100;
     g_operande = 0;
     d_operande = 0;
@@ -181,9 +192,9 @@ baudruche::baudruche(int pts, QPoint pos,QString image)
         pixmap->setPos(pos);
         this->addToGroup(pixmap);
     QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
-        affichage->setFont( QFont( "dejaVuSans",16 ) );
+        affichage->setFont( QFont( "dejaVuSans",16*factX ) );
         affichage->setHtml(*msg);
-        affichage->setZValue(k+1);
+        affichage->setZValue(k+2);
         affichage->setPos(40,100);
         this->addToGroup(affichage);
         //m_timer = new QTimeLine(TPS*1000,this);
@@ -192,6 +203,10 @@ baudruche::baudruche(int pts, QPoint pos,QString image)
 
 void baudruche::dessineMoi(QString image, int taillePolice)
 {
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+    qDebug()<<"FactX = "<<factX;
+    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+    qDebug()<<"FactY = "<<factY;
     const int k=100;
     QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
         int coulAlea = rand()%(5);
@@ -211,10 +226,9 @@ void baudruche::dessineMoi(QString image, int taillePolice)
                 }
         else illustration=QCoreApplication::applicationDirPath()+"/data/images/"+imageBase;
         QPixmap imageIllustration(illustration);
-        QRect ecran;
-            ecran=QApplication::desktop()->screenGeometry();
-        //QPixmap imageIllustration2 = imageIllustration.scaledToHeight(ecran.height()*0.3, Qt::SmoothTransformation);
-            pixmap->setPixmap(imageIllustration);
+        QPixmap imageIllustration2 = imageIllustration.scaled(imageIllustration.width()*factX, imageIllustration.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        qDebug()<<"Taille baudruche : "<<imageIllustration2.width()<<" X "<<imageIllustration2.height();
+            pixmap->setPixmap(imageIllustration2);
             pixmap->setZValue(k);
             pixmap->setPos(m_position);
 
@@ -225,14 +239,13 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         QFontMetrics mesureur(QFont("dejaVuSans",taillePolice));
         int longueurAffichage,largeurIllustration,decalageCentrage;
         longueurAffichage=mesureur.width(*m_affichage);
-        largeurIllustration=imageIllustration.width();
+        largeurIllustration=imageIllustration2.width();
         decalageCentrage=(largeurIllustration-longueurAffichage)/2;
         affichage->setHtml(*m_affichage);
-        affichage->setPos(decalageCentrage,80);
+        affichage->setPos(decalageCentrage,75*factY);
         affichage->setZValue(k+1);
         this->addToGroup(affichage);
 
-        this->scale(ecran.width()/1600,ecran.height()/1050);
 }
 
 QPoint baudruche::getMPosition()
