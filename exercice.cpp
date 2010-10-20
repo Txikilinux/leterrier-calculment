@@ -148,8 +148,8 @@ void exercice::on_btnQuitter_clicked()
 void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
-    if (m_operation=="addition") m_depart = new QPoint(0,m_ui->vue->height()*0.5);
-    else m_depart = new QPoint(m_ui->vue->width()/2,400);
+    if (m_operation=="addition") m_depart = new QPoint(0,m_imgFond->height()*0.5);
+    else m_depart = new QPoint(m_imgFond->width()/2,400);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
 qDebug()<<"Creation de baudruche avec temps "<<m_temps;
