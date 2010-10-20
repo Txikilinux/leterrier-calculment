@@ -90,10 +90,12 @@ void exercice::setImgFond()
 
 void exercice::adapte(QPixmap cheminImage)
 {
+    int bordure=20;
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
                                                                 //              QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()*0.88, Qt::SmoothTransformation);
-        QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-50, Qt::SmoothTransformation);
+        QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-75 - 2*bordure, Qt::SmoothTransformation);
+
 
      qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
      qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
@@ -103,20 +105,21 @@ void exercice::adapte(QPixmap cheminImage)
             m_scene = new QGraphicsScene(this);
             m_ui->vue->setScene(m_scene);
                                                                 //              m_ui->vue->setGeometry(imgFond2.width()*1.223, 20, imgFond2.width(), imgFond2.height());
-            m_ui->vue->setGeometry(120, 20, imgFond2.width(), imgFond2.height()-50);
+            m_ui->vue->setGeometry(120, bordure, imgFond2.width(), imgFond2.height());
 
-            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()-50);
+            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height());
 
                                                                 //            this->setGeometry(10,20, imgFond2.width()*1.223,imgFond2.height()*1.05);
             //this->setGeometry(10,20, imgFond2.width()+120,imgFond2.height()+50); mais ça sert à rien ça, vu la ligne dessous...
 
                                                                 //            this->setFixedSize(imgFond2.width()*1.223,imgFond2.height()*1.05);
-            this->setFixedSize(imgFond2.width()+150,imgFond2.height()+0);
+            this->setFixedSize(imgFond2.width()+120+bordure,imgFond2.height()+bordure);
 
             qDebug()<<"Taille grView = "<<m_ui->vue->width()<<" X "<<m_ui->vue->height();
             qDebug()<<"Taille grScene = "<<m_ui->vue->scene()->width()<<" X "<<m_ui->vue->scene()->height();
             qDebug()<<"Taille imgFond = "<<imgFond2.width()<<" X "<<imgFond2.height();
             qDebug()<<"Taille fenetre exercice = "<<this->width()<<" X "<<this->height();
+            qDebug()<<"Taille écran = "<<ecran.width()<<" X "<<ecran.height();
 }
 
 void exercice::chargerParametres()
