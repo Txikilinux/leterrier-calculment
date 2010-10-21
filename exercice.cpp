@@ -139,7 +139,7 @@ void exercice::adapte(QPixmap cheminImage)
 //A            this->setGeometry(0,0 , imgFond2.width()+120,imgFond2.height()+50); //mais ça sert à rien ça, vu la ligne dessous...
 
                                                                 //            this->setFixedSize(imgFond2.width()*1.223,imgFond2.height()*1.05);
-//A            this->setFixedSize(imgFond2.width()+120+bordure,imgFond2.height()+bordure);
+            this->setFixedSize(imgFond2.width()+120+bordure,imgFond2.height()+bordure);
 
 /*         Je croyais avoir trouvé le moyen de centrer mon exercice à l'écran mais ça marche pas...
             Pourtant comme exercice est une QMainWindow this->frameGeometry() doit retourner un QRect et moveCenter devrait déplacer ce QRect...
@@ -148,13 +148,16 @@ void exercice::adapte(QPixmap cheminImage)
 
               QPoint centreEcran(ecran.width()/2, ecran.height()/2);
               this->frameGeometry().moveCenter(centreEcran);
-*/
 
-            this->frameGeometry().setX(0);
+            Pas plus d'ailleurs que les autres fonctions liées à frameGeometry dont j'avais pourtant trouvé un schéma si explicite !!
+
+            this->frameGeometry().setX(300);
             this->frameGeometry().setY(0);
-            this->frameGeometry().setWidth(m_imgFond->width()+120+2*bordure);
+            this->frameGeometry().setWidth(m_imgFond->width()+520+2*bordure);
             this->frameGeometry().setHeight(m_imgFond->height()+2*bordure);
 
+*/
+            this->move(ecran.width()/2 - m_imgFond->width()/2,0);
 
             qDebug()<<"Taille grView = "<<m_ui->vue->width()<<" X "<<m_ui->vue->height();
             qDebug()<<"Taille grScene = "<<m_ui->vue->scene()->width()<<" X "<<m_ui->vue->scene()->height();

@@ -31,6 +31,16 @@
 
 const int MULTIPLE_MAX=11;
 
+/**
+    * Constructeur.
+    * Crée un objet composé d'une image et d'une opération proposée
+    * @param intMinG est la plus petite valeur que peut prendre l'opérande gauche
+    * @param intMaxG est la plus grande valeur que peut prendre l'opérande gauche
+    * @param intMinD est la plus petite valeur que peut prendre l'opérande droit
+    * @param intMaxD est la plus grande valeur que peut prendre l'opérande droit
+    * @param tempsAccorde est le temps
+    */
+
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
