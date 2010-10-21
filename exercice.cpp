@@ -20,6 +20,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
 {
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
+    //this->setWindowState(Qt::WindowFullScreen);
     m_operation=exo;
     m_cible=val;
     if (exo.left(11)=="complementA") exo.truncate(11);
@@ -94,7 +95,7 @@ void exercice::adapte(QPixmap cheminImage)
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
                                                                 //              QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()*0.88, Qt::SmoothTransformation);
-        QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-75 - 2*bordure, Qt::SmoothTransformation);
+        QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-60 - 2*bordure, Qt::SmoothTransformation);
 
 
      qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
