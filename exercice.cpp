@@ -106,16 +106,15 @@ void exercice::adapte(QPixmap cheminImage)
             m_scene = new QGraphicsScene(this);
             m_ui->vue->setScene(m_scene);
                                                                 //              m_ui->vue->setGeometry(imgFond2.width()*1.223, 20, imgFond2.width(), imgFond2.height());
-            m_ui->vue->setGeometry(this->geometry().x()+ 120, this->geometry().y()+bordure, imgFond2.width(), imgFond2.height());
+            m_ui->vue->setGeometry(this->geometry().x()+ 120, this->geometry().y(), imgFond2.width(), imgFond2.height());
 
             m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height());
 
                                                                 //            this->setGeometry(10,20, imgFond2.width()*1.223,imgFond2.height()*1.05);
-           // this->setGeometry(0,0 , imgFond2.width()+120,imgFond2.height()+50); //mais ça sert à rien ça, vu la ligne dessous...
-this->pos().setX(0);
-this->pos().setY(0);
+//A            this->setGeometry(0,0 , imgFond2.width()+120,imgFond2.height()+50); //mais ça sert à rien ça, vu la ligne dessous...
+
                                                                 //            this->setFixedSize(imgFond2.width()*1.223,imgFond2.height()*1.05);
-            this->setFixedSize(imgFond2.width()+120+bordure,imgFond2.height()+bordure);
+//A            this->setFixedSize(imgFond2.width()+120+bordure,imgFond2.height()+bordure);
 
 /*         Je croyais avoir trouvé le moyen de centrer mon exercice à l'écran mais ça marche pas...
             Pourtant comme exercice est une QMainWindow this->frameGeometry() doit retourner un QRect et moveCenter devrait déplacer ce QRect...
@@ -125,6 +124,12 @@ this->pos().setY(0);
               QPoint centreEcran(ecran.width()/2, ecran.height()/2);
               this->frameGeometry().moveCenter(centreEcran);
 */
+
+            this->frameGeometry().setX(0);
+            this->frameGeometry().setY(0);
+            this->frameGeometry().setWidth(m_imgFond->width()+120+2*bordure);
+            this->frameGeometry().setHeight(m_imgFond->height()+2*bordure);
+
 
             qDebug()<<"Taille grView = "<<m_ui->vue->width()<<" X "<<m_ui->vue->height();
             qDebug()<<"Taille grScene = "<<m_ui->vue->scene()->width()<<" X "<<m_ui->vue->scene()->height();
