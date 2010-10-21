@@ -45,6 +45,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
 {
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
+    this->setObjectName(QString::fromUtf8(tr("Calculs de type ").toStdString().c_str())+exo);
     //this->setWindowState(Qt::WindowFullScreen);
     m_operation=exo;
     m_cible=val;
@@ -208,24 +209,24 @@ void exercice::on_btnBallon_clicked()
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
 qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     if (m_operation=="addition")
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,"autoTamponneuse.png");
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,this,"autoTamponneuse.png");
     else if(m_operation==""
             || m_operation=="soustraction"
             || m_operation=="multiplication")
-                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart);
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,this);
 
         else if (m_operation.left(6)=="tableA" || m_operation.left(6)=="tableM")
-                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart);
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,this);
 
         else if (m_operation.left(11)=="complementA")
-                        m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,"fantome");
+                        m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,this,"fantome");
             else if (m_operation.left(11)=="complementM")
-                    m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart);
+                    m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,this);
 
                  else if (m_operation=="approcheA"
                           || m_operation=="approcheS"
                           || m_operation=="approcheM")
-                                  m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart);
+                                  m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart,this);
 
                       else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
 
@@ -334,7 +335,7 @@ void exercice::on_btnFeu_clicked()
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbMaxBallons << "et score :: " << m_score;
 
         m_depart = new QPoint(200,400);
-        m_baudruche = new baudruche(m_score,*m_depart);
+        m_baudruche = new baudruche(m_score,*m_depart,this);
         m_ui->vue->setScene(m_scene);
 
         QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();

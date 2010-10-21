@@ -44,9 +44,11 @@ const int MULTIPLE_MAX=11;
     * @param image -initialisé à 0- est le nom (sans chemin, sans extension) de l'image. Tant qu'image vaut 0, c'est un ballon de baudruche
     */
 
-baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QString image)
+baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QWidget *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+
+    qDebug()<<"Parent : "<<parent->objectName();
 
     m_approximation=0;
     if (operation=="addition" || operation=="tableA" || operation=="") m_op = "+";
@@ -97,7 +99,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
 }
 
 //constructeur spécifique aux valeurs approchées
-baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QString image)
+baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QWidget *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
 
@@ -149,7 +151,7 @@ qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeu
 }
 
 //constructeur spécifique aux compléments
-baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QString image)
+baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QWidget *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
 
@@ -204,7 +206,7 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
 }
 
 //constructeur spécifique à l'affichage du résultat
-baudruche::baudruche(int pts, QPoint pos,QString image)
+baudruche::baudruche(int pts, QPoint pos,QWidget *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
 
