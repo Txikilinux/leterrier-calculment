@@ -38,7 +38,10 @@ const int MULTIPLE_MAX=11;
     * @param intMaxG est la plus grande valeur que peut prendre l'opérande gauche
     * @param intMinD est la plus petite valeur que peut prendre l'opérande droit
     * @param intMaxD est la plus grande valeur que peut prendre l'opérande droit
-    * @param tempsAccorde est le temps
+    * @param tempsAccorde est le temps de "vie" de l'instance en secondes
+    * @param operation est le nom de l'opération, qui va servir à déterminer le QChar signe opératoire contenu dans la chaine de caractère
+    * @param pos est la position à laquelle est créé mon objet
+    * @param image -initialisé à 0- est le nom (sans chemin, sans extension) de l'image. Tant qu'image vaut 0, c'est un ballon de baudruche
     */
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QString image)
