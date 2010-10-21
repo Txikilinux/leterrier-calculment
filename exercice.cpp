@@ -111,8 +111,9 @@ void exercice::adapte(QPixmap cheminImage)
             m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height());
 
                                                                 //            this->setGeometry(10,20, imgFond2.width()*1.223,imgFond2.height()*1.05);
-            this->setGeometry(0,0 , imgFond2.width()+120,imgFond2.height()+50); //mais ça sert à rien ça, vu la ligne dessous...
-
+           // this->setGeometry(0,0 , imgFond2.width()+120,imgFond2.height()+50); //mais ça sert à rien ça, vu la ligne dessous...
+this->pos().setX(0);
+this->pos().setY(0);
                                                                 //            this->setFixedSize(imgFond2.width()*1.223,imgFond2.height()*1.05);
             this->setFixedSize(imgFond2.width()+120+bordure,imgFond2.height()+bordure);
 
