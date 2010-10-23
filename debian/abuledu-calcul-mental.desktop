@@ -8,5 +8,4 @@ StartupNotify=true
 NoDisplay=true
 Terminal=false
 Type=Application
-Categories=Categories=Math;Education
-
+Categories=Math;Education
