@@ -1,5 +1,5 @@
 #!/bin/bash
 
-xdg-desktop-menu uninstall /usr/share/applications/leterrier-calcul-mental.desktop
+xdg-desktop-menu uninstall /usr/share/applications/abuledu-calcul-mental.desktop
 
 #DEBHELPER#

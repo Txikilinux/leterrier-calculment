@@ -9,12 +9,12 @@ MAKE=make -j4
 CFLAGS=-O3
 CXXFLAGS=-O3
 
-install/leterrier-calcul-mental::
-	mkdir -p $(CURDIR)/debian/leterrier-calcul-mental/usr/bin/
-	mkdir -p $(CURDIR)/debian/leterrier-calcul-mental/usr/share/leterrier-calcul-mental
-	mkdir -p $(CURDIR)/debian/leterrier-calcul-mental/usr/share/applications
-	install -D --mode=0755 $(CURDIR)/leterrier-calcul-mental.sh $(CURDIR)/debian/leterrier-calcul-mental/usr/bin/leterrier-calcul-mental
-	install -D --mode=0644 $(CURDIR)/debian/*.desktop $(CURDIR)/debian/leterrier-calcul-mental/usr/share/applications/
-	install -D --mode=0755 $(CURDIR)/leterrier-calcul-mental $(CURDIR)/debian/leterrier-calcul-mental/usr/share/leterrier-calcul-mental/
-	cp -a  $(CURDIR)/data $(CURDIR)/debian/leterrier-calcul-mental/usr/share/leterrier-calcul-mental/
+install/abuledu-calcul-mental::
+	mkdir -p $(CURDIR)/debian/abuledu-calcul-mental/usr/bin/
+	mkdir -p $(CURDIR)/debian/abuledu-calcul-mental/usr/share/abuledu-calcul-mental
+	mkdir -p $(CURDIR)/debian/abuledu-calcul-mental/usr/share/applications
+	install -D --mode=0755 $(CURDIR)/abuledu-calcul-mental.sh $(CURDIR)/debian/abuledu-calcul-mental/usr/bin/abuledu-calcul-mental
+	install -D --mode=0644 $(CURDIR)/debian/*.desktop $(CURDIR)/debian/abuledu-calcul-mental/usr/share/applications/
+	install -D --mode=0755 $(CURDIR)/abuledu-calcul-mental $(CURDIR)/debian/abuledu-calcul-mental/usr/share/abuledu-calcul-mental/
+	cp -a  $(CURDIR)/data $(CURDIR)/debian/abuledu-calcul-mental/usr/share/abuledu-calcul-mental/
 

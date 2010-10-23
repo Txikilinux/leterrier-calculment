@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Abuledu Calcul-Mental
+Comment=Exercices de Calcul Mental pour l'école
+TryExec=abuledu-calcul-mental
+Exec=abuledu-calcul-mental %U
+Icon=eog
+StartupNotify=true
+NoDisplay=true
+Terminal=false
+Type=Application
+Categories=Categories=Math;Education
+
