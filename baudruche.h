@@ -11,10 +11,10 @@ class baudruche : public QObject, public QGraphicsItemGroup
 {
    Q_OBJECT
 public:
-    baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString op,QPoint pos, QWidget* parent=0,QString image=0);
-    baudruche(int intMaxG, int intMaxD, int tempsAccorde,QString op,QPoint pos,QWidget* parent=0,QString image=0);
-    baudruche(int intDroite, int tempsAccorde,QString op,QPoint pos, QWidget* parent=0,QString image=0);
-    baudruche(int pts, QPoint pos, QWidget* parent=0,QString image=0);
+    baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString op,QPoint pos, QObject* parent=0,QString image=0);
+    baudruche(int intMaxG, int intMaxD, int tempsAccorde,QString op,QPoint pos,QObject* parent=0,QString image=0);
+    baudruche(int intDroite, int tempsAccorde,QString op,QPoint pos, QObject* parent=0,QString image=0);
+    baudruche(int pts, QPoint pos, QObject* parent=0,QString image=0);
     QPoint getMPosition();
     float getMResultat();
     float getMApproximation();
@@ -22,6 +22,7 @@ public:
     float getMDOperande();
     QString getMLigne();
     QString getMOperation();
+    QString getMAffichage();
     int valeurApprochee(int,int);
 //    QTimeLine getMTimer();
     QTimeLine* m_timer;
@@ -48,7 +49,7 @@ private:
     float m_approximation;
     QPoint m_position;
     QString m_ligne;
-    QString* m_affichage;
+    QString m_affichage;
 //    QTimeLine m_timer;
     void dessineMoi(QString,int);
 };

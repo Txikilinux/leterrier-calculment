@@ -13,7 +13,7 @@ class exercice : public QMainWindow {
     Q_OBJECT
     Q_DISABLE_COPY(exercice)
 public:
-    explicit exercice(QString, int val=0, QString niveau=0,QWidget *parent = 0);//
+    explicit exercice(QString,QObject *parent, int val=0, QString niveau=0);//
     virtual ~exercice();
     void setImgFond();
 

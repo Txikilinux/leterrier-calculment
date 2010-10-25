@@ -44,11 +44,11 @@ const int MULTIPLE_MAX=11;
     * @param image -initialisé à 0- est le nom (sans chemin, sans extension) de l'image. Tant qu'image vaut 0, c'est un ballon de baudruche
     */
 
-baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QWidget *parent,QString image)
+baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QObject *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
 
-    qDebug()<<"Parent : "<<parent->objectName();
+    qDebug()<<"Parent de baudruche: "<<parent->objectName();
 
     m_approximation=0;
     if (operation=="addition" || operation=="tableA" || operation=="") m_op = "+";
@@ -84,12 +84,12 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
         aGauche = aGauche.setNum(g_operande);
         aDroite = aDroite.setNum(d_operande);
     //Je peux maintenant construire mon opération en ligne
-    m_affichage = new QString("");
-        m_affichage->append(aGauche);
-        m_affichage->append(" ");
-        m_affichage->append(m_op);
-        m_affichage->append(" ");
-        m_affichage->append(aDroite);
+    m_affichage = "";
+        m_affichage.append(aGauche);
+        m_affichage.append(" ");
+        m_affichage.append(m_op);
+        m_affichage.append(" ");
+        m_affichage.append(aDroite);
 
     dessineMoi(image,16*factX);
     qDebug()<<" Taille police "<<16*factX;
@@ -99,7 +99,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
 }
 
 //constructeur spécifique aux valeurs approchées
-baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QWidget *parent,QString image)
+baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QObject *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
 
@@ -137,13 +137,13 @@ qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeu
         aGauche = aGauche.setNum(g_operande);
         aDroite = aDroite.setNum(d_operande);
     //Je peux maintenant construire mon opération en ligne
-    m_affichage = new QString("");
-        m_affichage->append(aGauche);
-        m_affichage->append(" ");
-        m_affichage->append(m_op);
-        m_affichage->append(" ");
-        m_affichage->append(aDroite);
-        m_affichage->append(QString::fromUtf8(" ≈"));
+    m_affichage = "";
+        m_affichage.append(aGauche);
+        m_affichage.append(" ");
+        m_affichage.append(m_op);
+        m_affichage.append(" ");
+        m_affichage.append(aDroite);
+        m_affichage.append(QString::fromUtf8(" ≈"));
 
     dessineMoi(image,16*factX);
 
@@ -151,7 +151,7 @@ qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeu
 }
 
 //constructeur spécifique aux compléments
-baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QWidget *parent,QString image)
+baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QObject *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
 
@@ -191,12 +191,12 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
         aGauche = aGauche.setNum(g_operande);
         aDroite = aDroite.setNum(d_operande);
     //Je peux maintenant construire mon opération en ligne
-    m_affichage = new QString("");
-        m_affichage->append(aGauche);
-        m_affichage->append(" ");
-        m_affichage->append(m_op);
-        m_affichage->append(" ? = ");
-        m_affichage->append(aDroite);
+    m_affichage = "";
+        m_affichage.append(aGauche);
+        m_affichage.append(" ");
+        m_affichage.append(m_op);
+        m_affichage.append(" ? = ");
+        m_affichage.append(aDroite);
 
     QRect ecran;
             ecran=QApplication::desktop()->screenGeometry();
@@ -206,7 +206,7 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
 }
 
 //constructeur spécifique à l'affichage du résultat
-baudruche::baudruche(int pts, QPoint pos,QWidget *parent,QString image)
+baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
 
@@ -279,10 +279,10 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         affichage->setFont( QFont( "dejaVuSans",taillePolice ) );
         QFontMetrics mesureur(QFont("dejaVuSans",taillePolice));
         int longueurAffichage,largeurIllustration,decalageCentrage;
-        longueurAffichage=mesureur.width(*m_affichage);
+        longueurAffichage=mesureur.width(m_affichage);
         largeurIllustration=imageIllustration2.width();
         decalageCentrage=(largeurIllustration-longueurAffichage)/2;
-        affichage->setHtml(*m_affichage);
+        affichage->setHtml(m_affichage);
         affichage->setPos(decalageCentrage,75*factY);
         affichage->setZValue(k+1);
         this->addToGroup(affichage);
@@ -322,6 +322,11 @@ QString baudruche::getMOperation()
 QString baudruche::getMLigne()
 {
     return this->m_ligne;
+}
+
+QString baudruche::getMAffichage()
+{
+    return m_affichage;
 }
 
 int baudruche::valeurApprochee(int operande, int maximum)

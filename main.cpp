@@ -30,7 +30,11 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+//    MonApplication appli(argc,argv);
+//    QObject* appliCastee = qobject_cast<QApplication*>(&appli);
+//    appli.QObject::installEventFilter(appliCastee);
+    QApplication appli(argc, argv);
+    qDebug()<<"Nom de mon appli : "<<appli.objectName();
     QString exo;
     QString nivo="";
     int argument=0;
@@ -73,9 +77,13 @@ int main(int argc, char *argv[])
     w.setWindowTitle("Calcul Mental");
     if (argument!=0) exo.append(QString::number(argument));
     qDebug()<<"exo : "<<exo;
-    exercice e(exo,argument,nivo);
+    //exercice e(exo,&a,argument,nivo);
+    exercice e(exo,0,argument,nivo);
+    //QObject* appliCastee = qobject_cast<QApplication*>(&appli);
+    e.setObjectName("exercoce");
+    e.setParent(&w);
     e.setWindowTitle("exercice");
     if (argc==1) w.show();
     else e.show();
-    return a.exec();
+    return appli.exec();
 }

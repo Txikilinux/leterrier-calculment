@@ -39,13 +39,18 @@ const int NBCHIFFRE = 3;
 const float SEUIL_NON_ACQUIS=0.4;
 const float SEUIL_ACQUIS=0.8;
 
-exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
-    QMainWindow(parent),
+exercice::exercice(QString exo,QObject *parent,int val, QString niveau) :
+   // QMainWindow(parent),
     m_ui(new Ui::exercice)
 {
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
-    this->setObjectName(QString::fromUtf8(tr("Calculs de type ").toStdString().c_str())+exo);
+    //this->setObjectName(QString::fromUtf8(tr("Calculs de type ").toStdString().c_str())+exo);
+  //  this->setObjectName("exercice");
+
+    if(parent)
+        qDebug()<<"Parent d'exercice: "<<parent->objectName();
+
     //this->setWindowState(Qt::WindowFullScreen);
     m_operation=exo;
     m_cible=val;
@@ -69,6 +74,7 @@ exercice::exercice(QString exo,int val, QString niveau,QWidget *parent) :
     m_nbMaxBallons = config.value("NombreBallons").toInt();
 
     m_niveau = new QString(niveau);
+    m_trace = new QString("");
 
     qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_niveau valait "<<*m_niveau;
 
@@ -132,7 +138,9 @@ void exercice::adapte(QPixmap cheminImage)
             m_scene = new QGraphicsScene(this);
             m_ui->vue->setScene(m_scene);
                                                                 //              m_ui->vue->setGeometry(imgFond2.width()*1.223, 20, imgFond2.width(), imgFond2.height());
-            m_ui->vue->setGeometry(this->geometry().x()+ 100, this->geometry().y(), imgFond2.width(), imgFond2.height());
+            //m_ui->vue->setGeometry(this->geometry().x()+ 100, this->geometry().y(), imgFond2.width(), imgFond2.height());
+            QPoint coinFond(m_ui->vue->mapFromScene(0,0));
+            m_ui->vue->setGeometry(coinFond.x(), coinFond.y(), imgFond2.width(), imgFond2.height());
             m_ui->vue->setMinimumSize(imgFond2.width(), imgFond2.height());
 
             m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height());
@@ -231,7 +239,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
                       else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
 
                       //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
- qDebug()<<"opé tronquée  : "<<m_operation.left(11);
+ qDebug()<<"operation tronquee  : "<<m_operation.left(11);
         if (m_operation=="approcheA"
             || m_operation=="approcheS"
             || m_operation=="approcheM") this->m_resultatEnCours=m_baudruche->getMApproximation();
@@ -248,6 +256,9 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
         m_baudruche->emetRes();
         m_scene->addItem(m_baudruche);
+        
+    *m_trace=m_baudruche->getMAffichage();
+    qDebug()<<"Calcul propose : "<<*m_trace;
 
     //affichage du nombre de ballons déjà instanciés
     m_total = m_ui->lblTotal->text().toInt();
@@ -401,7 +412,7 @@ void exercice::on_btnEditeur_clicked()
 
 void exercice::on_btnRejouer_clicked()
 {
-    exercice* ex = new exercice(m_operation,m_cible);
+    exercice* ex = new exercice(m_operation, this->parentWidget(),m_cible);
     ex->show();
     this->close();
 }
