@@ -123,7 +123,7 @@ void exercice::setImgFond()
 
 void exercice::adapte(QPixmap cheminImage)
 {
-    int bordure=0;
+    int bordure=20;
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
                                                                 //              QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()*0.88, Qt::SmoothTransformation);
