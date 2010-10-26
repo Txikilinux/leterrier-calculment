@@ -143,7 +143,7 @@ void exercice::adapte(QPixmap cheminImage)
             m_ui->vue->setGeometry(coinFond.x(), coinFond.y(), imgFond2.width(), imgFond2.height());
             m_ui->vue->setMinimumSize(imgFond2.width(), imgFond2.height());
 
-            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()-23);
+            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()+20);
 
                                                                 //            this->setGeometry(10,20, imgFond2.width()*1.223,imgFond2.height()*1.05);
 //A            this->setGeometry(0,0 , imgFond2.width()+120,imgFond2.height()+50); //mais ça sert à rien ça, vu la ligne dessous...
