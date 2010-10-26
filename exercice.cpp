@@ -143,13 +143,13 @@ void exercice::adapte(QPixmap cheminImage)
             m_ui->vue->setGeometry(coinFond.x(), coinFond.y(), imgFond2.width(), imgFond2.height());
             m_ui->vue->setMinimumSize(imgFond2.width(), imgFond2.height());
 
-            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height());
+            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()-25);
 
                                                                 //            this->setGeometry(10,20, imgFond2.width()*1.223,imgFond2.height()*1.05);
 //A            this->setGeometry(0,0 , imgFond2.width()+120,imgFond2.height()+50); //mais ça sert à rien ça, vu la ligne dessous...
 
                                                                 //            this->setFixedSize(imgFond2.width()*1.223,imgFond2.height()*1.05);
-            this->setFixedSize(imgFond2.width()+100+bordure,imgFond2.height()+bordure);
+            this->setFixedSize(imgFond2.width()+130+bordure,imgFond2.height()+bordure);
 
 /*         Je croyais avoir trouvé le moyen de centrer mon exercice à l'écran mais ça marche pas...
             Pourtant comme exercice est une QMainWindow this->frameGeometry() doit retourner un QRect et moveCenter devrait déplacer ce QRect...
@@ -211,7 +211,7 @@ void exercice::on_btnQuitter_clicked()
 void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
-    if (m_operation=="addition") m_depart = new QPoint(0,m_imgFond->height()*0.5);
+    if (m_operation=="addition") m_depart = new QPoint(50,m_imgFond->height()*0.5);
     else m_depart = new QPoint(m_imgFond->width()/2,400);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
@@ -283,8 +283,12 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     QGraphicsItemAnimation *animation = new QGraphicsItemAnimation(m_scene);
         animation->setItem(m_baudruche);
         animation->setTimeLine(m_baudruche->m_timer);
-        if (m_operation=="addition") for (int i = 0; i < 200; i++)
-                                        animation->setPosAt(i/200.0, QPointF((4.1*i) ,0 ));
+        if (m_operation=="addition") {
+            for (int i = 0; i < 200; i++)
+                animation->setPosAt(0.5, QPointF((2*i) ,0 ));
+            for (int j=200;j<300;j++)
+                animation->setPosAt(1, QPointF((5*j) ,0 ));
+        }
         else for (int i = 0; i < 200; i++)
                 animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
             // animation->setPosAt(i/200.0, QPointF(0 , (3*i)+(i*0.8))); --> pour la faire tomber
@@ -349,16 +353,17 @@ void exercice::on_btnFeu_clicked()
         m_baudruche = new baudruche(m_score,*m_depart,this);
         m_ui->vue->setScene(m_scene);
 
-        QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
-        QPixmap* prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bof.png");
-        if (m_score<m_total*SEUIL_NON_ACQUIS)
-            prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/rate.png");
-        else if (m_score>=m_total*SEUIL_ACQUIS)
-                prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bien.png");
-            fondProf->setPixmap(*prof);
-            m_scene->addItem(fondProf);
-            fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.2);
-            fondProf->setZValue(m_nbMaxBallons);
+//        Ajout d'une image de William personnalisée au résultat de l'exercice
+//        QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
+//        QPixmap* prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bof.png");
+//        if (m_score<m_total*SEUIL_NON_ACQUIS)
+//            prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/rate.png");
+//        else if (m_score>=m_total*SEUIL_ACQUIS)
+//                prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bien.png");
+//            fondProf->setPixmap(*prof);
+//            m_scene->addItem(fondProf);
+//            fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.2);
+//            fondProf->setZValue(m_nbMaxBallons);
 
         QString tabBallons[] = {QCoreApplication::applicationDirPath()+"/data/images/ballonBleu.png",QCoreApplication::applicationDirPath()+"/data/images/ballonJaune.png",QCoreApplication::applicationDirPath()+"/data/images/ballonRouge.png",QCoreApplication::applicationDirPath()+"/data/images/ballonVert.png",QCoreApplication::applicationDirPath()+"/data/images/ballonOrange.png"};
         for (int i=0;i<5;i++) {
