@@ -254,6 +254,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
         connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
+        connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
         m_baudruche->emetRes();
         m_scene->addItem(m_baudruche);
         
@@ -344,8 +345,51 @@ void exercice::on_btnFeu_clicked()
     m_ui->btnFeu->setDisabled(true);
 
     if (m_total==m_nbMaxBallons) {
+        afficheResultat("peutImporteCeQuiEstEcritIci");
+        //mise à jour ou pas du niveau
+        QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+        config.beginGroup(m_operation);
+        if (m_score==m_total) {
+            if (*m_niveau=="Niveau1") config.setValue("NiveauEnCours"+m_operation, "Niveau2");
+            else if (*m_niveau=="Niveau2") config.setValue("NiveauEnCours"+m_operation, "Niveau3");
+            else if (*m_niveau=="Niveau3") config.setValue("NiveauEnCours"+m_operation, "Personnel");
+        }
 
-        m_ui->btnRejouer->setEnabled(true);
+
+       //*m_niveau = config.value("NiveauEnCours"+opCourante).toString();
+
+    config.endGroup();
+        }
+}
+
+void exercice::on_leResultat_returnPressed()
+{
+    if (!m_ui->leResultat->text().isEmpty()) on_btnFeu_clicked();
+}
+
+void exercice::on_btnEditeur_clicked()
+{
+   // this ->hide();
+   Editeur* ed = new Editeur(this);
+   ed->show();
+    //idee eric, fait appel a l objet "global"
+   // parent->m_editeur->show();
+}
+
+void exercice::on_btnRejouer_clicked()
+{
+    exercice* ex = new exercice(m_operation, this->parentWidget(),m_cible);
+    ex->show();
+    this->close();
+}
+
+void exercice::afficheResultat(QString toto)
+{
+    //la ligne ci-dessous a comme seule utilité parce qu'il me fallait un paramètre QString au SLOT (compatibilité SIGNAL) de ne pas avoir un warning
+    toto="";
+
+    if (m_total==m_nbMaxBallons) {
+    m_ui->btnRejouer->setEnabled(true);
         //debug eric
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbMaxBallons << "et score :: " << m_score;
 
@@ -377,47 +421,12 @@ void exercice::on_btnFeu_clicked()
 
     m_scene->addItem(m_baudruche);
         m_baudruche->setZValue(m_nbMaxBallons);
+    }
 
     QString scoreEnString;
         scoreEnString.setNum(m_score);
     QString totalEnString;
         totalEnString.setNum(m_total);
     //écriture du SCORE et du NBTOTAL dans le journal des logs
-    sauvegardeLog* envoieScore = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, "score", totalEnString, scoreEnString);
-
-    //mise à jour ou pas du niveau
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-    config.beginGroup(m_operation);
-        if (m_score==m_total) {
-            if (*m_niveau=="Niveau1") config.setValue("NiveauEnCours"+m_operation, "Niveau2");
-            else if (*m_niveau=="Niveau2") config.setValue("NiveauEnCours"+m_operation, "Niveau3");
-                 else if (*m_niveau=="Niveau3") config.setValue("NiveauEnCours"+m_operation, "Personnel");
-            }
-
-
-       //*m_niveau = config.value("NiveauEnCours"+opCourante).toString();
-
-    config.endGroup();
-        }
-}
-
-void exercice::on_leResultat_returnPressed()
-{
-    if (!m_ui->leResultat->text().isEmpty()) on_btnFeu_clicked();
-}
-
-void exercice::on_btnEditeur_clicked()
-{
-   // this ->hide();
-   Editeur* ed = new Editeur(this);
-   ed->show();
-    //idee eric, fait appel a l objet "global"
-   // parent->m_editeur->show();
-}
-
-void exercice::on_btnRejouer_clicked()
-{
-    exercice* ex = new exercice(m_operation, this->parentWidget(),m_cible);
-    ex->show();
-    this->close();
+   // sauvegardeLog* envoieScore = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, "score", totalEnString, scoreEnString);
 }

@@ -42,6 +42,7 @@ private:
     void chargerParametres();
     void adapte(QPixmap);
 
+
 private slots:
     void on_btnRejouer_clicked();
     void on_btnEditeur_clicked();
@@ -49,6 +50,7 @@ private slots:
     void on_btnFeu_clicked();
     void on_btnBallon_clicked();
     void on_btnQuitter_clicked();
+    void afficheResultat(QString);
 };
 
 #endif // EXERCICE_H
