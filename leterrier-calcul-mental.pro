@@ -27,3 +27,4 @@ FORMS += interface.ui \
     dialogapropos.ui
 QT += script
 QT += network
+RC_FILE = leterrier-calcul-mental.rc
