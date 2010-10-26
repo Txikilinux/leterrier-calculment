@@ -143,7 +143,7 @@ void exercice::adapte(QPixmap cheminImage)
             m_ui->vue->setGeometry(coinFond.x(), coinFond.y(), imgFond2.width(), imgFond2.height());
             m_ui->vue->setMinimumSize(imgFond2.width(), imgFond2.height());
 
-            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()-25);
+            m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()-23);
 
                                                                 //            this->setGeometry(10,20, imgFond2.width()*1.223,imgFond2.height()*1.05);
 //A            this->setGeometry(0,0 , imgFond2.width()+120,imgFond2.height()+50); //mais ça sert à rien ça, vu la ligne dessous...
@@ -349,7 +349,7 @@ void exercice::on_btnFeu_clicked()
         //debug eric
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbMaxBallons << "et score :: " << m_score;
 
-        m_depart = new QPoint(200,400);
+        m_depart = new QPoint(m_imgFond->width()*0.3,m_imgFond->height()*0.4);
         m_baudruche = new baudruche(m_score,*m_depart,this);
         m_ui->vue->setScene(m_scene);
 

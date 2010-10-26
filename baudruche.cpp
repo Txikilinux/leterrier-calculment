@@ -276,7 +276,7 @@ void baudruche::dessineMoi(QString image, int taillePolice)
             this->addToGroup(pixmap);
 
     QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
-        affichage->setFont( QFont( "dejaVuSans",taillePolice ) );
+        affichage->setFont( QFont( "dejaVuSans",taillePolice,QFont::Bold ) );
         QFontMetrics mesureur(QFont("dejaVuSans",taillePolice));
         int longueurAffichage,largeurIllustration,decalageCentrage;
         longueurAffichage=mesureur.width(m_affichage);
