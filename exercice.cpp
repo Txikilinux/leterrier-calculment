@@ -393,21 +393,21 @@ void exercice::afficheResultat(QString toto)
         //debug eric
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbMaxBallons << "et score :: " << m_score;
 
-        m_depart = new QPoint(m_imgFond->width()*0.3,m_imgFond->height()*0.4);
+        m_depart = new QPoint(m_imgFond->width()*0.3,m_imgFond->height()*0.5);
         m_baudruche = new baudruche(m_score,*m_depart,this);
         m_ui->vue->setScene(m_scene);
 
-//        Ajout d'une image de William personnalisée au résultat de l'exercice
-//        QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
-//        QPixmap* prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bof.png");
-//        if (m_score<m_total*SEUIL_NON_ACQUIS)
-//            prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/rate.png");
-//        else if (m_score>=m_total*SEUIL_ACQUIS)
-//                prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bien.png");
-//            fondProf->setPixmap(*prof);
-//            m_scene->addItem(fondProf);
-//            fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.2);
-//            fondProf->setZValue(m_nbMaxBallons);
+        //Ajout d'une image de William personnalisée au résultat de l'exercice
+        QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
+        QPixmap* prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bof.png");
+        if (m_score<m_total*SEUIL_NON_ACQUIS)
+            prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/rate.png");
+        else if (m_score>=m_total*SEUIL_ACQUIS)
+                prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bien.png");
+            fondProf->setPixmap(*prof);
+            m_scene->addItem(fondProf);
+            fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.2);
+            fondProf->setZValue(m_nbMaxBallons);
 
         QString tabBallons[] = {QCoreApplication::applicationDirPath()+"/data/images/ballonBleu.png",QCoreApplication::applicationDirPath()+"/data/images/ballonJaune.png",QCoreApplication::applicationDirPath()+"/data/images/ballonRouge.png",QCoreApplication::applicationDirPath()+"/data/images/ballonVert.png",QCoreApplication::applicationDirPath()+"/data/images/ballonOrange.png"};
         for (int i=0;i<5;i++) {
