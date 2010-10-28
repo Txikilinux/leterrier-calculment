@@ -1,3 +1,9 @@
+abuledu-calcul-mental (1.0.0~ppa1~jaunty1) jaunty; urgency=low
+
+  * Version 1.0
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Thu, 28 Oct 2010 10:41:44 +0200
+
 abuledu-calcul-mental (0.9.1~ppa1~jaunty1) jaunty; urgency=low
 
   * Premier paquet deb
