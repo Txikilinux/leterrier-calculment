@@ -58,6 +58,7 @@ interface::interface(QWidget *parent)
     ui->fete->setBackgroundBrush(*fond);
     this->setFixedSize(imgFond2.width(),imgFond2.height());
     ui->btnInitialise->setGeometry(imgFond2.width()-180,10,170,30);
+    ui->btnInitialise->hide();
 
     double kw=static_cast<double>(imgFond2.width())/static_cast<double>(imgFond.width());
     double kh=static_cast<double>(imgFond2.height())/static_cast<double>(imgFond.height());
