@@ -98,7 +98,7 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
                 alertBox->show();
                         }
                 else {
-                    exercice* ex = new exercice(*m_action,QCoreApplication::instance(),m_val);
+                    exercice* ex = new exercice(*m_action,0,m_val);
                     ex->show();
                     }
     e->accept();

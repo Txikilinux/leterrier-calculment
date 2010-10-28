@@ -39,12 +39,13 @@ const int NBCHIFFRE = 3;
 const float SEUIL_NON_ACQUIS=0.4;
 const float SEUIL_ACQUIS=0.8;
 
-exercice::exercice(QString exo,QObject *parent,int val, QString niveau) :
-   // QMainWindow(parent),
+exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
+    AbulEduExerciceV0(parent),
     m_ui(new Ui::exercice)
 {
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
+    this->setAbeExerciceName(exo);
     //this->setObjectName(QString::fromUtf8(tr("Calculs de type ").toStdString().c_str())+exo);
   //  this->setObjectName("exercice");
 
@@ -71,16 +72,16 @@ exercice::exercice(QString exo,QObject *parent,int val, QString niveau) :
     //m_ui->lblArg->setText(exo);
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-    m_nbMaxBallons = config.value("NombreBallons").toInt();
+    m_nbTotalQuestions = config.value("NombreBallons").toInt();
 
-    m_niveau = new QString(niveau);
+    m_level = niveau;
     m_trace = new QString("");
 
-    qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_niveau valait "<<*m_niveau;
+    qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
 
     chargerParametres();
 
-    if (*m_niveau=="Personnel") m_ui->btnEditeur->setEnabled(true);
+    if (m_level=="Personnel") m_ui->btnEditeur->setEnabled(true);
     else m_ui->btnEditeur->setDisabled(true);
     m_ui->btnBallon->setFocus();
     m_ui->btnFeu->setDisabled(true);
@@ -180,14 +181,14 @@ void exercice::chargerParametres()
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
         config.beginGroup(m_operation);
-        if (*m_niveau=="") *m_niveau = config.value("NiveauEnCours"+m_operation).toString();
-        config.beginGroup(*m_niveau);
+        if (m_level=="") m_level = config.value("NiveauEnCours"+m_operation).toString();
+        config.beginGroup(m_level);
             m_maxG = config.value("MaxGauche").toInt();
             m_minG = config.value("MinGauche").toInt();
             m_maxD = config.value("MaxDroite").toInt();
             m_minD = config.value("MinDroite").toInt();
             m_temps = config.value("TempsAccorde").toInt();
-            qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<*m_niveau<<"Tps : "<<m_temps;
+            qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<m_level<<"Tps : "<<m_temps;
         config.endGroup();
     config.endGroup();
 
@@ -245,7 +246,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
             || m_operation=="approcheM") this->m_resultatEnCours=m_baudruche->getMApproximation();
         else this->m_resultatEnCours=m_baudruche->getMResultat();
         qDebug()<<" attribut résultat de l'exercice "<<m_resultatEnCours;
-        if (m_total<m_nbMaxBallons - 1) {
+        if (m_total<m_nbTotalQuestions - 1) {
             connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnBallon, SLOT(setEnabled(bool)));
             connect(m_baudruche, SIGNAL(destroyed()), m_ui->btnBallon, SLOT(setFocus()));
             }
@@ -255,6 +256,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
         connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
+        connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(pousseLogs(QString)));
         m_baudruche->emetRes();
         m_scene->addItem(m_baudruche);
         
@@ -303,6 +305,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
 
 void exercice::on_btnFeu_clicked()
 {
+    QString evaluation="";
     float proposition = m_ui->leResultat->text().toFloat();
     float reponse = m_resultatEnCours;
     QString demande = "";
@@ -314,49 +317,42 @@ void exercice::on_btnFeu_clicked()
         m_ui->lblMsg->setText(tr("GAGNE"));
         QPixmap* imgO = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/will-win.png");
         m_ui->lblImgMsg->setPixmap(*imgO);
+        evaluation="a";
         }
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
         QPixmap* imgN = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/will-lose.png");
         m_ui->lblImgMsg->setPixmap(*imgN);
+        evaluation="d";
         }
     QString monScore = "";
     monScore = monScore.setNum(m_score);
     m_ui->lblPoints->setText(monScore);
 
-   //envoi au journal de log
-        #ifdef Q_WS_WIN
-        QString utilisateur("bill.gates" );
-        #endif
-
-        #ifdef Q_WS_X11
-        QString utilisateur( getenv("USER") );
-        #endif
-        #ifdef Q_WS_MAC
-            QString utilisateur( "steve.jobs" );
-        #endif
     QString reponseAttendueEnString;
         reponseAttendueEnString.setNum(reponse);
     QString propositionEnString;
         propositionEnString.setNum(proposition);
-    sauvegardeLog* envoieRes = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, m_baudruche->getMLigne(), m_ui->leResultat->text(), reponseAttendueEnString);
+    //sauvegardeLog* envoieRes = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, m_baudruche->getMLigne(), m_ui->leResultat->text(), reponseAttendueEnString);
+        setAbulEduLineLog(m_score, m_total,m_baudruche->getMLigne(),m_ui->leResultat->text(),evaluation,reponseAttendueEnString);
+        qDebug()<<getAbulEduLogs();
 
     if (m_baudruche!=NULL) m_baudruche->detruire();
     m_ui->btnFeu->setDisabled(true);
 
-    if (m_total==m_nbMaxBallons) {
+    if (m_total==m_nbTotalQuestions) {
         afficheResultat("peutImporteCeQuiEstEcritIci");
         //mise à jour ou pas du niveau
         QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
         config.beginGroup(m_operation);
         if (m_score==m_total) {
-            if (*m_niveau=="Niveau1") config.setValue("NiveauEnCours"+m_operation, "Niveau2");
-            else if (*m_niveau=="Niveau2") config.setValue("NiveauEnCours"+m_operation, "Niveau3");
-            else if (*m_niveau=="Niveau3") config.setValue("NiveauEnCours"+m_operation, "Personnel");
+            if (m_level=="Niveau1") config.setValue("NiveauEnCours"+m_operation, "Niveau2");
+            else if (m_level=="Niveau2") config.setValue("NiveauEnCours"+m_operation, "Niveau3");
+            else if (m_level=="Niveau3") config.setValue("NiveauEnCours"+m_operation, "Personnel");
         }
 
 
-       //*m_niveau = config.value("NiveauEnCours"+opCourante).toString();
+       //m_level = config.value("NiveauEnCours"+opCourante).toString();
 
     config.endGroup();
         }
@@ -383,15 +379,15 @@ void exercice::on_btnRejouer_clicked()
     this->close();
 }
 
-void exercice::afficheResultat(QString toto)
+void exercice::afficheResultat(QString neSertARien)
 {
     //la ligne ci-dessous a comme seule utilité parce qu'il me fallait un paramètre QString au SLOT (compatibilité SIGNAL) de ne pas avoir un warning
-    toto="";
+    neSertARien="";
 
-    if (m_total==m_nbMaxBallons) {
+    if (m_total==m_nbTotalQuestions) {
     m_ui->btnRejouer->setEnabled(true);
         //debug eric
-        qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbMaxBallons << "et score :: " << m_score;
+        qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbTotalQuestions << "et score :: " << m_score;
 
         m_depart = new QPoint(m_imgFond->width()*0.3,m_imgFond->height()*0.5);
         m_baudruche = new baudruche(m_score,*m_depart,this);
@@ -407,7 +403,7 @@ void exercice::afficheResultat(QString toto)
             fondProf->setPixmap(*prof);
             m_scene->addItem(fondProf);
             fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.2);
-            fondProf->setZValue(m_nbMaxBallons);
+            fondProf->setZValue(m_nbTotalQuestions);
 
         QString tabBallons[] = {QCoreApplication::applicationDirPath()+"/data/images/ballonBleu.png",QCoreApplication::applicationDirPath()+"/data/images/ballonJaune.png",QCoreApplication::applicationDirPath()+"/data/images/ballonRouge.png",QCoreApplication::applicationDirPath()+"/data/images/ballonVert.png",QCoreApplication::applicationDirPath()+"/data/images/ballonOrange.png"};
         for (int i=0;i<5;i++) {
@@ -416,11 +412,11 @@ void exercice::afficheResultat(QString toto)
             image->setPixmap(*img);
             m_scene->addItem(image);
             image->setPos(m_depart->x()+35*(i+1),m_depart->y()+10*(i+1));
-            image->setZValue(m_nbMaxBallons-1-i);
+            image->setZValue(m_nbTotalQuestions-1-i);
             }
 
     m_scene->addItem(m_baudruche);
-        m_baudruche->setZValue(m_nbMaxBallons);
+        m_baudruche->setZValue(m_nbTotalQuestions);
     }
 
     QString scoreEnString;
@@ -429,4 +425,13 @@ void exercice::afficheResultat(QString toto)
         totalEnString.setNum(m_total);
     //écriture du SCORE et du NBTOTAL dans le journal des logs
    // sauvegardeLog* envoieScore = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, "score", totalEnString, scoreEnString);
+}
+
+void exercice::pousseLogs(QString neSertPasDavantage)
+{
+    neSertPasDavantage="";
+    QString reponseAttendueEnString;
+        reponseAttendueEnString.setNum(m_resultatEnCours);
+    setAbulEduLineLog(m_score, m_total,m_baudruche->getMLigne(),m_ui->leResultat->text(),"z",reponseAttendueEnString);
+    qDebug()<<getAbulEduLogs();
 }

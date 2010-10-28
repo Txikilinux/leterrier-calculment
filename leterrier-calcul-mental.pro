@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     sauvegardelog.cpp \
     editeur.cpp \
     interfacecompetence.cpp \
-    dialogapropos.cpp
+    dialogapropos.cpp \
+    abuleduexercicev0.cpp
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
@@ -19,7 +20,8 @@ HEADERS += interface.h \
     sauvegardelog.h \
     editeur.h \
     interfacecompetence.h \
-    dialogapropos.h
+    dialogapropos.h \
+    abuleduexercicev0.h
 FORMS += interface.ui \
     exercice.ui \
     editeur.ui \

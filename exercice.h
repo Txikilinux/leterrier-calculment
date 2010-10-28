@@ -4,16 +4,17 @@
 #include <QtGui/QMainWindow>
 #include <QGraphicsScene>
 #include "baudruche.h"
+#include "abuleduexercicev0.h"
 
 namespace Ui {
     class exercice;
 }
 
-class exercice : public QMainWindow {
+class exercice : public AbulEduExerciceV0 {
     Q_OBJECT
     Q_DISABLE_COPY(exercice)
 public:
-    explicit exercice(QString,QObject *parent, int val=0, QString niveau=0);//
+    explicit exercice(QString,QWidget *parent=0, int val=0, QString niveau=0);//
     virtual ~exercice();
     void setImgFond();
 
@@ -24,14 +25,12 @@ private:
     Ui::exercice *m_ui;
     int m_score;
     int m_total;
-    int m_nbMaxBallons;
     QPoint* m_depart;
     QString m_operation;
     QGraphicsScene* m_scene;
     QPixmap* m_imgFond;
     baudruche* m_baudruche;
     QString* m_trace;
-    QString* m_niveau;
     int m_minG;
     int m_maxG;
     int m_minD;
@@ -51,6 +50,7 @@ private slots:
     void on_btnBallon_clicked();
     void on_btnQuitter_clicked();
     void afficheResultat(QString);
+    void pousseLogs(QString);
 };
 
 #endif // EXERCICE_H
