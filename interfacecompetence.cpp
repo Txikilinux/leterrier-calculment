@@ -215,13 +215,28 @@ void InterfaceCompetence::adapte(QPixmap cheminImage)
     qDebug()<<"Ratio taille = "<<m_ratioTaille;
 
 //Pour animation d'ouverture, décommenter les lignes marquées "1" et commenter les lignes marquées "2" à la fin
-//1    QPropertyAnimation* animation = new QPropertyAnimation(this, "geometry");
-//1        animation->setDuration(2000);
-//1        animation->setStartValue(QRect(0, 0, 10, 10));
-//1       animation->setEndValue(QRect(0, 0, imgFond2.width()+26, imgFond2.height()+60));
-//1       animation->start();
-    this->setGeometry(10,20, imgFond2.width()+26,imgFond2.height()+60);//2
-    this->setFixedSize(imgFond2.width()+26,imgFond2.height()+60);//2
+    QPropertyAnimation* animation = new QPropertyAnimation(this, "size");
+        animation->setDuration(3000);
+        animation->setStartValue(QSize(10,10));
+       animation->setEndValue(QSize(imgFond2.width()+26, imgFond2.height()+60));
+       //animation->start();
+       QPropertyAnimation* animation2 = new QPropertyAnimation(this, "pos");
+           animation2->setDuration(3000);
+           animation2->setKeyValueAt(0,QPoint(0,0));
+           animation2->setKeyValueAt(0.25,QPoint(1200,200));
+           animation2->setKeyValueAt(0.5,QPoint(100,800));
+           animation2->setKeyValueAt(0.75,QPoint(400,200));
+           animation2->setKeyValueAt(1,QPoint(600,100));
+          // animation2->setStartValue(QPoint(0,0));
+          //animation2->setEndValue(QPoint(200,100));
+         // animation2->start();
+
+          QParallelAnimationGroup *group = new QParallelAnimationGroup;
+          group->addAnimation(animation);
+          group->addAnimation(animation2);
+          group->start();
+//2    this->setGeometry(10,20, imgFond2.width()+26,imgFond2.height()+60);//2
+//2    this->setFixedSize(imgFond2.width()+26,imgFond2.height()+60);//2
 
     *m_decor = imgFond2;
     QBrush* fond = new QBrush(imgFond2);
