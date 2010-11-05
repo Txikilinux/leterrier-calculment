@@ -30,6 +30,7 @@
 #include <QDebug>
 #include <QApplication>
  #include <QDesktopWidget>
+#include <QPropertyAnimation>
 
 InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
     QWidget(parent),
@@ -42,6 +43,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
     competence.remove(0,1);
     int choix = initialeCompetence.toInt();
    qDebug() << "choix vaut " << choix << " et compétence : "<<competence;
+
     switch (choix) {
         case 1 : {
             m_decor = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/1gdRoue.jpg");
@@ -211,14 +213,23 @@ void InterfaceCompetence::adapte(QPixmap cheminImage)
 
     m_ratioTaille = static_cast<double>(imgFond2.width())/static_cast<double>(cheminImage.width());
     qDebug()<<"Ratio taille = "<<m_ratioTaille;
+
+//Pour animation d'ouverture, décommenter les lignes marquées "1" et commenter les lignes marquées "2" à la fin
+//1    QPropertyAnimation* animation = new QPropertyAnimation(this, "geometry");
+//1        animation->setDuration(2000);
+//1        animation->setStartValue(QRect(0, 0, 10, 10));
+//1       animation->setEndValue(QRect(0, 0, imgFond2.width()+26, imgFond2.height()+60));
+//1       animation->start();
+    this->setGeometry(10,20, imgFond2.width()+26,imgFond2.height()+60);//2
+    this->setFixedSize(imgFond2.width()+26,imgFond2.height()+60);//2
+
     *m_decor = imgFond2;
     QBrush* fond = new QBrush(imgFond2);
             m_ui->grvFond->setBackgroundBrush(*fond);
             m_scene = new QGraphicsScene(this);
             m_ui->grvFond->setScene(m_scene);
             m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height());
-            this->setGeometry(10,20, imgFond2.width()+26,imgFond2.height()+60);
-            this->setFixedSize(imgFond2.width()+26,imgFond2.height()+60);
+
 }
 
 InterfaceCompetence::~InterfaceCompetence()

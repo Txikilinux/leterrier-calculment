@@ -27,6 +27,30 @@
 #include "interface.h"
 #include "exercice.h"
 #include "editeur.h"
+#include <stdio.h>
+
+void debugOutput(QtMsgType type, const char *msg)
+ {
+     switch (type) {
+     case QtDebugMsg:
+#ifdef QT_NO_DEBUG_OUTPUT
+         fprintf(stderr, "Debug: %s\n", msg);
+#endif
+         break;
+     case QtWarningMsg:
+#ifdef QT_NO_WARNING_OUTPUT
+         fprintf(stderr, "Warning: %s\n", msg);
+#endif
+         break;
+     case QtCriticalMsg:
+         fprintf(stderr, "Critical: %s\n", msg);
+         break;
+     case QtFatalMsg:
+         fprintf(stderr, "Fatal: %s\n", msg);
+         abort();
+     }
+ }
+
 
 int main(int argc, char *argv[])
 {
@@ -34,6 +58,7 @@ int main(int argc, char *argv[])
 //    QObject* appliCastee = qobject_cast<QApplication*>(&appli);
 //    appli.QObject::installEventFilter(appliCastee);
     QApplication appli(argc, argv);
+    qInstallMsgHandler(debugOutput);
     qDebug()<<"Nom de mon appli : "<<appli.objectName();
     QString exo;
     QString nivo="";

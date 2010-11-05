@@ -32,6 +32,7 @@
 
 #include <QApplication>
  #include <QDesktopWidget>
+#include <QDesktopServices>
 
 
 interface::interface(QWidget *parent)
@@ -81,6 +82,7 @@ interface::interface(QWidget *parent)
         btnPoly1->QGraphicsItem::setToolTip("Faire des additions");
         btnPoly1->setTexte("Additions");
         dessin->addItem(btnPoly1);
+        connect(btnPoly1, SIGNAL(clicked()), this, SLOT(close()));
 
     //Bouton sur le manège
     boutonsPolygone* btnPoly2 = new boutonsPolygone("multiplication");
@@ -362,4 +364,9 @@ void interface::on_action_100_triggered()
 void interface::on_action_un_nombre_al_atoire_triggered()
 {
 
+}
+
+void interface::on_actionDocumentation_utilisateurs_triggered()
+{
+    QDesktopServices::openUrl("http://docs.abuledu.org/leterrier/calcul-mental/"+qApp->applicationVersion());
 }

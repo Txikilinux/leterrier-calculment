@@ -14,7 +14,7 @@ class exercice : public AbulEduExerciceV0 {
     Q_OBJECT
     Q_DISABLE_COPY(exercice)
 public:
-    explicit exercice(QString,QWidget *parent=0, int val=0, QString niveau=0);//
+    explicit exercice(QString,QWidget *parent=0, int val=0, QString niveau="");
     virtual ~exercice();
     void setImgFond();
 

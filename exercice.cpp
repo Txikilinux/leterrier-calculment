@@ -334,8 +334,8 @@ void exercice::on_btnFeu_clicked()
     QString propositionEnString;
         propositionEnString.setNum(proposition);
     //sauvegardeLog* envoieRes = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, m_baudruche->getMLigne(), m_ui->leResultat->text(), reponseAttendueEnString);
-        setAbulEduLineLog(m_score, m_total,m_baudruche->getMLigne(),m_ui->leResultat->text(),evaluation,reponseAttendueEnString);
-        qDebug()<<getAbulEduLogs();
+        setAbeLineLog(m_baudruche->getMLigne(),m_ui->leResultat->text(),m_score, m_total,evaluation,reponseAttendueEnString);
+        qDebug()<<getPluginLogs();
 
     if (m_baudruche!=NULL) m_baudruche->detruire();
     m_ui->btnFeu->setDisabled(true);
@@ -432,6 +432,6 @@ void exercice::pousseLogs(QString neSertPasDavantage)
     neSertPasDavantage="";
     QString reponseAttendueEnString;
         reponseAttendueEnString.setNum(m_resultatEnCours);
-    setAbulEduLineLog(m_score, m_total,m_baudruche->getMLigne(),m_ui->leResultat->text(),"z",reponseAttendueEnString);
-    qDebug()<<getAbulEduLogs();
+    setAbeLineLog(m_baudruche->getMLigne(),m_ui->leResultat->text(),m_score, m_total,"z",reponseAttendueEnString);
+    qDebug()<<getPluginLogs();
 }

@@ -27,7 +27,7 @@
 #include "interfacecompetence.h"
 #include "editeur.h"
 #include <QtGui>
-//#include <QtPropertyAnimation>
+#include <QPropertyAnimation>
 
 boutonsPolygone::boutonsPolygone(QString operation, int val)
         : QGraphicsItem()
@@ -85,7 +85,7 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
                 InterfaceCompetence* inter = new InterfaceCompetence(*m_action);
                 inter->show();
 //      Il faut installer QtAnimationFramework pour pouvoir utiliser...
-//                QtPropertyAnimation animation(&inter, "geometry");
+//                QPropertyAnimation animation(inter, "geometry");
 //                    animation.setDuration(10000);
 //                    animation.setStartValue(QRect(0, 0, 100, 30));
 //                    animation.setEndValue(QRect(250, 250, 100, 30));
