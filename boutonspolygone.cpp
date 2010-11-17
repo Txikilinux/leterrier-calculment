@@ -84,12 +84,6 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
         else if (initialeAction.isNumber()) {
                 InterfaceCompetence* inter = new InterfaceCompetence(*m_action);
                 inter->show();
-//      Il faut installer QtAnimationFramework pour pouvoir utiliser...
-//                QPropertyAnimation animation(inter, "geometry");
-//                    animation.setDuration(10000);
-//                    animation.setStartValue(QRect(0, 0, 100, 30));
-//                    animation.setEndValue(QRect(250, 250, 100, 30));
-//                    animation.start();
                 }
             else if (*m_action=="travaux") {
                     //QMessageBox::warning(this, "En travaux", QString::fromUtf8(tr("Fonctionnalité non encore disponible").toStdString().c_str()));

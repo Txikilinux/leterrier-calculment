@@ -332,7 +332,8 @@ QString baudruche::getMAffichage()
 int baudruche::valeurApprochee(int operande, int maximum)
 {
     int apeupres=0;
-    if (maximum==10 && m_op=="x") return apeupres;
+    if (maximum==10 && m_op=="x")
+        return operande;
     if (operande>10 || m_op!="x"){
         if (maximum==100 || maximum==1000) {
             if ((operande%(maximum/10))< maximum/20) apeupres=(operande/(maximum/10))*(maximum/10);
@@ -343,6 +344,7 @@ int baudruche::valeurApprochee(int operande, int maximum)
             else apeupres=((operande/(maximum/100))+1)*(maximum/100);
             }
         }
+    qDebug()<<"A ce stade, la valeur approchee vaut "<<apeupres;
     return apeupres;
 }
 
