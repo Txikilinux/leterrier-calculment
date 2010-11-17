@@ -60,6 +60,8 @@ int main(int argc, char *argv[])
     QApplication appli(argc, argv);
     qInstallMsgHandler(debugOutput);
     qDebug()<<"Nom de mon appli : "<<appli.objectName();
+    qApp->setApplicationName("leterrier-calcul-mental");
+    qApp->setApplicationVersion("1.0");
     QString exo;
     QString nivo="";
     int argument=0;
