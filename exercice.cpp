@@ -307,6 +307,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
 
 void exercice::on_btnFeu_clicked()
 {
+    m_ui->leResultat->setDisabled(true);
     QString evaluation="";
     float proposition = m_ui->leResultat->text().toFloat();
     float reponse = m_resultatEnCours;
