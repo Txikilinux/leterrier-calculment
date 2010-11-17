@@ -412,7 +412,7 @@ void Editeur::closeEvent(QCloseEvent *event)
     this->sauverNiveau(*m_niveauEnCours);
     this->sauverOperation(*m_operationEnCours);
     event->accept();
-    delete(this);
+    //delete(this);
 
 }
 
