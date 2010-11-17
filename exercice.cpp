@@ -86,6 +86,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btnBallon->setFocus();
     m_ui->btnFeu->setDisabled(true);
     m_ui->btnRejouer->setDisabled(true);
+    m_ui->leResultat->setDisabled(true);
 }
 
 exercice::~exercice()
@@ -276,6 +277,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     //accessibilité des boutons
     m_ui->btnFeu->setEnabled(true);
     if (m_baudruche!=NULL) m_ui->btnBallon->setDisabled(true);
+    m_ui->leResultat->setEnabled(true);
     m_ui->leResultat->setFocus(Qt::OtherFocusReason);
         //à régler si le résultat est zéro...
        // QString expressRegul = "
