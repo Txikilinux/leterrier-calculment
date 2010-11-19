@@ -50,7 +50,7 @@ private slots:
     void on_btnBallon_clicked();
     void on_btnQuitter_clicked();
     void afficheResultat(QString);
-    void pousseLogs(QString);
+    void pousseLogsHorsDelai(QString);
 };
 
 #endif // EXERCICE_H

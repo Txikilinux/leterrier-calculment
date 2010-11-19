@@ -45,7 +45,6 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 {
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
-    this->setAbeExerciceName(exo);
     //this->setObjectName(QString::fromUtf8(tr("Calculs de type ").toStdString().c_str())+exo);
   //  this->setObjectName("exercice");
 
@@ -56,7 +55,11 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_operation=exo;
     m_cible=val;
     if (exo.left(11)=="complementA") exo.truncate(11);
-    if(exo.left(11)=="complementM") exo.truncate(11);
+    if(exo.left(11)=="complementM") {
+        exo.truncate(11);
+        setAbeExerciceName("Multiples de "+QString::number(val));
+        setAbeSkill("multiples-"+QString::number(val));
+    }
     if (exo.left(6)=="tableM") exo.truncate(6);
     if (exo.left(6)=="tableA") exo.truncate(6);
 
@@ -73,6 +76,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_nbTotalQuestions = config.value("NombreBallons").toInt();
+    setAbeNbTotalQuestions(m_nbTotalQuestions);
 
     m_level = niveau;
     m_trace = new QString("");
@@ -87,10 +91,12 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btnFeu->setDisabled(true);
     m_ui->btnRejouer->setDisabled(true);
     m_ui->leResultat->setDisabled(true);
+    this->setWindowTitle(getAbeExerciceName());
 }
 
 exercice::~exercice()
 {
+    pushAbulEduLogs();
     delete m_ui;
 }
 
@@ -257,7 +263,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
         connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
-        connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(pousseLogs(QString)));
+        connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(pousseLogsHorsDelai(QString)));
         m_baudruche->emetRes();
         m_scene->addItem(m_baudruche);
         
@@ -430,7 +436,7 @@ void exercice::afficheResultat(QString neSertARien)
    // sauvegardeLog* envoieScore = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, "score", totalEnString, scoreEnString);
 }
 
-void exercice::pousseLogs(QString neSertPasDavantage)
+void exercice::pousseLogsHorsDelai(QString neSertPasDavantage)
 {
     neSertPasDavantage="";
     QString reponseAttendueEnString;
