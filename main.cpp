@@ -58,6 +58,10 @@ int main(int argc, char *argv[])
 //    QObject* appliCastee = qobject_cast<QApplication*>(&appli);
 //    appli.QObject::installEventFilter(appliCastee);
     QApplication appli(argc, argv);
+
+    qApp->setApplicationName("Calcul Mental % leterrier-calculment");
+    qApp->setApplicationVersion("1.0.1");
+
     //qInstallMsgHandler(debugOutput);
     qDebug()<<"Nom de mon appli : "<<appli.objectName();
     QString exo;
