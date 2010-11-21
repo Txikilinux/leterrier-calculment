@@ -32,6 +32,10 @@
 #ifndef ABULEDUEXERCICEV0_H
 #define ABULEDUEXERCICEV0_H
 
+#include <QtGui/QApplication>
+#include <QDebug>
+#include <QPluginLoader>
+#include <QDir>
 #include <QMainWindow>
 #include <QWidget>
 #include <QSettings>
@@ -39,10 +43,18 @@
 #include <QDate>
 #include <QHash>
 #include <QEvent>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkReply>
+#include <QtXml/QtXml>
+#include <QMessageBox>
+#include <QSharedMemory>
 
 class AbulEduExerciceV0: public QMainWindow
 {
     Q_ENUMS(EvaluationExercice);
+    Q_OBJECT;
+
 public:
     AbulEduExerciceV0(QWidget *parent = 0);
     ~AbulEduExerciceV0();
@@ -154,7 +166,11 @@ public:
     //    virtual QSettings getAbulEduParameters(QString login, QString group);
     //    /** Provoque un evenement pour envoyer les paramètres sur le serveur */
     //    virtual void pushAbulEduParameters();
+    virtual void detach();
 
+public slots:
+    /** Gestion de la requete reseau pour voir s'il existe une mise a jour de l'application */
+    void onlineUpdateRequestSlot(QNetworkReply*);
 
 protected:
     QString m_exerciceName;
@@ -167,6 +183,8 @@ private:
     QSettings m_parameters;
     QHash<QString, QString> m_downloadFilter;
     int m_localDebug;
+    QSharedMemory sharedMemory;
+
 };
 
 #endif
