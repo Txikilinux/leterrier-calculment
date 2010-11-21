@@ -27,16 +27,12 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtGui/QApplication>
-#include <QDebug>
-#include <QPluginLoader>
-#include <QDir>
 #include "abuleduexercicev0.h"
-
 
 /** constructeur ... */
 AbulEduExerciceV0::AbulEduExerciceV0(QWidget *parent) :
-    QMainWindow(parent)
+    QMainWindow(parent), sharedMemory("abeUpdateRequest")
+
 {  
     //Initialisation des différentes variables
     m_exerciceName     = "";
@@ -46,7 +42,66 @@ AbulEduExerciceV0::AbulEduExerciceV0(QWidget *parent) :
     m_localDebug       = 0;
     m_arrayLogs.clear();
     m_downloadFilter.clear();
+    int already_requested = 0;
 
+    // ---------------------------------- memoire partagee et requete reseau update
+    if (sharedMemory.isAttached())
+        detach();
+    //creation du segment de memoire partagee
+    if(sharedMemory.create(sizeof(already_requested))) {
+        if(m_localDebug)
+            qDebug() << "abuleduexercicesv0.cpp creation de la zone memoire partagee, taille" << sharedMemory.size();
+
+        // ----------------------------------
+        //On cherche pour voir s'il y a une mise a jour de l'application de disponible
+        //On lance notre requete reseau et on gere la suite
+        QString appCodeName(qApp->applicationName()); //idee en cas de blablabla % codename .midRef(qApp->applicationName().lastIndexOf("%")+2).toString());
+        QString os("");
+    #if defined(Q_OS_MAC)
+        os="osx";
+    #elif defined(Q_OS_WIN32)
+        os="windows";
+    #elif defined(Q_OS_LINUX)
+        os="linux";
+    #endif
+        QUrl urlUpdates("http://updates.ryxeo.com/application/" + appCodeName + "/version/" + qApp->applicationVersion() + "/os/" + os + "/format/xml");
+        QNetworkAccessManager* nam = new QNetworkAccessManager(this);
+        connect(nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(onlineUpdateRequestSlot(QNetworkReply*)));
+        QNetworkReply* reply = nam->get(QNetworkRequest(urlUpdates));
+        // ----------------------------------
+
+        // on écrit le flag comme quoi la requete reseau est deja partie ... merci de ne pas relancer cette requete :)
+        sharedMemory.lock();
+        already_requested = 1;
+        if(m_localDebug)
+            qDebug() << "abuleduexercicesv0.cpp ecriture dans la memoire partagee: requete reseau lancee";
+        memcpy(sharedMemory.data(), &already_requested, sizeof(already_requested));
+        sharedMemory.unlock();
+    }
+    else {
+        if(m_localDebug)
+            qDebug() << "abuleduexercicesv0.cpp zone memoire partagee deja existante, la requete reseau a deja ete lancee";
+        // si le segment existe deja on l'utilise
+        if(sharedMemory.error() == QSharedMemory::AlreadyExists) {
+            if(sharedMemory.attach()) {
+                // lecture des donnees
+                sharedMemory.lock();
+                already_requested = *(bool *)sharedMemory.constData();
+                sharedMemory.unlock();
+            }
+            else {
+                if(m_localDebug)
+                    qDebug() << "abuleduexercicesv0.cpp erreur sur sharedMemory :: " << sharedMemory.errorString();
+            }
+        }
+        else {
+            if(m_localDebug)
+                qDebug() << "abuleduexercicesv0.cpp erreur sur sharedMemory :: " << sharedMemory.errorString();
+        }
+    }
+    // ---------------------------------- fin de gestion memoire partagee et requete reseau update
+
+    // ---------------------------------- chargement plugin
     //Ensuite on charge les plugins qui se trouvent dans le sous dossier plugins de l'application
     QDir pluginsDir(qApp->applicationDirPath());
     if (pluginsDir.dirName().toLower() == "debug" || pluginsDir.dirName().toLower() == "release")
@@ -71,11 +126,14 @@ AbulEduExerciceV0::AbulEduExerciceV0(QWidget *parent) :
             }
         }
     }
+    // ---------------------------------- Fin du chargement plugin
+
 }
 
 AbulEduExerciceV0::~AbulEduExerciceV0()
 {
-    //delete this;
+    //On detache la memoire partagee
+    detach();
 }
 
 void AbulEduExerciceV0::setAbeLineLog(QString question, QString answer,
@@ -195,4 +253,72 @@ void AbulEduExerciceV0::setAbeDownloadLogsFilter(QDate dateBegin, QDate dateEnd,
 void AbulEduExerciceV0::setAbeDebugLevel(int i)
 {
     m_localDebug = i;
+}
+
+void AbulEduExerciceV0::onlineUpdateRequestSlot(QNetworkReply *reply)
+{
+    // Pas d'erreur ?
+    if (reply->error() == QNetworkReply::NoError)
+    {
+        QString titre("");
+        QString desc("");
+        QString link("");
+        QString lang("");
+        QDomDocument *xml = new QDomDocument();
+        xml->setContent(reply->readAll());
+        if(m_localDebug)
+            qDebug() << "abuleduexercicesv0.cpp download XML update " << xml->toString();
+
+        QDomElement xmlElem = xml->documentElement();
+        QDomNode node = xmlElem.firstChild();
+        while(!node.isNull())
+        {
+            QDomElement element = node.toElement(); // On essaie de convertir le node en element
+            if(!element.isNull())
+            {
+                if(element.tagName()=="application") // Le node est bien un élément.
+                {
+                    QDomNode node=element.firstChild(); //On parcourt le document à partir du tag "application"
+                    while(!node.isNull())
+                    {
+                        QDomElement elem=node.toElement(); //On cherche le titre du "Channel"
+                        if(elem.tagName()=="title")
+                        {
+                            titre = elem.text();
+                        }
+                        else if((elem.tagName()=="link"))
+                        {
+                            link = elem.text();
+                        }
+                        else if((elem.tagName()=="description"))
+                        {
+                            desc = elem.text();
+                        }
+                        else if((elem.tagName()=="language"))
+                        {
+                            lang = elem.text();
+                        }
+                        node=node.nextSibling();
+                    }
+                }
+                node = node.nextSibling();
+            }
+        }
+
+        //On affiche une boite d'information a l'utilisateur ...
+        if(titre.length())
+        {
+            QMessageBox msgBox;
+            msgBox.setWindowTitle(titre);
+            msgBox.setText(desc);
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.exec();
+        }
+    }
+}
+
+void AbulEduExerciceV0::detach()
+{
+    if (!sharedMemory.detach())
+        qDebug() << "Unable to detach from shared memory.";
 }
