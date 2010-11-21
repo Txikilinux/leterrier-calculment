@@ -166,6 +166,7 @@ public:
     //    virtual QSettings getAbulEduParameters(QString login, QString group);
     //    /** Provoque un evenement pour envoyer les paramètres sur le serveur */
     //    virtual void pushAbulEduParameters();
+    /** Permet de détacher la zone de mémoire partagée lors de l'appel au destructeur */
     virtual void detach();
 
 public slots:

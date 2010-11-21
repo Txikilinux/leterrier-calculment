@@ -127,6 +127,7 @@ AbulEduExerciceV0::AbulEduExerciceV0(QWidget *parent) :
         }
     }
     // ---------------------------------- Fin du chargement plugin
+
 }
 
 AbulEduExerciceV0::~AbulEduExerciceV0()
@@ -261,6 +262,8 @@ void AbulEduExerciceV0::onlineUpdateRequestSlot(QNetworkReply *reply)
     {
         QString titre("");
         QString desc("");
+        QString link("");
+        QString lang("");
         QDomDocument *xml = new QDomDocument();
         xml->setContent(reply->readAll());
         qDebug() << "Ca donne ca:: ";
@@ -281,23 +284,19 @@ void AbulEduExerciceV0::onlineUpdateRequestSlot(QNetworkReply *reply)
                         QDomElement elem=node.toElement(); //On cherche le titre du "Channel"
                         if(elem.tagName()=="title")
                         {
-                            QDomNode node=elem.firstChild();
-                            titre = node.toText().data();
+                            titre = elem.text();
                         }
                         else if((elem.tagName()=="link"))
                         {
-                            QDomNode node=elem.firstChild();
-                            QString link(node.toText().data());
+                            link = elem.text();
                         }
                         else if((elem.tagName()=="description"))
                         {
-                            QDomNode node=elem.firstChild();
-                            desc = node.toText().data();
+                            desc = elem.text();
                         }
                         else if((elem.tagName()=="language"))
                         {
-                            QDomNode node=elem.firstChild();
-                            QString lang(node.toText().data());
+                            lang = elem.text();
                         }
                         node=node.nextSibling();
                     }
@@ -306,14 +305,14 @@ void AbulEduExerciceV0::onlineUpdateRequestSlot(QNetworkReply *reply)
             }
         }
 
+        //On affiche une boite d'information a l'utilisateur ...
         if(titre.length())
         {
             QMessageBox msgBox;
             msgBox.setWindowTitle(titre);
-            msgBox.setInformativeText(desc);
-            msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-            msgBox.setDefaultButton(QMessageBox::Save);
-            int ret = msgBox.exec();
+            msgBox.setText(desc);
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.exec();
         }
     }
 }
