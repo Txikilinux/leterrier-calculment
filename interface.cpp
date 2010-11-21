@@ -28,10 +28,9 @@
 #include "ui_exercice.h"
 #include "editeur.h"
 #include "boutonspolygone.h"
-#include "dialogapropos.h"
-
+#include "abuleduaproposv0.h"
 #include <QApplication>
- #include <QDesktopWidget>
+#include <QDesktopWidget>
 #include <QDesktopServices>
 
 
@@ -39,6 +38,8 @@ interface::interface(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::interfaceClass)
 {
     ui->setupUi(this);
+    AbulEduAproposV0 *monAide=new AbulEduAproposV0(this);
+
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
 
