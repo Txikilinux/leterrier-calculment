@@ -55,7 +55,7 @@ AbulEduExerciceV0::AbulEduExerciceV0(QWidget *parent) :
         // ----------------------------------
         //On cherche pour voir s'il y a une mise a jour de l'application de disponible
         //On lance notre requete reseau et on gere la suite
-        QString appCodeName(qApp->applicationName().midRef(qApp->applicationName().lastIndexOf("%")+2).toString());
+        QString appCodeName(qApp->applicationName()); //idee en cas de blablabla % codename .midRef(qApp->applicationName().lastIndexOf("%")+2).toString());
         QString os("");
     #if defined(Q_OS_MAC)
         os="osx";
@@ -266,9 +266,9 @@ void AbulEduExerciceV0::onlineUpdateRequestSlot(QNetworkReply *reply)
         QString lang("");
         QDomDocument *xml = new QDomDocument();
         xml->setContent(reply->readAll());
-        qDebug() << "Ca donne ca:: ";
-        qDebug() << xml->toString();
-        qDebug() << "End::";
+        if(m_localDebug)
+            qDebug() << "abuleduexercicesv0.cpp download XML update " << xml->toString();
+
         QDomElement xmlElem = xml->documentElement();
         QDomNode node = xmlElem.firstChild();
         while(!node.isNull())

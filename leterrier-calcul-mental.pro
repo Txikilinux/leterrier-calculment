@@ -29,3 +29,4 @@ FORMS += interface.ui \
     dialogapropos.ui
 QT += script
 QT += network
+QT += xml
