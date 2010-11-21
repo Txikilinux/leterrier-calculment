@@ -31,7 +31,6 @@ private slots:
 
 
 private slots:
-    void on_actionDocumentation_utilisateurs_triggered();
     void on_action_un_nombre_al_atoire_triggered();
     void on_action_10_triggered();
     void on_action_20_triggered();
@@ -43,7 +42,6 @@ private slots:
     void on_actionDe_20_triggered();
     void on_actionDe_25_triggered();
     void on_actionDe_50_triggered();
-    void on_actionA_propos_triggered();
     void on_btnInitialise_clicked();
     void on_actionAfficher_l_diteur_triggered();
     void on_actionX_9_triggered();

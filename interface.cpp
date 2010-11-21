@@ -299,13 +299,6 @@ void interface::on_btnInitialise_clicked()
     m_editeur->initialiser();
 }
 
-void interface::on_actionA_propos_triggered()
-{
-    DialogAPropos* afficheAPropos = new DialogAPropos(this);
-    afficheAPropos->setWindowTitle("A propos de Calcul Mental...");
-    afficheAPropos->show();
-}
-
 void interface::on_actionDe_5_triggered()
 {
     m_exercice = new exercice("complementM5",this, 5,"");
@@ -365,9 +358,4 @@ void interface::on_action_100_triggered()
 void interface::on_action_un_nombre_al_atoire_triggered()
 {
 
-}
-
-void interface::on_actionDocumentation_utilisateurs_triggered()
-{
-    QDesktopServices::openUrl("http://docs.abuledu.org/leterrier/calcul-mental/"+qApp->applicationVersion());
 }

@@ -126,17 +126,9 @@
     </property>
     <addaction name="actionAfficher_l_diteur"/>
    </widget>
-   <widget class="QMenu" name="menuAide">
-    <property name="title">
-     <string>&amp;Aide</string>
-    </property>
-    <addaction name="actionDocumentation_utilisateurs"/>
-    <addaction name="actionA_propos"/>
-   </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuExercices"/>
    <addaction name="menuEditeur"/>
-   <addaction name="menuAide"/>
   </widget>
   <action name="actionQuitter">
    <property name="text">
