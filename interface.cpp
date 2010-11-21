@@ -28,7 +28,6 @@
 #include "ui_exercice.h"
 #include "editeur.h"
 #include "boutonspolygone.h"
-#include "dialogapropos.h"
 #include "abuleduaproposv0.h"
 #include <QApplication>
 #include <QDesktopWidget>
