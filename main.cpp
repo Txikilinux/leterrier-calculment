@@ -29,6 +29,8 @@
 #include "editeur.h"
 #include <stdio.h>
 
+extern const QString abeApplicationLongName="AbulÉdu LeTerrier -- Calcul-Mental";
+
 void debugOutput(QtMsgType type, const char *msg)
  {
      switch (type) {
@@ -59,8 +61,8 @@ int main(int argc, char *argv[])
 //    appli.QObject::installEventFilter(appliCastee);
     QApplication appli(argc, argv);
 
-    qApp->setApplicationName("Calcul Mental % leterrier-calculment");
-    qApp->setApplicationVersion("1.0.1");
+    qApp->setApplicationName("leterrier-calculment");
+    qApp->setApplicationVersion("1.1.1");
 
     //qInstallMsgHandler(debugOutput);
     qDebug()<<"Nom de mon appli : "<<appli.objectName();

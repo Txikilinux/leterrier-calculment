@@ -42,46 +42,50 @@ class AbulEduAproposV0 : public QDialog
 public:
     explicit AbulEduAproposV0(QWidget *parent = 0);
     ~AbulEduAproposV0();
-QObject *w;
+    QObject *w;
+
 private:
     Ui::AbulEduAproposV0 *ui;
     void installeMenu();
-    void afficheRSS();
-    void montreRSS(QString flux);
     QDomDocument *xml;
     QString linkString;
     QString titleString;
     QString currentTag;
     QString itemTitre;
+    QString itemDate;
     QString itemLink;
     QString itemDescription;
     QAction *actionAide;
+    QAction *actionPeda;
     QAction *actionAideIntegree;
-    QAction *actionContacts;
+    QAction *actionForum;
     QAction *actionNews;
     QAction *actionTraductions;
     QAction *actionAbout;
     QNetworkAccessManager *nam;
-
+    bool p_pedaDownloaded;
+    bool p_forumDownloaded;
+    bool p_newsDownloaded;
 
 private slots:
+    void on_tabWidget_currentChanged(int index);
+    void on_lblPosezVotreQuestion_linkActivated(QString link);
     void aide();
     void montreAide();
+    void montrePeda();
     void montreNews();
-    void montreContacts();
+    void montreForum();
     void montreTraduire();
     void montreAPropos();
     void changeTab(int onglet);
-    void finishedSlot(QNetworkReply*);
-
+    void finishedSlotForum(QNetworkReply*);
+    void finishedSlotNews(QNetworkReply*);
 
 signals:
     /** Demande le positionnement de l'onglet de l'aide
       * @param onglet : le numéro de l'onglet
       */
     void setindex(int onglet);
-
-
 };
 
 #endif // ABULEDUAPROPOS_H
