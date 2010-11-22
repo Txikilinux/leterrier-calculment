@@ -1,3 +1,12 @@
+abuledu-calcul-mental (1.0.2~ppa1~jaunty1) jaunty; urgency=low
+
+  * version 1.0.2
+  * integration de la boite a propos nouvelle version
+  * integration de la classe abuleduexercices nouvelle version
+  * correction des bugs #875 #878 #879
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Mon, 22 Nov 2010 01:04:34 +0100
+
 abuledu-calcul-mental (1.0.0~ppa1~jaunty1) jaunty; urgency=low
 
   * Version 1.0

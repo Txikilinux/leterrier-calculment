@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{62974C8F-0013-4262-AF5E-7F46C992672E}
 AppName=Calcul Mental
-AppVersion=1.0
+AppVersion=1.0.2
 ;AppVerName=Leterrier Calcul Mental 0.99
 AppPublisher=RyXéo SARL
 AppPublisherURL=http://www.abuledu.org/leterrier/
