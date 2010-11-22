@@ -227,7 +227,7 @@ baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
         QString illustration;
         QString imageBase="ballon";
         if (image!=0) imageBase=image;
-        illustration = QCoreApplication::applicationDirPath()+"/data/images/"+image+"Rose.png";
+        illustration = "./data/images/"+image+"Rose.png";
         pixmap->setPixmap(illustration);
         pixmap->setZValue(k);
         pixmap->setPos(pos);
@@ -254,18 +254,18 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         QString illustration;
         QString imageBase="ballon";
         if (image!=0) imageBase=image;
-        QFile* fichierImage = new QFile(QCoreApplication::applicationDirPath()+"/data/images/"+imageBase+"Vert.png");
+        QFile* fichierImage = new QFile("./data/images/"+imageBase+"Vert.png");
         if (fichierImage->exists()) {
                 switch (coulAlea) {
-                    case 0 : illustration = QCoreApplication::applicationDirPath()+"/data/images/"+imageBase+"Vert.png"; break;
-                    case 1 : illustration = QCoreApplication::applicationDirPath()+"/data/images/"+imageBase+"Jaune.png"; break;
-                    case 2 : illustration = QCoreApplication::applicationDirPath()+"/data/images/"+imageBase+"Rouge.png"; break;
-                    case 3 : illustration = QCoreApplication::applicationDirPath()+"/data/images/"+imageBase+"Orange.png"; break;
-                    case 4 : illustration = QCoreApplication::applicationDirPath()+"/data/images/"+imageBase+"Bleu.png"; break;
-                    case 5 : illustration = QCoreApplication::applicationDirPath()+"/data/images/"+imageBase+"Rose.png"; break;
+                    case 0 : illustration = "./data/images/"+imageBase+"Vert.png"; break;
+                    case 1 : illustration = "./data/images/"+imageBase+"Jaune.png"; break;
+                    case 2 : illustration = "./data/images/"+imageBase+"Rouge.png"; break;
+                    case 3 : illustration = "./data/images/"+imageBase+"Orange.png"; break;
+                    case 4 : illustration = "./data/images/"+imageBase+"Bleu.png"; break;
+                    case 5 : illustration = "./data/images/"+imageBase+"Rose.png"; break;
                     }
                 }
-        else illustration=QCoreApplication::applicationDirPath()+"/data/images/"+imageBase;
+        else illustration="./data/images/"+imageBase;
         QPixmap imageIllustration(illustration);
         QPixmap imageIllustration2 = imageIllustration.scaled(imageIllustration.width()*factX, imageIllustration.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         qDebug()<<"Taille baudruche : "<<imageIllustration2.width()<<" X "<<imageIllustration2.height();
