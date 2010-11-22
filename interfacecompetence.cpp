@@ -29,8 +29,8 @@
 
 #include <QDebug>
 #include <QApplication>
- #include <QDesktopWidget>
-#include <QPropertyAnimation>
+#include <QDesktopWidget>
+//#include <QPropertyAnimation>
 
 InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
     QWidget(parent),
