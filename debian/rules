@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-  
+
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/qmake.mk
 
@@ -8,14 +8,21 @@ QMAKE=qmake-qt4
 MAKE=make -j4
 CFLAGS=-O3
 CXXFLAGS=-O3
+DEST=/usr/share/leterrier-calcul-mental
+EXECDEST=/usr/lib/leterrier-calcul-mental
+BUILDTEMP=$(CURDIR)/debian/leterrier-calcul-mental
 
-install/abuledu-calcul-mental::
-	mkdir -p $(CURDIR)/debian/abuledu-calcul-mental/usr/bin/
-	mkdir -p $(CURDIR)/debian/abuledu-calcul-mental/usr/share/abuledu-calcul-mental
-	mkdir -p $(CURDIR)/debian/abuledu-calcul-mental/usr/share/applications
-	install -D --mode=0755 $(CURDIR)/abuledu-calcul-mental.sh $(CURDIR)/debian/abuledu-calcul-mental/usr/bin/abuledu-calcul-mental
-	install -D --mode=0644 $(CURDIR)/debian/*.desktop $(CURDIR)/debian/abuledu-calcul-mental/usr/share/applications/
-	install -D --mode=0755 $(CURDIR)/leterrier-calcul-mental $(CURDIR)/debian/abuledu-calcul-mental/usr/share/abuledu-calcul-mental/
-	cp -a  $(CURDIR)/data $(CURDIR)/debian/abuledu-calcul-mental/usr/share/abuledu-calcul-mental/
-	cp -a  $(CURDIR)/*.png $(CURDIR)/debian/abuledu-calcul-mental/usr/share/abuledu-calcul-mental/
+MANPAGES := $(CURDIR)/debian/leterrier-calcul-mental.1
 
+install/leterrier-calcul-mental::
+	mkdir -p $(BUILDTEMP)/usr/bin/
+	mkdir -p $(BUILDTEMP)/$(EXECDEST)
+	mkdir -p $(BUILDTEMP)/$(DEST)/lang
+	mkdir -p $(BUILDTEMP)/$(DEST)/conf
+	mkdir -p $(BUILDTEMP)/$(DEST)/data
+	mkdir -p $(BUILDTEMP)/usr/share/applications
+	cp -a $(BUILDTEMP).wrapper $(BUILDTEMP)/usr/bin/leterrier-calcul-mental
+	cp -a $(CURDIR)/debian/*.desktop $(BUILDTEMP)/usr/share/applications/
+	cp -a $(CURDIR)/lang/*.qm $(BUILDTEMP)/$(DEST)/lang
+	cp -a $(CURDIR)/data/* $(BUILDTEMP)/$(DEST)/data
+	cp -a $(CURDIR)/calcul-mental $(BUILDTEMP)/$(EXECDEST)/

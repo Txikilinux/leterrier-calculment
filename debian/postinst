@@ -1,5 +1,7 @@
 #!/bin/bash
 
-xdg-desktop-menu install --novendor /usr/share/applications/abuledu-calcul-mental.desktop
+set -e
+
+xdg-desktop-menu install --novendor /usr/share/applications/leterrier-calcul-mental.desktop
 
 #DEBHELPER#

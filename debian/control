@@ -1,13 +1,13 @@
-Source: abuledu-calcul-mental
-Section: admin
+Source: leterrier-calcul-mental
+Section: misc
 Priority: extra
 Maintainer: Eric Seigne <eric.seigne@ryxeo.com>
-Build-Depends: cdbs, qt4-qmake, libqt4-dev
+Build-Depends: debhelper (>=7.3.15), cdbs, qt4-qmake, libqt4-dev
 Standards-Version: 3.8.3
-Homepage: http://www.abuledu.org/abuledu
+Homepage: http://www.abuledu.org/leterrier/
 
-Package: abuledu-calcul-mental
+Package: leterrier-calcul-mental
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libqt4-xml
-Description: calcul-mental
+Description: Calcul-Mental
  calcul-mental du terrier d'AbulÉdu
