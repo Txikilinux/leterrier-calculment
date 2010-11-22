@@ -27,7 +27,7 @@
 #include "interfacecompetence.h"
 #include "editeur.h"
 #include <QtGui>
-#include <QPropertyAnimation>
+//#include <QPropertyAnimation>
 
 boutonsPolygone::boutonsPolygone(QString operation, int val)
         : QGraphicsItem()
