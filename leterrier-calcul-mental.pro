@@ -30,3 +30,4 @@ FORMS += interface.ui \
 QT += script
 QT += network
 QT += xml
+RC_FILE = windows/icone.rc
