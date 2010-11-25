@@ -161,7 +161,7 @@ void AbulEduAproposV0::montreNews()
         //Message d'erreur
         QString messageErreur = trUtf8("Le site n'est pas accessible");
         //Récupère l'adresse qui est passée dans le textBrowser
-        QUrl adresseFlux = "http://redmine.ryxeo.com/projects/" + qApp->applicationName() + "/news.atom";
+        QUrl adresseFlux = abeBuildUrl("news","");
 
         //Message d'attente ...
         QString message = trUtf8("Téléchargement en cours ... veuillez patienter.");
@@ -194,25 +194,23 @@ void AbulEduAproposV0::montrePeda()
         //Message d'erreur
         QString messageErreur = trUtf8("Le site n'est pas accessible");
         //Récupère l'adresse qui est passée dans le textBrowser
-        QUrl adresseFlux = "http://libre.pedagosite.net/search/" + qApp->applicationName();
+        QUrl adresseFlux = abeBuildUrl("peda","");
 
         //Message d'attente ...
         QString message = trUtf8("Téléchargement en cours ... veuillez patienter.");
-        /*
-    ui->textNews->setHtml(message);
+        ui->textNews->setHtml(message);
 
-    if(!adresseFlux.isValid())
-    {
-        ui->textNews->setHtml(messageErreur);
-    }
-    else
-    {
-        //On y va
-        nam = new QNetworkAccessManager(this);
-        connect(nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotNews(QNetworkReply*)));
-        QNetworkReply* reply = nam->get(QNetworkRequest(adresseFlux));
-    }
-    */
+        if(!adresseFlux.isValid())
+        {
+            ui->textNews->setHtml(messageErreur);
+        }
+        else
+        {
+            //On y va
+            nam = new QNetworkAccessManager(this);
+            connect(nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotNews(QNetworkReply*)));
+            QNetworkReply* reply = nam->get(QNetworkRequest(adresseFlux));
+        }
     }
 }
 
@@ -230,7 +228,7 @@ void AbulEduAproposV0::montreForum()
         //Message d'erreur
         QString messageErreur = trUtf8("Le forum n'est pas accessible");
         //Récupère l'adresse qui est passée dans le textBrowser
-        QUrl adresseFlux = "http://forum.abuledu.org/rss/tags/" + qApp->applicationName() + "/lang/" + QLocale::system().name().section('_', 0, 0);
+        QUrl adresseFlux = abeBuildUrl("forum","");
 
         //Message d'attente ...
         QString message = trUtf8("Téléchargement en cours ... veuillez patienter.");
@@ -429,4 +427,19 @@ void AbulEduAproposV0::on_tabWidget_currentChanged(int index)
         montreForum();
         break;
     }
+}
+
+QUrl AbulEduAproposV0::abeBuildUrl(QString reflector, QString action)
+{
+    QString os;
+#if defined(Q_OS_MAC)
+    os="osx";
+#elif defined(Q_OS_WIN32)
+    os="windows";
+#elif defined(Q_OS_LINUX)
+    os="linux";
+#endif
+
+    QUrl adresseFlux = "http://updates.ryxeo.com/application/" + qApp->applicationName() + "/version/" + qApp->applicationVersion() + "/os/" + os + "/action/" + action + "/lang/" + QLocale::system().name().section('_', 0, 0) + "/reflector/" + reflector;
+    return adresseFlux;
 }

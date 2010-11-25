@@ -66,6 +66,7 @@ private:
     bool p_pedaDownloaded;
     bool p_forumDownloaded;
     bool p_newsDownloaded;
+    QUrl abeBuildUrl(QString reflector, QString action);
 
 private slots:
     void on_tabWidget_currentChanged(int index);

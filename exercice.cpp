@@ -54,14 +54,31 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     //this->setWindowState(Qt::WindowFullScreen);
     m_operation=exo;
     m_cible=val;
-    if (exo.left(11)=="complementA") exo.truncate(11);
+
+    if (exo.left(11)=="complementA") {
+        exo.truncate(11);
+        setAbeExerciceName(trUtf8("Complément additif à ")+QString::number(val));
+        //Skill non existant dans les competences Educ Nat
+    }
+
     if(exo.left(11)=="complementM") {
         exo.truncate(11);
-        setAbeExerciceName("Multiples de "+QString::number(val));
+        setAbeExerciceName(trUtf8("Multiples de "+QString::number(val)));
         setAbeSkill("multiples-"+QString::number(val));
+
     }
-    if (exo.left(6)=="tableM") exo.truncate(6);
-    if (exo.left(6)=="tableA") exo.truncate(6);
+
+    if (exo.left(6)=="tableM") {
+        exo.truncate(6);
+        setAbeExerciceName(trUtf8("Table de multiplication par "+QString::number(val)));
+        setAbeSkill("table-multiplication-"+QString::number(val));
+    }
+
+    if (exo.left(6)=="tableA") {
+        exo.truncate(6);
+        setAbeExerciceName(trUtf8("Table d'addition de "+QString::number(val)));
+        setAbeSkill("table-addition-"+QString::number(val));
+    }
 
     m_imgFond = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/"+exo+".jpg");
 //    this->setGeometry(0,50, m_imgFond->width()+60,m_imgFond->height()+20);
