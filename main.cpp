@@ -29,7 +29,7 @@
 #include "editeur.h"
 #include <stdio.h>
 
-extern const QString abeApplicationLongName="AbulÉdu LeTerrier -- Calcul-Mental";
+extern const QString abeApplicationLongName=QObject::trUtf8("AbulÉdu LeTerrier -- Calcul-Mental");
 
 void debugOutput(QtMsgType type, const char *msg)
  {

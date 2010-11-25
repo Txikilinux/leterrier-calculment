@@ -45,7 +45,8 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 {
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
-    //this->setObjectName(QString::fromUtf8(tr("Calculs de type ").toStdString().c_str())+exo);
+    this->setAbeExerciceName(exo);
+    //this->setObjectName(trUtf8("Calculs de type "))+exo);
   //  this->setObjectName("exercice");
 
     if(parent)
@@ -261,7 +262,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
                           || m_operation=="approcheM")
                                   m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart,this);
 
-                      else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(QString::fromUtf8(tr(", ça n'existe pas comme opération...").toStdString().c_str())));
+                      else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(trUtf8(", ça n'existe pas comme opération...")));
 
                       //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
  qDebug()<<"operation tronquee  : "<<m_operation.left(11);
