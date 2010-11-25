@@ -1,12 +1,13 @@
-leterrier-calcul-mental (1.0.2~ppa1~jaunty1) jaunty; urgency=low
+leterrier-calcul-mental (1.0.3~ppa1~jaunty1) jaunty; urgency=low
 
-  * version 1.0.2
+  * version 1.0.3
   * integration de la boite a propos nouvelle version
-  * integration de la classe abuleduexercices nouvelle version
+  * ajout de l'aide intégrée
+  * intégration de la classe abuleduexercices nouvelle version
   * correction des bugs #875 #878 #879
   * change name abuledu -> leterrier
 
- -- Eric Seigne <eric.seigne@ryxeo.com>  Mon, 22 Nov 2010 01:04:34 +0100
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Thu, 25 Nov 2010 15:01:34 +0100
 
 leterrier-calcul-mental (1.0.0~ppa1~jaunty1) jaunty; urgency=low
 
