@@ -206,7 +206,7 @@ void Editeur::initialiserComplement(QString operation)
 void Editeur::initialiser()
 {
     //On aurait pu initialiser dans le répertoire conf de l'application, mais l'utilisateur n'aurait pas eu les droits
-    //QSettings config(QCoreApplication::applicationDirPath()+"/conf/parametres.conf", QSettings::IniFormat);
+    //QSettings config("./conf/parametres.conf", QSettings::IniFormat);
 
     //On initialise donc directement dans le /home de l'utilisateur
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);

@@ -52,7 +52,7 @@ interface::interface(QWidget *parent)
     ui->fete->resize(ecran.width(),m_hauteurMax);
 
 
-    QPixmap imgFond(QCoreApplication::applicationDirPath()+"/data/images/fondecran.jpg");
+    QPixmap imgFond("./data/images/fondecran.jpg");
     QPixmap imgFond2=imgFond.scaled(ecran.width(),m_hauteurMax,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     qDebug() << "Taille imageFond : " << imgFond.width()<< " X "<<imgFond.height();
     qDebug() << "Taille imageFond2 : " << imgFond2.width()<< " X "<<imgFond2.height();

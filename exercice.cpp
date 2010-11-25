@@ -80,7 +80,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
         setAbeSkill("table-addition-"+QString::number(val));
     }
 
-    m_imgFond = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/"+exo+".jpg");
+    m_imgFond = new QPixmap("./data/images/"+exo+".jpg");
 //    this->setGeometry(0,50, m_imgFond->width()+60,m_imgFond->height()+20);
             this->setWindowTitle("Calcul Mental - "+exo);
             adapte(*m_imgFond);
@@ -341,13 +341,13 @@ void exercice::on_btnFeu_clicked()
     if (proposition==reponse) {
         m_score++;
         m_ui->lblMsg->setText(tr("GAGNE"));
-        QPixmap* imgO = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/will-win.png");
+        QPixmap* imgO = new QPixmap("./data/images/will-win.png");
         m_ui->lblImgMsg->setPixmap(*imgO);
         evaluation="a";
         }
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
-        QPixmap* imgN = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/will-lose.png");
+        QPixmap* imgN = new QPixmap("./data/images/will-lose.png");
         m_ui->lblImgMsg->setPixmap(*imgN);
         evaluation="d";
         }
@@ -421,17 +421,17 @@ void exercice::afficheResultat(QString neSertARien)
 
         //Ajout d'une image de William personnalisée au résultat de l'exercice
         QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
-        QPixmap* prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bof.png");
+        QPixmap* prof = new QPixmap("./data/images/bof.png");
         if (m_score<m_total*SEUIL_NON_ACQUIS)
-            prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/rate.png");
+            prof = new QPixmap("./data/images/rate.png");
         else if (m_score>=m_total*SEUIL_ACQUIS)
-                prof = new QPixmap(QCoreApplication::applicationDirPath()+"/data/images/bien.png");
+                prof = new QPixmap("./data/images/bien.png");
             fondProf->setPixmap(*prof);
             m_scene->addItem(fondProf);
             fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.2);
             fondProf->setZValue(m_nbTotalQuestions);
 
-        QString tabBallons[] = {QCoreApplication::applicationDirPath()+"/data/images/ballonBleu.png",QCoreApplication::applicationDirPath()+"/data/images/ballonJaune.png",QCoreApplication::applicationDirPath()+"/data/images/ballonRouge.png",QCoreApplication::applicationDirPath()+"/data/images/ballonVert.png",QCoreApplication::applicationDirPath()+"/data/images/ballonOrange.png"};
+        QString tabBallons[] = {"./data/images/ballonBleu.png","./data/images/ballonJaune.png","./data/images/ballonRouge.png","./data/images/ballonVert.png","./data/images/ballonOrange.png"};
         for (int i=0;i<5;i++) {
             QGraphicsPixmapItem* image = new QGraphicsPixmapItem();
             QPixmap* img = new QPixmap(tabBallons[i]);
