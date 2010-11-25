@@ -46,15 +46,20 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
     this->setAbeExerciceName(exo);
-    //this->setObjectName(trUtf8("Calculs de type "))+exo);
-  //  this->setObjectName("exercice");
 
-    if(parent)
-        qDebug()<<"Parent d'exercice: "<<parent->objectName();
-
-    //this->setWindowState(Qt::WindowFullScreen);
     m_operation=exo;
     m_cible=val;
+
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    m_nbTotalQuestions = config.value("NombreBallons").toInt();
+    setAbeNbTotalQuestions(m_nbTotalQuestions);
+
+    m_level = niveau;
+    m_trace = new QString("");
+
+    qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
+
+    chargerParametres();
 
     if (exo.left(11)=="complementA") {
         exo.truncate(11);
@@ -64,21 +69,30 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 
     if(exo.left(11)=="complementM") {
         exo.truncate(11);
-        setAbeExerciceName(trUtf8("Multiples de "+QString::number(val)));
+        setAbeExerciceName(trUtf8("Multiples de ")+QString::number(val));
         setAbeSkill("multiples-"+QString::number(val));
 
     }
 
     if (exo.left(6)=="tableM") {
         exo.truncate(6);
-        setAbeExerciceName(trUtf8("Table de multiplication par "+QString::number(val)));
+        setAbeExerciceName(trUtf8("Table de multiplication par ")+QString::number(val));
         setAbeSkill("table-multiplication-"+QString::number(val));
     }
 
     if (exo.left(6)=="tableA") {
         exo.truncate(6);
-        setAbeExerciceName(trUtf8("Table d'addition de "+QString::number(val)));
+        setAbeExerciceName(trUtf8("Table d'addition de ")+QString::number(val));
         setAbeSkill("table-addition-"+QString::number(val));
+    }
+
+    if (exo=="addition") {
+        setAbeExerciceName(trUtf8("Additions")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
+        if (m_maxD == 100 && m_maxG == 100 && m_maxD == 1000 && m_maxG == 1000)
+            setAbeSkill("somme-mental-inferieur-"+QString::number(m_maxG));
+
+        // à discuter si on peut conditionner la validation du skill à des valeurs définies dans l'éditeur
+        // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des max à 100 ou 1000
     }
 
     m_imgFond = new QPixmap("./data/images/"+exo+".jpg");
@@ -92,16 +106,16 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->lblTotal->setText("0");
     //m_ui->lblArg->setText(exo);
 
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-    m_nbTotalQuestions = config.value("NombreBallons").toInt();
-    setAbeNbTotalQuestions(m_nbTotalQuestions);
+//    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+//    m_nbTotalQuestions = config.value("NombreBallons").toInt();
+//    setAbeNbTotalQuestions(m_nbTotalQuestions);
 
-    m_level = niveau;
-    m_trace = new QString("");
+//    m_level = niveau;
+//    m_trace = new QString("");
 
-    qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
+//    qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
 
-    chargerParametres();
+//    chargerParametres();
 
     if (m_level=="Personnel") m_ui->btnEditeur->setEnabled(true);
     else m_ui->btnEditeur->setDisabled(true);
