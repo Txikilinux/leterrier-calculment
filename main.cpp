@@ -29,7 +29,7 @@
 #include "editeur.h"
 #include <stdio.h>
 
-extern const QString abeApplicationLongName="AbulÉdu LeTerrier -- Calcul-Mental";
+extern const QString abeApplicationLongName=QObject::trUtf8("AbulÉdu LeTerrier -- Calcul-Mental");
 
 void debugOutput(QtMsgType type, const char *msg)
  {
@@ -60,10 +60,10 @@ int main(int argc, char *argv[])
 //    QObject* appliCastee = qobject_cast<QApplication*>(&appli);
 //    appli.QObject::installEventFilter(appliCastee);
     QApplication appli(argc, argv);
-    qInstallMsgHandler(debugOutput);
+    //qInstallMsgHandler(debugOutput);
     qDebug()<<"Nom de mon appli : "<<appli.objectName();
     qApp->setApplicationName("leterrier-calculment");
-    qApp->setApplicationVersion("1.0.2");
+    qApp->setApplicationVersion("1.0.3");
     QString exo;
     QString nivo="";
     int argument=0;

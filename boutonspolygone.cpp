@@ -86,8 +86,8 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
                 inter->show();
                 }
             else if (*m_action=="travaux") {
-                    //QMessageBox::warning(this, "En travaux", QString::fromUtf8(tr("Fonctionnalité non encore disponible").toStdString().c_str()));
-                QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,tr("En travaux"),QString::fromUtf8(tr("Fonctionnalité non encore disponible").toStdString().c_str()));
+                    //QMessageBox::warning(this, "En travaux", trUtf8("Fonctionnalité non encore disponible"));
+                QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,tr("En travaux"),trUtf8("Fonctionnalité non encore disponible"));
                 alertBox->setGeometry(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
                 alertBox->show();
                         }
