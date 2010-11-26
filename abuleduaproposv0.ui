@@ -20,7 +20,7 @@
       <bool>false</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="tabAide">
       <attribute name="title">
@@ -47,7 +47,7 @@ p, li { white-space: pre-wrap; }
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;calcul_mental&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:xx-large; font-weight:600;&quot;&gt;C&lt;/span&gt;&lt;span style=&quot; font-size:xx-large; font-weight:600;&quot;&gt;alcul mental&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;presentation&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;P&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;résentation&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calcul mental est un logiciel développé sur la base du logiciel Calcul réfléchi de David Lucardi. Il propose d'exercer les enfants à des activités de calcul mental, notamment celles prescrites par l'Éducation Nationale aux différents niveaux de l'école élémentaire. Adossé à un serveur AbulÉdu (installé dans une école ou hébergé chez RyXéo), Calcul mental 1.0.2 enregistre l'activité des utilisateurs et peut la restituer dans un objectif de validation de compétences ou d'analyse d'erreurs. La version 1.2 permettra pour les enseignants qui le souhaitent de renseigner directement le livret personnel de compétences des élèves qui l'utiliseront. &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calcul mental est un logiciel développé sur la base du logiciel Calcul réfléchi de David Lucardi. Il propose d'exercer les enfants à des activités de calcul mental, notamment celles prescrites par l'Éducation Nationale aux différents niveaux de l'école élémentaire. Adossé à un serveur AbulÉdu (installé dans une école ou hébergé chez RyXéo), Calcul mental 1.0 enregistre l'activité des utilisateurs et peut la restituer dans un objectif de validation de compétences ou d'analyse d'erreurs. La version 1.2 permettra pour les enseignants qui le souhaitent de renseigner directement le livret personnel de compétences des élèves qui l'utiliseront. &lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;fonctionnalites&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;F&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;onctionnalités&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-interface1.jpg&quot; /&gt; &lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Les activités proposées au travers du parcours des zones de l'interface sont l'addition (1), la soustraction (2) ou la multiplication (3) d'entiers, les tables d'addition (4) et de multiplication (5), les compléments additifs (6), les multiples (7), l'estimation d'ordres de grandeur (8), les doubles et moitiés (en projet), la construction de « maisons des nombres » pour les entiers de 2 à 9 (en projet). Un éditeur (9) permet de modifier les nombres intervalles de nombres proposés dans certains exercices. &lt;/p&gt;
@@ -242,7 +242,7 @@ p, li { white-space: pre-wrap; }
              <active>
               <colorrole role="Base">
                <brush brushstyle="SolidPattern">
-                <color alpha="255">
+                <color alpha="0">
                  <red>239</red>
                  <green>235</green>
                  <blue>231</blue>
@@ -253,7 +253,7 @@ p, li { white-space: pre-wrap; }
              <inactive>
               <colorrole role="Base">
                <brush brushstyle="SolidPattern">
-                <color alpha="255">
+                <color alpha="0">
                  <red>239</red>
                  <green>235</green>
                  <blue>231</blue>
@@ -294,7 +294,6 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calcul-Mental est un logiciel libre sous licence GNU/GPL 2.&lt;/p&gt;

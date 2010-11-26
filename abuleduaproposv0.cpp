@@ -25,6 +25,7 @@
 #include "ui_abuleduaproposv0.h"
 #include <QMenu>
 #include <QMenuBar>
+#include <QScrollBar>
 #include <QDebug>
 #include <QDesktopServices>
 #include <QtNetwork/QNetworkAccessManager>
@@ -62,7 +63,7 @@ AbulEduAproposV0::~AbulEduAproposV0()
 
 void AbulEduAproposV0::installeMenu()
 {
-    QString titreAbout=trUtf8("<center>%1 %2</center").arg(qApp->applicationName()) //Récupère les paramètres
+    QString titreAbout=trUtf8("<center>%1 %2</center").arg(abeApplicationLongName) //Récupère les paramètres
                        .arg(qApp->applicationVersion());
     ui->textAbout->setHtml(titreAbout+" "+ui->textAbout->toHtml());         // Ajoute Nom application et Version en haut de la page
 
@@ -198,17 +199,17 @@ void AbulEduAproposV0::montrePeda()
 
         //Message d'attente ...
         QString message = trUtf8("Téléchargement en cours ... veuillez patienter.");
-        ui->textNews->setHtml(message);
+        ui->textAide_2->setHtml(message);
 
         if(!adresseFlux.isValid())
         {
-            ui->textNews->setHtml(messageErreur);
+            ui->textAide_2->setHtml(messageErreur);
         }
         else
         {
             //On y va
             nam = new QNetworkAccessManager(this);
-            connect(nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotNews(QNetworkReply*)));
+            connect(nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotPeda(QNetworkReply*)));
             QNetworkReply* reply = nam->get(QNetworkRequest(adresseFlux));
         }
     }
@@ -270,7 +271,7 @@ void AbulEduAproposV0::changeTab(int index)
 /** Slot lançant un navigateur vers l'Url passée dans qApp->setOrganizationDomain(); */
 void AbulEduAproposV0::aide()
 {
-    QUrl urlSite=qApp->organizationDomain();
+    QUrl urlSite=qApp->organizationDomain()+"/"+qApp->organizationName()+"/"+qApp->applicationName();
     QDesktopServices::openUrl(urlSite);
 }
 
@@ -344,6 +345,8 @@ void AbulEduAproposV0::finishedSlotForum(QNetworkReply* reply)
         QString messageErreur = trUtf8("Le forum n'est pas accessible");
         ui->textForum->setHtml(messageErreur);
     }
+    QScrollBar *sb = ui->textForum->verticalScrollBar();       //On scrolle vers le bas
+    sb->setValue(sb->minimum());
 }
 
 void AbulEduAproposV0::finishedSlotNews(QNetworkReply* reply)
@@ -403,7 +406,88 @@ void AbulEduAproposV0::finishedSlotNews(QNetworkReply* reply)
         QString messageErreur = trUtf8("Le site n'est pas accessible");
         ui->textNews->setHtml(messageErreur);
     }
+    QScrollBar *sb = ui->textNews->verticalScrollBar(); //On scrolle vers le bas
+    sb->setValue(sb->minimum());
 }
+
+
+
+
+void AbulEduAproposV0::finishedSlotPeda(QNetworkReply* reply)
+{
+    if (reply->error() == QNetworkReply::NoError)
+    {
+        // lectures des données issues du "reply"
+        xml= new QDomDocument();
+        xml->setContent(reply->readAll());
+
+        QDomElement xmlElem = xml->documentElement();
+        QDomNode node = xmlElem.firstChild();
+        while(!node.isNull())
+        {
+            QDomElement element = node.toElement(); // On essaie de convertir le node en element
+            if(!element.isNull())
+            {
+                if(element.tagName()=="channel")    // Le node est bien un élément.
+                {
+                    QDomNode node=element.firstChild(); //On parcourt le document à partir du tag "channel"
+                    while(!node.isNull())
+                    {
+                        QDomElement elem=node.toElement(); //On cherche le titre du "Channel"
+                        if(elem.tagName()=="title")
+                        {
+                            QDomNode node=elem.firstChild();
+                            QString titre=node.toText().data();
+                            ui->textAide_2->setHtml("<h4><font color=red>"+titre+"</font></h4>");
+                        }
+                        else if((elem.tagName()=="item"))
+                        {
+                            QDomNode node=elem.firstChild();
+                            while(!node.isNull())
+                            {
+                                QDomElement elem=node.toElement(); //Titre du fils de discussion
+                                if(elem.tagName()=="title")
+                                {
+                                    QDomNode node=elem.firstChild();
+                                    itemTitre=node.toText().data();
+                                    node=node.nextSiblingElement("link");
+                                }
+                                if(elem.tagName()=="link")      // Lien vers post
+                                {
+                                    QDomNode node=elem.firstChild();
+                                    itemLink=node.toText().data();
+                                    node=node.nextSiblingElement("description");
+                                }
+                                if(elem.tagName()=="description") // Texte du post
+                                {
+                                    QDomNode node=elem.firstChild();
+                                    itemDescription =node.toText().data();
+                                    node=node.nextSibling();
+                                }
+                                node=node.nextSibling();
+                            }
+                            QString itemView= "<p><a href='"+itemLink+"'>"
+                                              "<font color=green>"+itemTitre+"</font></a></p>"
+                                              +itemDescription;
+                            ui->textAide_2->append(itemView);
+                        }
+                        node=node.nextSibling();
+                    }
+                }
+                node = node.nextSibling();
+            }
+        }
+    }
+    // Some http error received
+    else
+    {
+        QString messageErreur = trUtf8("Le site n'est pas accessible");
+        ui->textAide_2->setHtml(messageErreur);
+    }
+    QScrollBar *sb = ui->textAide_2->verticalScrollBar();       //On scrolle vers le bas
+    sb->setValue(sb->minimum());
+}
+
 
 void AbulEduAproposV0::on_lblPosezVotreQuestion_linkActivated(QString link)
 {

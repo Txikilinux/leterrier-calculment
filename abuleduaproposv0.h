@@ -81,6 +81,7 @@ private slots:
     void changeTab(int onglet);
     void finishedSlotForum(QNetworkReply*);
     void finishedSlotNews(QNetworkReply*);
+    void finishedSlotPeda(QNetworkReply*);
 
 signals:
     /** Demande le positionnement de l'onglet de l'aide
