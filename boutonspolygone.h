@@ -9,7 +9,7 @@
 class boutonsPolygone : public QPushButton, public QGraphicsItem
 {
     Q_OBJECT
-          Q_INTERFACES(QGraphicsItem)
+          //Q_INTERFACES(QGraphicsItem)
 public:
     boutonsPolygone(QString,int=0);//
     void deplace(int,int);
