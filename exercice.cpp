@@ -45,7 +45,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 {
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
-    this->setAbeExerciceName(exo);
+   this->setAbeExerciceName(exo);
 
     m_operation=exo;
     m_cible=val;
@@ -87,12 +87,48 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     }
 
     if (exo=="addition") {
-        setAbeExerciceName(trUtf8("Additions")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
-        if (m_maxD == 100 && m_maxG == 100 && m_maxD == 1000 && m_maxG == 1000)
+        setAbeExerciceName(trUtf8("Additions de nombres inférieurs à ")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
+        if ((m_maxD == 100) && (m_maxG == 100) || (m_maxD == 1000) && (m_maxG == 1000))
             setAbeSkill("somme-mental-inferieur-"+QString::number(m_maxG));
 
-        // à discuter si on peut conditionner la validation du skill à des valeurs définies dans l'éditeur
-        // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des max à 100 ou 1000
+        // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
+    }
+
+    if (exo=="soustraction") {
+        setAbeExerciceName(trUtf8("Soustractions de nombres inférieurs à ")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
+        if ((m_maxD == m_maxG == 100) || (m_maxD == m_maxG == 1000))
+            setAbeSkill("difference-mental-inferieur-"+QString::number(m_maxG));
+
+        // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
+    }
+
+    if (exo=="multiplication") {
+        setAbeExerciceName(trUtf8("Multiplications de nombres inférieurs à ")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
+        if ((m_maxD == m_maxG == 100) || (m_maxD == m_maxG == 1000))
+            setAbeSkill("produit-mental-inferieur-"+QString::number(m_maxG));
+
+        // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
+    }
+
+    if (exo.left(8)=="approche") {
+       QString nomExercice = "Ordres de grandeur sur des ";
+       QString nomCompetence = "ordre-grandeur-";
+       if (exo[9]=='A') {
+           nomExercice.append("additions");
+           nomCompetence.append("somme");
+       }
+       else if (exo[9]=='S') {
+               nomExercice.append("soustractions");
+               nomCompetence.append("difference");
+            }
+       else  {
+               nomExercice.append("multiplications");
+               nomCompetence.append("produit");
+              }
+       setAbeExerciceName(nomExercice);
+       setAbeSkill(nomCompetence);
+       qDebug()<<"Skill : "<<nomCompetence;
+       qDebug()<<"Exercice : "<<nomExercice;
     }
 
     m_imgFond = new QPixmap("./data/images/"+exo+".jpg");
@@ -106,16 +142,20 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->lblTotal->setText("0");
     //m_ui->lblArg->setText(exo);
 
-//    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
-//    m_nbTotalQuestions = config.value("NombreBallons").toInt();
-//    setAbeNbTotalQuestions(m_nbTotalQuestions);
+/*          Bloc déplacé en particulier pour que les attributs m_min et m_max soit "remplis" avant les setAbeExerciceName() et setAbeSkill()
+            Mais laissé en copie à son ancien emplacement par peur que le déplacement m'ait cassé qch...
 
-//    m_level = niveau;
-//    m_trace = new QString("");
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    m_nbTotalQuestions = config.value("NombreBallons").toInt();
+    setAbeNbTotalQuestions(m_nbTotalQuestions);
 
-//    qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
+    m_level = niveau;
+    m_trace = new QString("");
 
-//    chargerParametres();
+    qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
+
+    chargerParametres();
+*/
 
     if (m_level=="Personnel") m_ui->btnEditeur->setEnabled(true);
     else m_ui->btnEditeur->setDisabled(true);
@@ -123,6 +163,8 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btnFeu->setDisabled(true);
     m_ui->btnRejouer->setDisabled(true);
     m_ui->leResultat->setDisabled(true);
+    qDebug()<<"Skill : "<<getAbeSkill();
+    qDebug()<<"Exercice : "<<getAbeExerciceName();
     this->setWindowTitle(getAbeExerciceName());
 }
 
