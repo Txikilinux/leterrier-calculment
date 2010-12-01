@@ -62,7 +62,7 @@ private:
     QAction *actionNews;
     QAction *actionTraductions;
     QAction *actionAbout;
-    QNetworkAccessManager *nam;
+    QNetworkAccessManager *m_nam;
     bool p_pedaDownloaded;
     bool p_forumDownloaded;
     bool p_newsDownloaded;
@@ -82,6 +82,7 @@ private slots:
     void finishedSlotForum(QNetworkReply*);
     void finishedSlotNews(QNetworkReply*);
     void finishedSlotPeda(QNetworkReply*);
+    void finishedSlotWPAD(QNetworkReply*);
 
 signals:
     /** Demande le positionnement de l'onglet de l'aide

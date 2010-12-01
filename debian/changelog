@@ -1,3 +1,9 @@
+leterrier-calcul-mental (1.0.5~ppa1~jaunty1) jaunty; urgency=low
+
+  * prise en charge du proxy pour les boîtes "A Propos"
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 26 Nov 2010 09:01:34 +0100
+
 leterrier-calcul-mental (1.0.4~ppa1~jaunty1) jaunty; urgency=low
 
   * version 1.0.4

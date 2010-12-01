@@ -32,6 +32,8 @@
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <QtXml/QtXml>
+#include <QHostInfo>
+#include <QNetworkProxy>
 
 extern const QString abeApplicationLongName;
 
@@ -46,13 +48,61 @@ AbulEduAproposV0::AbulEduAproposV0(QWidget *parent) :
     installeMenu(); //Installe le menu Aide dans la menuBar
 
     //Initialisation de quelques variables ...
-    QString adresseForum = "http://forum.abuledu.org/rss/tags/" + qApp->applicationName() + "/lang/" + QLocale::system().name().section('_', 0, 0);
+    QString adresseForum = "http://forum.abuledu.org/rss/tags/" + qApp->applicationName() + "/redirect/on/lang/" + QLocale::system().name().section('_', 0, 0);
     ui->lblPosezVotreQuestion->setText("<a href='" + adresseForum + "'>" + trUtf8("Posez votre question sur le forum des utilisateurs ...") + "</a>");
 
     //Pour eviter de re-telecharger 10 fois les ressources en ligne, j'utilise un flag tout con pour chaque ressource.
     p_pedaDownloaded  = false;
     p_forumDownloaded = false;
     p_newsDownloaded  = false;
+
+    //Un seul networkmanager pour tout lemonde me semble suffisant :)
+    m_nam = new QNetworkAccessManager(this);
+
+    //Gestion d'un proxy ?
+    //il peut-être déterminé par une variable d'environnement
+    QString envproxy = getenv("http_proxy");
+    if(envproxy.length() > 0)
+    {
+        qDebug() << "AbulEduAproposv0.cpp: Proxy detected :: " << envproxy;
+        envproxy.remove("/");
+        //On découpe le proxy
+        QRegExp exp(":");
+        QStringList split = envproxy.split(exp);
+
+        qDebug() << "AbulEduAproposv0.cpp: Proxy detected :: " << split;
+        QNetworkProxy proxy;
+        proxy.setType(QNetworkProxy::HttpProxy);
+        proxy.setHostName(split[1]);
+        proxy.setPort(split[2].toInt());
+        QNetworkProxy::setApplicationProxy(proxy);
+        m_nam->setProxy(proxy);
+    }
+    else {
+        //Détection automatique: WPAD
+        QUrl adresseWPAD("");
+        QHostInfo wpadSingleResolve = QHostInfo::fromName("wpad");
+        if (wpadSingleResolve.error() != QHostInfo::NoError) {
+            qDebug() << "Lookup failed:" << wpadSingleResolve.errorString();
+            //On essaye avec le domaine complet ...
+            QHostInfo wpadDomainResolve = QHostInfo::fromName("wpad." + QHostInfo::localDomainName());
+            if (wpadDomainResolve.error() != QHostInfo::NoError) {
+                qDebug() << "Lookup failed:" << wpadDomainResolve.errorString();
+            }
+            else {
+                //On télécharge le fichier wpad pour l'analyser ...
+                adresseWPAD = "http://wpad." + QHostInfo::localDomainName() + "/wpad.dat";
+            }
+        }
+        else {
+            //On télécharge le fichier wpad pour l'analyser ...
+            adresseWPAD = "http://wpad/wpad.dat";
+        }
+        if(! adresseWPAD.isEmpty()){
+            connect(m_nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotWPAD(QNetworkReply*)));
+            QNetworkReply* reply = m_nam->get(QNetworkRequest(adresseWPAD));
+        }
+    }
 }
 
 AbulEduAproposV0::~AbulEduAproposV0()
@@ -175,9 +225,8 @@ void AbulEduAproposV0::montreNews()
         else
         {
             //On y va
-            nam = new QNetworkAccessManager(this);
-            connect(nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotNews(QNetworkReply*)));
-            QNetworkReply* reply = nam->get(QNetworkRequest(adresseFlux));
+            connect(m_nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotNews(QNetworkReply*)));
+            QNetworkReply* reply = m_nam->get(QNetworkRequest(adresseFlux));
         }
     }
 }
@@ -208,9 +257,8 @@ void AbulEduAproposV0::montrePeda()
         else
         {
             //On y va
-            nam = new QNetworkAccessManager(this);
-            connect(nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotPeda(QNetworkReply*)));
-            QNetworkReply* reply = nam->get(QNetworkRequest(adresseFlux));
+            connect(m_nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotPeda(QNetworkReply*)));
+            QNetworkReply* reply = m_nam->get(QNetworkRequest(adresseFlux));
         }
     }
 }
@@ -242,9 +290,8 @@ void AbulEduAproposV0::montreForum()
         else
         {
             //On y va
-            nam = new QNetworkAccessManager(this);
-            connect(nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotForum(QNetworkReply*)));
-            QNetworkReply* reply = nam->get(QNetworkRequest(adresseFlux));
+            connect(m_nam, SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotForum(QNetworkReply*)));
+            QNetworkReply* reply = m_nam->get(QNetworkRequest(adresseFlux));
         }
     }
 }
@@ -271,7 +318,7 @@ void AbulEduAproposV0::changeTab(int index)
 /** Slot lançant un navigateur vers l'Url passée dans qApp->setOrganizationDomain(); */
 void AbulEduAproposV0::aide()
 {
-    QUrl urlSite=qApp->organizationDomain()+"/"+qApp->organizationName()+"/"+qApp->applicationName();
+    QUrl urlSite="http://"+qApp->organizationDomain()+"/"+qApp->organizationName()+"/"+qApp->applicationName();
     QDesktopServices::openUrl(urlSite);
 }
 
@@ -347,6 +394,7 @@ void AbulEduAproposV0::finishedSlotForum(QNetworkReply* reply)
     }
     QScrollBar *sb = ui->textForum->verticalScrollBar();       //On scrolle vers le bas
     sb->setValue(sb->minimum());
+    disconnect(m_nam,SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotForum(QNetworkReply*)));
 }
 
 void AbulEduAproposV0::finishedSlotNews(QNetworkReply* reply)
@@ -408,6 +456,7 @@ void AbulEduAproposV0::finishedSlotNews(QNetworkReply* reply)
     }
     QScrollBar *sb = ui->textNews->verticalScrollBar(); //On scrolle vers le bas
     sb->setValue(sb->minimum());
+    disconnect(m_nam,SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotNews(QNetworkReply*)));
 }
 
 
@@ -486,6 +535,7 @@ void AbulEduAproposV0::finishedSlotPeda(QNetworkReply* reply)
     }
     QScrollBar *sb = ui->textAide_2->verticalScrollBar();       //On scrolle vers le bas
     sb->setValue(sb->minimum());
+    disconnect(m_nam,SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotPeda(QNetworkReply*)));
 }
 
 
@@ -526,4 +576,30 @@ QUrl AbulEduAproposV0::abeBuildUrl(QString reflector, QString action)
 
     QUrl adresseFlux = "http://updates.ryxeo.com/application/" + qApp->applicationName() + "/version/" + qApp->applicationVersion() + "/os/" + os + "/action/" + action + "/lang/" + QLocale::system().name().section('_', 0, 0) + "/reflector/" + reflector;
     return adresseFlux;
+}
+
+/** @warning: Solution rapide de recherche d'un proxy, je n'analyse pas le javascript retourne et cherche uniquement une ligne PROXY ...*/
+void AbulEduAproposV0::finishedSlotWPAD(QNetworkReply* reply)
+{
+    if (reply->error() == QNetworkReply::NoError)
+    {
+        // lectures des données issues du "reply"
+        QByteArray contenu = reply->readAll();
+        if(contenu.contains("PROXY")) {
+            QByteArray temp = contenu.right(contenu.length() - contenu.indexOf("PROXY ") - 6); //6 = longueur du mot "PROXY "
+            QString envproxy = temp.left(temp.indexOf(";"));
+            qDebug() << "Proxy trouvé: " << envproxy;
+            QRegExp exp(":");
+            QStringList split = envproxy.split(exp);
+
+            qDebug() << "AbulEduAproposv0.cpp: Proxy detected :: " << split;
+            QNetworkProxy proxy;
+            proxy.setType(QNetworkProxy::HttpProxy);
+            proxy.setHostName(split[0]);
+            proxy.setPort(split[1].toInt());
+            QNetworkProxy::setApplicationProxy(proxy);
+            m_nam->setProxy(proxy);
+        }
+    }
+    disconnect(m_nam,SIGNAL(finished(QNetworkReply*)),this, SLOT(finishedSlotWPAD(QNetworkReply*)));
 }
