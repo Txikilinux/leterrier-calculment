@@ -49,6 +49,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 
     m_operation=exo;
     m_cible=val;
+    m_ratioTaille = 1;
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_nbTotalQuestions = config.value("NombreBallons").toInt();
@@ -208,11 +209,14 @@ void exercice::adapte(QPixmap cheminImage)
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
                                                                 //              QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()*0.88, Qt::SmoothTransformation);
-        QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-60 - 2*bordure, Qt::SmoothTransformation);
+        //QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-60 - 2*bordure, Qt::SmoothTransformation);
+    QPixmap imgFond2 = cheminImage.scaledToHeight(500, Qt::SmoothTransformation);
+        if (cheminImage.height()!= 0) m_ratioTaille = static_cast<double>(imgFond2.width())/static_cast<double>(cheminImage.width());
 
 
      qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
      qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
+     qDebug() << "m_ratioTaille = " <<m_ratioTaille;
     *m_imgFond = imgFond2;
     QBrush* fond = new QBrush(imgFond2);
             m_ui->vue->setBackgroundBrush(*fond);
@@ -478,20 +482,28 @@ void exercice::afficheResultat(QString neSertARien)
         //Ajout d'une image de William personnalisée au résultat de l'exercice
         QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
         QPixmap* prof = new QPixmap("./data/images/bof.png");
-        if (m_score<m_total*SEUIL_NON_ACQUIS)
+        QPixmap* prof2 = new QPixmap(prof->scaledToHeight(prof->height()*m_ratioTaille,Qt::SmoothTransformation));
+        if (m_score<m_total*SEUIL_NON_ACQUIS) {
             prof = new QPixmap("./data/images/rate.png");
-        else if (m_score>=m_total*SEUIL_ACQUIS)
+            prof2 = new QPixmap(prof->scaledToHeight(prof->height()*m_ratioTaille,Qt::SmoothTransformation));
+            qDebug()<< "Hauteur prof : "<<prof->height();
+            qDebug()<< "Hauteur prof après retaillage: "<<prof2->height();
+        }
+        else if (m_score>=m_total*SEUIL_ACQUIS) {
                 prof = new QPixmap("./data/images/bien.png");
-            fondProf->setPixmap(*prof);
+                prof2 = new QPixmap(prof->scaledToHeight(prof->height()*m_ratioTaille,Qt::SmoothTransformation));
+            }
+            fondProf->setPixmap(*prof2);
             m_scene->addItem(fondProf);
-            fondProf->setPos(m_depart->x(),m_depart->y()-prof->height()/1.2);
+            fondProf->setPos(m_depart->x(),m_depart->y()-prof2->height()/1.2);
             fondProf->setZValue(m_nbTotalQuestions);
 
         QString tabBallons[] = {"./data/images/ballonBleu.png","./data/images/ballonJaune.png","./data/images/ballonRouge.png","./data/images/ballonVert.png","./data/images/ballonOrange.png"};
         for (int i=0;i<5;i++) {
             QGraphicsPixmapItem* image = new QGraphicsPixmapItem();
             QPixmap* img = new QPixmap(tabBallons[i]);
-            image->setPixmap(*img);
+            QPixmap* img2 = new QPixmap(img->scaledToHeight(img->height()*m_ratioTaille, Qt::SmoothTransformation));
+            image->setPixmap(*img2);
             m_scene->addItem(image);
             image->setPos(m_depart->x()+35*(i+1),m_depart->y()+10*(i+1));
             image->setZValue(m_nbTotalQuestions-1-i);

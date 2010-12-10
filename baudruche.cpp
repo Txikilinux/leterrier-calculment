@@ -209,6 +209,7 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
 baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+    qDebug()<<"Fact X vaut "<< factX;
 
     const int k=100;
     g_operande = 0;
@@ -236,7 +237,7 @@ baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
         affichage->setFont( QFont( "dejaVuSans",16*factX ) );
         affichage->setHtml(*msg);
         affichage->setZValue(k+2);
-        affichage->setPos(40,100);
+        affichage->setPos(40/factX,100/factX);
         this->addToGroup(affichage);
         //m_timer = new QTimeLine(TPS*1000,this);
 

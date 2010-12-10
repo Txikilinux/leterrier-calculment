@@ -40,6 +40,8 @@ private:
     int m_cible;
     void chargerParametres();
     void adapte(QPixmap);
+    double m_ratioTaille;
+
 
 
 private slots:
