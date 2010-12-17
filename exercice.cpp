@@ -457,6 +457,7 @@ void exercice::on_btnEditeur_clicked()
 
 void exercice::on_btnRejouer_clicked()
 {
+    pushAbulEduLogs();
     exercice* ex = new exercice(m_operation, this->parentWidget(),m_cible);
     ex->show();
     this->close();
