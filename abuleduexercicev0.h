@@ -32,10 +32,6 @@
 #ifndef ABULEDUEXERCICEV0_H
 #define ABULEDUEXERCICEV0_H
 
-#include <QtGui/QApplication>
-#include <QDebug>
-#include <QPluginLoader>
-#include <QDir>
 #include <QMainWindow>
 #include <QWidget>
 #include <QSettings>
@@ -43,17 +39,11 @@
 #include <QDate>
 #include <QHash>
 #include <QEvent>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkReply>
-#include <QtXml/QtXml>
-#include <QMessageBox>
-#include <QSharedMemory>
 
 class AbulEduExerciceV0: public QMainWindow
 {
     Q_ENUMS(EvaluationExercice);
-    Q_OBJECT;
+    Q_OBJECT
 
 public:
     AbulEduExerciceV0(QWidget *parent = 0);
@@ -77,10 +67,42 @@ public:
       * ne sont la que pour permettre au plugin de se connecter sur l'application
       */
     virtual QHash<int, QHash<QString, QString> > getPluginLogs(QString login="", QString group="");
+    virtual QHash<int, QHash<QString, QString> > getPluginLogsDownloaded();
     /** Le plugin affecte le tableau des logs téléchargés */
     virtual void setPluginLogs(QHash<int, QHash<QString, QString> >);
     /** Permet d'indiquer au plugin ce qu'on veut télécharger comme logs */
     virtual QHash<QString, QString> downloadPluginLogsFilter();
+
+    /** Recupere la totalite du tableau des utilisateurs */
+    virtual QHash<int, QString> getPluginUsers();
+    /** Le plugin affecte le tableau des utilisateurs téléchargés */
+    virtual void setPluginUsers(QHash<int, QString>);
+
+    /** Recupere la totalite du tableau des groupes */
+    virtual QHash<QString, QString> getPluginGroups();
+    /** Le plugin affecte le tableau des groupes téléchargés */
+    virtual void setPluginGroups(QHash<QString, QString>);
+
+    /** Recupere la totalite du tableau des domaines */
+    virtual QHash<QString, QString> getPluginDomains();
+    /** Le plugin affecte le tableau des domaines téléchargés */
+    virtual void setPluginDomains(QHash<QString, QString>);
+
+    /** Recupere la totalite du tableau des applications */
+    virtual QHash<int, QString> getPluginApplications();
+    /** Le plugin affecte le tableau des applications téléchargés */
+    virtual void setPluginApplications(QHash<int, QString>);
+
+    /** Recupere la totalite du tableau des skills */
+    virtual QHash<int, QString> getPluginSkills();
+    /** Le plugin affecte le tableau des skills téléchargés */
+    virtual void setPluginSkills(QHash<int, QString>);
+
+    /** Recupere la totalite du tableau des exercices */
+    virtual QHash<int, QString> getPluginExercices();
+    /** Le plugin affecte le tableau des exercices téléchargés */
+    virtual void setPluginExercices(QHash<int, QString>);
+
 
     //----------------- Lanceurs d'evenements --------------------- //
     /**
@@ -89,19 +111,57 @@ public:
       */
     /** Provoque un evenement qui a pour objectif d'envoyer les logs sur le serveur */
     virtual void pushAbulEduLogs();
+
     /**
       * Déclanche le téléchargement des logs en émettant un évènement
       * @see setAbeDownloadLogsFilter qui permet de gérer les filtres de téléchargement
       */
     virtual void downloadAbulEduLogs();
 
+    /**
+      * Déclanche le téléchargement de la liste des utilisateurs
+      */
+    virtual void downloadAbulEduUsers();
+
+    /**
+      * Déclanche le téléchargement de la liste des groupes
+      */
+    virtual void downloadAbulEduGroups();
+
+    /**
+      * Déclanche le téléchargement de la liste des domaines
+      */
+    virtual void downloadAbulEduDomains();
+
+    /**
+      * Déclanche le téléchargement de la liste des applications
+      */
+    virtual void downloadAbulEduApplications();
+
+    /**
+      * Déclanche le téléchargement de la liste des skill
+      */
+    virtual void downloadAbulEduSkills();
+
+    /**
+      * Déclanche le téléchargement de la liste des exercices
+      */
+    virtual void downloadAbulEduExercices();
+
     //----------------- Les evements --------------------- //
     /**
       * Enregistrement de deux évènements type permettant à l'application de lancer des
       * évènements à n'importe quel moment
       */
-    static const QEvent::Type AbulEduLogsPush = static_cast<QEvent::Type>(QEvent::User+100);
-    static const QEvent::Type AbulEduLogsDownload  = static_cast<QEvent::Type>(QEvent::User+101);
+    static const QEvent::Type AbulEduLogsPush              = static_cast<QEvent::Type>(QEvent::User+100);
+    static const QEvent::Type AbulEduLogsDownload          = static_cast<QEvent::Type>(QEvent::User+101);
+
+    static const QEvent::Type AbulEduUsersDownload         = static_cast<QEvent::Type>(QEvent::User+102);
+    static const QEvent::Type AbulEduGroupsDownload        = static_cast<QEvent::Type>(QEvent::User+103);
+    static const QEvent::Type AbulEduDomainsDownload       = static_cast<QEvent::Type>(QEvent::User+104);
+    static const QEvent::Type AbulEduApplicationsDownload  = static_cast<QEvent::Type>(QEvent::User+105);
+    static const QEvent::Type AbulEduSkillsDownload        = static_cast<QEvent::Type>(QEvent::User+106);
+    static const QEvent::Type AbulEduExercicesDownload     = static_cast<QEvent::Type>(QEvent::User+107);
 
     //----------------- Manipulation des variables membres --------------------- //
     /**
@@ -166,25 +226,35 @@ public:
     //    virtual QSettings getAbulEduParameters(QString login, QString group);
     //    /** Provoque un evenement pour envoyer les paramètres sur le serveur */
     //    virtual void pushAbulEduParameters();
-    /** Permet de détacher la zone de mémoire partagée lors de l'appel au destructeur */
-    virtual void detach();
 
-public slots:
-    /** Gestion de la requete reseau pour voir s'il existe une mise a jour de l'application */
-    void onlineUpdateRequestSlot(QNetworkReply*);
+    /** Emet le signal de fin de download */
+    virtual void sendSignalDownloaded(QString s);
 
 protected:
-    QString m_exerciceName;
-    QString m_level;
-    int m_nbTotalQuestions;
-    QString m_skill;
+    QString  m_exerciceName;
+    QString  m_level;
+    QString  m_skill;
+    int      m_nbTotalQuestions;
 
 private:
     QHash<int, QHash<QString, QString> > m_arrayLogs;
-    QSettings m_parameters;
-    QHash<QString, QString> m_downloadFilter;
-    int m_localDebug;
-    QSharedMemory sharedMemory;
+    QHash<int, QString>                  m_arrayUsers;
+    QHash<QString, QString>              m_arrayGroups;
+    QHash<QString, QString>              m_arrayDomains;
+    QHash<int, QString>                  m_arrayApplications;
+    QHash<int, QString>                  m_arraySkills;
+    QHash<int, QString>                  m_arrayExercices;
+    QHash<int, QHash<QString, QString> > m_arrayLogsDownloaded;
+    QSettings                            m_parameters;
+    QHash<QString, QString>              m_downloadFilter;
+    int                                  m_localDebug;
+
+signals:
+    /** signal lance par le plugin via la methode publique sendSignalDownloaded qui permet d'accrocher un slot de
+      * traitement ou autre (ex. rafraichir la liste d'une combobox) lorsque le telechargement est termine ...
+      *  */
+    void signalDownloaded(QString s);
+
 
 };
 
