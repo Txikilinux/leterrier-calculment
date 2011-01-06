@@ -294,22 +294,26 @@ void exercice::on_btnQuitter_clicked()
 
 void exercice::on_btnBallon_clicked()
 {
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     //instanciation d'une baudruche et connexion aux autres objets
-    if (m_operation=="addition") m_depart = new QPoint(50*m_ratioTaille,m_imgFond->height()*0.4*m_ratioTaille);
-    else m_depart = new QPoint(m_imgFond->width()/2-80*m_ratioTaille,500*m_ratioTaille);
+    if (m_operation=="addition") m_depart = new QPoint(0*factX,m_imgFond->height()*0.3*factX);
+    else if(m_operation.left(6)=="tableA"|| m_operation.left(6)=="tableM") m_depart = new QPoint(m_imgFond->width()/2-80*factY,0*factY);
+    else m_depart = new QPoint(m_imgFond->width()/2-80*factY,500*factY);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
 qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     if (m_operation=="addition")
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,this,"autoTamponneuse.png");
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,this,"auto");
     else if(m_operation==""
             || m_operation=="soustraction"
             || m_operation=="multiplication")
                     m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,this);
 
-        else if (m_operation.left(6)=="tableA" || m_operation.left(6)=="tableM")
-                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,this);
-
+        else if (m_operation.left(6)=="tableA")
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,this,"nacelle");
+        else if(m_operation.left(6)=="tableM")
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,this,"cabine");
         else if (m_operation.left(11)=="complementA")
                         m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,this,"fantome");
             else if (m_operation.left(11)=="complementM")
@@ -372,9 +376,11 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         animation->setTimeLine(m_baudruche->m_timer);
         if (m_operation=="addition") {
             for (int i = 0; i < 200; i++)
-                animation->setPosAt(0.5, QPointF((2*i) ,0 ));
-            for (int j=200;j<300;j++)
-                animation->setPosAt(1, QPointF((5*j) ,0 ));
+                animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 ));
+        }
+        else if(m_operation.left(6)=="tableA"|| m_operation.left(6)=="tableM") {
+            for (int i = 0; i < 200; i++)
+                animation->setPosAt(i/200.0, QPointF(0 , 3.3*i));
         }
         else for (int i = 0; i < 200; i++)
                 //animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));

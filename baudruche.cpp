@@ -283,7 +283,8 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         largeurIllustration=imageIllustration2.width();
         decalageCentrage=(largeurIllustration-longueurAffichage)/2;
         affichage->setHtml(m_affichage);
-        affichage->setPos(decalageCentrage,75*factY);
+        if (image=="auto") affichage->setPos(50*factX,190*factY);
+        else affichage->setPos(decalageCentrage,75*factY);
         affichage->setZValue(k+1);
         this->addToGroup(affichage);
         m_texteAffiche = new QGraphicsTextItem();
