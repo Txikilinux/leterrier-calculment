@@ -29,6 +29,10 @@ public:
     void emetRes();
     void emetApprox();
     void emetMort();
+    void changeImage(QString);
+    QGraphicsTextItem* m_texteAffiche;
+    QGraphicsPixmapItem m_image;
+    QPoint m_position;
 
 public slots:
     void detruire();
@@ -47,9 +51,12 @@ private:
     float d_operande;
     float m_resultat;
     float m_approximation;
-    QPoint m_position;
+
     QString m_ligne;
     QString m_affichage;
+
+
+
 //    QTimeLine m_timer;
     void dessineMoi(QString,int);
 };

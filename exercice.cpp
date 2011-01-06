@@ -89,7 +89,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 
     if (exo=="addition") {
         setAbeExerciceName(trUtf8("Additions de nombres inférieurs à ")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
-        if ((m_maxD == 100) && (m_maxG == 100) || (m_maxD == 1000) && (m_maxG == 1000))
+        if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
             setAbeSkill("somme-mental-inferieur-"+QString::number(m_maxG));
 
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
@@ -97,7 +97,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 
     if (exo=="soustraction") {
         setAbeExerciceName(trUtf8("Soustractions de nombres inférieurs à ")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
-        if ((m_maxD == m_maxG == 100) || (m_maxD == m_maxG == 1000))
+        if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
             setAbeSkill("difference-mental-inferieur-"+QString::number(m_maxG));
 
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
@@ -105,7 +105,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 
     if (exo=="multiplication") {
         setAbeExerciceName(trUtf8("Multiplications de nombres inférieurs à ")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
-        if ((m_maxD == m_maxG == 100) || (m_maxD == m_maxG == 1000))
+        if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
             setAbeSkill("produit-mental-inferieur-"+QString::number(m_maxG));
 
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
@@ -295,8 +295,8 @@ void exercice::on_btnQuitter_clicked()
 void exercice::on_btnBallon_clicked()
 {
     //instanciation d'une baudruche et connexion aux autres objets
-    if (m_operation=="addition") m_depart = new QPoint(50,m_imgFond->height()*0.5);
-    else m_depart = new QPoint(m_imgFond->width()/2,400);
+    if (m_operation=="addition") m_depart = new QPoint(50*m_ratioTaille,m_imgFond->height()*0.4*m_ratioTaille);
+    else m_depart = new QPoint(m_imgFond->width()/2-80*m_ratioTaille,500*m_ratioTaille);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
 qDebug()<<"Creation de baudruche avec temps "<<m_temps;
@@ -377,7 +377,8 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
                 animation->setPosAt(1, QPointF((5*j) ,0 ));
         }
         else for (int i = 0; i < 200; i++)
-                animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
+                //animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
+                animation->setPosAt(i/200.0, QPointF(0 , (-2.5*i)));
             // animation->setPosAt(i/200.0, QPointF(0 , (3*i)+(i*0.8))); --> pour la faire tomber
             //animation->setPosAt(i/200.0, QPointF((-3*i)-(i*0.8) ,0 )); --> pour la faire aller à gauche
             //animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 )); --> pour la faire aller à droite
@@ -422,7 +423,17 @@ void exercice::on_btnFeu_clicked()
         setAbeLineLog(m_baudruche->getMLigne(),m_ui->leResultat->text(),m_score, m_total,evaluation,reponseAttendueEnString);
         qDebug()<<getPluginLogs();
 
-    if (m_baudruche!=NULL) m_baudruche->detruire();
+        if (m_baudruche!=NULL) {
+            m_baudruche->changeImage("./data/images/paf.png");
+            m_baudruche->removeFromGroup(m_baudruche->m_texteAffiche);
+            m_baudruche->removeFromGroup(&(m_baudruche->m_image));
+            delete m_baudruche->m_texteAffiche;
+        }
+
+    QTimeLine* tiptip = new QTimeLine(1000,this);
+    connect(tiptip, SIGNAL(finished()),m_baudruche, SLOT(detruire()));
+    tiptip->start();
+
     m_ui->btnFeu->setDisabled(true);
 
     if (m_total==m_nbTotalQuestions) {

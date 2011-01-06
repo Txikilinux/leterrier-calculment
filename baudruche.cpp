@@ -250,7 +250,7 @@ void baudruche::dessineMoi(QString image, int taillePolice)
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     qDebug()<<"FactY = "<<factY;
     const int k=100;
-    QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
+//    QGraphicsPixmapItem* m_image = new QGraphicsPixmapItem(this);
         int coulAlea = rand()%(5);
         QString illustration;
         QString imageBase="ballon";
@@ -270,13 +270,12 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         QPixmap imageIllustration(illustration);
         QPixmap imageIllustration2 = imageIllustration.scaled(imageIllustration.width()*factX, imageIllustration.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         qDebug()<<"Taille baudruche : "<<imageIllustration2.width()<<" X "<<imageIllustration2.height();
-            pixmap->setPixmap(imageIllustration2);
-            pixmap->setZValue(k);
-            pixmap->setPos(m_position);
+            m_image.setPixmap(imageIllustration2);
+            m_image.setZValue(k);
+            m_image.setPos(m_position);
+            this->addToGroup(&m_image);
 
-            this->addToGroup(pixmap);
-
-    QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
+    QGraphicsTextItem* affichage = new QGraphicsTextItem("",&m_image);
         affichage->setFont( QFont( "dejaVuSans",taillePolice,QFont::Bold ) );
         QFontMetrics mesureur(QFont("dejaVuSans",taillePolice));
         int longueurAffichage,largeurIllustration,decalageCentrage;
@@ -287,6 +286,8 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         affichage->setPos(decalageCentrage,75*factY);
         affichage->setZValue(k+1);
         this->addToGroup(affichage);
+        m_texteAffiche = new QGraphicsTextItem();
+        m_texteAffiche = affichage;
 
 }
 
@@ -357,7 +358,8 @@ int baudruche::valeurApprochee(int operande, int maximum)
 void baudruche::detruire()
 {
     if (this!=NULL) {
-        if (m_approximation==0) {emit valueChanged(m_resultat);//ici le problème
+        if (m_approximation==0) {
+            emit valueChanged(m_resultat);//ici le problème
             qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
         }
         else {emit valueChanged(m_approximation);
@@ -378,7 +380,13 @@ void baudruche::detruireTps()
         emit tempsFini(tr("TROP TARD..."));
         QPixmap image("./data/images/will-let.png");
         emit tempsFini(image);
-        delete this;
+        changeImage("./data/images/paf.png");
+        removeFromGroup(m_texteAffiche);
+        delete m_texteAffiche;
+        QTimeLine* tiptip = new QTimeLine(1000,this);
+        connect(tiptip, SIGNAL(finished()),this, SLOT(detruire()));
+        tiptip->start();
+        //delete this;
         }
 }
 
@@ -395,4 +403,17 @@ void baudruche::emetApprox()
 void baudruche::emetMort()
 {
     emit destroyed(true);
+}
+
+void baudruche::changeImage(QString nomNouvelleImage)
+{
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+    QPixmap nouvelleImage(nomNouvelleImage);
+    QPixmap nouvelleImage2 = nouvelleImage.scaled(nouvelleImage.width()*factX, nouvelleImage.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    m_position.setX(m_position.x()-(nouvelleImage2.width()-m_image.pixmap().width())/2);
+    m_position.setY(m_position.y()-(nouvelleImage2.height()-m_image.pixmap().height())/2);
+    m_image.setPixmap(nouvelleImage2);
+    m_image.setPos(m_position);
+
 }
