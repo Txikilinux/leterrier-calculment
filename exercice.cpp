@@ -164,6 +164,9 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btnFeu->setDisabled(true);
     m_ui->btnRejouer->setDisabled(true);
     m_ui->leResultat->setDisabled(true);
+    m_ui->btnRejouer->setIcon(QIcon("./data/images/souris.png"));
+    m_ui->btnQuitter->setIcon(QIcon("./data/images/souris.png"));
+    m_ui->btnEditeur->setIcon(QIcon("./data/images/souris.png"));
     qDebug()<<"Skill : "<<getAbeSkill();
     qDebug()<<"Exercice : "<<getAbeExerciceName();
     this->setWindowTitle(getAbeExerciceName());
