@@ -1,3 +1,16 @@
+leterrier-calcul-mental (1.0.6~ppa1~jaunty1) jaunty; urgency=low
+
+  * Différenciation des objets porteurs selon le type d'opération : 
+  * Auto-tamponneuses pour les additions
+  * Nacelles qui chutent pour les tables d'addition
+  * Cabines qui chutent pour les tables de multiplication
+  * Fantômes pour les compléments additifs
+  * Ballons de baudruche pour les autres
+  * Accès aux ordres de grandeur par le menu Exercices
+  * Éclatement des ballons à la fin du temps imparti
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 26 Nov 2010 09:01:34 +0100
+
 leterrier-calcul-mental (1.0.5~ppa1~jaunty1) jaunty; urgency=low
 
   * prise en charge du proxy pour les boîtes "A Propos"
