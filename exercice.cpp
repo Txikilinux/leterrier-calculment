@@ -432,16 +432,7 @@ void exercice::on_btnFeu_clicked()
         setAbeLineLog(m_baudruche->getMLigne(),m_ui->leResultat->text(),m_score, m_total,evaluation,reponseAttendueEnString);
         qDebug()<<getPluginLogs();
 
-        if (m_baudruche!=NULL && m_total!=m_nbTotalQuestions) {
-            m_baudruche->changeImage("./data/images/paf.png");
-            m_baudruche->removeFromGroup(m_baudruche->m_texteAffiche);
-            m_baudruche->removeFromGroup(&(m_baudruche->m_image));
-            delete m_baudruche->m_texteAffiche;
-        }
-
-    QTimeLine* tiptip = new QTimeLine(1000,this);
-    connect(tiptip, SIGNAL(finished()),m_baudruche, SLOT(detruire()));
-    tiptip->start();
+    if (m_baudruche!=NULL) m_baudruche->detruire();
 
     m_ui->btnFeu->setDisabled(true);
 
