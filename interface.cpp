@@ -360,3 +360,21 @@ void interface::on_action_un_nombre_al_atoire_triggered()
 {
 
 }
+
+void interface::on_actionSur_des_additions_triggered()
+{
+    m_exercice = new exercice("approcheA",this,100,"");
+    m_exercice->show();
+}
+
+void interface::on_actionSur_des_soustractions_triggered()
+{
+    m_exercice = new exercice("approcheS",this,100,"");
+    m_exercice->show();
+}
+
+void interface::on_actionSur_des_multiplications_triggered()
+{
+    m_exercice = new exercice("approcheM",this,100,"");
+    m_exercice->show();
+}

@@ -268,7 +268,8 @@ void baudruche::dessineMoi(QString image, int taillePolice)
                 }
         else illustration="./data/images/"+imageBase;
         QPixmap imageIllustration(illustration);
-        QPixmap imageIllustration2 = imageIllustration.scaled(imageIllustration.width()*factX, imageIllustration.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QPixmap imageIllustration2 = imageIllustration.scaledToHeight(imageIllustration.height()*factY, Qt::SmoothTransformation);
+//avant//QPixmap imageIllustration2 = imageIllustration.scaled(imageIllustration.width()*factX, imageIllustration.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         qDebug()<<"Taille baudruche : "<<imageIllustration2.width()<<" X "<<imageIllustration2.height();
             m_image.setPixmap(imageIllustration2);
             m_image.setZValue(k);
@@ -374,13 +375,15 @@ void baudruche::detruire()
 
 void baudruche::detruireTps()
 {
+    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     if (this!=NULL) {
         emit valueChanged(m_resultat);//pas sûr utile si baudruche termine temps
         emit destroyed(true);
         emit destroyed();
         emit tempsFini(tr("TROP TARD..."));
         QPixmap image("./data/images/will-let.png");
-        emit tempsFini(image);
+        QPixmap imageRetaillee = image.scaledToHeight(image.height()*factY);
+        emit tempsFini(imageRetaillee);
         changeImage("./data/images/paf.png");
         removeFromGroup(m_texteAffiche);
         delete m_texteAffiche;
@@ -408,13 +411,16 @@ void baudruche::emetMort()
 
 void baudruche::changeImage(QString nomNouvelleImage)
 {
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     QPixmap nouvelleImage(nomNouvelleImage);
-    QPixmap nouvelleImage2 = nouvelleImage.scaled(nouvelleImage.width()*factX, nouvelleImage.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap nouvelleImage2 = nouvelleImage.scaledToHeight(nouvelleImage.height()*factY, Qt::SmoothTransformation);
     m_position.setX(m_position.x()-(nouvelleImage2.width()-m_image.pixmap().width())/2);
-    m_position.setY(m_position.y()-(nouvelleImage2.height()-m_image.pixmap().height())/2);
+    m_position.setY(m_position.y()-((nouvelleImage2.height()-m_image.pixmap().height())/2));    //P... de Justin
+    qDebug()<<"Taille image avant changement : "<<m_image.pixmap().width()<<" X "<<m_image.pixmap().height();
+    qDebug()<<"Position image avant changement : "<<m_image.x()<<" X "<<m_image.y();
     m_image.setPixmap(nouvelleImage2);
+    qDebug()<<"Taille image après changement : "<<m_image.pixmap().width()<<" X "<<m_image.pixmap().height();
     m_image.setPos(m_position);
+    qDebug()<<"Position image après changement : "<<m_image.x()<<" X "<<m_image.y();
 
 }

@@ -112,6 +112,14 @@
      <addaction name="action_100"/>
      <addaction name="action_un_nombre_al_atoire"/>
     </widget>
+    <widget class="QMenu" name="menuOrdres_de_grandeur">
+     <property name="title">
+      <string>Ordres de grandeur</string>
+     </property>
+     <addaction name="actionSur_des_additions"/>
+     <addaction name="actionSur_des_soustractions"/>
+     <addaction name="actionSur_des_multiplications"/>
+    </widget>
     <addaction name="actionAdditions"/>
     <addaction name="actionMultiplications"/>
     <addaction name="actionSoustractions"/>
@@ -119,6 +127,7 @@
     <addaction name="menuTables_de_multiplication"/>
     <addaction name="menuMultiples"/>
     <addaction name="menuCompl_ments"/>
+    <addaction name="menuOrdres_de_grandeur"/>
    </widget>
    <widget class="QMenu" name="menuEditeur">
     <property name="title">
@@ -293,6 +302,21 @@
   <action name="action_un_nombre_al_atoire">
    <property name="text">
     <string>à un nombre aléatoire</string>
+   </property>
+  </action>
+  <action name="actionSur_des_additions">
+   <property name="text">
+    <string>sur des additions</string>
+   </property>
+  </action>
+  <action name="actionSur_des_soustractions">
+   <property name="text">
+    <string>sur des soustractions</string>
+   </property>
+  </action>
+  <action name="actionSur_des_multiplications">
+   <property name="text">
+    <string>sur des multiplications</string>
    </property>
   </action>
  </widget>

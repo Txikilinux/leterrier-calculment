@@ -45,11 +45,10 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 {
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
-   this->setAbeExerciceName(exo);
+    this->setAbeExerciceName(exo);
 
     m_operation=exo;
     m_cible=val;
-    m_ratioTaille = 1;
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_nbTotalQuestions = config.value("NombreBallons").toInt();
@@ -213,12 +212,10 @@ void exercice::adapte(QPixmap cheminImage)
     ecran=QApplication::desktop()->screenGeometry();
                                                                 //              QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()*0.88, Qt::SmoothTransformation);
         QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-60 - 2*bordure, Qt::SmoothTransformation);
-        if (cheminImage.height()!= 0) m_ratioTaille = static_cast<double>(imgFond2.width())/static_cast<double>(cheminImage.width());
 
 
      qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
      qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
-     qDebug() << "m_ratioTaille = " <<m_ratioTaille;
     *m_imgFond = imgFond2;
     QBrush* fond = new QBrush(imgFond2);
             m_ui->vue->setBackgroundBrush(*fond);
@@ -399,6 +396,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
 
 void exercice::on_btnFeu_clicked()
 {
+    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     m_ui->leResultat->setDisabled(true);
     QString evaluation="";
     float proposition = m_ui->leResultat->text().toFloat();
@@ -411,12 +409,14 @@ void exercice::on_btnFeu_clicked()
         m_score++;
         m_ui->lblMsg->setText(tr("GAGNE"));
         QPixmap* imgO = new QPixmap("./data/images/will-win.png");
+        imgO->scaledToHeight(imgO->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgO);
         evaluation="a";
         }
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
         QPixmap* imgN = new QPixmap("./data/images/will-lose.png");
+        imgN->scaledToHeight(imgN->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgN);
         evaluation="d";
         }
@@ -432,7 +432,7 @@ void exercice::on_btnFeu_clicked()
         setAbeLineLog(m_baudruche->getMLigne(),m_ui->leResultat->text(),m_score, m_total,evaluation,reponseAttendueEnString);
         qDebug()<<getPluginLogs();
 
-        if (m_baudruche!=NULL) {
+        if (m_baudruche!=NULL && m_total!=m_nbTotalQuestions) {
             m_baudruche->changeImage("./data/images/paf.png");
             m_baudruche->removeFromGroup(m_baudruche->m_texteAffiche);
             m_baudruche->removeFromGroup(&(m_baudruche->m_image));
@@ -446,6 +446,7 @@ void exercice::on_btnFeu_clicked()
     m_ui->btnFeu->setDisabled(true);
 
     if (m_total==m_nbTotalQuestions) {
+        if (m_baudruche) delete m_baudruche;
         afficheResultat("peutImporteCeQuiEstEcritIci");
         //mise à jour ou pas du niveau
         QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
@@ -486,6 +487,8 @@ void exercice::on_btnRejouer_clicked()
 
 void exercice::afficheResultat(QString neSertARien)
 {
+    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+
     //la ligne ci-dessous a comme seule utilité parce qu'il me fallait un paramètre QString au SLOT (compatibilité SIGNAL) de ne pas avoir un warning
     neSertARien="";
 
@@ -494,23 +497,23 @@ void exercice::afficheResultat(QString neSertARien)
         //debug eric
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbTotalQuestions << "et score :: " << m_score;
 
-        m_depart = new QPoint(m_imgFond->width()*0.3,m_imgFond->height()*0.5);
+        m_depart = new QPoint(m_imgFond->width()*0.3,m_imgFond->height()*0.5/factY);
         m_baudruche = new baudruche(m_score,*m_depart,this);
         m_ui->vue->setScene(m_scene);
 
         //Ajout d'une image de William personnalisée au résultat de l'exercice
         QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
         QPixmap* prof = new QPixmap("./data/images/bof.png");
-        QPixmap* prof2 = new QPixmap(prof->scaledToHeight(prof->height()*m_ratioTaille,Qt::SmoothTransformation));
+        QPixmap* prof2 = new QPixmap(prof->scaledToHeight(prof->height()*factY,Qt::SmoothTransformation));
         if (m_score<m_total*SEUIL_NON_ACQUIS) {
             prof = new QPixmap("./data/images/rate.png");
-            prof2 = new QPixmap(prof->scaledToHeight(prof->height()*m_ratioTaille,Qt::SmoothTransformation));
+            prof2 = new QPixmap(prof->scaledToHeight(prof->height()*factY,Qt::SmoothTransformation));
             qDebug()<< "Hauteur prof : "<<prof->height();
             qDebug()<< "Hauteur prof après retaillage: "<<prof2->height();
         }
         else if (m_score>=m_total*SEUIL_ACQUIS) {
                 prof = new QPixmap("./data/images/bien.png");
-                prof2 = new QPixmap(prof->scaledToHeight(prof->height()*m_ratioTaille,Qt::SmoothTransformation));
+                prof2 = new QPixmap(prof->scaledToHeight(prof->height()*factY,Qt::SmoothTransformation));
             }
             fondProf->setPixmap(*prof2);
             m_scene->addItem(fondProf);
@@ -521,10 +524,10 @@ void exercice::afficheResultat(QString neSertARien)
         for (int i=0;i<5;i++) {
             QGraphicsPixmapItem* image = new QGraphicsPixmapItem();
             QPixmap* img = new QPixmap(tabBallons[i]);
-            QPixmap* img2 = new QPixmap(img->scaledToHeight(img->height()*m_ratioTaille, Qt::SmoothTransformation));
+            QPixmap* img2 = new QPixmap(img->scaledToHeight(img->height()*factY, Qt::SmoothTransformation));
             image->setPixmap(*img2);
             m_scene->addItem(image);
-            image->setPos(m_depart->x()+35*(i+1),m_depart->y()+10*(i+1));
+            image->setPos(m_depart->x()+35*(i+1),m_depart->y()+10*(i+1)*factY);
             image->setZValue(m_nbTotalQuestions-1-i);
             }
 
