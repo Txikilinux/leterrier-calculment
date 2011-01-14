@@ -108,10 +108,13 @@ int main(int argc, char *argv[])
     qDebug()<<"exo : "<<exo;
     //exercice e(exo,&a,argument,nivo);
     exercice e(exo,0,argument,nivo);
-    //QObject* appliCastee = qobject_cast<QApplication*>(&appli);
-    e.setObjectName("exercoce");
-    e.setParent(&w);
-    e.setWindowTitle("exercice");
+        QPixmap* imageFond = new QPixmap(qApp->applicationDirPath()+"/data/images/"+exo+".jpg");
+        e.setImgFond(imageFond);
+        e.setFixedSize(imageFond->width()+150,imageFond->height()+20);
+        //QObject* appliCastee = qobject_cast<QApplication*>(&appli);
+        e.setObjectName("exercoce");
+        //e.setParent(&w);//c'est ça qui mettait le bazar et créait la fenêtre blanche... je le commente, j'espère que ce n'était indispensable pour autre chose...
+        e.setWindowTitle("exercice");
     if (argc==1) w.show();
     else e.show();
     return appli.exec();

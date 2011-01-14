@@ -16,7 +16,7 @@ class exercice : public AbulEduExerciceV0 {
 public:
     explicit exercice(QString,QWidget *parent=0, int val=0, QString niveau="");
     virtual ~exercice();
-    void setImgFond();
+    void setImgFond(QPixmap* chemin=0);
 
 protected:
     virtual void changeEvent(QEvent *e);

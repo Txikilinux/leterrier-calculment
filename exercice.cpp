@@ -131,7 +131,9 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
        qDebug()<<"Exercice : "<<nomExercice;
     }
 
-    m_imgFond = new QPixmap("./data/images/"+exo+".jpg");
+    m_imgFond = new QPixmap(qApp->applicationDirPath()+"/data/images/"+exo+".jpg");
+    qDebug()<<" --------------- Chemin de l'imagde de fond : "<<"./data/images/"+exo+".jpg";
+    qDebug()<<" --------------- Ou alors : "<<qApp->applicationDirPath()+"/data/images/"+exo+".jpg";
 //    this->setGeometry(0,50, m_imgFond->width()+60,m_imgFond->height()+20);
             this->setWindowTitle("Calcul Mental - "+exo);
             adapte(*m_imgFond);
@@ -199,10 +201,11 @@ void exercice::changeEvent(QEvent *e)
 // }
 
 
-void exercice::setImgFond()
+void exercice::setImgFond(QPixmap* image)
 {
-         QBrush* fond = new QBrush(*m_imgFond);this->setWindowModality(Qt::ApplicationModal);
-         m_ui->vue->setBackgroundBrush(*fond);
+    if (image!=0) m_imgFond = image;
+    QBrush* fond = new QBrush(*m_imgFond);this->setWindowModality(Qt::ApplicationModal);
+     m_ui->vue->setBackgroundBrush(*fond);
 }
 
 void exercice::adapte(QPixmap cheminImage)
@@ -234,6 +237,7 @@ void exercice::adapte(QPixmap cheminImage)
 
                                                                 //            this->setFixedSize(imgFond2.width()*1.223,imgFond2.height()*1.05);
             this->setFixedSize(imgFond2.width()+130+bordure,imgFond2.height()+bordure);
+            //this->setFixedSize(600,800);
 
 /*         Je croyais avoir trouvé le moyen de centrer mon exercice à l'écran mais ça marche pas...
             Pourtant comme exercice est une QMainWindow this->frameGeometry() doit retourner un QRect et moveCenter devrait déplacer ce QRect...
