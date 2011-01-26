@@ -131,7 +131,8 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
        qDebug()<<"Exercice : "<<nomExercice;
     }
 
-    m_imgFond = new QPixmap(qApp->applicationDirPath()+"/data/images/"+exo+".jpg");
+    m_imgFond = new QPixmap("./data/images/"+exo+".jpg");
+
     qDebug()<<" --------------- Chemin de l'imagde de fond : "<<"./data/images/"+exo+".jpg";
     qDebug()<<" --------------- Ou alors : "<<qApp->applicationDirPath()+"/data/images/"+exo+".jpg";
 //    this->setGeometry(0,50, m_imgFond->width()+60,m_imgFond->height()+20);

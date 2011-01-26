@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
     qDebug()<<"exo : "<<exo;
     //exercice e(exo,&a,argument,nivo);
     exercice e(exo,0,argument,nivo);
-        QPixmap* imageFond = new QPixmap(qApp->applicationDirPath()+"/data/images/"+exo+".jpg");
+        QPixmap* imageFond = new QPixmap("./data/images/"+exo+".jpg");
         e.setImgFond(imageFond);
         e.setFixedSize(imageFond->width()+150,imageFond->height()+20);
         //QObject* appliCastee = qobject_cast<QApplication*>(&appli);
