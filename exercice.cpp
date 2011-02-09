@@ -441,7 +441,8 @@ void exercice::on_btnFeu_clicked()
     m_ui->btnFeu->setDisabled(true);
 
     if (m_total==m_nbTotalQuestions) {
-        if (m_baudruche) delete m_baudruche;
+        //erics 20110209 sinon coredump en cas de "aucune erreur" ou "que des erreurs"
+	//if (m_baudruche) delete m_baudruche;
         afficheResultat("peutImporteCeQuiEstEcritIci");
         //mise à jour ou pas du niveau
         QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
