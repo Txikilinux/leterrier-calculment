@@ -58,7 +58,6 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_trace = new QString("");
 
     qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
-
     chargerParametres();
     qDebug()<<"Apres chargement des parametres, m_temps vaut "<<m_temps;
 
@@ -212,6 +211,7 @@ void exercice::setImgFond(QPixmap* image)
 
 void exercice::adapte(QPixmap cheminImage)
 {
+    qDebug()<<"----------- Appel de la méthode adapte de la classe exercice ---------------------";
     int bordure=20;
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
