@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     qApp->setApplicationVersion("1.0.6");
     QString exo;
     QString nivo="";
-    int argument=0;
+    int nombre=0;
     if (argc>1) {
         exo= argv[1];
         exo.remove("--exercice=", Qt::CaseInsensitive);
@@ -77,37 +77,37 @@ int main(int argc, char *argv[])
     if (argc>2){
         deuze= argv[2];
         troize=argv[3];
-        qDebug()<<"deuze : "<<deuze<<"3ème lettre : "<<deuze[2];
-        if (deuze[2]=='n') {
+        qDebug()<<"deuze : "<<deuze<<"4ème lettre : "<<deuze[3];
+        if (deuze[3]=='n') {
             deuze.remove("--niveau=", Qt::CaseInsensitive);
             deuze.prepend("Niveau");
             nivo=deuze;
             qDebug()<<"nivo : "<<nivo;
             }
-        else if (deuze[2]=='a') {
-            deuze.remove("--argument=", Qt::CaseInsensitive);
-            argument=deuze.toInt();
-            qDebug()<<"argument : "<<argument;
+        else if (deuze[3]=='o') {
+            deuze.remove("--nombre=", Qt::CaseInsensitive);
+            nombre=deuze.toInt();
+            qDebug()<<"nombre : "<<nombre;
             }
-        if (troize[2]=='n') {
+        if (troize[3]=='i') {
             troize.remove("--niveau=", Qt::CaseInsensitive);
             troize.prepend("Niveau");
             nivo=troize;
             qDebug()<<"nivo : "<<nivo;
             }
-        else if (troize[2]=='a') {
-            troize.remove("--argument=", Qt::CaseInsensitive);
-            argument=troize.toInt();
-            qDebug()<<"argument : "<<argument;
+        else if (troize[3]=='o') {
+            troize.remove("--nombre=", Qt::CaseInsensitive);
+            nombre=troize.toInt();
+            qDebug()<<"nombre : "<<nombre;
             }
         }
     //à améliorer : dans un cas l'interface est créée pour rien, dans l'autre c'est l'exercice... de toute façon c'est de la mémoire utilisée pour rien !!
     interface w;
     w.setWindowTitle("Calcul Mental");
-    if (argument!=0) exo.append(QString::number(argument));
+    if (nombre!=0) exo.append(QString::number(nombre));
     qDebug()<<"exo : "<<exo;
-    //exercice e(exo,&a,argument,nivo);
-    exercice e(exo,0,argument,nivo);
+    //exercice e(exo,&a,nombre,nivo);
+    exercice e(exo,0,nombre,nivo);
         QPixmap* imageFond = new QPixmap("./data/images/"+exo+".jpg");
         e.setImgFond(imageFond);
         e.setFixedSize(imageFond->width()+150,imageFond->height()+20);
