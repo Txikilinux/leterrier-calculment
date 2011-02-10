@@ -17,6 +17,7 @@ public:
     explicit exercice(QString,QWidget *parent=0, int val=0, QString niveau="");
     virtual ~exercice();
     void setImgFond(QPixmap* chemin=0);
+    void adapte(QPixmap);
 
 protected:
     virtual void changeEvent(QEvent *e);
@@ -39,7 +40,6 @@ private:
     int m_resultatEnCours;
     int m_cible;
     void chargerParametres();
-    void adapte(QPixmap);
     double m_ratioTaille;
 
 

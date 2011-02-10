@@ -67,11 +67,14 @@ int main(int argc, char *argv[])
     QString exo;
     QString nivo="";
     int nombre=0;
+    //Je teste si l'appel a des arguments, le premier étant forcément le nom de l'exercice
     if (argc>1) {
         exo= argv[1];
         exo.remove("--exercice=", Qt::CaseInsensitive);
         exo.toLower();}
     qDebug()<<"exo : "<<exo;
+
+    //Je teste si l'appel a d'autres arguments je récupère leur valeur, sachant qu'ici je me suis embêté à tester l'ordre des paramètres ce qui est inutile depuis la "normalisation"
     QString deuze;
     QString troize;
     if (argc>2){
@@ -109,8 +112,9 @@ int main(int argc, char *argv[])
     //exercice e(exo,&a,nombre,nivo);
     exercice e(exo,0,nombre,nivo);
         QPixmap* imageFond = new QPixmap("./data/images/"+exo+".jpg");
-        e.setImgFond(imageFond);
-        e.setFixedSize(imageFond->width()+150,imageFond->height()+20);
+        e.adapte(*imageFond);
+//        e.setImgFond(imageFond);
+//        e.setFixedSize(imageFond->width()+150,imageFond->height()+20);
         //QObject* appliCastee = qobject_cast<QApplication*>(&appli);
         e.setObjectName("exercoce");
         //e.setParent(&w);//c'est ça qui mettait le bazar et créait la fenêtre blanche... je le commente, j'espère que ce n'était indispensable pour autre chose...
