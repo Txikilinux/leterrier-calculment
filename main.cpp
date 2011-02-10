@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
         exo= argv[1];
         exo.remove("--exercice=", Qt::CaseInsensitive);
         exo.toLower();}
-    qDebug()<<"exo : "<<exo;
+    qDebug()<<"Valeur exo : "<<exo;
 
     //Je teste si l'appel a d'autres arguments je récupère leur valeur, sachant qu'ici je me suis embêté à tester l'ordre des paramètres ce qui est inutile depuis la "normalisation"
     QString deuze;
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
         deuze= argv[2];
         troize=argv[3];
         qDebug()<<"deuze : "<<deuze<<"4ème lettre : "<<deuze[3];
-        if (deuze[3]=='n') {
+        if (deuze[3]=='i') {
             deuze.remove("--niveau=", Qt::CaseInsensitive);
             deuze.prepend("Niveau");
             nivo=deuze;
@@ -107,10 +107,21 @@ int main(int argc, char *argv[])
     //à améliorer : dans un cas l'interface est créée pour rien, dans l'autre c'est l'exercice... de toute façon c'est de la mémoire utilisée pour rien !!
     interface w;
     w.setWindowTitle("Calcul Mental");
-    if (nombre!=0) exo.append(QString::number(nombre));
-    qDebug()<<"exo : "<<exo;
+
+    //Attention Usine à gaz : si on a un nombre j'ai besoin de l'ajouter ici pour avoir un truc du style tableM7 pour lire les valeurs dans le fichier de configuration
+    QString exo1 = exo;
+    if (nombre!=0) exo1 = exo+QString::number(nombre);
+    qDebug()<<"exo : "<<exo1;
     //exercice e(exo,&a,nombre,nivo);
-    exercice e(exo,0,nombre,nivo);
+    exercice e(exo1,0,nombre,nivo);
+    qDebug()<<"Exercice lance avec comme parametres :";
+    qDebug()<<"exo1 = "<<exo1;
+    qDebug()<<"exo = "<<exo;
+    qDebug()<<"nivo = "<<nivo;
+    qDebug()<<"nombre = "<<nombre;
+    qDebug()<<"temps accorde"<<e.m_temps;
+
+    //Attention Usine à gaz : mais je dois l'enlever ici pour appeler l'image qui s'appelle du style tableM(tout court).jpg
         QPixmap* imageFond = new QPixmap("./data/images/"+exo+".jpg");
         e.adapte(*imageFond);
 //        e.setImgFond(imageFond);

@@ -60,6 +60,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
 
     chargerParametres();
+    qDebug()<<"Apres chargement des parametres, m_temps vaut "<<m_temps;
 
     if (exo.left(11)=="complementA") {
         exo.truncate(11);

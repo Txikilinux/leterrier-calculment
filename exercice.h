@@ -18,6 +18,7 @@ public:
     virtual ~exercice();
     void setImgFond(QPixmap* chemin=0);
     void adapte(QPixmap);
+    int m_temps;
 
 protected:
     virtual void changeEvent(QEvent *e);
@@ -36,7 +37,7 @@ private:
     int m_maxG;
     int m_minD;
     int m_maxD;
-    int m_temps;
+
     int m_resultatEnCours;
     int m_cible;
     void chargerParametres();
