@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
 
     //Attention Usine à gaz : mais je dois l'enlever ici pour appeler l'image qui s'appelle du style tableM(tout court).jpg
         QPixmap* imageFond = new QPixmap("./data/images/"+exo+".jpg");
-        //e.adapte(*imageFond);
+        e.adapte(*imageFond);
 //        e.setImgFond(imageFond);
 //        e.setFixedSize(imageFond->width()+150,imageFond->height()+20);
         //QObject* appliCastee = qobject_cast<QApplication*>(&appli);
