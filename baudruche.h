@@ -47,11 +47,11 @@ signals:
 
 private:
     QString m_op;
+    QString m_nomImage;
     float g_operande;
     float d_operande;
     float m_resultat;
     float m_approximation;
-
     QString m_ligne;
     QString m_affichage;
 

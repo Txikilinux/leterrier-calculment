@@ -49,7 +49,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
 
     qDebug()<<"Parent de baudruche: "<<parent->objectName();
-
+    m_nomImage = image;
     m_approximation=0;
     if (operation=="addition" || operation=="tableA" || operation=="") m_op = "+";
     else if (operation=="soustraction") m_op = "-";
@@ -102,7 +102,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
 baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QObject *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
-
+    m_nomImage = image;
     m_approximation=0;
         if (operation=="approcheA") m_op = "+";
         else if (operation=="approcheS") m_op = "-";
@@ -154,7 +154,7 @@ qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeu
 baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QObject *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
-
+    m_nomImage = image;
     if (operation=="complementA") m_op = "+";
     else m_op = "x";
     m_position.setX(pos.x());
@@ -210,7 +210,7 @@ baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
     qDebug()<<"Fact X vaut "<< factX;
-
+    m_nomImage = image;
     const int k=100;
     g_operande = 0;
     d_operande = 0;
@@ -384,7 +384,11 @@ void baudruche::detruireTps()
         QPixmap image("./data/images/will-let.png");
         QPixmap imageRetaillee = image.scaledToHeight(image.height()*factY);
         emit tempsFini(imageRetaillee);
-        changeImage("./data/images/paf.png");
+        if (m_nomImage == "auto")
+            changeImage("./data/images/boum.png");
+        else if (m_nomImage == "fantome")
+            changeImage("./data/images/pop.png");
+        else changeImage("./data/images/paf.png");
         removeFromGroup(m_texteAffiche);
         delete m_texteAffiche;
         QTimeLine* tiptip = new QTimeLine(1000,this);
