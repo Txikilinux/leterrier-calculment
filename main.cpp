@@ -60,10 +60,10 @@ int main(int argc, char *argv[])
 //    QObject* appliCastee = qobject_cast<QApplication*>(&appli);
 //    appli.QObject::installEventFilter(appliCastee);
     QApplication appli(argc, argv);
-    //qInstallMsgHandler(debugOutput);
+    qInstallMsgHandler(debugOutput);
     qDebug()<<"Nom de mon appli : "<<appli.objectName();
     qApp->setApplicationName("leterrier-calculment");
-    qApp->setApplicationVersion("1.0.6");
+    qApp->setApplicationVersion("1.0.7");
     QString exo;
     QString nivo="";
     int nombre=0;

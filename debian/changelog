@@ -1,3 +1,16 @@
+leterrier-calcul-mental (1.0.7~ppa1~jaunty1) jaunty; urgency=low
+
+  * Intégration des nouveaux dessins : 
+  * Boum pour les auto-tamponneuses
+  * Pop pour les fantômes
+  * Nausee01, 02, 03 pour lancer les Tables d'addition
+  * Aie01, 02, 03 pour lancer les Ordres de grandeur 
+  * Supppression des pop up en cas de fonctionnalité non encore disponible
+  * Remplacement du complément à 20 par un complément à 1000
+  * Versionnement de alacarte.conf
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 26 Nov 2010 09:01:34 +0100
+
 leterrier-calcul-mental (1.0.6~ppa1~jaunty1) jaunty; urgency=low
 
   * Différenciation des objets porteurs selon le type d'opération : 
