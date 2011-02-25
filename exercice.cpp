@@ -382,15 +382,15 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         animation->setTimeLine(m_baudruche->m_timer);
         if (m_operation=="addition") {
             for (int i = 0; i < 200; i++)
-                animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 ));
+                animation->setPosAt(i/200.0, QPointF((3.8*i*factX) ,0 ));
         }
         else if(m_operation.left(6)=="tableA"|| m_operation.left(6)=="tableM") {
             for (int i = 0; i < 200; i++)
-                animation->setPosAt(i/200.0, QPointF(0 , 3.3*i));
+                animation->setPosAt(i/200.0, QPointF(0 , 3.3*i*factY));
         }
         else for (int i = 0; i < 200; i++)
                 //animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
-                animation->setPosAt(i/200.0, QPointF(0 , (-2.5*i)));
+                animation->setPosAt(i/200.0, QPointF(0 , (-2.5*i*factY)));
             // animation->setPosAt(i/200.0, QPointF(0 , (3*i)+(i*0.8))); --> pour la faire tomber
             //animation->setPosAt(i/200.0, QPointF((-3*i)-(i*0.8) ,0 )); --> pour la faire aller à gauche
             //animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 )); --> pour la faire aller à droite
