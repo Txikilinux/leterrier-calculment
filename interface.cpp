@@ -158,11 +158,12 @@ interface::interface(QWidget *parent)
         btnPoly10->QGraphicsItem::setToolTip(trUtf8("Ordres de grandeur"));
         dessin->addItem(btnPoly10);
 
-    boutonsPolygone* btnPoly11 = new boutonsPolygone("travaux");
-        btnPoly11->deplace(1210*kw, 320*kh);
-        btnPoly11->retaille(330*kw,100*kh);
-        btnPoly11->QGraphicsItem::setToolTip(trUtf8("Doubles et moitiés"));
-        dessin->addItem(btnPoly11);
+    //Bouton destiné aux doubles et moitié
+//    boutonsPolygone* btnPoly11 = new boutonsPolygone("travaux");
+//        btnPoly11->deplace(1210*kw, 320*kh);
+//        btnPoly11->retaille(330*kw,100*kh);
+//        btnPoly11->QGraphicsItem::setToolTip(trUtf8("Doubles et moitiés"));
+//        dessin->addItem(btnPoly11);
 
     }
 
