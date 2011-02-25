@@ -85,15 +85,15 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btn1->setImage(im);
                 btn1->setMTransformable(2);
                 m_scene->addItem(btn1);
-            boutonsPolygone* btn2 = new boutonsPolygone("complementA20",20);
-                btn2->QGraphicsItem::setToolTip(trUtf8("Compléments à 20"));
+            boutonsPolygone* btn2 = new boutonsPolygone("complementA100",100);
+                btn2->QGraphicsItem::setToolTip(trUtf8("Compléments à 100"));
                 btn2->deplace((origine.x()+ m_decor->width()/2), origine.y());
                 btn2->retaille(im.width()*m_ratioTaille,im.height()*m_ratioTaille);
                 btn2->setImage(im);
                 btn2->setMTransformable(2);
                 m_scene->addItem(btn2);
-            boutonsPolygone* btn3 = new boutonsPolygone("complementA100",100);
-                btn3->QGraphicsItem::setToolTip(trUtf8("Compléments à 100"));
+            boutonsPolygone* btn3 = new boutonsPolygone("complementA1000",1000);
+                btn3->QGraphicsItem::setToolTip(trUtf8("Compléments à 1000"));
 //                btn3->deplace(origine.x(), (origine.y()+ m_decor->height()/2)); en attendant l'implémentation de la maison des nombres
                 btn3->deplace(origine.x() + m_decor->width()/4, (origine.y()+ m_decor->height()/2));
                 btn3->retaille(im.width()*m_ratioTaille,im.height()*m_ratioTaille);

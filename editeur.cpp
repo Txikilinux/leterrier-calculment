@@ -218,8 +218,8 @@ void Editeur::initialiser()
     initialiserApproche("approcheS");
     initialiserApprocheM("approcheM");
     initialiserComplement("complementA10");
-    initialiserComplement("complementA20");
     initialiserComplement("complementA100");
+    initialiserComplement("complementA1000");
     for (int i=1;i<=5;i++) {
         initialiserComplement("complementM"+QString::number(i*5));
         }
