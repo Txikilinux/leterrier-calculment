@@ -104,6 +104,9 @@ int main(int argc, char *argv[])
             qDebug()<<"nombre : "<<nombre;
             }
         }
+#if defined(Q_OS_MAC)
+    QDir::setCurrent(qApp->applicationDirPath());
+#endif
     //à améliorer : dans un cas l'interface est créée pour rien, dans l'autre c'est l'exercice... de toute façon c'est de la mémoire utilisée pour rien !!
     interface w;
     w.setWindowTitle("Calcul Mental");
@@ -134,3 +137,4 @@ int main(int argc, char *argv[])
     else e.show();
     return appli.exec();
 }
+
