@@ -18,6 +18,10 @@ protected:
 
 private:
     Ui::AbulEduAccueil *ui;
+
+private slots:
+    void on_pbDocumentation_clicked();
+    void on_pbInstaller_clicked();
 };
 
 #endif // ABULEDUACCUEIL_H

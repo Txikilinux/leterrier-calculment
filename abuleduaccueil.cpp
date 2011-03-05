@@ -1,5 +1,9 @@
 #include "abuleduaccueil.h"
 #include "ui_abuleduaccueil.h"
+//#include <QProcess>
+//#include <QDebug>
+#include <QDesktopServices>
+#include <QUrl>
 
 AbulEduAccueil::AbulEduAccueil(QWidget *parent) :
     QMainWindow(parent),
@@ -24,4 +28,14 @@ void AbulEduAccueil::changeEvent(QEvent *e)
     default:
         break;
     }
+}
+
+void AbulEduAccueil::on_pbInstaller_clicked()
+{
+    QDesktopServices::openUrl(QUrl("file:///" + QCoreApplication::applicationDirPath() + "/Logiciel/Windows/leterrier-calcul-mental-1.0.7-setup.exe"));
+}
+
+void AbulEduAccueil::on_pbDocumentation_clicked()
+{
+    QDesktopServices::openUrl(QUrl("file:///" + QCoreApplication::applicationDirPath() + "/Manuel"));
 }
