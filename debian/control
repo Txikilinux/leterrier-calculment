@@ -9,5 +9,5 @@ Homepage: http://www.abuledu.org/leterrier/
 Package: leterrier-calcul-mental
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libqt4-xml
-Description: Calcul-Mental
- calcul-mental du terrier d'AbulÉdu
+Description: Calcul-Mental (Le Terrier d'AbulEdu)
+ calcul-mental du Terrier d'AbulÉdu
