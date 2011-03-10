@@ -347,7 +347,7 @@ void interface::on_action_10_triggered()
 
 void interface::on_action_20_triggered()
 {
-    m_exercice = new exercice("complementA20",this, 20,"");
+    m_exercice = new exercice("complementA1000",this, 1000,"");
     m_exercice->show();
 }
 

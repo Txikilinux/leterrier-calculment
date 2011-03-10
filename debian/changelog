@@ -4,6 +4,7 @@ leterrier-calcul-mental (1.0.8~ppa1~jaunty1) jaunty; urgency=low
   * Ajout d'une police par défaut (LiberationSans, 14)
   * Correction d'un bug : accès au bouton Ballon pendant l'affichage du "paf"
   * Ajout d'un cache aux autotamponneuses au cas où se mat serait trop long
+  * Correction bug #1276
 
  -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 26 Nov 2010 09:01:34 +0100
 

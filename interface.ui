@@ -108,9 +108,8 @@
       <string>Compléments</string>
      </property>
      <addaction name="action_10"/>
-     <addaction name="action_20"/>
      <addaction name="action_100"/>
-     <addaction name="action_un_nombre_al_atoire"/>
+     <addaction name="action_20"/>
     </widget>
     <widget class="QMenu" name="menuOrdres_de_grandeur">
      <property name="title">
@@ -291,7 +290,7 @@
   </action>
   <action name="action_20">
    <property name="text">
-    <string>à 20</string>
+    <string>à 1000</string>
    </property>
   </action>
   <action name="action_100">
