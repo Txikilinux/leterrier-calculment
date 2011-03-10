@@ -41,12 +41,12 @@ interface::interface(QWidget *parent)
     AbulEduAproposV0 *monAide=new AbulEduAproposV0(this);
 
     QRect ecran;
-    ecran=QApplication::desktop()->screenGeometry();
+    ecran=QApplication::desktop()->availableGeometry();
 
     QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf");
     if (!fichierConf->exists()) qDebug()<<trUtf8("Fichier config NON trouvé");
     else qDebug() << trUtf8("Fichier config trouvé");
-    m_hauteurMax = ecran.height() - 50;
+    m_hauteurMax = ecran.height();
     qDebug() << "Taille ecran : " << ecran.width()<< " X "<<ecran.height();
     this->resize(ecran.width(),ecran.height());
     ui->fete->resize(ecran.width(),m_hauteurMax);
