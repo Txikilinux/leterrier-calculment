@@ -46,7 +46,7 @@ const int MULTIPLE_MAX=11;
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QObject *parent,QString image)
 {
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
 
     qDebug()<<"Parent de baudruche: "<<parent->objectName();
     m_nomImage = image;
@@ -101,7 +101,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
 //constructeur spécifique aux valeurs approchées
 baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QObject *parent,QString image)
 {
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
     m_approximation=0;
         if (operation=="approcheA") m_op = "+";
@@ -153,7 +153,7 @@ qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeu
 //constructeur spécifique aux compléments
 baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QObject *parent,QString image)
 {
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
     if (operation=="complementA") m_op = "+";
     else m_op = "x";
@@ -208,7 +208,7 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
 //constructeur spécifique à l'affichage du résultat
 baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
 {
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     qDebug()<<"Fact X vaut "<< factX;
     m_nomImage = image;
     const int k=100;
@@ -245,7 +245,7 @@ baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
 
 void baudruche::dessineMoi(QString image, int taillePolice)
 {
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     qDebug()<<"FactX = "<<factX;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     qDebug()<<"FactY = "<<factY;

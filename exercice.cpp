@@ -304,7 +304,7 @@ void exercice::on_btnQuitter_clicked()
 
 void exercice::on_btnBallon_clicked()
 {
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1600;
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     //instanciation d'une baudruche et connexion aux autres objets
     if (m_operation=="addition") m_depart = new QPoint(0*factX,m_imgFond->height()*0.3*factX);
@@ -356,7 +356,15 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(pousseLogs(QString)));
         m_baudruche->emetRes();
         m_scene->addItem(m_baudruche);
-        
+        if (m_operation == "addition") {
+            QPixmap cache("./data/images/cache.png");
+            int bordure=20;
+            QRect ecran;
+            ecran=QApplication::desktop()->screenGeometry();
+                QPixmap cache2 = cache.scaledToHeight(ecran.height()-60 - 2*bordure, Qt::SmoothTransformation);
+            m_scene->addPixmap(cache2);
+        }
+
     *m_trace=m_baudruche->getMAffichage();
     qDebug()<<"Calcul propose : "<<*m_trace;
 
