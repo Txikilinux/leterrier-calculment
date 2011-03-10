@@ -127,7 +127,9 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 QPixmap im("./data/images/carabine.png");
                 QPixmap im2 = im.scaled(60*m_ratioTaille,77*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 btn->setImage(im2);
-                btn->setMTransformable(2);
+
+                btn->setMTransformable(3);
+                btn->setTexte(QString::number(i));
                 m_scene->addItem(btn);
                 }
             for (int i=0;i<2;i++) {

@@ -257,7 +257,11 @@ void exercice::adapte(QPixmap cheminImage)
             this->frameGeometry().setHeight(m_imgFond->height()+2*bordure);
 
 */
-            this->move(ecran.width()/2 - m_imgFond->width()/2,0);
+            QRect desk(QApplication::desktop()->availableGeometry());
+
+            move((desk.width() - frameGeometry().width()) / 2,
+                  (desk.height() - frameGeometry().height()) / 2);
+
 
             qDebug()<<"Taille grView = "<<m_ui->vue->width()<<" X "<<m_ui->vue->height();
             qDebug()<<"Taille grScene = "<<m_ui->vue->scene()->width()<<" X "<<m_ui->vue->scene()->height();

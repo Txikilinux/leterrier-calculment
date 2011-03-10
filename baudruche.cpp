@@ -378,8 +378,9 @@ void baudruche::detruireTps()
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     if (this!=NULL) {
         emit valueChanged(m_resultat);//pas sûr utile si baudruche termine temps
-        emit destroyed(true);
-        emit destroyed();
+        //Résolution bug Hayat : les signaux sont émits par detruire() connecté à la fin de tiptip
+//        emit destroyed(true);
+//        emit destroyed();
         emit tempsFini(tr("TROP TARD..."));
         QPixmap image("./data/images/will-let.png");
         QPixmap imageRetaillee = image.scaledToHeight(image.height()*factY);
@@ -408,10 +409,11 @@ void baudruche::emetApprox()
     emit valueChanged(m_approximation);
 }
 
-void baudruche::emetMort()
-{
-    emit destroyed(true);
-}
+//Inutilisé ?
+//void baudruche::emetMort()
+//{
+//    emit destroyed(true);
+//}
 
 void baudruche::changeImage(QString nomNouvelleImage)
 {
