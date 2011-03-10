@@ -1,3 +1,12 @@
+leterrier-calcul-mental (1.0.8~ppa1~jaunty1) jaunty; urgency=low
+
+  * Passage du temps maximum possible de 10 à 20s
+  * Ajout d'une police par défaut (LiberationSans, 14)
+  * Correction d'un bug : accès au bouton Ballon pendant l'affichage du "paf"
+  * Ajout d'un cache aux autotamponneuses au cas où se mat serait trop long
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 26 Nov 2010 09:01:34 +0100
+
 leterrier-calcul-mental (1.0.7~ppa1~jaunty1) jaunty; urgency=low
 
   * Intégration des nouveaux dessins : 
