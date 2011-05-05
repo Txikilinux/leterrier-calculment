@@ -55,6 +55,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     setAbeNbTotalQuestions(m_nbTotalQuestions);
 
     m_level = niveau;
+
     m_trace = new QString("");
 
     qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
@@ -171,6 +172,10 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btnEditeur->setIcon(QIcon("./data/images/souris.png"));
     qDebug()<<"Skill : "<<getAbeSkill();
     qDebug()<<"Exercice : "<<getAbeExerciceName();
+    qDebug()<<"Niveau : "<<m_level;
+    QPixmap collierNiveau("./data/images/"+m_level+".png");
+    QPixmap collierNiveau2 = collierNiveau.scaledToWidth(m_ui->btnBallon->width(),Qt::SmoothTransformation);
+    m_ui->lblImageNiveau->setPixmap(collierNiveau2);
     this->setWindowTitle(getAbeExerciceName());
 }
 
@@ -258,9 +263,13 @@ void exercice::adapte(QPixmap cheminImage)
 
 */
             QRect desk(QApplication::desktop()->availableGeometry());
+            QPoint centreEcran(ecran.width()/2, ecran.height()/2);
+            QRect toto;
+            toto = this->geometry();
+            toto.moveCenter(centreEcran);
 
-            move((desk.width() - frameGeometry().width()) / 2,
-                  (desk.height() - frameGeometry().height()) / 2);
+//            move((desk.width() - frameGeometry().width()) / 2,
+//                  (desk.height() - frameGeometry().height()) / 2);
 
 
             qDebug()<<"Taille grView = "<<m_ui->vue->width()<<" X "<<m_ui->vue->height();
