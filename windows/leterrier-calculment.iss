@@ -19,6 +19,8 @@ OutputDir=.
 OutputBaseFilename=leterrier-calcul-mental-1.0.8-setup
 Compression=lzma
 SolidCompression=yes
+SetupIconFile=icone.ico
+WizardImageFile=imageWizard.bmp
 
 [Languages]
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
