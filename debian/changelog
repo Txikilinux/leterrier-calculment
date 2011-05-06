@@ -1,3 +1,9 @@
+leterrier-calcul-mental (1.0.9~ppa1~jaunty1) jaunty; urgency=low
+
+  * Visualisation du niveau en cours par un collier à dents
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 06 May 2011 09:22:46 +0200
+
 leterrier-calcul-mental (1.0.8~ppa1~jaunty1) jaunty; urgency=low
 
   * Passage du temps maximum possible de 10 à 20s

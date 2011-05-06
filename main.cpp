@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     qInstallMsgHandler(debugOutput);
     qDebug()<<"Nom de mon appli : "<<appli.objectName();
     qApp->setApplicationName("leterrier-calculment");
-    qApp->setApplicationVersion("1.0.8");
+    qApp->setApplicationVersion("1.0.9");
     qApp->setFont(QFont("LiberationSans",14));
     QString exo;
     QString nivo="";
