@@ -3,6 +3,7 @@
 
 #include <QtGui/QMainWindow>
 #include <QGraphicsScene>
+#include <QTextEdit>
 #include "baudruche.h"
 #include "abuleduexercicev0.h"
 
@@ -42,10 +43,12 @@ private:
     int m_cible;
     void chargerParametres();
     double m_ratioTaille;
+    QTextEdit* m_consignes;
 
 
 
 private slots:
+    void on_btnAide_clicked();
     void on_btnRejouer_clicked();
     void on_btnEditeur_clicked();
     void on_leResultat_returnPressed();

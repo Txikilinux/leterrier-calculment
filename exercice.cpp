@@ -46,6 +46,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
     this->setAbeExerciceName(exo);
+    m_ui->btnAide->hide();
 
     m_operation=exo;
     m_cible=val;
@@ -57,6 +58,12 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_level = niveau;
 
     m_trace = new QString("");
+
+    m_consignes = new QTextEdit(this);
+    m_consignes->setWordWrapMode(QTextOption::WordWrap);
+    m_consignes->setReadOnly(true);
+    m_consignes->setPalette(QColor(255,255,255,127));
+    m_consignes->hide();
 
     qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
     chargerParametres();
@@ -112,6 +119,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     }
 
     if (exo.left(8)=="approche") {
+        m_ui->btnAide->show();
        QString nomExercice = "Ordres de grandeur sur des ";
        QString nomCompetence = "ordre-grandeur-";
        if (exo[8]=='A') {
@@ -168,6 +176,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btnRejouer->setDisabled(true);
     m_ui->leResultat->setDisabled(true);
     m_ui->btnRejouer->setIcon(QIcon("./data/images/souris.png"));
+    m_ui->btnAide->setIcon(QIcon("./data/images/souris.png"));
     m_ui->btnQuitter->setIcon(QIcon("./data/images/souris.png"));
     m_ui->btnEditeur->setIcon(QIcon("./data/images/souris.png"));
     qDebug()<<"Skill : "<<getAbeSkill();
@@ -177,6 +186,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     QPixmap collierNiveau2 = collierNiveau.scaledToWidth(m_ui->btnBallon->width(),Qt::SmoothTransformation);
     m_ui->lblImageNiveau->setPixmap(collierNiveau2);
     this->setWindowTitle(getAbeExerciceName());
+
 }
 
 exercice::~exercice()
@@ -313,6 +323,7 @@ void exercice::on_btnQuitter_clicked()
 
 void exercice::on_btnBallon_clicked()
 {
+    if (m_consignes->isVisible()) m_consignes->hide();
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     //instanciation d'une baudruche et connexion aux autres objets
@@ -502,6 +513,33 @@ void exercice::on_btnRejouer_clicked()
     exercice* ex = new exercice(m_operation, this->parentWidget(),m_cible);
     ex->show();
     this->close();
+}
+
+void exercice::on_btnAide_clicked()
+{
+    QString texteAide;
+    if(m_consignes->isHidden())
+    {
+        m_consignes->show();
+        if (m_operation.left(8)=="approche") {
+            m_consignes->setGeometry(0,0,m_imgFond->width(),m_imgFond->height());
+            m_consignes->setStyleSheet("background-image : url(./data/images/fondAide.jpg)");
+            texteAide = trUtf8("Tu dois trouver l'ordre de grandeur du résultat du calcul proposé. \nPour cela, tu vas arrondir les nombres en ne gardant qu'un seul chiffre significatif, puis faire l'opération sur les nombres arrondis. \nExemple : 372 - 198 -> 400 - 200 = 200");
+            if (m_operation == "approcheM") {
+                texteAide.append("\n\nAttention : n'arrondis pas les nombres à 1 seul chiffre");
+            }
+            m_consignes->setText(texteAide);
+            QFontMetrics mesureur(qApp->font());
+            int longueurAffichage=mesureur.width(texteAide);
+            int hauteurAffichage= mesureur.height();
+            qDebug()<<"longueur affichage : "<<longueurAffichage;
+            int nombreDeLignes = (longueurAffichage / m_imgFond->width()) + 1;
+            qDebug()<<"nombre lignes : "<<nombreDeLignes;
+            m_consignes->setGeometry(m_ui->vue->pos().x(),m_ui->vue->pos().y(),m_imgFond->width(),nombreDeLignes*hauteurAffichage*2);
+        }
+    }
+    else
+        m_consignes->hide();
 }
 
 void exercice::afficheResultat(QString neSertARien)
