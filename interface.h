@@ -26,6 +26,8 @@ protected:
 
 private:
     Ui::interfaceClass *ui;
+    QTranslator qtTranslator;
+    QTranslator myappTranslator;
 
 private slots:
 

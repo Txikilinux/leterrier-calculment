@@ -27,6 +27,8 @@ FORMS += interface.ui \
     editeur.ui \
     interfacecompetence.ui \
     abuleduaproposv0.ui
+TRANSLATIONS = lang/leterrier-calcul-mental_es.ts \
+    lang/leterrier-calcul-mental_en.ts
 QT += script
 QT += network
 QT += xml

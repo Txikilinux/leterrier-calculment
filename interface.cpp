@@ -37,6 +37,19 @@
 interface::interface(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::interfaceClass)
 {
+    //Langue
+    QString locale = QLocale::system().name().section('_', 0, 0);
+    //Un 1er qtranslator pour prendre les traductions QT Systeme
+    //c'est d'ailleur grace a ca qu'on est en RTL
+    qtTranslator.load("qt_" + locale,
+    QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    qApp->installTranslator(&qtTranslator);
+    //Et un second qtranslator pour les traductions specifiques du
+    //logiciel
+    myappTranslator.load("leterrier-calcul-mental_" + locale, "lang");
+    qDebug()<<"langue chargée : "<<locale;
+    qApp->installTranslator(&myappTranslator);
+
     ui->setupUi(this);
     AbulEduAproposV0 *monAide=new AbulEduAproposV0(this);
 
@@ -122,7 +135,7 @@ interface::interface(QWidget *parent)
         btnPoly6->retaille(395*kw,200*kh);
         btnPoly6->tourne(12);
         btnPoly6->QGraphicsItem::setToolTip(trUtf8("Compléments additifs"));
-        btnPoly6->setTexte(trUtf8("Complements additifs"));
+        btnPoly6->setTexte(trUtf8("Compléments additifs"));
         dessin->addItem(btnPoly6);
 
     //Bouton sur le stand de tir
