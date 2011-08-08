@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 #endif
     //à améliorer : dans un cas l'interface est créée pour rien, dans l'autre c'est l'exercice... de toute façon c'est de la mémoire utilisée pour rien !!
     interface w;
-    w.setWindowTitle("Calcul Mental");
+    w.setWindowTitle(QObject::trUtf8("Calcul Mental"));
 
     //Attention Usine à gaz : si on a un nombre j'ai besoin de l'ajouter ici pour avoir un truc du style tableM7 pour lire les valeurs dans le fichier de configuration
     QString exo1 = exo;

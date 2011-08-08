@@ -459,6 +459,11 @@ p, li { white-space: pre-wrap; }
         <source>AbulÉdu LeTerrier -- Calcul-Mental</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../main.cpp" line="113"/>
+        <source>Calcul Mental</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>baudruche</name>
@@ -593,6 +598,26 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../exercice.cpp" line="123"/>
+        <source>Ordres de grandeur sur des </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../exercice.cpp" line="126"/>
+        <source>additions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../exercice.cpp" line="130"/>
+        <source>soustractions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../exercice.cpp" line="134"/>
+        <source>multiplications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../exercice.cpp" line="357"/>
         <source>OpÃ©ration inexistante</source>
         <translation type="unfinished"></translation>
@@ -623,77 +648,77 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
 <context>
     <name>interface</name>
     <message utf8="true">
-        <location filename="../interface.cpp" line="59"/>
+        <location filename="../interface.cpp" line="60"/>
         <source>Fichier config NON trouvé</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="60"/>
+        <location filename="../interface.cpp" line="61"/>
         <source>Fichier config trouvé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="95"/>
+        <location filename="../interface.cpp" line="96"/>
         <source>Faire des additions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="96"/>
+        <location filename="../interface.cpp" line="97"/>
         <source>Additions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="104"/>
+        <location filename="../interface.cpp" line="105"/>
         <source>Faire des multiplications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="105"/>
+        <location filename="../interface.cpp" line="106"/>
         <source>Multiplications</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="112"/>
+        <location filename="../interface.cpp" line="113"/>
         <source>Lancer l&apos;éditeur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="119"/>
+        <location filename="../interface.cpp" line="120"/>
         <source>Quitter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="127"/>
         <location filename="../interface.cpp" line="128"/>
+        <location filename="../interface.cpp" line="129"/>
         <source>Tables de multiplication</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="136"/>
         <location filename="../interface.cpp" line="137"/>
+        <location filename="../interface.cpp" line="138"/>
         <source>Compléments additifs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="145"/>
         <location filename="../interface.cpp" line="146"/>
+        <location filename="../interface.cpp" line="147"/>
         <source>Multiples</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="153"/>
         <location filename="../interface.cpp" line="154"/>
+        <location filename="../interface.cpp" line="155"/>
         <source>Soustractions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="162"/>
         <location filename="../interface.cpp" line="163"/>
+        <location filename="../interface.cpp" line="164"/>
         <source>Tables d&apos;addition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="170"/>
+        <location filename="../interface.cpp" line="171"/>
         <source>Ordres de grandeur</source>
         <translation type="unfinished"></translation>
     </message>

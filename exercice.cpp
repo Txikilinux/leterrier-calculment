@@ -120,18 +120,18 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 
     if (exo.left(8)=="approche") {
         m_ui->btnAide->show();
-       QString nomExercice = "Ordres de grandeur sur des ";
+       QString nomExercice = trUtf8("Ordres de grandeur sur des ");
        QString nomCompetence = "ordre-grandeur-";
        if (exo[8]=='A') {
-           nomExercice.append("additions");
+           nomExercice.append(trUtf8("additions"));
            nomCompetence.append("somme");
        }
        else if (exo[8]=='S') {
-               nomExercice.append("soustractions");
+               nomExercice.append(trUtf8("soustractions"));
                nomCompetence.append("difference");
             }
        else  {
-               nomExercice.append("multiplications");
+               nomExercice.append(trUtf8("multiplications"));
                nomCompetence.append("produit");
               }
        setAbeExerciceName(nomExercice);
