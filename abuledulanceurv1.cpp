@@ -6,6 +6,7 @@ AbuleduLanceurV1::AbuleduLanceurV1(QWidget *parent) :
     ui(new Ui::AbuleduLanceurV1)
 {
     ui->setupUi(this);
+    setWindowTitle(trUtf8("Lanceur"));
     fillCbExercice();
     associeNomIntitule(ui->cbExercice->currentText());
     fillCbNiveau("sertARien");
@@ -86,6 +87,7 @@ void AbuleduLanceurV1::fillCbNiveau(QString)
 void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
 {
     ui->cbNombre->hide();
+    ui->lblNombre->hide();
     ui->cbNombre->clear();
     bool trouve = false;
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
@@ -103,11 +105,15 @@ void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
             qDebug()<<"Valeurs en liste : "<<listeVal;
             qDebug()<<"Vide ? "<<val.isEmpty();
             if (val.isEmpty())
+            {
                 ui->cbNombre->hide();
+                ui->lblNombre->hide();
+            }
             else {
                 ui->cbNombre->addItems(listeVal);
                 ui->cbNombre->setSizeAdjustPolicy(QComboBox::AdjustToContents);
                 ui->cbNombre->show();
+                ui->lblNombre->show();
             }
             return;
         }

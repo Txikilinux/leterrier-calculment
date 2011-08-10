@@ -6,12 +6,12 @@
     <message>
         <location filename="../abuleduaproposv0.ui" line="14"/>
         <source>A Propos du logiciel</source>
-        <translation type="unfinished"></translation>
+        <translation>About</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.ui" line="27"/>
         <source>Aide intégrée</source>
-        <translation type="unfinished"></translation>
+        <translation>Help</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.ui" line="41"/>
@@ -230,6 +230,62 @@ p, li { white-space: pre-wrap; }
         <location filename="../abuleduaproposv0.cpp" line="392"/>
         <source>Le forum n&apos;est pas accessible</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AbuleduLanceurV1</name>
+    <message>
+        <location filename="../abuledulanceurv1.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../abuledulanceurv1.ui" line="20"/>
+        <source>Exercice</source>
+        <translation>Exercise</translation>
+    </message>
+    <message>
+        <location filename="../abuledulanceurv1.ui" line="109"/>
+        <source>Nombre</source>
+        <translation>Number</translation>
+    </message>
+    <message>
+        <location filename="../abuledulanceurv1.ui" line="33"/>
+        <source>Niveau</source>
+        <translation>Level</translation>
+    </message>
+    <message>
+        <location filename="../abuledulanceurv1.ui" line="69"/>
+        <source>&amp;Annuler</source>
+        <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+        <location filename="../abuledulanceurv1.ui" line="89"/>
+        <source>&amp;Lancer</source>
+        <translation>&amp;Launch</translation>
+    </message>
+    <message>
+        <location filename="../abuledulanceurv1.cpp" line="9"/>
+        <source>Lanceur</source>
+        <translation>Launcher</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../abuledulanceurv1.cpp" line="30"/>
+        <location filename="../abuledulanceurv1.cpp" line="60"/>
+        <source>Problème !!</source>
+        <translation>Problem !!</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../abuledulanceurv1.cpp" line="30"/>
+        <location filename="../abuledulanceurv1.cpp" line="60"/>
+        <source>Fichier de configuration non trouvé</source>
+        <translation>Settings file not found</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../abuledulanceurv1.cpp" line="35"/>
+        <location filename="../abuledulanceurv1.cpp" line="65"/>
+        <source>Conf trouvé</source>
+        <translation>Settings file found</translation>
     </message>
 </context>
 <context>
@@ -489,19 +545,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>boutonsPolygone</name>
-    <message>
-        <location filename="../boutonspolygone.cpp" line="91"/>
-        <source>En travaux</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="../boutonspolygone.cpp" line="91"/>
-        <source>Fonctionnalité non encore disponible</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>exercice</name>
     <message>
         <location filename="../exercice.ui" line="17"/>
@@ -618,27 +661,27 @@ p, li { white-space: pre-wrap; }
         <translation>multiplications</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="357"/>
+        <location filename="../exercice.cpp" line="360"/>
         <source>OpÃ©ration inexistante</source>
         <translation>Non existing operation</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="357"/>
+        <location filename="../exercice.cpp" line="360"/>
         <source>, ça n&apos;existe pas comme opération...</source>
         <translation>, it doesn&apos;t exist as operation...</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="448"/>
+        <location filename="../exercice.cpp" line="451"/>
         <source>GAGNE</source>
         <translation>WON</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="455"/>
+        <location filename="../exercice.cpp" line="458"/>
         <source>PERDU</source>
         <translation>LOST</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="527"/>
+        <location filename="../exercice.cpp" line="530"/>
         <source>Tu dois trouver l&apos;ordre de grandeur du résultat du calcul proposé. 
 Pour cela, tu vas arrondir les nombres en ne gardant qu&apos;un seul chiffre significatif, puis faire l&apos;opération sur les nombres arrondis. 
 Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
@@ -650,81 +693,86 @@ Example : 372 - 198 -&gt; 400 - 200 = 200</translation>
 <context>
     <name>interface</name>
     <message utf8="true">
-        <location filename="../interface.cpp" line="60"/>
+        <location filename="../interface.cpp" line="61"/>
         <source>Fichier config NON trouvé</source>
         <translation>Settings file not found</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="61"/>
+        <location filename="../interface.cpp" line="62"/>
         <source>Fichier config trouvé</source>
         <translation>Settings file found</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="96"/>
+        <location filename="../interface.cpp" line="97"/>
         <source>Faire des additions</source>
         <translation>Do additions</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="97"/>
+        <location filename="../interface.cpp" line="98"/>
         <source>Additions</source>
         <translation>Additions</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="105"/>
+        <location filename="../interface.cpp" line="106"/>
         <source>Faire des multiplications</source>
         <translation>Do multiplications</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="106"/>
+        <location filename="../interface.cpp" line="107"/>
         <source>Multiplications</source>
         <translation>Multiplications</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="113"/>
+        <location filename="../interface.cpp" line="114"/>
         <source>Lancer l&apos;éditeur</source>
         <translation>Launch editor</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="120"/>
+        <location filename="../interface.cpp" line="121"/>
         <source>Quitter</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="128"/>
         <location filename="../interface.cpp" line="129"/>
+        <location filename="../interface.cpp" line="130"/>
         <source>Tables de multiplication</source>
         <translation>Multiplication tables</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="137"/>
         <location filename="../interface.cpp" line="138"/>
+        <location filename="../interface.cpp" line="139"/>
         <source>Compléments additifs</source>
         <translation>Additional additive</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="179"/>
+        <source>Choisir son exercice</source>
+        <translation>Choose an exercise</translation>
     </message>
     <message>
         <source>Complements additifs</source>
         <translation type="obsolete">Additional additive</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="146"/>
         <location filename="../interface.cpp" line="147"/>
+        <location filename="../interface.cpp" line="148"/>
         <source>Multiples</source>
         <translation>Multiples</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="154"/>
         <location filename="../interface.cpp" line="155"/>
+        <location filename="../interface.cpp" line="156"/>
         <source>Soustractions</source>
         <translation>Subtractions</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="163"/>
         <location filename="../interface.cpp" line="164"/>
+        <location filename="../interface.cpp" line="165"/>
         <source>Tables d&apos;addition</source>
         <translation>Addition tables</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="171"/>
+        <location filename="../interface.cpp" line="172"/>
         <source>Ordres de grandeur</source>
         <translation>Order of magnitude</translation>
     </message>
