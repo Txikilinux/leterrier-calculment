@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AbuleduLanceurV1</class>
+ <widget class="QWidget" name="AbuleduLanceurV1">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>411</width>
+    <height>318</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="lblExercice">
+     <property name="text">
+      <string>Exercice</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QComboBox" name="cbExercice"/>
+   </item>
+   <item row="0" column="3" colspan="2">
+    <widget class="QLabel" name="lblNombre">
+     <property name="text">
+      <string>Nombre</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="5" colspan="2">
+    <widget class="QComboBox" name="cbNombre"/>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QLabel" name="lblNiveau">
+     <property name="text">
+      <string>Niveau</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QComboBox" name="cbNiveau"/>
+   </item>
+   <item row="1" column="3" colspan="4">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>230</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="0">
+    <spacer name="horizontalSpacer_7">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>54</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="2">
+    <widget class="QPushButton" name="btnAnnuler">
+     <property name="text">
+      <string>&amp;Annuler</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <spacer name="horizontalSpacer_5">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>54</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="4" colspan="2">
+    <widget class="QPushButton" name="btnLancer">
+     <property name="text">
+      <string>&amp;Lancer</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="6">
+    <spacer name="horizontalSpacer_8">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>76</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

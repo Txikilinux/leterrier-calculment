@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     editeur.cpp \
     interfacecompetence.cpp \
     abuleduexercicev0.cpp \
-    abuleduaproposv0.cpp
+    abuleduaproposv0.cpp \
+    abuledulanceurv1.cpp
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
@@ -21,12 +22,14 @@ HEADERS += interface.h \
     editeur.h \
     interfacecompetence.h \
     abuleduexercicev0.h \
-    abuleduaproposv0.h
+    abuleduaproposv0.h \
+    abuledulanceurv1.h
 FORMS += interface.ui \
     exercice.ui \
     editeur.ui \
     interfacecompetence.ui \
-    abuleduaproposv0.ui
+    abuleduaproposv0.ui \
+    abuledulanceurv1.ui
 TRANSLATIONS = lang/leterrier-calcul-mental_es.ts \
     lang/leterrier-calcul-mental_en.ts
 QT += script

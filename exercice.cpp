@@ -291,10 +291,13 @@ void exercice::adapte(QPixmap cheminImage)
 
 void exercice::chargerParametres()
 {
+    qDebug()<<" Exercice -- chargerParametres(1)";
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
         config.beginGroup(m_operation);
         if (m_level=="") m_level = config.value("NiveauEnCours"+m_operation).toString();
+        else qDebug()<<"Dans chargerParametres(), m_level valait déjà "<<m_level;
         config.beginGroup(m_level);
+            qDebug()<<"Lecture des paramètres dans "<<config.fileName()<<" - "<<m_operation<<" - "<<m_level;
             m_maxG = config.value("MaxGauche").toInt();
             m_minG = config.value("MinGauche").toInt();
             m_maxD = config.value("MaxDroite").toInt();

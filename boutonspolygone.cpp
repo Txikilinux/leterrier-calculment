@@ -26,6 +26,7 @@
 #include "exercice.h"
 #include "interfacecompetence.h"
 #include "editeur.h"
+#include "abuledulanceurv1.h"
 #include <QtGui>
 //#include <QPropertyAnimation>
 
@@ -86,11 +87,10 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
                 InterfaceCompetence* inter = new InterfaceCompetence(*m_action);
                 inter->show();
                 }
-            else if (*m_action=="travaux") {
-                    //QMessageBox::warning(this, "En travaux", trUtf8("Fonctionnalité non encore disponible"));
-                QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,tr("En travaux"),trUtf8("Fonctionnalité non encore disponible"));
-                alertBox->setGeometry(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
-                alertBox->show();
+
+            else if (*m_action=="lanceur") {
+        AbuleduLanceurV1* lanceur = new AbuleduLanceurV1();
+        lanceur->show();
                         }
                 else {
                     exercice* ex = new exercice(*m_action,0,m_val);
