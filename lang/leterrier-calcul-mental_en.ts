@@ -496,18 +496,18 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../editeur.cpp" line="53"/>
-        <source>approcheA</source>
-        <translation type="unfinished"></translation>
+        <source>OdGrandeurAddition</source>
+        <translation>OoMagnitudeAddition</translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="54"/>
-        <source>approcheS</source>
-        <translation type="unfinished"></translation>
+        <source>OdGrandeurSoustraction</source>
+        <translation>OoMagnitudeSubtraction</translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="55"/>
-        <source>approcheM</source>
-        <translation type="unfinished"></translation>
+        <source>OdGrandeurMultiplication</source>
+        <translation>OoMagnitudeMultiplication</translation>
     </message>
 </context>
 <context>

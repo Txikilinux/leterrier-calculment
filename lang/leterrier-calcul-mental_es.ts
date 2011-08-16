@@ -410,17 +410,17 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../editeur.cpp" line="53"/>
-        <source>approcheA</source>
+        <source>OdGrandeurAddition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="54"/>
-        <source>approcheS</source>
+        <source>OdGrandeurSoustraction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="55"/>
-        <source>approcheM</source>
+        <source>OdGrandeurMultiplication</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

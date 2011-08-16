@@ -50,9 +50,9 @@ Editeur::Editeur(QWidget *parent) :
         m_ui->cbOperation->addItem(tr("Addition"), 1);
             m_ui->cbOperation->addItem(tr("Multiplication"), 2);
             m_ui->cbOperation->addItem(tr("Soustraction"),3);
-            m_ui->cbOperation->addItem(tr("approcheA"),4);
-            m_ui->cbOperation->addItem(tr("approcheS"),4);
-            m_ui->cbOperation->addItem(tr("approcheM"),4);
+            m_ui->cbOperation->addItem(tr("OdGrandeurAddition"),4);
+            m_ui->cbOperation->addItem(tr("OdGrandeurSoustraction"),4);
+            m_ui->cbOperation->addItem(tr("OdGrandeurMultiplication"),4);
 
         m_ui->cbMaxG->addItem("10",1);
             m_ui->cbMaxG->addItem("100",2);
@@ -214,9 +214,9 @@ void Editeur::initialiser()
     initialiserOperation("addition");
     initialiserOperation("multiplication");
     initialiserOperation("soustraction");
-    initialiserApproche("approcheA");
-    initialiserApproche("approcheS");
-    initialiserApprocheM("approcheM");
+    initialiserApproche("OdGrandeurAddition");
+    initialiserApproche("OdGrandeurSoustraction");
+    initialiserApprocheM("OdGrandeurMultiplication");
     initialiserComplement("complementA10");
     initialiserComplement("complementA100");
     initialiserComplement("complementA1000");
@@ -235,7 +235,7 @@ void Editeur::sauverNiveau(QString niveau)
         config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
         config.beginGroup(*m_operationEnCours);
             config.beginGroup(niveau);
-                if (m_operationEnCours->left(8)!="approche") {
+                if (m_operationEnCours->left(10)!="OdGrandeur") {
                     config.setValue("MinGauche", m_ui->spbGMin->value());
                     config.setValue("MaxGauche", m_ui->spbGMax->value());
                     config.setValue("MinDroite", m_ui->spbDMin->value());
@@ -278,7 +278,7 @@ void Editeur::chargerNiveau(QString niveau)
         config.endGroup();
     config.endGroup();
 
-        if (m_operationEnCours->left(8)=="approche") {
+        if (m_operationEnCours->left(10)=="OdGrandeur") {
         switch (m_maxG) {
             case 10 : m_ui->cbMaxG->setCurrentIndex(0);break;
             case 100 : m_ui->cbMaxG->setCurrentIndex(1);break;
@@ -312,7 +312,7 @@ void Editeur::sauverOperation(QString operation)
         config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
         config.beginGroup(operation);
             config.beginGroup(*m_niveauEnCours);
-                if (m_operationEnCours->left(8)!="approche") {
+                if (m_operationEnCours->left(10)!="OdGrandeur") {
                     config.setValue("MinGauche", m_ui->spbGMin->value());
                     config.setValue("MaxGauche", m_ui->spbGMax->value());
                     config.setValue("MinDroite", m_ui->spbDMin->value());
@@ -336,7 +336,7 @@ void Editeur::sauverOperation(QString operation)
 
 void Editeur::chargerOperation(QString operation)
 {
-     if (operation.left(8)=="approche") {
+     if (operation.left(10)=="OdGrandeur") {
             m_ui->spbGMin->setDisabled(true);
             m_ui->spbDMin->setDisabled(true);
             m_ui->spbGMax->hide();
@@ -377,7 +377,7 @@ void Editeur::chargerOperation(QString operation)
         config.endGroup();
     config.endGroup();
 
-    if (operation.left(8)=="approche") {
+    if (operation.left(10)=="OdGrandeur") {
         switch (m_maxG) {
             case 10 : m_ui->cbMaxG->setCurrentIndex(0);break;
             case 100 : m_ui->cbMaxG->setCurrentIndex(1);break;

@@ -104,9 +104,9 @@ baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operatio
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
     m_approximation=0;
-        if (operation=="approcheA") m_op = "+";
-        else if (operation=="approcheS") m_op = "-";
-             else if (operation=="approcheM") m_op = "x";
+        if (operation=="OdGrandeurAddition") m_op = "+";
+        else if (operation=="OdGrandeurSoustraction") m_op = "-";
+             else if (operation=="OdGrandeurMultiplication") m_op = "x";
     m_position.setX(pos.x());
     m_position.setY(pos.y());
 

@@ -118,15 +118,15 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
     }
 
-    if (exo.left(8)=="approche") {
+    if (exo.left(10)=="OdGrandeur") {
         m_ui->btnAide->show();
        QString nomExercice = trUtf8("Ordres de grandeur sur des ");
        QString nomCompetence = "ordre-grandeur-";
-       if (exo[8]=='A') {
+       if (exo[10]=='A') {
            nomExercice.append(trUtf8("additions"));
            nomCompetence.append("somme");
        }
-       else if (exo[8]=='S') {
+       else if (exo[10]=='S') {
                nomExercice.append(trUtf8("soustractions"));
                nomCompetence.append("difference");
             }
@@ -352,18 +352,18 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
             else if (m_operation.left(11)=="complementM")
                     m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,this);
 
-                 else if (m_operation=="approcheA"
-                          || m_operation=="approcheS"
-                          || m_operation=="approcheM")
+                 else if (m_operation=="OdGrandeurAddition"
+                          || m_operation=="OdGrandeurSoustraction"
+                          || m_operation=="OdGrandeurMultiplication")
                                   m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart,this);
 
                       else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(trUtf8(", ça n'existe pas comme opération...")));
 
                       //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operation;}//Pourquoi quand même erreur de segmentation
  qDebug()<<"operation tronquee  : "<<m_operation.left(11);
-        if (m_operation=="approcheA"
-            || m_operation=="approcheS"
-            || m_operation=="approcheM") this->m_resultatEnCours=m_baudruche->getMApproximation();
+        if (m_operation=="OdGrandeurAddition"
+            || m_operation=="OdGrandeurSoustraction"
+            || m_operation=="OdGrandeurMultiplication") this->m_resultatEnCours=m_baudruche->getMApproximation();
         else this->m_resultatEnCours=m_baudruche->getMResultat();
         qDebug()<<" attribut résultat de l'exercice "<<m_resultatEnCours;
         if (m_total<m_nbTotalQuestions - 1) {
@@ -524,11 +524,11 @@ void exercice::on_btnAide_clicked()
     if(m_consignes->isHidden())
     {
         m_consignes->show();
-        if (m_operation.left(8)=="approche") {
+        if (m_operation.left(10)=="OdGrandeur") {
             m_consignes->setGeometry(0,0,m_imgFond->width(),m_imgFond->height());
             m_consignes->setStyleSheet("background-image : url(./data/images/fondAide.jpg)");
             texteAide = trUtf8("Tu dois trouver l'ordre de grandeur du résultat du calcul proposé. \nPour cela, tu vas arrondir les nombres en ne gardant qu'un seul chiffre significatif, puis faire l'opération sur les nombres arrondis. \nExemple : 372 - 198 -> 400 - 200 = 200");
-            if (m_operation == "approcheM") {
+            if (m_operation == "OdGrandeurMultiplication") {
                 texteAide.append("\n\nAttention : n'arrondis pas les nombres à 1 seul chiffre");
             }
             m_consignes->setText(texteAide);

@@ -176,7 +176,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             adapte(*m_decor);
             move(300,0);
             QPoint origine(m_decor->width()/5.4,m_decor->height()/2.7);
-                boutonsPolygone* btnA = new boutonsPolygone("approcheA",100);
+                boutonsPolygone* btnA = new boutonsPolygone("OdGrandeurAddition",100);
                 btnA->deplace(origine.x(), origine.y());
                 btnA->retaille(103*m_ratioTaille,96*m_ratioTaille);
                 btnA->QGraphicsItem::setToolTip(trUtf8("... d'additions"));
@@ -186,7 +186,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btnA->setMTransformable(2);
                 m_scene->addItem(btnA);
 
-                boutonsPolygone* btnS = new boutonsPolygone("approcheS",100);
+                boutonsPolygone* btnS = new boutonsPolygone("OdGrandeurSoustraction",100);
                 btnS->deplace(origine.x()+m_decor->width()/4, origine.y()+m_decor->height()/6);
                 btnS->retaille(103*m_ratioTaille,96*m_ratioTaille);
                 btnS->QGraphicsItem::setToolTip(trUtf8("... de soustractions"));
@@ -196,7 +196,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btnS->setMTransformable(2);
                 m_scene->addItem(btnS);
 
-                boutonsPolygone* btnM = new boutonsPolygone("approcheM",100);
+                boutonsPolygone* btnM = new boutonsPolygone("OdGrandeurMultiplication",100);
                 btnM->deplace(origine.x()+2*m_decor->width()/4, origine.y()+2*m_decor->height()/6);
                 btnM->retaille(103*m_ratioTaille,96*m_ratioTaille);
                 btnM->QGraphicsItem::setToolTip(trUtf8("... de multiplications"));

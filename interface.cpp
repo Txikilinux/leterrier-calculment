@@ -166,7 +166,7 @@ interface::interface(QWidget *parent)
         dessin->addItem(btnPoly9);
 
     //Bouton sur le palais des glaces
-    boutonsPolygone* btnPoly10 = new boutonsPolygone("5approche",100);
+    boutonsPolygone* btnPoly10 = new boutonsPolygone("5OdGrandeur",100);
         btnPoly10->deplace(1315*kw,560*kh);
         btnPoly10->retaille(280*kw,150*kh);
         btnPoly10->QGraphicsItem::setToolTip(trUtf8("Ordres de grandeur"));
@@ -378,18 +378,18 @@ void interface::on_action_un_nombre_al_atoire_triggered()
 
 void interface::on_actionSur_des_additions_triggered()
 {
-    m_exercice = new exercice("approcheA",this,100,"");
+    m_exercice = new exercice("OdGrandeurAddition",this,100,"");
     m_exercice->show();
 }
 
 void interface::on_actionSur_des_soustractions_triggered()
 {
-    m_exercice = new exercice("approcheS",this,100,"");
+    m_exercice = new exercice("OdGrandeurSoustraction",this,100,"");
     m_exercice->show();
 }
 
 void interface::on_actionSur_des_multiplications_triggered()
 {
-    m_exercice = new exercice("approcheM",this,100,"");
+    m_exercice = new exercice("OdGrandeurMultiplication",this,100,"");
     m_exercice->show();
 }
