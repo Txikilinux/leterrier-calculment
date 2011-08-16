@@ -750,6 +750,10 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
     </message>
     <message>
         <location filename="../interface.cpp" line="155"/>
+        <source>Faire des soustractions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../interface.cpp" line="156"/>
         <source>Soustractions</source>
         <translation type="unfinished"></translation>

@@ -39,12 +39,35 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;edition&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;E&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;dition&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;L&apos;éditeur de niveau permet de modifier les intervalles de valeurs des opérandes dans les opérations, mais aussi le temps disponible à chaque niveau ou le nombre d&apos;opérations proposées pour un exercice. &lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-editeur.jpg&quot; /&gt; &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;title&gt;Aide Calculette&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;calcul_mental&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:xx-large; font-weight:600;&quot;&gt;C&lt;/span&gt;&lt;span style=&quot; font-size:xx-large; font-weight:600;&quot;&gt;alcul mental&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;presentation&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;P&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;résentation&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Mental Calculation is a software tool based upon David Lucardi&apos;s software &apos;Calcul Reflechi&apos;. It trains children in mental calculating as stipulated by the french Ministry of education for primary schools. Working alongside an Abuledu server, &apos;Mental Calculation&apos; 1.0 records a user&apos;s activity and is able to restore work in order to explore skills and to analyse errors. &apos;Mental Calculation 1.2&apos;   allows teachers to complete handbooks itemising personal skills of users. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;fonctionnalites&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;F&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;onctionnalités&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-interface1.jpg&quot; /&gt; &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Proposed activities include : (1) addition, (2) subtraction, (3) multiplication of integers (4) addition tables (5) times tables (6) additional additives, (7) multiples (8) order of magnitude - (9) an editor is able to make modifications in some exercises. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;utilisation&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;U&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;tilisation&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Exercises using addition, subtraction, and multiplication are launched by clicking directly on the corresponding area. &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-multiplex.jpg&quot; /&gt; &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A moving object ( a balloon in this example) carries the calculation to be performed. Setting the cursor directly in the desired field allows the user to type an answer. This is then evaluated through clicking on &quot;suggest&quot; or typing &apos;Enter&apos;.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-multiplres.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This result is evaluated... and recorded if an Abuledu server is available. &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Areas corresponding to the activities of others lead to a secondary interface where users make their selection.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-interface2.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;edition&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;E&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;dition&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The Level editor permits modifications on &apos;operand&apos; values. Time allowances are given for exercises. &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-editeur.jpg&quot; /&gt; &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.ui" line="80"/>
         <source>Ressources</source>
-        <translation type="unfinished"></translation>
+        <translation>Resources</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.ui" line="94"/>
@@ -58,12 +81,21 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;Le flux RSS en provenance de libre pedagosite sera automatiquement téléchargé lors du lancement de l&apos;application, ne touchez à rien de cette fenêtre.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;Exemple: http://libre.pedagosite.net/search/leterrier-calculment&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;title&gt;Aide Calculette&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;RSS streamed from &quot;libre pedagosite&quot; are automatically downloaded when the application is launched.Do  not change anything in this window.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;Example: http://libre.pedagosite.net/search/leterrier-calculment&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.ui" line="122"/>
         <source>Nouveautés</source>
-        <translation type="unfinished"></translation>
+        <translation>News</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.ui" line="133"/>
@@ -77,12 +109,21 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;Le flux RSS en provenance du redmine sera automatiquement téléchargé lors du lancement de l&apos;application, ne touchez à rien de cette fenêtre.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;Exemple: http://redmine.ryxeo.com/projects/leterrier-calculment/news&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;RSS streamed from Redmine is automaticaly downloaded when the application is launched. Do not change anything in this window.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;Example: http://redmine.ryxeo.com/projects/leterrier-calculment/news&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.ui" line="155"/>
         <source>Forum</source>
-        <translation type="unfinished"></translation>
+        <translation>Forum</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.ui" line="163"/>
@@ -96,18 +137,27 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;Le flux RSS en provenance du forum abuledu sera automatiquement téléchargé lors du lancement de l&apos;application, ne touchez à rien de cette fenêtre.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;Exemple: http://forum.abuledu.org/rss/topic/leterrier-calculment/lang/fr&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;RSS streamed from Abuledu Forum is automaticaly downloaded when the application is launched. Do not change anything in this window.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;Example: http://forum.abuledu.org/rss/topic/leterrier-calculment/lang/fr&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.ui" line="182"/>
         <location filename="../abuleduaproposv0.cpp" line="52"/>
         <source>Posez votre question sur le forum des utilisateurs ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ask your questions on user&apos;s forum...</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.ui" line="198"/>
         <source>Contribuez</source>
-        <translation type="unfinished"></translation>
+        <translation>Contribute</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.ui" line="206"/>
@@ -129,12 +179,29 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;4. Traduisez ce logiciel dans d&apos;autres langues, pour celà proposez votre aide sur la liste dev@abuledu.org. Allez sur le site suivant pour vous y abonner: &lt;a href=&quot;http://listes.abuledu.org/wws/info/dev&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://listes.abuledu.org/wws/info/dev&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;5. Faites nous connaître auprès de vos amis, contacts et tout autour de vous, plus nous sommes nombreux et plus nos projets avanceront vite et bien.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Teachers who appreciate Abuledu software and wish to help in its  implemenation/improvement.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Buy the services of the RyXeo company - RyXeo carries the Abeledu project and hires developers. &lt;a href=&quot;https://ryxeo.com/boutique/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://ryxeo.com/boutique/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Make a donation to abuledu-fr.org association - enabling it to participate at volunteer&apos;s expenses&lt;a href=&quot;http://abuledu-fr.org/Faire-un-don-a-l-association.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://abuledu-fr.org/Faire-un-don-a-l-association.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3. Participate in a &apos;help&apos; forum to give a boost to people who are not familiar with this software.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;4. Offer translating assistance  by joining the  - dev@abuledu.org mailing list.&lt;a href=&quot;http://listes.abuledu.org/wws/info/dev&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://listes.abuledu.org/wws/info/dev&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;5. Make us known to friends and collegues. Progress is dependent upon publicity. .&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.ui" line="233"/>
         <source>À propos</source>
-        <translation type="unfinished"></translation>
+        <translation>About</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.ui" line="290"/>
@@ -158,17 +225,36 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Contributeurs:&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;   - Eric Seigne &amp;lt;eric.seigne@ryxeo.com&amp;gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;   - Jean-Louis Frucot &amp;lt;frucot.jeanlouis@free.fr&amp;gt; (boite à propos)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Mental calculation is a free software under GNU/GPL2 licence&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Author :&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;   - Philippe Cadaugade &amp;lt;philippe.cadaugade@ryxeo.com&amp;gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Interface and graphic ressources :&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;   - Arnaud Pérat &amp;lt;arnaud.perat@ryxeo.com&amp;gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Contributors:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;   - Eric Seigne &amp;lt;eric.seigne@ryxeo.com&amp;gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;   - Jean-Louis Frucot &amp;lt;frucot.jeanlouis@free.fr&amp;gt; (boite à propos)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.ui" line="353"/>
         <source>Fermer</source>
-        <translation type="unfinished"></translation>
+        <translation>Close</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.cpp" line="45"/>
         <source>A propos de</source>
-        <translation type="unfinished"></translation>
+        <translation>About</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.cpp" line="116"/>
@@ -178,37 +264,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../abuleduaproposv0.cpp" line="134"/>
         <source>Aide</source>
-        <translation type="unfinished"></translation>
+        <translation>Help</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.cpp" line="144"/>
         <source>Aide intégrée...</source>
-        <translation type="unfinished"></translation>
+        <translation>Software help desk...</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.cpp" line="151"/>
         <source>Ressources pédagogiques...</source>
-        <translation type="unfinished"></translation>
+        <translation>Teaching resources...</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.cpp" line="157"/>
         <source>Nouveautés...</source>
-        <translation type="unfinished"></translation>
+        <translation>News...</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.cpp" line="163"/>
         <source>Forum des utilisateurs...</source>
-        <translation type="unfinished"></translation>
+        <translation>Users forum...</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.cpp" line="169"/>
         <source>Contribuez...</source>
-        <translation type="unfinished"></translation>
+        <translation>Contribute...</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.cpp" line="175"/>
         <source>À Propos de ce logiciel...</source>
-        <translation type="unfinished"></translation>
+        <translation>About this software...</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.cpp" line="213"/>
@@ -216,20 +302,20 @@ p, li { white-space: pre-wrap; }
         <location filename="../abuleduaproposv0.cpp" line="454"/>
         <location filename="../abuleduaproposv0.cpp" line="533"/>
         <source>Le site n&apos;est pas accessible</source>
-        <translation type="unfinished"></translation>
+        <translation>Website is not avalaible</translation>
     </message>
     <message utf8="true">
         <location filename="../abuleduaproposv0.cpp" line="218"/>
         <location filename="../abuleduaproposv0.cpp" line="250"/>
         <location filename="../abuleduaproposv0.cpp" line="283"/>
         <source>Téléchargement en cours ... veuillez patienter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Download in progress... please wait.</translation>
     </message>
     <message>
         <location filename="../abuleduaproposv0.cpp" line="278"/>
         <location filename="../abuleduaproposv0.cpp" line="392"/>
         <source>Le forum n&apos;est pas accessible</source>
-        <translation type="unfinished"></translation>
+        <translation>Forum in not available</translation>
     </message>
 </context>
 <context>
@@ -356,7 +442,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../editeur.ui" line="271"/>
         <source>Nombre Ballons</source>
-        <translation>Nomber of item</translation>
+        <translation>Number of items</translation>
     </message>
     <message>
         <location filename="../editeur.ui" line="340"/>
@@ -439,17 +525,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../interfacecompetence.cpp" line="51"/>
         <source>Tables de multiplication</source>
-        <translation>Multiplications tables</translation>
+        <translation>Times tables</translation>
     </message>
     <message>
         <location filename="../interfacecompetence.cpp" line="64"/>
         <source>Table x</source>
-        <translation>Multiplication table of</translation>
+        <translation>Time table of </translation>
     </message>
     <message utf8="true">
         <location filename="../interfacecompetence.cpp" line="75"/>
         <source>Trouve le complément à...</source>
-        <translation>Found complement to...</translation>
+        <translation>Find complement of...</translation>
     </message>
     <message utf8="true">
         <location filename="../interfacecompetence.cpp" line="82"/>
@@ -485,7 +571,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../interfacecompetence.cpp" line="163"/>
         <source>Table +</source>
-        <translation>Addition table of</translation>
+        <translation>Addition table of </translation>
     </message>
     <message>
         <location filename="../interfacecompetence.cpp" line="175"/>
@@ -513,7 +599,7 @@ p, li { white-space: pre-wrap; }
     <message utf8="true">
         <location filename="../main.cpp" line="32"/>
         <source>AbulÉdu LeTerrier -- Calcul-Mental</source>
-        <translation>AbulÉdu LeTerrier -- Mental arithmetic</translation>
+        <translation>AbulEdu LeTerrier -- Mental calculation</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="113"/>
@@ -526,7 +612,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../baudruche.cpp" line="223"/>
         <source>Ton score est de </source>
-        <translation>Your score is</translation>
+        <translation>Your score is </translation>
     </message>
     <message>
         <location filename="../baudruche.cpp" line="225"/>
@@ -643,7 +729,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../exercice.cpp" line="123"/>
         <source>Ordres de grandeur sur des </source>
-        <translation>Order of magnitude on </translation>
+        <translation>Order of magnitude with </translation>
     </message>
     <message>
         <location filename="../exercice.cpp" line="126"/>
@@ -686,7 +772,7 @@ p, li { white-space: pre-wrap; }
 Pour cela, tu vas arrondir les nombres en ne gardant qu&apos;un seul chiffre significatif, puis faire l&apos;opération sur les nombres arrondis. 
 Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
         <translation>You have to find the order of magnitude of the proposed calculation.
-So, you will round numbers off just keeping one significant figure, then make the operation with the rounded numbers.
+So, round numbers to one significant figure. Perform the operation with the rounded numbers.
 Example : 372 - 198 -&gt; 400 - 200 = 200</translation>
     </message>
 </context>
@@ -705,7 +791,7 @@ Example : 372 - 198 -&gt; 400 - 200 = 200</translation>
     <message>
         <location filename="../interface.cpp" line="97"/>
         <source>Faire des additions</source>
-        <translation>Do additions</translation>
+        <translation>Add</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="98"/>
@@ -715,7 +801,7 @@ Example : 372 - 198 -&gt; 400 - 200 = 200</translation>
     <message>
         <location filename="../interface.cpp" line="106"/>
         <source>Faire des multiplications</source>
-        <translation>Do multiplications</translation>
+        <translation>Multiply</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="107"/>
@@ -745,6 +831,11 @@ Example : 372 - 198 -&gt; 400 - 200 = 200</translation>
         <translation>Additional additive</translation>
     </message>
     <message>
+        <location filename="../interface.cpp" line="155"/>
+        <source>Faire des soustractions</source>
+        <translation>Subtract</translation>
+    </message>
+    <message>
         <location filename="../interface.cpp" line="179"/>
         <source>Choisir son exercice</source>
         <translation>Choose an exercise</translation>
@@ -760,7 +851,6 @@ Example : 372 - 198 -&gt; 400 - 200 = 200</translation>
         <translation>Multiples</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="155"/>
         <location filename="../interface.cpp" line="156"/>
         <source>Soustractions</source>
         <translation>Subtractions</translation>

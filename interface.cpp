@@ -152,7 +152,7 @@ interface::interface(QWidget *parent)
     boutonsPolygone* btnPoly8 = new boutonsPolygone("soustraction");
         btnPoly8->deplace(515*kw,220*kh);
         btnPoly8->retaille(220*kw,220*kh);
-        btnPoly8->QGraphicsItem::setToolTip(trUtf8("Soustractions"));
+        btnPoly8->QGraphicsItem::setToolTip(trUtf8("Faire des soustractions"));
         btnPoly8->setTexte(trUtf8("Soustractions"));
         dessin->addItem(btnPoly8);
 
@@ -172,10 +172,10 @@ interface::interface(QWidget *parent)
         btnPoly10->QGraphicsItem::setToolTip(trUtf8("Ordres de grandeur"));
         dessin->addItem(btnPoly10);
 
-    //Bouton destiné aux doubles et moitié, mais que j'utilise pour le lanceur
+    //Bouton l'avion
     boutonsPolygone* btnPoly11 = new boutonsPolygone("lanceur");
-        btnPoly11->deplace(1210*kw, 320*kh);
-        btnPoly11->retaille(330*kw,100*kh);
+        btnPoly11->deplace(1470*kw, 70*kh);
+        btnPoly11->retaille(85*kw,50*kh);
         btnPoly11->QGraphicsItem::setToolTip(trUtf8("Choisir son exercice"));
         dessin->addItem(btnPoly11);
 

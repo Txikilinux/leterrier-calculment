@@ -131,6 +131,7 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
     exercice* exerciceLance = new exercice(m_nomExercice,0,ui->cbNombre->currentText().toInt(),ui->cbNiveau->currentText());
     qDebug()<<"Exercice appelé avec "<<m_nomExercice<<", "<<ui->cbNombre->currentText().toInt()<<", "<<ui->cbNiveau->currentText();
     exerciceLance->show();
+    this->close();
 }
 
 void AbuleduLanceurV1::associeNomIntitule(QString intitule)
