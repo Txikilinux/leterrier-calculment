@@ -40,19 +40,22 @@ Editeur::Editeur(QWidget *parent) :
 {
     this->setWindowModality(Qt::ApplicationModal);
     m_ui->setupUi(this);
+    qDebug()<<"Debut de constructeur Editeur";
+    qDebug()<<m_ui->cbOperation->currentText();
+    qDebug()<<m_ui->cbNiveau->currentText();
 
         //Ajout des items dans les comboBox - celles concernant les min et max sont cachées par défaut -
-        m_ui->cbNiveau->addItem(tr("Niveau1"), 1);
-            m_ui->cbNiveau->addItem(tr("Niveau2"), 2);
-            m_ui->cbNiveau->addItem(tr("Niveau3"), 3);
-            m_ui->cbNiveau->addItem(tr("Personnel"),4);
+        m_ui->cbNiveau->addItem("Niveau1", 1);
+            m_ui->cbNiveau->addItem("Niveau2", 2);
+            m_ui->cbNiveau->addItem("Niveau3", 3);
+            m_ui->cbNiveau->addItem("Personnel",4);
 
-        m_ui->cbOperation->addItem(tr("Addition"), 1);
-            m_ui->cbOperation->addItem(tr("Multiplication"), 2);
-            m_ui->cbOperation->addItem(tr("Soustraction"),3);
-            m_ui->cbOperation->addItem(tr("OdGrandeurAddition"),4);
-            m_ui->cbOperation->addItem(tr("OdGrandeurSoustraction"),4);
-            m_ui->cbOperation->addItem(tr("OdGrandeurMultiplication"),4);
+        m_ui->cbOperation->addItem("Addition", 1);
+            m_ui->cbOperation->addItem("Multiplication", 2);
+            m_ui->cbOperation->addItem("Soustraction",3);
+            m_ui->cbOperation->addItem("OdGrandeurAddition",4);
+            m_ui->cbOperation->addItem("OdGrandeurSoustraction",4);
+            m_ui->cbOperation->addItem("OdGrandeurMultiplication",4);
 
         m_ui->cbMaxG->addItem("10",1);
             m_ui->cbMaxG->addItem("100",2);
@@ -65,6 +68,11 @@ Editeur::Editeur(QWidget *parent) :
             m_ui->cbMaxD->hide();
             m_ui->lblDMax_2->hide();
 
+
+            //Les combo sont remplies avec des chaines en anglais puisqu'on a des tr
+            qDebug()<<"Milieu de constructeur Editeur";
+            qDebug()<<m_ui->cbOperation->currentText();
+            qDebug()<<m_ui->cbNiveau->currentText();
         connect(m_ui->sldVitesse, SIGNAL(valueChanged(int)), m_ui->pbVitesse, SLOT(setValue(int)));
 
         //Initialisation attributs de la classe
@@ -78,6 +86,9 @@ Editeur::Editeur(QWidget *parent) :
 
         connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
         connect(m_ui->cbOperation, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerOperation(QString)));
+        qDebug()<<"Fin de constructeur Editeur";
+        qDebug()<<m_ui->cbOperation->currentText();
+        qDebug()<<m_ui->cbNiveau->currentText();
 }
 
 Editeur::~Editeur()
@@ -123,6 +134,12 @@ void Editeur::initialiserOperation(QString operation)
                 config.setValue("TempsAccorde",8);
             config.endGroup();
             config.setValue("NiveauEnCours"+operation, "Niveau1");
+            if (operation == "addition")
+                config.setValue("NomPourAffichage", trUtf8("Addition"));
+            else if (operation == "soustraction")
+                config.setValue("NomPourAffichage", trUtf8("Soustraction"));
+            else if (operation == "multiplication")
+                config.setValue("NomPourAffichage", trUtf8("Multiplication"));
     config.endGroup();
 }
 
@@ -151,6 +168,10 @@ void Editeur::initialiserApproche(QString operation)
                 config.setValue("TempsAccorde",8);
             config.endGroup();
             config.setValue("NiveauEnCours"+operation, "Niveau1");
+            if (operation == "OdGrandeurAddition")
+                    config.setValue("NomPourAffichage", trUtf8("OdG Additions"));
+            else if (operation == "OdGrandeurSoustraction")
+                    config.setValue("NomPourAffichage", trUtf8("OdG Soustractions"));
     config.endGroup();
 }
 
@@ -179,12 +200,14 @@ void Editeur::initialiserApprocheM(QString operation)
                 config.setValue("TempsAccorde",8);
             config.endGroup();
             config.setValue("NiveauEnCours"+operation, "Niveau1");
+            config.setValue("NomPourAffichage", trUtf8("OdG Multiplications"));
     config.endGroup();
 }
 
 void Editeur::initialiserComplement(QString operation)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    config.setIniCodec("UTF-8");
     config.beginGroup(operation);
             config.beginGroup("Niveau1");
                 config.setValue("TempsAccorde",8);
@@ -199,6 +222,34 @@ void Editeur::initialiserComplement(QString operation)
                 config.setValue("TempsAccorde",6);
             config.endGroup();
             config.setValue("NiveauEnCours"+operation, "Niveau1");
+            if (operation[0] == 'c')
+            {
+                if (operation[10] == 'A')
+                {
+                    if (operation.length() == 13) {
+                        config.setValue("NomPourAffichage", trUtf8("Compléments à 10"));
+                        qDebug()<<"-------------- ecriture : Compléments à 10";
+                    }
+                    else if (operation.length() == 14)
+                        config.setValue("NomPourAffichage", trUtf8("Compléments à 100"));
+                    else if (operation.length() == 15)
+                        config.setValue("NomPourAffichage", trUtf8("Compléments à 1000"));
+                }
+                else if (operation[10] == 'M')
+                {
+                    if (operation.remove(0,11) == "5")
+                        config.setValue("NomPourAffichage", trUtf8("Multiples de 5"));
+                    else config.setValue("NomPourAffichage", trUtf8("Multiples de ")+operation.right(2));
+                }
+            }
+            else if (operation[0] == 't')
+            {
+                if (operation[5] == 'A')
+                    config.setValue("NomPourAffichage", trUtf8("Table d'addition de ")+operation.remove(0,6));
+                else if (operation[5] == 'M')
+                    config.setValue("NomPourAffichage", trUtf8("Table de multiplication par ")+operation.remove(0,6));
+
+            }
     config.endGroup();
 }
 

@@ -37,6 +37,7 @@ void AbuleduLanceurV1::fillCbExercice()
     }
 
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
+     configExo.setIniCodec("UTF-8");
     configExo.beginGroup("Exercices");
     m_listeExercices = configExo.childGroups();
     QStringList intitulesExercicesProposes;
@@ -67,6 +68,7 @@ void AbuleduLanceurV1::fillCbNiveau(QString)
     }
 
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
+     configExo.setIniCodec("UTF-8");
     QString niv = configExo.value("niveaux").toString();
     QStringList listeNiv = niv.split(";");
     qDebug()<<"Niveaux : "<<niv;
@@ -91,6 +93,7 @@ void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
     ui->cbNombre->clear();
     bool trouve = false;
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
+     configExo.setIniCodec("UTF-8");
     configExo.beginGroup("Exercices");
     QStringListIterator iter(m_listeExercices);
     while (iter.hasNext() && trouve==false){
@@ -137,6 +140,7 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
 void AbuleduLanceurV1::associeNomIntitule(QString intitule)
 {
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
+     configExo.setIniCodec("UTF-8");
     configExo.beginGroup("Exercices");
     int i=1;
     bool trouve = false;

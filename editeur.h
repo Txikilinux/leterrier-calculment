@@ -24,6 +24,7 @@ private:
     Ui::Editeur *m_ui;
     QString *m_niveauEnCours;
     QString *m_operationEnCours;
+    QString *m_nomOperationEnCours;
     int m_minG;
     int m_maxG;
     int m_minD;
