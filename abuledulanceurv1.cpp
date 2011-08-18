@@ -143,8 +143,10 @@ void AbuleduLanceurV1::on_btnAnnuler_clicked()
 
 void AbuleduLanceurV1::on_btnLancer_clicked()
 {
+    if (!ui->cbNombre->currentText().isNull())
+        m_nomExercice.append(ui->cbNombre->currentText());
     exercice* exerciceLance = new exercice(m_nomExercice,0,ui->cbNombre->currentText().toInt(),ui->cbNiveau->currentText());
-    qDebug()<<"Exercice appelé avec "<<m_nomExercice<<", "<<ui->cbNombre->currentText().toInt()<<", "<<ui->cbNiveau->currentText();
+    qDebug()<<"---> Exercice appelé avec "<<m_nomExercice<<", "<<ui->cbNombre->currentText().toInt()<<", "<<ui->cbNiveau->currentText();
     exerciceLance->show();
     this->close();
 }
@@ -164,10 +166,10 @@ void AbuleduLanceurV1::associeNomIntitule(QString intitule)
         configExo.beginGroup(exercice);
         qDebug()<<"exercice"<<exercice;
         qDebug()<<"nom : "<<configExo.value("nom").toString();
-        qDebug()<<"intitule : "<<QString::fromUtf8((configExo.value("intitule").toString()).toStdString().c_str());
+        qDebug()<<"intitule : "<<QString::fromUtf8((configExo.value("intitule_"+locale).toString()).toStdString().c_str());
         if (QString::fromUtf8((configExo.value("intitule_"+locale).toString()).toStdString().c_str())==intitule) {
             m_nomExercice = configExo.value("nom").toString();
-            m_intituleExercice = QString::fromUtf8((configExo.value("intitule").toString()).toStdString().c_str());
+            m_intituleExercice = QString::fromUtf8((configExo.value("intitule_"+locale).toString()).toStdString().c_str());
             qDebug()<<"Nom : "<<m_nomExercice;
             qDebug()<<"Intitule"<<m_intituleExercice;
             trouve = true;
