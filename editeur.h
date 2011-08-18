@@ -2,6 +2,7 @@
 #define EDITEUR_H
 
 #include <QtGui/QWidget>
+#include <QSettings>
 
 namespace Ui {
     class Editeur;
@@ -25,6 +26,7 @@ private:
     QString *m_niveauEnCours;
     QString *m_operationEnCours;
     QString *m_nomOperationEnCours;
+    QSettings* m_settings;
     int m_minG;
     int m_maxG;
     int m_minD;
@@ -33,6 +35,7 @@ private:
     void initialiserApproche(QString operation);
     void initialiserApprocheM(QString operation);
     void initialiserComplement(QString operation);
+    QString associeNomIntitule(QString intitule);
 
 private slots:
     void on_btnQuitter_clicked();
