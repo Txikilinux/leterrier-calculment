@@ -38,17 +38,17 @@
 interface::interface(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::interfaceClass)
 {
+    qDebug()<<"interface::constructeur (1)";
     //Langue
     QString locale = QLocale::system().name().section('_', 0, 0);
-    //Un 1er qtranslator pour prendre les traductions QT Systeme
-    //c'est d'ailleur grace a ca qu'on est en RTL
+    //Un 1er qtTranslator pour prendre les traductions QT Systeme
+    //c'est d'ailleurs grâce à ça qu'on est en RTL
     qtTranslator.load("qt_" + locale,
-    QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+                      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     qApp->installTranslator(&qtTranslator);
-    //Et un second qtranslator pour les traductions specifiques du
-    //logiciel
+    //Et un second qtTranslator pour les traductions spécifiques du logiciel
     myappTranslator.load("leterrier-calcul-mental_" + locale, "lang");
-    qDebug()<<"langue chargée : "<<locale;
+    qDebug()<<trUtf8("Langue chargée : ")<<locale;
     qApp->installTranslator(&myappTranslator);
 
     ui->setupUi(this);
@@ -65,11 +65,10 @@ interface::interface(QWidget *parent)
     this->resize(ecran.width(),ecran.height());
     ui->fete->resize(ecran.width(),m_hauteurMax);
 
-
     QPixmap imgFond("./data/images/fondecran.jpg");
     QPixmap imgFond2=imgFond.scaled(ecran.width(),m_hauteurMax,Qt::KeepAspectRatio,Qt::SmoothTransformation);
-    qDebug() << "Taille imageFond : " << imgFond.width()<< " X "<<imgFond.height();
-    qDebug() << "Taille imageFond2 : " << imgFond2.width()<< " X "<<imgFond2.height();
+    //    qDebug() << "Taille imageFond : " << imgFond.width()<< " X "<<imgFond.height();
+    //    qDebug() << "Taille imageFond2 : " << imgFond2.width()<< " X "<<imgFond2.height();
     QBrush* fond = new QBrush(imgFond2);
     ui->fete->setBackgroundBrush(*fond);
     this->setFixedSize(imgFond2.width(),imgFond2.height());
@@ -78,108 +77,106 @@ interface::interface(QWidget *parent)
 
     double kw=static_cast<double>(imgFond2.width())/static_cast<double>(imgFond.width());
     double kh=static_cast<double>(imgFond2.height())/static_cast<double>(imgFond.height());
-    qDebug()<<"kw vaut "<<kw;
-    qDebug()<<"kh vaut "<<kh;
+//    qDebug()<<"kw vaut "<<kw;
+//    qDebug()<<"kh vaut "<<kh;
 
     QGraphicsScene* dessin = new QGraphicsScene(this);
-        ui->fete->setScene(dessin);
-        dessin->setSceneRect(0, 0, ecran.width(),m_hauteurMax);
-
-    //ui->btnInitialise->setGeometry(ecran.width()*0.86,0,150,30);
+    ui->fete->setScene(dessin);
+    dessin->setSceneRect(0, 0, ecran.width(),m_hauteurMax);
 
     m_editeur = new Editeur();
 
     //Bouton sur les auto-tamponneuses
     boutonsPolygone* btnPoly1 = new boutonsPolygone("addition");
-        btnPoly1->deplace(0*kw,440*kh);
-        btnPoly1->retaille(630*kw,235*kh);
-        //btnPoly1->tourne(-20);
-        btnPoly1->QGraphicsItem::setToolTip(trUtf8("Faire des additions"));
-        btnPoly1->setTexte(trUtf8("Additions"));
-        dessin->addItem(btnPoly1);
-        connect(btnPoly1, SIGNAL(clicked()), this, SLOT(close()));
+    btnPoly1->deplace(0*kw,440*kh);
+    btnPoly1->retaille(630*kw,235*kh);
+    //btnPoly1->tourne(-20);
+    btnPoly1->QGraphicsItem::setToolTip(trUtf8("Faire des additions"));
+    btnPoly1->setTexte(trUtf8("Additions"));
+    dessin->addItem(btnPoly1);
+    connect(btnPoly1, SIGNAL(clicked()), this, SLOT(close()));
 
     //Bouton sur le manège
     boutonsPolygone* btnPoly2 = new boutonsPolygone("multiplication");
-        btnPoly2->deplace(635*kw,550*kh);
-        btnPoly2->retaille(430*kw,410*kh);
-        btnPoly2->QGraphicsItem::setToolTip(trUtf8("Faire des multiplications"));
-        btnPoly2->setTexte(trUtf8("Multiplications"));
-        dessin->addItem(btnPoly2);
+    btnPoly2->deplace(635*kw,550*kh);
+    btnPoly2->retaille(430*kw,410*kh);
+    btnPoly2->QGraphicsItem::setToolTip(trUtf8("Faire des multiplications"));
+    btnPoly2->setTexte(trUtf8("Multiplications"));
+    dessin->addItem(btnPoly2);
 
     //Bouton sur la barbapapa
     boutonsPolygone* btnPoly3 = new boutonsPolygone("editeur");
-        btnPoly3->deplace(60*kw,680*kh);
-        btnPoly3->retaille(190*kw,285*kh);
-        btnPoly3->QGraphicsItem::setToolTip(trUtf8("Lancer l'éditeur"));
-        dessin->addItem(btnPoly3);
+    btnPoly3->deplace(60*kw,680*kh);
+    btnPoly3->retaille(190*kw,285*kh);
+    btnPoly3->QGraphicsItem::setToolTip(trUtf8("Lancer l'éditeur"));
+    dessin->addItem(btnPoly3);
 
     //Bouton sur le panneau sortie
     boutonsPolygone* btnPoly4 = new boutonsPolygone("sortie");
-        btnPoly4->deplace(1325*kw,710*kh);
-        btnPoly4->retaille(200*kw,70*kh);
-        btnPoly4->QGraphicsItem::setToolTip(trUtf8("Quitter"));
-        connect(btnPoly4, SIGNAL(sortie()), this, SLOT(close()));
-        dessin->addItem(btnPoly4);
-        
+    btnPoly4->deplace(1325*kw,710*kh);
+    btnPoly4->retaille(200*kw,70*kh);
+    btnPoly4->QGraphicsItem::setToolTip(trUtf8("Quitter"));
+    connect(btnPoly4, SIGNAL(sortie()), this, SLOT(close()));
+    dessin->addItem(btnPoly4);
+
     //Bouton sur la grande roue
     boutonsPolygone* btnPoly5 = new boutonsPolygone("1tableM");
-        btnPoly5->deplace(40*kw,15*kh);
-        btnPoly5->retaille(340*kw,365*kh);
-        btnPoly5->QGraphicsItem::setToolTip(trUtf8("Tables de multiplication"));
-        btnPoly5->setTexte(trUtf8("Tables de multiplication"));
-        dessin->addItem(btnPoly5);
+    btnPoly5->deplace(40*kw,15*kh);
+    btnPoly5->retaille(340*kw,365*kh);
+    btnPoly5->QGraphicsItem::setToolTip(trUtf8("Tables de multiplication"));
+    btnPoly5->setTexte(trUtf8("Tables de multiplication"));
+    dessin->addItem(btnPoly5);
 
     //Bouton sur le train fantôme
-     boutonsPolygone* btnPoly6 = new boutonsPolygone("2complementA");
-        btnPoly6->deplace(765*kw,275*kh);
-        btnPoly6->retaille(395*kw,200*kh);
-        btnPoly6->tourne(12);
-        btnPoly6->QGraphicsItem::setToolTip(trUtf8("Compléments additifs"));
-        btnPoly6->setTexte(trUtf8("Compléments additifs"));
-        dessin->addItem(btnPoly6);
+    boutonsPolygone* btnPoly6 = new boutonsPolygone("2complementA");
+    btnPoly6->deplace(765*kw,275*kh);
+    btnPoly6->retaille(395*kw,200*kh);
+    btnPoly6->tourne(12);
+    btnPoly6->QGraphicsItem::setToolTip(trUtf8("Compléments additifs"));
+    btnPoly6->setTexte(trUtf8("Compléments additifs"));
+    dessin->addItem(btnPoly6);
 
     //Bouton sur le stand de tir
     boutonsPolygone* btnPoly7 = new boutonsPolygone("3complementM");
-        btnPoly7->deplace(1135*kw,510*kh);
-        btnPoly7->retaille(180*kw,120*kh);
-        btnPoly7->tourne(10);
-        btnPoly7->QGraphicsItem::setToolTip(trUtf8("Multiples"));
-        btnPoly7->setTexte(trUtf8("Multiples"));
-        dessin->addItem(btnPoly7);
+    btnPoly7->deplace(1135*kw,510*kh);
+    btnPoly7->retaille(180*kw,120*kh);
+    btnPoly7->tourne(10);
+    btnPoly7->QGraphicsItem::setToolTip(trUtf8("Multiples"));
+    btnPoly7->setTexte(trUtf8("Multiples"));
+    dessin->addItem(btnPoly7);
 
     //Bouton sur la chenille
     boutonsPolygone* btnPoly8 = new boutonsPolygone("soustraction");
-        btnPoly8->deplace(515*kw,220*kh);
-        btnPoly8->retaille(220*kw,220*kh);
-        btnPoly8->QGraphicsItem::setToolTip(trUtf8("Faire des soustractions"));
-        btnPoly8->setTexte(trUtf8("Soustractions"));
-        dessin->addItem(btnPoly8);
+    btnPoly8->deplace(515*kw,220*kh);
+    btnPoly8->retaille(220*kw,220*kh);
+    btnPoly8->QGraphicsItem::setToolTip(trUtf8("Faire des soustractions"));
+    btnPoly8->setTexte(trUtf8("Soustractions"));
+    dessin->addItem(btnPoly8);
 
     //Bouton sur le "rooster"
     boutonsPolygone* btnPoly9 = new boutonsPolygone("4tableA");
-        btnPoly9->deplace(425*kw,185*kh);
-        btnPoly9->retaille(300*kw,50*kh);
-        btnPoly9->tourne(-35);
-        btnPoly9->QGraphicsItem::setToolTip(trUtf8("Tables d'addition"));
-        btnPoly9->setTexte(trUtf8("Tables d'addition"));
-        dessin->addItem(btnPoly9);
+    btnPoly9->deplace(425*kw,185*kh);
+    btnPoly9->retaille(300*kw,50*kh);
+    btnPoly9->tourne(-35);
+    btnPoly9->QGraphicsItem::setToolTip(trUtf8("Tables d'addition"));
+    btnPoly9->setTexte(trUtf8("Tables d'addition"));
+    dessin->addItem(btnPoly9);
 
     //Bouton sur le palais des glaces
     boutonsPolygone* btnPoly10 = new boutonsPolygone("5OdGrandeur",100);
-        btnPoly10->deplace(1315*kw,560*kh);
-        btnPoly10->retaille(280*kw,150*kh);
-        btnPoly10->QGraphicsItem::setToolTip(trUtf8("Ordres de grandeur"));
-        dessin->addItem(btnPoly10);
+    btnPoly10->deplace(1315*kw,560*kh);
+    btnPoly10->retaille(280*kw,150*kh);
+    btnPoly10->QGraphicsItem::setToolTip(trUtf8("Ordres de grandeur"));
+    dessin->addItem(btnPoly10);
 
     //Bouton l'avion
     boutonsPolygone* btnPoly11 = new boutonsPolygone("lanceur");
-        btnPoly11->deplace(1470*kw, 70*kh);
-        btnPoly11->retaille(85*kw,50*kh);
-        btnPoly11->QGraphicsItem::setToolTip(trUtf8("Choisir son exercice"));
-        dessin->addItem(btnPoly11);
+    btnPoly11->deplace(1470*kw, 70*kh);
+    btnPoly11->retaille(85*kw,50*kh);
+    btnPoly11->QGraphicsItem::setToolTip(trUtf8("Choisir son exercice"));
+    dessin->addItem(btnPoly11);
 
-    }
+}
 
 interface::~interface()
 {

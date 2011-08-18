@@ -40,7 +40,7 @@ Editeur::Editeur(QWidget *parent) :
 {
     this->setWindowModality(Qt::ApplicationModal);
     m_ui->setupUi(this);
-    qDebug()<<"Debut de constructeur Editeur";
+    qDebug()<<"Editeur::constructeur (1)";
     qDebug()<<m_ui->cbOperation->currentText();
     qDebug()<<m_ui->cbNiveau->currentText();
 
@@ -68,11 +68,6 @@ Editeur::Editeur(QWidget *parent) :
             m_ui->cbMaxD->hide();
             m_ui->lblDMax_2->hide();
 
-
-            //Les combo sont remplies avec des chaines en anglais puisqu'on a des tr
-            qDebug()<<"Milieu de constructeur Editeur";
-            qDebug()<<m_ui->cbOperation->currentText();
-            qDebug()<<m_ui->cbNiveau->currentText();
         connect(m_ui->sldVitesse, SIGNAL(valueChanged(int)), m_ui->pbVitesse, SLOT(setValue(int)));
 
         //Initialisation attributs de la classe
@@ -86,7 +81,7 @@ Editeur::Editeur(QWidget *parent) :
 
         connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
         connect(m_ui->cbOperation, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerOperation(QString)));
-        qDebug()<<"Fin de constructeur Editeur";
+        qDebug()<<"Editeur::constructeur (2)";
         qDebug()<<m_ui->cbOperation->currentText();
         qDebug()<<m_ui->cbNiveau->currentText();
 }

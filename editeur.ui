@@ -411,7 +411,7 @@
        <item>
         <widget class="QPushButton" name="btnQuitter">
          <property name="text">
-          <string>&amp;Quitter</string>
+          <string>&amp;Enregistrer et quitter</string>
          </property>
         </widget>
        </item>

@@ -46,6 +46,7 @@ const int MULTIPLE_MAX=11;
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QObject *parent,QString image)
 {
+    qDebug()<<"baudruche::constructeur normal (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
 
     qDebug()<<"Parent de baudruche: "<<parent->objectName();
@@ -96,11 +97,13 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
         
     this->emetRes();
     qDebug()<<"res emis instanciation "<<m_resultat;
+    qDebug()<<"baudruche::constructeur normal (2)";
 }
 
 //constructeur spécifique aux valeurs approchées
 baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QObject *parent,QString image)
 {
+    qDebug()<<"baudruche::constructeur valeurs approchées (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
     m_approximation=0;
@@ -148,11 +151,13 @@ qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeu
     dessineMoi(image,16*factX);
 
     this->emetApprox();
+    qDebug()<<"baudruche::constructeur valeurs approchées (2)";
 }
 
 //constructeur spécifique aux compléments
 baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QObject *parent,QString image)
 {
+    qDebug()<<"baudruche::constructeur compléments (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
     if (operation=="complementA") m_op = "+";
@@ -203,11 +208,13 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
     dessineMoi(image,12*factX);
 
     this->emetRes();
+    qDebug()<<"baudruche::constructeur compléments (2)";
 }
 
 //constructeur spécifique à l'affichage du résultat
 baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
 {
+    qDebug()<<"baudruche::constructeur affichage (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     qDebug()<<"Fact X vaut "<< factX;
     m_nomImage = image;
@@ -240,11 +247,12 @@ baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
         affichage->setPos(40/factX,100/factX);
         this->addToGroup(affichage);
         //m_timer = new QTimeLine(TPS*1000,this);
-
+    qDebug()<<"baudruche::constructeur affichage (2)";
 }
 
 void baudruche::dessineMoi(QString image, int taillePolice)
 {
+    qDebug()<<"baudruche::dessineMoi(1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     qDebug()<<"FactX = "<<factX;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
@@ -290,7 +298,7 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         this->addToGroup(affichage);
         m_texteAffiche = new QGraphicsTextItem();
         m_texteAffiche = affichage;
-
+    qDebug()<<"baudruche::dessineMoi(2)";
 }
 
 QPoint baudruche::getMPosition()

@@ -5,6 +5,7 @@ AbuleduLanceurV1::AbuleduLanceurV1(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AbuleduLanceurV1)
 {
+    qDebug()<<"AbuleduLanceurV1::constructeur (1)";
     ui->setupUi(this);
     setWindowTitle(trUtf8("Lanceur"));
     fillCbExercice();
@@ -24,6 +25,7 @@ AbuleduLanceurV1::~AbuleduLanceurV1()
 
 void AbuleduLanceurV1::fillCbExercice()
 {
+    qDebug()<<"AbuleduLanceurV1::fillCbExercice(1)";
     ui->cbExercice->clear();
     QString nomFichierConf = "./conf/alacarte.conf";
     if (!QFile(nomFichierConf).exists()) {
@@ -37,7 +39,7 @@ void AbuleduLanceurV1::fillCbExercice()
     }
 
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
-     configExo.setIniCodec("UTF-8");
+    configExo.setIniCodec("UTF-8");
     configExo.beginGroup("Exercices");
     m_listeExercices = configExo.childGroups();
     QStringList intitulesExercicesProposes;
@@ -55,6 +57,7 @@ void AbuleduLanceurV1::fillCbExercice()
 
 void AbuleduLanceurV1::fillCbNiveau(QString)
 {
+    qDebug()<<"AbuleduLanceurV1::fillCbNiveau(1)";
     ui->cbNiveau->clear();
     QString nomFichierConf = "./conf/alacarte.conf";
     if (!QFile(nomFichierConf).exists()) {
@@ -88,6 +91,7 @@ void AbuleduLanceurV1::fillCbNiveau(QString)
 
 void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
 {
+    qDebug()<<"AbuleduLanceurV1::fillCbNombre(1)";
     ui->cbNombre->hide();
     ui->lblNombre->hide();
     ui->cbNombre->clear();
@@ -139,8 +143,9 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
 
 void AbuleduLanceurV1::associeNomIntitule(QString intitule)
 {
+    qDebug()<<"AbuleduLanceurV1::associeNomIntitule(1)";
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
-     configExo.setIniCodec("UTF-8");
+    configExo.setIniCodec("UTF-8");
     configExo.beginGroup("Exercices");
     int i=1;
     bool trouve = false;
@@ -163,9 +168,9 @@ void AbuleduLanceurV1::associeNomIntitule(QString intitule)
         configExo.endGroup();
         i++;
     }
-        qDebug()<<"Fin du slot associeNomIntitule()";
-        qDebug()<<"Nom : "<<m_nomExercice;
-        qDebug()<<"Intitule"<<m_intituleExercice;
-        emit cbExerciceFini(m_nomExercice);
-        qDebug()<<"Signal emis avec "<<m_nomExercice;
+    qDebug()<<"AbuleduLanceurV1::associeNomIntitule(2)";
+    qDebug()<<"Nom : "<<m_nomExercice;
+    qDebug()<<"Intitule"<<m_intituleExercice;
+    emit cbExerciceFini(m_nomExercice);
+    qDebug()<<"Signal emis avec "<<m_nomExercice;
 }

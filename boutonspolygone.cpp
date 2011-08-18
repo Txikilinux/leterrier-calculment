@@ -73,6 +73,7 @@ void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
 {
+    qDebug()<<"boutonsPolygone::mousePressEvent(1) où m_action = "<<*m_action;
     QChar initialeAction;
     initialeAction=(QChar)m_action->operator [](0);
     

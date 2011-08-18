@@ -43,6 +43,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     AbulEduExerciceV0(parent),
     m_ui(new Ui::exercice)
 {
+    qDebug()<<"exercice::constructeur (1)";
     m_ui->setupUi(this);
     this->setWindowModality(Qt::ApplicationModal);
     this->setAbeExerciceName(exo);
@@ -65,7 +66,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_consignes->setPalette(QColor(255,255,255,127));
     m_consignes->hide();
 
-    qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
+    qDebug() <<"Opération : "<<m_operation<<", valeur passée : "<<m_cible<<" et niveau : "<<m_level;
     chargerParametres();
     qDebug()<<"Apres chargement des parametres, m_temps vaut "<<m_temps;
 
@@ -120,33 +121,29 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 
     if (exo.left(10)=="OdGrandeur") {
         m_ui->btnAide->show();
-       QString nomExercice = trUtf8("Ordres de grandeur sur des ");
-       QString nomCompetence = "ordre-grandeur-";
-       if (exo[10]=='A') {
-           nomExercice.append(trUtf8("additions"));
-           nomCompetence.append("somme");
-       }
-       else if (exo[10]=='S') {
-               nomExercice.append(trUtf8("soustractions"));
-               nomCompetence.append("difference");
-            }
-       else  {
-               nomExercice.append(trUtf8("multiplications"));
-               nomCompetence.append("produit");
-              }
-       setAbeExerciceName(nomExercice);
-       setAbeSkill(nomCompetence);
-       qDebug()<<"Skill : "<<nomCompetence;
-       qDebug()<<"Exercice : "<<nomExercice;
+        QString nomExercice = trUtf8("Ordres de grandeur sur des ");
+        QString nomCompetence = "ordre-grandeur-";
+        if (exo[10]=='A') {
+            nomExercice.append(trUtf8("additions"));
+            nomCompetence.append("somme");
+        }
+        else if (exo[10]=='S') {
+            nomExercice.append(trUtf8("soustractions"));
+            nomCompetence.append("difference");
+        }
+        else  {
+            nomExercice.append(trUtf8("multiplications"));
+            nomCompetence.append("produit");
+        }
+        setAbeExerciceName(nomExercice);
+        setAbeSkill(nomCompetence);
     }
 
     m_imgFond = new QPixmap("./data/images/"+exo+".jpg");
 
-    qDebug()<<" --------------- Chemin de l'imagde de fond : "<<"./data/images/"+exo+".jpg";
-    qDebug()<<" --------------- Ou alors : "<<qApp->applicationDirPath()+"/data/images/"+exo+".jpg";
-//    this->setGeometry(0,50, m_imgFond->width()+60,m_imgFond->height()+20);
-            this->setWindowTitle("Calcul Mental - "+exo);
-            adapte(*m_imgFond);
+    qDebug()<<"Image de fond : "<<qApp->applicationDirPath()+"/data/images/"+exo+".jpg";
+    this->setWindowTitle("Calcul Mental - "+exo);
+    adapte(*m_imgFond);
 
     this->m_score=0;
     this->m_total=0;
@@ -154,7 +151,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->lblTotal->setText("0");
     //m_ui->lblArg->setText(exo);
 
-/*          Bloc déplacé en particulier pour que les attributs m_min et m_max soit "remplis" avant les setAbeExerciceName() et setAbeSkill()
+    /*          Bloc déplacé en particulier pour que les attributs m_min et m_max soit "remplis" avant les setAbeExerciceName() et setAbeSkill()
             Mais laissé en copie à son ancien emplacement par peur que le déplacement m'ait cassé qch...
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
@@ -181,12 +178,11 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btnEditeur->setIcon(QIcon("./data/images/souris.png"));
     qDebug()<<"Skill : "<<getAbeSkill();
     qDebug()<<"Exercice : "<<getAbeExerciceName();
-    qDebug()<<"Niveau : "<<m_level;
     QPixmap collierNiveau("./data/images/"+m_level+".png");
     QPixmap collierNiveau2 = collierNiveau.scaledToWidth(m_ui->btnBallon->width(),Qt::SmoothTransformation);
     m_ui->lblImageNiveau->setPixmap(collierNiveau2);
     this->setWindowTitle(getAbeExerciceName());
-
+    qDebug()<<"exercice::constructeur (2)";
 }
 
 exercice::~exercice()
@@ -226,35 +222,23 @@ void exercice::setImgFond(QPixmap* image)
 
 void exercice::adapte(QPixmap cheminImage)
 {
-    qDebug()<<"----------- Appel de la méthode adapte de la classe exercice ---------------------";
+    qDebug()<<"exercice::adapte(1)";
     int bordure=20;
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
-                                                                //              QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()*0.88, Qt::SmoothTransformation);
         QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-60 - 2*bordure, Qt::SmoothTransformation);
-
-
-     qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
-     qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
+//     qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
+//     qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
     *m_imgFond = imgFond2;
     QBrush* fond = new QBrush(imgFond2);
             m_ui->vue->setBackgroundBrush(*fond);
             m_scene = new QGraphicsScene(this);
             m_ui->vue->setScene(m_scene);
-                                                                //              m_ui->vue->setGeometry(imgFond2.width()*1.223, 20, imgFond2.width(), imgFond2.height());
-            //m_ui->vue->setGeometry(this->geometry().x()+ 100, this->geometry().y(), imgFond2.width(), imgFond2.height());
             QPoint coinFond(m_ui->vue->mapFromScene(0,0));
             m_ui->vue->setGeometry(coinFond.x(), coinFond.y(), imgFond2.width(), imgFond2.height());
             m_ui->vue->setMinimumSize(imgFond2.width(), imgFond2.height());
-
             m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()-23);
-
-                                                                //            this->setGeometry(10,20, imgFond2.width()*1.223,imgFond2.height()*1.05);
-//A            this->setGeometry(0,0 , imgFond2.width()+120,imgFond2.height()+50); //mais ça sert à rien ça, vu la ligne dessous...
-
-                                                                //            this->setFixedSize(imgFond2.width()*1.223,imgFond2.height()*1.05);
             this->setFixedSize(imgFond2.width()+130+bordure,imgFond2.height()+bordure);
-            //this->setFixedSize(600,800);
 
 /*         Je croyais avoir trouvé le moyen de centrer mon exercice à l'écran mais ça marche pas...
             Pourtant comme exercice est une QMainWindow this->frameGeometry() doit retourner un QRect et moveCenter devrait déplacer ce QRect...
@@ -281,17 +265,17 @@ void exercice::adapte(QPixmap cheminImage)
 //            move((desk.width() - frameGeometry().width()) / 2,
 //                  (desk.height() - frameGeometry().height()) / 2);
 
-
-            qDebug()<<"Taille grView = "<<m_ui->vue->width()<<" X "<<m_ui->vue->height();
-            qDebug()<<"Taille grScene = "<<m_ui->vue->scene()->width()<<" X "<<m_ui->vue->scene()->height();
-            qDebug()<<"Taille imgFond = "<<imgFond2.width()<<" X "<<imgFond2.height();
-            qDebug()<<"Taille fenetre exercice = "<<this->width()<<" X "<<this->height();
-            qDebug()<<"Taille écran = "<<ecran.width()<<" X "<<ecran.height();
+//          Bloc de debug pour contrôle des différentes tailles des objets
+//            qDebug()<<"Taille grView = "<<m_ui->vue->width()<<" X "<<m_ui->vue->height();
+//            qDebug()<<"Taille grScene = "<<m_ui->vue->scene()->width()<<" X "<<m_ui->vue->scene()->height();
+//            qDebug()<<"Taille imgFond = "<<imgFond2.width()<<" X "<<imgFond2.height();
+//            qDebug()<<"Taille fenetre exercice = "<<this->width()<<" X "<<this->height();
+//            qDebug()<<"Taille écran = "<<ecran.width()<<" X "<<ecran.height();
 }
 
 void exercice::chargerParametres()
 {
-    qDebug()<<" Exercice -- chargerParametres(1)";
+    qDebug()<<" exercice::chargerParametres(1)";
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
         config.beginGroup(m_operation);
         if (m_level=="") m_level = config.value("NiveauEnCours"+m_operation).toString();

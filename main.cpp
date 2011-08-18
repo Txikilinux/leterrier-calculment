@@ -86,23 +86,23 @@ int main(int argc, char *argv[])
             deuze.remove("--niveau=", Qt::CaseInsensitive);
             deuze.prepend("Niveau");
             nivo=deuze;
-            qDebug()<<"nivo : "<<nivo;
+            qDebug()<<"Exercice lancé directement avec niveau : "<<nivo;
             }
         else if (deuze[3]=='o') {
             deuze.remove("--nombre=", Qt::CaseInsensitive);
             nombre=deuze.toInt();
-            qDebug()<<"nombre : "<<nombre;
+            qDebug()<<"Exercice lancé directement avec nombre : "<<nombre;
             }
         if (troize[3]=='i') {
             troize.remove("--niveau=", Qt::CaseInsensitive);
             troize.prepend("Niveau");
             nivo=troize;
-            qDebug()<<"nivo : "<<nivo;
+            qDebug()<<"Exercice lancé directement avec niveau : "<<nivo;
             }
         else if (troize[3]=='o') {
             troize.remove("--nombre=", Qt::CaseInsensitive);
             nombre=troize.toInt();
-            qDebug()<<"nombre : "<<nombre;
+            qDebug()<<"Exercice lancé directement avec nombre : "<<nombre;
             }
         }
 #if defined(Q_OS_MAC)
@@ -118,12 +118,12 @@ int main(int argc, char *argv[])
     qDebug()<<"exo : "<<exo1;
     //exercice e(exo,&a,nombre,nivo);
     exercice e(exo1,0,nombre,nivo);
-    qDebug()<<"Exercice lance avec comme parametres :";
-    qDebug()<<"exo1 = "<<exo1;
-    qDebug()<<"exo = "<<exo;
-    qDebug()<<"nivo = "<<nivo;
-    qDebug()<<"nombre = "<<nombre;
-    qDebug()<<"temps accorde"<<e.m_temps;
+//    qDebug()<<"Exercice lance avec comme parametres :";
+//    qDebug()<<"exo1 = "<<exo1;
+//    qDebug()<<"exo = "<<exo;
+//    qDebug()<<"nivo = "<<nivo;
+//    qDebug()<<"nombre = "<<nombre;
+//    qDebug()<<"temps accorde"<<e.m_temps;
 
     //Attention Usine à gaz : mais je dois l'enlever ici pour appeler l'image qui s'appelle du style tableM(tout court).jpg
         QPixmap* imageFond = new QPixmap("./data/images/"+exo+".jpg");
