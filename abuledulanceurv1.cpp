@@ -25,6 +25,7 @@ AbuleduLanceurV1::~AbuleduLanceurV1()
 
 void AbuleduLanceurV1::fillCbExercice()
 {
+    QString locale = QLocale::system().name().section('_', 0, 0);
     qDebug()<<"AbuleduLanceurV1::fillCbExercice(1)";
     ui->cbExercice->clear();
     QString nomFichierConf = "./conf/alacarte.conf";
@@ -47,7 +48,14 @@ void AbuleduLanceurV1::fillCbExercice()
     while (iter.hasNext()){
         QString exerc = iter.next();
         configExo.beginGroup(exerc);
-        intitulesExercicesProposes.append(QString::fromUtf8((configExo.value("intitule").toString()).toStdString().c_str()));
+        //qDebug()<<"Je rentre dans "<<exerc<<" et j'ai "<<configExo.childKeys();
+        if (!configExo.childKeys().contains("intitule_"+locale)) {
+            QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,trUtf8("Problème !!"),trUtf8("Fichier de configuration incomplet : alacarte.conf"));
+            alertBox->show();
+            this->deleteLater();
+            return;
+        }
+        intitulesExercicesProposes.append(QString::fromUtf8((configExo.value("intitule_"+locale).toString()).toStdString().c_str()));
         configExo.endGroup();
     }
     qDebug()<<"fillCbExercice()--m_listeExercices : "<<m_listeExercices;
@@ -144,6 +152,7 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
 void AbuleduLanceurV1::associeNomIntitule(QString intitule)
 {
     qDebug()<<"AbuleduLanceurV1::associeNomIntitule(1)";
+    QString locale = QLocale::system().name().section('_', 0, 0);
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
     configExo.setIniCodec("UTF-8");
     configExo.beginGroup("Exercices");
@@ -156,7 +165,7 @@ void AbuleduLanceurV1::associeNomIntitule(QString intitule)
         qDebug()<<"exercice"<<exercice;
         qDebug()<<"nom : "<<configExo.value("nom").toString();
         qDebug()<<"intitule : "<<QString::fromUtf8((configExo.value("intitule").toString()).toStdString().c_str());
-        if (QString::fromUtf8((configExo.value("intitule").toString()).toStdString().c_str())==intitule) {
+        if (QString::fromUtf8((configExo.value("intitule_"+locale).toString()).toStdString().c_str())==intitule) {
             m_nomExercice = configExo.value("nom").toString();
             m_intituleExercice = QString::fromUtf8((configExo.value("intitule").toString()).toStdString().c_str());
             qDebug()<<"Nom : "<<m_nomExercice;
