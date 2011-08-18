@@ -41,6 +41,15 @@ void AbuleduLanceurV1::fillCbExercice()
 
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
     configExo.setIniCodec("UTF-8");
+    if (!configExo.childKeys().contains("niveaux_"+locale)) {
+        QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,trUtf8("Problème !!"),trUtf8("Fichier de configuration ne contient pas la clef : niveaux_")+locale);
+        alertBox->show();
+        this->deleteLater();
+        return;
+    }
+qDebug()<<"dans le général de config on a "<<configExo.childKeys();
+    m_listeNiveaux = configExo.value("niveaux_fr").toString().split(";");
+
     configExo.beginGroup("Exercices");
     m_listeExercices = configExo.childGroups();
     QStringList intitulesExercicesProposes;
@@ -50,7 +59,7 @@ void AbuleduLanceurV1::fillCbExercice()
         configExo.beginGroup(exerc);
         //qDebug()<<"Je rentre dans "<<exerc<<" et j'ai "<<configExo.childKeys();
         if (!configExo.childKeys().contains("intitule_"+locale)) {
-            QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,trUtf8("Problème !!"),trUtf8("Fichier de configuration incomplet : alacarte.conf"));
+            QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,trUtf8("Problème !!"),trUtf8("Fichier de configuration ne contient pas toutes les clefs : intitule_")+locale);
             alertBox->show();
             this->deleteLater();
             return;
@@ -66,6 +75,7 @@ void AbuleduLanceurV1::fillCbExercice()
 void AbuleduLanceurV1::fillCbNiveau(QString)
 {
     qDebug()<<"AbuleduLanceurV1::fillCbNiveau(1)";
+    QString locale = QLocale::system().name().section('_', 0, 0);
     ui->cbNiveau->clear();
     QString nomFichierConf = "./conf/alacarte.conf";
     if (!QFile(nomFichierConf).exists()) {
@@ -80,7 +90,7 @@ void AbuleduLanceurV1::fillCbNiveau(QString)
 
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
      configExo.setIniCodec("UTF-8");
-    QString niv = configExo.value("niveaux").toString();
+    QString niv = configExo.value("niveaux_"+locale).toString();
     QStringList listeNiv = niv.split(";");
     qDebug()<<"Niveaux : "<<niv;
     qDebug()<<"Niveaux en liste : "<<listeNiv;
@@ -145,8 +155,8 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
 {
     if (!ui->cbNombre->currentText().isNull())
         m_nomExercice.append(ui->cbNombre->currentText());
-    exercice* exerciceLance = new exercice(m_nomExercice,0,ui->cbNombre->currentText().toInt(),ui->cbNiveau->currentText());
-    qDebug()<<"---> Exercice appelé avec "<<m_nomExercice<<", "<<ui->cbNombre->currentText().toInt()<<", "<<ui->cbNiveau->currentText();
+    exercice* exerciceLance = new exercice(m_nomExercice,0,ui->cbNombre->currentText().toInt(),m_listeNiveaux[ui->cbNiveau->currentIndex()]);
+    qDebug()<<"---> Exercice appelé avec "<<m_nomExercice<<", "<<ui->cbNombre->currentText().toInt()<<", "<<m_listeNiveaux[ui->cbNiveau->currentIndex()];
     exerciceLance->show();
     this->close();
 }

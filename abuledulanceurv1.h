@@ -26,6 +26,7 @@ private:
     QString m_nomExercice;
     QString m_intituleExercice;
     QStringList m_listeExercices;
+    QStringList m_listeNiveaux;
 
 private slots:
     void fillCbNombre(QString);
