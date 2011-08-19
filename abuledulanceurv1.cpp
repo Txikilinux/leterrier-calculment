@@ -42,7 +42,7 @@ void AbuleduLanceurV1::fillCbExercice()
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
     configExo.setIniCodec("UTF-8");
     if (!configExo.childKeys().contains("niveaux_"+locale)) {
-        QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,trUtf8("Problème !!"),trUtf8("Fichier de configuration ne contient pas la clef : niveaux_")+locale);
+        QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,trUtf8("Problème !!"),trUtf8("Le fichier de configuration ne contient pas la clef : niveaux_")+locale);
         alertBox->show();
         this->deleteLater();
         return;
@@ -59,7 +59,7 @@ qDebug()<<"dans le général de config on a "<<configExo.childKeys();
         configExo.beginGroup(exerc);
         //qDebug()<<"Je rentre dans "<<exerc<<" et j'ai "<<configExo.childKeys();
         if (!configExo.childKeys().contains("intitule_"+locale)) {
-            QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,trUtf8("Problème !!"),trUtf8("Fichier de configuration ne contient pas toutes les clefs : intitule_")+locale);
+            QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,trUtf8("Problème !!"),trUtf8("Le fichier de configuration ne contient pas toutes les clefs : intitule_")+locale);
             alertBox->show();
             this->deleteLater();
             return;
