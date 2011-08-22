@@ -65,6 +65,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     }
 
     m_trace = new QString("");
+    m_listeEchecs = new QStringList();
 
     m_consignes = new QTextEdit(this);
     m_consignes->setWordWrapMode(QTextOption::WordWrap);
@@ -447,6 +448,11 @@ void exercice::on_btnFeu_clicked()
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
         QPixmap* imgN = new QPixmap("./data/images/will-lose.png");
+        qDebug()<<*m_listeEchecs;
+        m_listeEchecs->append(QString::number(m_baudruche->getMGOperande())+";"+m_baudruche->getMOperation()+";"+QString::number(m_baudruche->getMDOperande())+";"+QString::number(reponse));
+        qDebug()<<*m_listeEchecs;
+        qDebug()<<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++ "<<QString::number(m_baudruche->getMGOperande());
+
         imgN->scaledToHeight(imgN->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgN);
         evaluation="d";
@@ -600,4 +606,17 @@ void exercice::pousseLogs(QString neSertPasDavantage)
         reponseAttendueEnString.setNum(m_resultatEnCours);
     setAbeLineLog(m_baudruche->getMLigne(),m_ui->leResultat->text(),m_score, m_total,"z",reponseAttendueEnString);
     qDebug()<<getPluginLogs();
+}
+
+void exercice::on_btn2chance_clicked()
+{
+    while (!m_listeEchecs->isEmpty())
+    {
+        QString operationRatee = m_listeEchecs->takeFirst();
+        float operG = operationRatee.split(";")[0].toFloat();
+        QString signe = operationRatee.split(";")[1];
+        float operD = operationRatee.split(";")[2].toFloat();
+        float result = operationRatee.split(";")[3].toFloat();
+        qDebug()<<operG<<" - "<<signe<<" - "<<operD<<" - "<<result;
+    }
 }

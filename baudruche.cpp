@@ -250,6 +250,13 @@ baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
     qDebug()<<"baudruche::constructeur affichage (2)";
 }
 
+//constructeur specifique à la remédiation
+baudruche::baudruche(float operandeG, float operandeD, float resultatAttendu, QString signeOperation,QPoint pos,QObject* parent,QString image)
+{
+
+}
+
+
 void baudruche::dessineMoi(QString image, int taillePolice)
 {
     qDebug()<<"baudruche::dessineMoi(1)";
@@ -385,7 +392,16 @@ void baudruche::detruireTps()
 {
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     if (this!=NULL) {
-        emit valueChanged(m_resultat);//pas sûr utile si baudruche termine temps
+//        emit valueChanged(m_resultat);//pas sûr utile si baudruche termine temps, en fait probablement si pour récupérer les "ratés" mais plutôt ce qui suit qui inclut le cas d'approximation
+
+        if (m_approximation==0) {
+            emit valueChanged(m_resultat);//ici le problème
+            qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
+        }
+        else {emit valueChanged(m_approximation);
+            qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
+        }
+
         //Résolution bug Hayat : les signaux sont émits par detruire() connecté à la fin de tiptip
 //        emit destroyed(true);
 //        emit destroyed();

@@ -15,6 +15,7 @@ public:
     baudruche(int intMaxG, int intMaxD, int tempsAccorde,QString op,QPoint pos,QObject* parent=0,QString image="");
     baudruche(int intDroite, int tempsAccorde,QString op,QPoint pos, QObject* parent=0,QString image="");
     baudruche(int pts, QPoint pos, QObject* parent=0,QString image="");
+    baudruche(float operandeG, float operandeD, float resultatAttendu, QString signeOperation,QPoint pos,QObject* parent=0,QString image="");
     QPoint getMPosition();
     float getMResultat();
     float getMApproximation();

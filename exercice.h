@@ -34,6 +34,7 @@ private:
     QPixmap* m_imgFond;
     baudruche* m_baudruche;
     QString* m_trace;
+    QStringList* m_listeEchecs;
     int m_minG;
     int m_maxG;
     int m_minD;
@@ -57,6 +58,7 @@ private slots:
     void on_btnQuitter_clicked();
     void afficheResultat(QString);
     void pousseLogs(QString);
+    void on_btn2chance_clicked();
 };
 
 #endif // EXERCICE_H
