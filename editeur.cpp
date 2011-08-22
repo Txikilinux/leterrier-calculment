@@ -55,10 +55,10 @@ Editeur::Editeur(QWidget *parent) :
         m_settings->endGroup();
     }
 
-        m_ui->cbNiveau->addItem("Niveau1", 1);
-            m_ui->cbNiveau->addItem("Niveau2", 2);
-            m_ui->cbNiveau->addItem("Niveau3", 3);
-            m_ui->cbNiveau->addItem("Personnel",4);
+        m_ui->cbNiveau->addItem(trUtf8("Niveau1"), 1);
+            m_ui->cbNiveau->addItem(trUtf8("Niveau2"), 2);
+            m_ui->cbNiveau->addItem(trUtf8("Niveau3"), 3);
+            m_ui->cbNiveau->addItem(trUtf8("Personnel"),4);
 
 //        m_ui->cbOperation->addItem("Addition", 1);
 //            m_ui->cbOperation->addItem("Multiplication", 2);
@@ -96,7 +96,12 @@ Editeur::Editeur(QWidget *parent) :
         connect(m_ui->sldVitesse, SIGNAL(valueChanged(int)), m_ui->pbVitesse, SLOT(setValue(int)));
 
         //Initialisation attributs de la classe
-        m_niveauEnCours = new QString(m_ui->cbNiveau->currentText());
+//        m_niveauEnCours = new QString(m_ui->cbNiveau->currentText());
+        QString niveauLu = m_ui->cbNiveau->currentText();
+        if (niveauLu.right(1).toInt() == 0) {
+            m_niveauEnCours = new QString("Personnel");
+            }
+        else m_niveauEnCours = new QString("Niveau"+niveauLu.right(1));
         m_operationEnCours = new QString(associeNomIntitule(m_ui->cbOperation->currentText()));
         m_minG=m_maxG=m_minD=m_maxD=0;
 
@@ -311,6 +316,8 @@ void Editeur::sauverNiveau(QString niveau)
         config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
         config.beginGroup(*m_operationEnCours);
             config.beginGroup(niveau);
+            if ((m_operationEnCours->left(1) != "t") && (m_operationEnCours->left(1) != "c"))
+            {
                 if (m_operationEnCours->left(10)!="OdGrandeur") {
                     config.setValue("MinGauche", m_ui->spbGMin->value());
                     config.setValue("MaxGauche", m_ui->spbGMax->value());
@@ -321,6 +328,7 @@ void Editeur::sauverNiveau(QString niveau)
                     config.setValue("MaxGauche",m_ui->cbMaxG->currentText().toInt());
                     config.setValue("MaxDroite",m_ui->cbMaxD->currentText().toInt());
                 }
+            }
                 config.setValue("TempsAccorde",m_ui->sldVitesse->value());
             config.endGroup();
         config.endGroup();
@@ -379,6 +387,11 @@ void Editeur::chargerNiveau(QString niveau)
 
 void Editeur::changerNiveau(QString chaine)
 {
+    QString chaineEnParametre = chaine;
+    if (chaineEnParametre.right(1).toInt() == 0) {
+        chaine = "Personnel";
+        }
+    else chaine = "Niveau"+chaineEnParametre.right(1);
     this->sauverNiveau(*m_niveauEnCours);
     this->chargerNiveau(chaine);
     *m_niveauEnCours = chaine;
@@ -392,6 +405,8 @@ void Editeur::sauverOperation(QString operation)
         config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
         config.beginGroup(operation);
             config.beginGroup(*m_niveauEnCours);
+            if ((m_operationEnCours->left(1) != "t") && (m_operationEnCours->left(1) != "c"))
+            {
                 if (m_operationEnCours->left(10)!="OdGrandeur") {
                     config.setValue("MinGauche", m_ui->spbGMin->value());
                     config.setValue("MaxGauche", m_ui->spbGMax->value());
@@ -402,6 +417,7 @@ void Editeur::sauverOperation(QString operation)
                     config.setValue("MaxGauche",m_ui->cbMaxG->currentText().toInt());
                     config.setValue("MaxDroite",m_ui->cbMaxD->currentText().toInt());
                     }
+            }
                 config.setValue("TempsAccorde",m_ui->sldVitesse->value());
             config.endGroup();
         config.endGroup();

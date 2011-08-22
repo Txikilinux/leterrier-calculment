@@ -476,20 +476,24 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Quit</translation>
     </message>
     <message>
+        <location filename="../editeur.cpp" line="58"/>
         <source>Niveau1</source>
-        <translation type="obsolete">Level1</translation>
+        <translation>Level1</translation>
     </message>
     <message>
+        <location filename="../editeur.cpp" line="59"/>
         <source>Niveau2</source>
-        <translation type="obsolete">Level2</translation>
+        <translation>Level2</translation>
     </message>
     <message>
+        <location filename="../editeur.cpp" line="60"/>
         <source>Niveau3</source>
-        <translation type="obsolete">Level3</translation>
+        <translation>Level3</translation>
     </message>
     <message>
+        <location filename="../editeur.cpp" line="61"/>
         <source>Personnel</source>
-        <translation type="obsolete">Personal</translation>
+        <translation>Personal</translation>
     </message>
     <message utf8="true">
         <location filename="../editeur.cpp" line="49"/>
@@ -749,89 +753,89 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Quit</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="75"/>
+        <location filename="../exercice.cpp" line="81"/>
         <source>Complément additif à </source>
         <translation>Additional additive to </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="81"/>
+        <location filename="../exercice.cpp" line="87"/>
         <source>Multiples de </source>
         <translation>Multiple of </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="88"/>
+        <location filename="../exercice.cpp" line="94"/>
         <source>Table de multiplication par </source>
         <translation>Multiplication table of </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="94"/>
+        <location filename="../exercice.cpp" line="100"/>
         <source>Table d&apos;addition de </source>
         <translation>Addition table of </translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="99"/>
+        <location filename="../exercice.cpp" line="105"/>
         <source>Additions de nombres inférieurs à </source>
         <translation>Additions with numbers less than </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="99"/>
-        <location filename="../exercice.cpp" line="107"/>
-        <location filename="../exercice.cpp" line="115"/>
+        <location filename="../exercice.cpp" line="105"/>
+        <location filename="../exercice.cpp" line="113"/>
+        <location filename="../exercice.cpp" line="121"/>
         <source> et </source>
         <translation> and </translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="107"/>
+        <location filename="../exercice.cpp" line="113"/>
         <source>Soustractions de nombres inférieurs à </source>
         <translation>Subtraction with numbers less than </translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="115"/>
+        <location filename="../exercice.cpp" line="121"/>
         <source>Multiplications de nombres inférieurs à </source>
         <translation>Multiplication with numbers less than </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="124"/>
+        <location filename="../exercice.cpp" line="130"/>
         <source>Ordres de grandeur sur des </source>
         <translation>Order of magnitude with </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="127"/>
+        <location filename="../exercice.cpp" line="133"/>
         <source>additions</source>
         <translation>additions</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="131"/>
+        <location filename="../exercice.cpp" line="137"/>
         <source>soustractions</source>
         <translation>subtractions</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="135"/>
+        <location filename="../exercice.cpp" line="141"/>
         <source>multiplications</source>
         <translation>multiplications</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="344"/>
+        <location filename="../exercice.cpp" line="350"/>
         <source>OpÃ©ration inexistante</source>
         <translation>Non existing operation</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="344"/>
+        <location filename="../exercice.cpp" line="350"/>
         <source>, ça n&apos;existe pas comme opération...</source>
         <translation>, it doesn&apos;t exist as operation...</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="435"/>
+        <location filename="../exercice.cpp" line="441"/>
         <source>GAGNE</source>
         <translation>WON</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="442"/>
+        <location filename="../exercice.cpp" line="448"/>
         <source>PERDU</source>
         <translation>LOST</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="514"/>
+        <location filename="../exercice.cpp" line="520"/>
         <source>Tu dois trouver l&apos;ordre de grandeur du résultat du calcul proposé. 
 Pour cela, tu vas arrondir les nombres en ne gardant qu&apos;un seul chiffre significatif, puis faire l&apos;opération sur les nombres arrondis. 
 Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>

@@ -56,7 +56,13 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_nbTotalQuestions = config.value("NombreBallons").toInt();
     setAbeNbTotalQuestions(m_nbTotalQuestions);
 
-    m_level = niveau;
+    if (niveau.isEmpty()) m_level = niveau;
+    else {
+    if (niveau.right(1).toInt() == 0) {
+        m_level = "Personnel";
+        }
+    else m_level = "Niveau"+niveau.right(1);
+    }
 
     m_trace = new QString("");
 
