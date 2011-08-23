@@ -251,9 +251,23 @@ baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
 }
 
 //constructeur specifique à la remédiation
-baudruche::baudruche(float operandeG, float operandeD, float resultatAttendu, QString signeOperation,QPoint pos,QObject* parent,QString image)
+baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString operation, QPoint pos,QObject* parent,QString image)
 {
-
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
+    if (operation=="addition" || operation=="tableA" || operation=="OdGrandeurAddition" || operation=="complementA" || operation=="") m_op = "+";
+    else if (operation=="soustraction" || operation=="OdGrandeurSoustraction") m_op = "-";
+        else if (operation=="multiplication" || operation=="tableM" || operation=="OdGrandeurMultiplication" || operation=="complementM") m_op = "x";
+    m_position.setX(pos.x());
+    m_position.setY(pos.y());
+    m_timer = new QTimeLine(tempsAccorde*1000,this);
+    m_affichage = "";
+        m_affichage.append(QString::number(operandeG));
+        m_affichage.append(" ");
+        m_affichage.append(m_op);
+        m_affichage.append(" ");
+        m_affichage.append(QString::number(operandeD));
+        if (operation.left(3) == "OdG") m_affichage.append(QString::fromUtf8(" ≈"));
+    dessineMoi(image,16*factX);
 }
 
 

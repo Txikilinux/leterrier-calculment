@@ -23,38 +23,35 @@ public:
 
 protected:
     virtual void changeEvent(QEvent *e);
+    int m_score;
+    int m_total;
+    QStringList* m_listeEchecs;
+    baudruche* m_baudruche;
+    QPoint* m_depart;
+    QString m_operation;
+    QPixmap* m_imgFond;
+    QGraphicsScene* m_scene;
 
 private:
     Ui::exercice *m_ui;
-    int m_score;
-    int m_total;
-    QPoint* m_depart;
-    QString m_operation;
-    QGraphicsScene* m_scene;
-    QPixmap* m_imgFond;
-    baudruche* m_baudruche;
     QString* m_trace;
-    QStringList* m_listeEchecs;
     int m_minG;
     int m_maxG;
     int m_minD;
     int m_maxD;
-
     int m_resultatEnCours;
     int m_cible;
     void chargerParametres();
     double m_ratioTaille;
     QTextEdit* m_consignes;
 
-
-
-private slots:
+protected slots:
     void on_btnAide_clicked();
     void on_btnRejouer_clicked();
     void on_btnEditeur_clicked();
     void on_leResultat_returnPressed();
-    void on_btnFeu_clicked();
-    void on_btnBallon_clicked();
+    virtual void on_btnFeu_clicked();
+    virtual void on_btnBallon_clicked();
     void on_btnQuitter_clicked();
     void afficheResultat(QString);
     void pousseLogs(QString);

@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     interfacecompetence.cpp \
     abuleduexercicev0.cpp \
     abuleduaproposv0.cpp \
-    abuledulanceurv1.cpp
+    abuledulanceurv1.cpp \
+    exercicerepechage.cpp
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
@@ -23,7 +24,8 @@ HEADERS += interface.h \
     interfacecompetence.h \
     abuleduexercicev0.h \
     abuleduaproposv0.h \
-    abuledulanceurv1.h
+    abuledulanceurv1.h \
+    exercicerepechage.h
 FORMS += interface.ui \
     exercice.ui \
     editeur.ui \
