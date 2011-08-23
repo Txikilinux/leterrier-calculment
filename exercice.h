@@ -26,6 +26,7 @@ protected:
     virtual void changeEvent(QEvent *e);
     int m_score;
     int m_total;
+    int m_resultatEnCours;
     QStringList* m_listeEchecs;
     baudruche* m_baudruche;
     QPoint* m_depart;
@@ -40,7 +41,6 @@ private:
     int m_maxG;
     int m_minD;
     int m_maxD;
-    int m_resultatEnCours;
     int m_cible;
     void chargerParametres();
     double m_ratioTaille;

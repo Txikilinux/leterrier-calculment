@@ -49,6 +49,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     this->setWindowModality(Qt::ApplicationModal);
     this->setAbeExerciceName(exo);
     m_ui->btnAide->hide();
+    m_ui->lblMsgReponse->hide();
 
     m_operation=exo;
     m_cible=val;
@@ -180,6 +181,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btnFeu->setDisabled(true);
     m_ui->btnRejouer->setDisabled(true);
     m_ui->leResultat->setDisabled(true);
+    m_ui->btn2chance->setEnabled(false);
     m_ui->btnRejouer->setIcon(QIcon("./data/images/souris.png"));
     m_ui->btnAide->setIcon(QIcon("./data/images/souris.png"));
     m_ui->btnQuitter->setIcon(QIcon("./data/images/souris.png"));
@@ -554,8 +556,10 @@ void exercice::afficheResultat(QString neSertARien)
 
     //la ligne ci-dessous a comme seule utilité parce qu'il me fallait un paramètre QString au SLOT (compatibilité SIGNAL) de ne pas avoir un warning
     neSertARien="";
+    m_ui->btnBallon->setEnabled(false);
 
     if (m_total==m_nbTotalQuestions) {
+    if (!m_listeEchecs->isEmpty()) m_ui->btn2chance->setEnabled(true);
     m_ui->btnRejouer->setEnabled(true);
         //debug eric
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbTotalQuestions << "et score :: " << m_score;
@@ -619,4 +623,5 @@ void exercice::on_btn2chance_clicked()
 {
     ExerciceRepechage* essaieEncore = new ExerciceRepechage(*m_listeEchecs, m_score, m_total, m_operation);
     essaieEncore->show();
+    this->deleteLater();
 }

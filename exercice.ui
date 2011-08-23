@@ -128,7 +128,7 @@
            </size>
           </property>
           <property name="text">
-           <string>.</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -138,10 +138,31 @@
         <item>
          <widget class="QLabel" name="lblMsg">
           <property name="text">
-           <string>..</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblMsgReponse">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color : #ff6b00;
+font: 10pt;
+</string>
+          </property>
+          <property name="text">
+           <string>Réponse exacte : </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
