@@ -22,6 +22,7 @@ public:
     int m_temps;
 
 protected:
+    Ui::exercice *m_ui;
     virtual void changeEvent(QEvent *e);
     int m_score;
     int m_total;
@@ -31,9 +32,9 @@ protected:
     QString m_operation;
     QPixmap* m_imgFond;
     QGraphicsScene* m_scene;
+    void animeBaudruche();
 
 private:
-    Ui::exercice *m_ui;
     QString* m_trace;
     int m_minG;
     int m_maxG;

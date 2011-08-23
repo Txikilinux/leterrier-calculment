@@ -311,6 +311,31 @@ void exercice::chargerParametres()
                 }
 }
 
+void exercice::animeBaudruche()
+{
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
+    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+    QGraphicsItemAnimation *animation = new QGraphicsItemAnimation(m_scene);
+        animation->setItem(m_baudruche);
+        animation->setTimeLine(m_baudruche->m_timer);
+        if (m_operation=="addition") {
+            for (int i = 0; i < 200; i++)
+                animation->setPosAt(i/200.0, QPointF((3.8*i*factX) ,0 ));
+        }
+        else if(m_operation.left(6)=="tableA"|| m_operation.left(6)=="tableM") {
+            for (int i = 0; i < 200; i++)
+                animation->setPosAt(i/200.0, QPointF(0 , 3.3*i*factY));
+        }
+        else for (int i = 0; i < 200; i++)
+                //animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
+                animation->setPosAt(i/200.0, QPointF(0 , (-2.5*i*factY)));
+            // animation->setPosAt(i/200.0, QPointF(0 , (3*i)+(i*0.8))); --> pour la faire tomber
+            //animation->setPosAt(i/200.0, QPointF((-3*i)-(i*0.8) ,0 )); --> pour la faire aller à gauche
+            //animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 )); --> pour la faire aller à droite
+
+        m_baudruche->m_timer->start();
+}
+
 void exercice::on_btnQuitter_clicked()
 {
     this->close();
@@ -405,27 +430,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         m_ui->leResultat->setValidator(new QRegExpValidator(expressionReguliere, this));
 
     //animation du ballon
-    QGraphicsItemAnimation *animation = new QGraphicsItemAnimation(m_scene);
-        animation->setItem(m_baudruche);
-        animation->setTimeLine(m_baudruche->m_timer);
-        if (m_operation=="addition") {
-            for (int i = 0; i < 200; i++)
-                animation->setPosAt(i/200.0, QPointF((3.8*i*factX) ,0 ));
-        }
-        else if(m_operation.left(6)=="tableA"|| m_operation.left(6)=="tableM") {
-            for (int i = 0; i < 200; i++)
-                animation->setPosAt(i/200.0, QPointF(0 , 3.3*i*factY));
-        }
-        else for (int i = 0; i < 200; i++)
-                //animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
-                animation->setPosAt(i/200.0, QPointF(0 , (-2.5*i*factY)));
-            // animation->setPosAt(i/200.0, QPointF(0 , (3*i)+(i*0.8))); --> pour la faire tomber
-            //animation->setPosAt(i/200.0, QPointF((-3*i)-(i*0.8) ,0 )); --> pour la faire aller à gauche
-            //animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 )); --> pour la faire aller à droite
-
-        m_baudruche->m_timer->start();
-
-
+    animeBaudruche();
 }
 
 void exercice::on_btnFeu_clicked()

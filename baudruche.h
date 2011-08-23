@@ -48,6 +48,7 @@ signals:
 
 private:
     QString m_op;
+    QString m_nomOperation;
     QString m_nomImage;
     float g_operande;
     float d_operande;
@@ -55,11 +56,8 @@ private:
     float m_approximation;
     QString m_ligne;
     QString m_affichage;
-
-
-
-//    QTimeLine m_timer;
     void dessineMoi(QString,int);
+    void construisAffichage();
 };
 
 #endif // BAUDRUCHE_H

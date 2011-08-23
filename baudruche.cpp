@@ -50,6 +50,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
 
     qDebug()<<"Parent de baudruche: "<<parent->objectName();
+    m_nomOperation = operation;
     m_nomImage = image;
     m_approximation=0;
     if (operation=="addition" || operation=="tableA" || operation=="") m_op = "+";
@@ -80,18 +81,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     //QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
-    //Je dois convertir mes entiers en QString pour les concatener
-    QString aGauche, aDroite;
-        aGauche = aGauche.setNum(g_operande);
-        aDroite = aDroite.setNum(d_operande);
-    //Je peux maintenant construire mon opération en ligne
-    m_affichage = "";
-        m_affichage.append(aGauche);
-        m_affichage.append(" ");
-        m_affichage.append(m_op);
-        m_affichage.append(" ");
-        m_affichage.append(aDroite);
-
+    construisAffichage();
     dessineMoi(image,16*factX);
     qDebug()<<" Taille police "<<16*factX;
         
@@ -106,6 +96,7 @@ baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operatio
     qDebug()<<"baudruche::constructeur valeurs approchées (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
+    m_nomOperation = operation;
     m_approximation=0;
         if (operation=="OdGrandeurAddition") m_op = "+";
         else if (operation=="OdGrandeurSoustraction") m_op = "-";
@@ -130,24 +121,12 @@ baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operatio
         QScriptEngine calculateur;
         QScriptValue resultat = calculateur.evaluate(m_ligne);
         m_approximation = resultat.toNumber();
-qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeurApprochee(d_operande, intMaxD)<<" valeurAppro : "<<m_approximation;
+    qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeurApprochee(d_operande, intMaxD)<<" valeurAppro : "<<m_approximation;
 
     //QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
-    //Je dois convertir mes entiers en QString pour les concatener
-    QString aGauche, aDroite;
-        aGauche = aGauche.setNum(g_operande);
-        aDroite = aDroite.setNum(d_operande);
-    //Je peux maintenant construire mon opération en ligne
-    m_affichage = "";
-        m_affichage.append(aGauche);
-        m_affichage.append(" ");
-        m_affichage.append(m_op);
-        m_affichage.append(" ");
-        m_affichage.append(aDroite);
-        m_affichage.append(QString::fromUtf8(" ≈"));
-
+    construisAffichage();
     dessineMoi(image,16*factX);
 
     this->emetApprox();
@@ -160,6 +139,7 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
     qDebug()<<"baudruche::constructeur compléments (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
+    m_nomOperation = operation;
     if (operation=="complementA") m_op = "+";
     else m_op = "x";
     m_position.setX(pos.x());
@@ -191,20 +171,10 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
     //QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
-    //Je dois convertir mes entiers en QString pour les concatener
-    QString aGauche, aDroite;
-        aGauche = aGauche.setNum(g_operande);
-        aDroite = aDroite.setNum(d_operande);
-    //Je peux maintenant construire mon opération en ligne
-    m_affichage = "";
-        m_affichage.append(aGauche);
-        m_affichage.append(" ");
-        m_affichage.append(m_op);
-        m_affichage.append(" ? = ");
-        m_affichage.append(aDroite);
-
     QRect ecran;
             ecran=QApplication::desktop()->screenGeometry();
+
+    construisAffichage();
     dessineMoi(image,12*factX);
 
     this->emetRes();
@@ -260,18 +230,18 @@ baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString
     m_position.setX(pos.x());
     m_position.setY(pos.y());
     m_timer = new QTimeLine(tempsAccorde*1000,this);
-    m_affichage = "";
-        m_affichage.append(QString::number(operandeG));
-        m_affichage.append(" ");
-        m_affichage.append(m_op);
-        m_affichage.append(" ");
-        m_affichage.append(QString::number(operandeD));
-        if (operation.left(3) == "OdG") m_affichage.append(QString::fromUtf8(" ≈"));
+    m_nomOperation = operation;
+    g_operande = operandeG;
+    d_operande = operandeD;
+
+    construisAffichage();
     dessineMoi(image,16*factX);
 }
 
 
 void baudruche::dessineMoi(QString image, int taillePolice)
+
+
 {
     qDebug()<<"baudruche::dessineMoi(1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
@@ -320,6 +290,18 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         m_texteAffiche = new QGraphicsTextItem();
         m_texteAffiche = affichage;
     qDebug()<<"baudruche::dessineMoi(2)";
+}
+
+void baudruche::construisAffichage()
+{
+    m_affichage = "";
+        m_affichage.append(QString::number(g_operande));
+        m_affichage.append(" ");
+        m_affichage.append(m_op);
+        if (m_nomOperation.left(10) == "complement") m_affichage.append(" ? = ");
+        else m_affichage.append(" ");
+        m_affichage.append(QString::number(d_operande));
+        if (m_nomOperation.left(3) == "OdG") m_affichage.append(QString::fromUtf8(" ≈"));
 }
 
 QPoint baudruche::getMPosition()
