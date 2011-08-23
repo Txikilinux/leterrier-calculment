@@ -411,68 +411,81 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="158"/>
+        <location filename="../editeur.cpp" line="163"/>
         <source>Addition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="162"/>
+        <location filename="../editeur.cpp" line="167"/>
         <source>Multiplication</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="193"/>
+        <location filename="../editeur.cpp" line="198"/>
         <source>OdG Additions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="195"/>
+        <location filename="../editeur.cpp" line="200"/>
         <source>OdG Soustractions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="225"/>
+        <location filename="../editeur.cpp" line="230"/>
         <source>OdG Multiplications</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../editeur.cpp" line="252"/>
+        <location filename="../editeur.cpp" line="257"/>
         <source>Compléments à 10</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../editeur.cpp" line="256"/>
+        <location filename="../editeur.cpp" line="261"/>
         <source>Compléments à 100</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../editeur.cpp" line="258"/>
+        <location filename="../editeur.cpp" line="263"/>
         <source>Compléments à 1000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="263"/>
+        <location filename="../editeur.cpp" line="268"/>
         <source>Multiples de 5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="264"/>
+        <location filename="../editeur.cpp" line="269"/>
         <source>Multiples de </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="270"/>
+        <location filename="../editeur.cpp" line="275"/>
         <source>Table d&apos;addition de </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="272"/>
+        <location filename="../editeur.cpp" line="277"/>
         <source>Table de multiplication par </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="160"/>
+        <location filename="../editeur.cpp" line="165"/>
         <source>Soustraction</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ExerciceRepechage</name>
+    <message>
+        <location filename="../exercicerepechage.cpp" line="67"/>
+        <source>GAGNE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../exercicerepechage.cpp" line="74"/>
+        <source>PERDU</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -576,22 +589,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>baudruche</name>
     <message>
-        <location filename="../baudruche.cpp" line="230"/>
+        <location filename="../baudruche.cpp" line="200"/>
         <source>Ton score est de </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="232"/>
+        <location filename="../baudruche.cpp" line="202"/>
         <source> point.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="233"/>
+        <location filename="../baudruche.cpp" line="203"/>
         <source> points.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="392"/>
+        <location filename="../baudruche.cpp" line="404"/>
         <source>TROP TARD...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -640,100 +653,105 @@ p, li { white-space: pre-wrap; }
         <source>&amp;Aide</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="../exercice.ui" line="236"/>
-        <source>&amp;Editeur</source>
+        <source>2ème chance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../exercice.ui" line="256"/>
+        <source>&amp;Editeur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../exercice.ui" line="276"/>
         <source>&amp;Quitter</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="81"/>
+        <location filename="../exercice.cpp" line="83"/>
         <source>Complément additif à </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="87"/>
+        <location filename="../exercice.cpp" line="89"/>
         <source>Multiples de </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="94"/>
+        <location filename="../exercice.cpp" line="96"/>
         <source>Table de multiplication par </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="100"/>
+        <location filename="../exercice.cpp" line="102"/>
         <source>Table d&apos;addition de </source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="105"/>
+        <location filename="../exercice.cpp" line="107"/>
         <source>Additions de nombres inférieurs à </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="105"/>
-        <location filename="../exercice.cpp" line="113"/>
-        <location filename="../exercice.cpp" line="121"/>
+        <location filename="../exercice.cpp" line="107"/>
+        <location filename="../exercice.cpp" line="115"/>
+        <location filename="../exercice.cpp" line="123"/>
         <source> et </source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="113"/>
+        <location filename="../exercice.cpp" line="115"/>
         <source>Soustractions de nombres inférieurs à </source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="121"/>
+        <location filename="../exercice.cpp" line="123"/>
         <source>Multiplications de nombres inférieurs à </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="130"/>
+        <location filename="../exercice.cpp" line="132"/>
         <source>Ordres de grandeur sur des </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="133"/>
+        <location filename="../exercice.cpp" line="135"/>
         <source>additions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="137"/>
+        <location filename="../exercice.cpp" line="139"/>
         <source>soustractions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="141"/>
+        <location filename="../exercice.cpp" line="143"/>
         <source>multiplications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="350"/>
+        <location filename="../exercice.cpp" line="378"/>
         <source>OpÃ©ration inexistante</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="350"/>
+        <location filename="../exercice.cpp" line="378"/>
         <source>, ça n&apos;existe pas comme opération...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="441"/>
+        <location filename="../exercice.cpp" line="449"/>
         <source>GAGNE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="448"/>
+        <location filename="../exercice.cpp" line="456"/>
         <source>PERDU</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="520"/>
+        <location filename="../exercice.cpp" line="533"/>
         <source>Tu dois trouver l&apos;ordre de grandeur du résultat du calcul proposé. 
 Pour cela, tu vas arrondir les nombres en ne gardant qu&apos;un seul chiffre significatif, puis faire l&apos;opération sur les nombres arrondis. 
 Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>

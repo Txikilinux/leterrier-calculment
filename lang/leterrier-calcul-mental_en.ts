@@ -46,13 +46,13 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;calcul_mental&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:xx-large; font-weight:600;&quot;&gt;C&lt;/span&gt;&lt;span style=&quot; font-size:xx-large; font-weight:600;&quot;&gt;alcul mental&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;presentation&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;P&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;résentation&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Mental Calculation is a software tool based upon David Lucardi&apos;s software &apos;Calcul Reflechi&apos;. It trains children in mental calculating as stipulated by the french Ministry of education for primary schools. Working alongside an Abuledu server, &apos;Mental Calculation&apos; 1.0 records a user&apos;s activity and is able to restore work in order to explore skills and to analyse errors. &apos;Mental Calculation 1.2&apos;   allows teachers to complete handbooks itemising personal skills of users. &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;fonctionnalites&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;F&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;onctionnalités&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;calcul_mental&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:xx-large; font-weight:600;&quot;&gt;M&lt;/span&gt;&lt;span style=&quot; font-size:xx-large; font-weight:600;&quot;&gt;ental calculation&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;presentation&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;P&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;resentation&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Mental Calculation is a software tool based upon David Lucardi&apos;s software &apos;Calcul Reflechi&apos;. It trains children in mental calculating as stipulated by the french Ministry of education for primary schools. Working alongside an Abuledu server, &apos;Mental Calculation&apos; 1.0 records a user&apos;s activity and is able to restore work in order to explore skills and to analyse errors. &apos;Mental Calculation 1.2&apos; will allow teachers to complete handbooks itemising personal skills of users. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;fonctionnalites&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;F&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;unctionalities&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-interface1.jpg&quot; /&gt; &lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Proposed activities include : (1) addition, (2) subtraction, (3) multiplication of integers (4) addition tables (5) times tables (6) additional additives, (7) multiples (8) order of magnitude - (9) an editor is able to make modifications in some exercises. &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;utilisation&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;U&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;tilisation&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;utilisation&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;U&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;se&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Exercises using addition, subtraction, and multiplication are launched by clicking directly on the corresponding area. &lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-multiplex.jpg&quot; /&gt; &lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A moving object ( a balloon in this example) carries the calculation to be performed. Setting the cursor directly in the desired field allows the user to type an answer. This is then evaluated through clicking on &quot;suggest&quot; or typing &apos;Enter&apos;.&lt;/p&gt;
@@ -60,7 +60,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This result is evaluated... and recorded if an Abuledu server is available. &lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Areas corresponding to the activities of others lead to a secondary interface where users make their selection.&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-interface2.jpg&quot; /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;edition&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;E&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;dition&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;edition&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;E&lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;diting&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The Level editor permits modifications on &apos;operand&apos; values. Time allowances are given for exercises. &lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;data/images/leterrier-calculment-editeur.jpg&quot; /&gt; &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -88,7 +88,7 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;RSS streamed from &quot;libre pedagosite&quot; are automatically downloaded when the application is launched.Do  not change anything in this window.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;RSS streamed from &quot;libre pedagosite&quot; is automatically downloaded when the application is launched.Do not change anything in this window.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:11pt;&quot;&gt;Example: http://libre.pedagosite.net/search/leterrier-calculment&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -186,11 +186,11 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Teachers who appreciate Abuledu software and wish to help in its  implemenation/improvement.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Teachers or Educators who appreciate Abuledu software and wish to help in its implemenation/improvement.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Buy the services of the RyXeo company - RyXeo carries the Abeledu project and hires developers. &lt;a href=&quot;https://ryxeo.com/boutique/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://ryxeo.com/boutique/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Make a donation to abuledu-fr.org association - enabling it to participate at volunteer&apos;s expenses&lt;a href=&quot;http://abuledu-fr.org/Faire-un-don-a-l-association.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://abuledu-fr.org/Faire-un-don-a-l-association.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Make a donation to abuledu-fr.org association - promoting the programme, covering expenses and assisting volunteers.&lt;a href=&quot;http://abuledu-fr.org/Faire-un-don-a-l-association.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://abuledu-fr.org/Faire-un-don-a-l-association.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3. Participate in a &apos;help&apos; forum to give a boost to people who are not familiar with this software.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
@@ -501,67 +501,67 @@ p, li { white-space: pre-wrap; }
         <translation>Settings file already exists</translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="158"/>
+        <location filename="../editeur.cpp" line="163"/>
         <source>Addition</source>
         <translation>Addition</translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="162"/>
+        <location filename="../editeur.cpp" line="167"/>
         <source>Multiplication</source>
         <translation>Multiplication</translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="193"/>
+        <location filename="../editeur.cpp" line="198"/>
         <source>OdG Additions</source>
         <translation>OoM Additions</translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="195"/>
+        <location filename="../editeur.cpp" line="200"/>
         <source>OdG Soustractions</source>
         <translation>OoM Subtractions</translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="225"/>
+        <location filename="../editeur.cpp" line="230"/>
         <source>OdG Multiplications</source>
         <translation>OoM Multiplications</translation>
     </message>
     <message utf8="true">
-        <location filename="../editeur.cpp" line="252"/>
+        <location filename="../editeur.cpp" line="257"/>
         <source>Compléments à 10</source>
         <translation>Additive complement to 10</translation>
     </message>
     <message utf8="true">
-        <location filename="../editeur.cpp" line="256"/>
+        <location filename="../editeur.cpp" line="261"/>
         <source>Compléments à 100</source>
         <translation>Additive complement to 100</translation>
     </message>
     <message utf8="true">
-        <location filename="../editeur.cpp" line="258"/>
+        <location filename="../editeur.cpp" line="263"/>
         <source>Compléments à 1000</source>
         <translation>Additive complement to 1000</translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="263"/>
+        <location filename="../editeur.cpp" line="268"/>
         <source>Multiples de 5</source>
         <translation>Multiples of 5</translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="264"/>
+        <location filename="../editeur.cpp" line="269"/>
         <source>Multiples de </source>
         <translation>Multiples of </translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="270"/>
+        <location filename="../editeur.cpp" line="275"/>
         <source>Table d&apos;addition de </source>
         <translation>Addition table of </translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="272"/>
+        <location filename="../editeur.cpp" line="277"/>
         <source>Table de multiplication par </source>
         <translation>Time table of </translation>
     </message>
     <message>
-        <location filename="../editeur.cpp" line="160"/>
+        <location filename="../editeur.cpp" line="165"/>
         <source>Soustraction</source>
         <translation>Subtraction</translation>
     </message>
@@ -576,6 +576,19 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>OdGrandeurMultiplication</source>
         <translation type="obsolete">OoMagnitudeMultiplication</translation>
+    </message>
+</context>
+<context>
+    <name>ExerciceRepechage</name>
+    <message>
+        <location filename="../exercicerepechage.cpp" line="67"/>
+        <source>GAGNE</source>
+        <translation>WON</translation>
+    </message>
+    <message>
+        <location filename="../exercicerepechage.cpp" line="74"/>
+        <source>PERDU</source>
+        <translation>LOST</translation>
     </message>
 </context>
 <context>
@@ -678,22 +691,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>baudruche</name>
     <message>
-        <location filename="../baudruche.cpp" line="230"/>
+        <location filename="../baudruche.cpp" line="200"/>
         <source>Ton score est de </source>
         <translation>Your score is </translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="232"/>
+        <location filename="../baudruche.cpp" line="202"/>
         <source> point.</source>
         <translation> point.</translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="233"/>
+        <location filename="../baudruche.cpp" line="203"/>
         <source> points.</source>
         <translation> points.</translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="392"/>
+        <location filename="../baudruche.cpp" line="404"/>
         <source>TROP TARD...</source>
         <translation>TOO LATE...</translation>
     </message>
@@ -742,100 +755,105 @@ p, li { white-space: pre-wrap; }
         <source>&amp;Aide</source>
         <translation>&amp;Help</translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="../exercice.ui" line="236"/>
+        <source>2ème chance</source>
+        <translation>Second chance</translation>
+    </message>
+    <message>
+        <location filename="../exercice.ui" line="256"/>
         <source>&amp;Editeur</source>
         <translation>&amp;Editor</translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="256"/>
+        <location filename="../exercice.ui" line="276"/>
         <source>&amp;Quitter</source>
         <translation>&amp;Quit</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="81"/>
+        <location filename="../exercice.cpp" line="83"/>
         <source>Complément additif à </source>
         <translation>Additional additive to </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="87"/>
+        <location filename="../exercice.cpp" line="89"/>
         <source>Multiples de </source>
         <translation>Multiple of </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="94"/>
+        <location filename="../exercice.cpp" line="96"/>
         <source>Table de multiplication par </source>
         <translation>Multiplication table of </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="100"/>
+        <location filename="../exercice.cpp" line="102"/>
         <source>Table d&apos;addition de </source>
         <translation>Addition table of </translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="105"/>
+        <location filename="../exercice.cpp" line="107"/>
         <source>Additions de nombres inférieurs à </source>
         <translation>Additions with numbers less than </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="105"/>
-        <location filename="../exercice.cpp" line="113"/>
-        <location filename="../exercice.cpp" line="121"/>
+        <location filename="../exercice.cpp" line="107"/>
+        <location filename="../exercice.cpp" line="115"/>
+        <location filename="../exercice.cpp" line="123"/>
         <source> et </source>
         <translation> and </translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="113"/>
+        <location filename="../exercice.cpp" line="115"/>
         <source>Soustractions de nombres inférieurs à </source>
         <translation>Subtraction with numbers less than </translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="121"/>
+        <location filename="../exercice.cpp" line="123"/>
         <source>Multiplications de nombres inférieurs à </source>
         <translation>Multiplication with numbers less than </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="130"/>
+        <location filename="../exercice.cpp" line="132"/>
         <source>Ordres de grandeur sur des </source>
         <translation>Order of magnitude with </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="133"/>
+        <location filename="../exercice.cpp" line="135"/>
         <source>additions</source>
         <translation>additions</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="137"/>
+        <location filename="../exercice.cpp" line="139"/>
         <source>soustractions</source>
         <translation>subtractions</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="141"/>
+        <location filename="../exercice.cpp" line="143"/>
         <source>multiplications</source>
         <translation>multiplications</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="350"/>
+        <location filename="../exercice.cpp" line="378"/>
         <source>OpÃ©ration inexistante</source>
         <translation>Non existing operation</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="350"/>
+        <location filename="../exercice.cpp" line="378"/>
         <source>, ça n&apos;existe pas comme opération...</source>
         <translation>, it doesn&apos;t exist as operation...</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="441"/>
+        <location filename="../exercice.cpp" line="449"/>
         <source>GAGNE</source>
         <translation>WON</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="448"/>
+        <location filename="../exercice.cpp" line="456"/>
         <source>PERDU</source>
         <translation>LOST</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="520"/>
+        <location filename="../exercice.cpp" line="533"/>
         <source>Tu dois trouver l&apos;ordre de grandeur du résultat du calcul proposé. 
 Pour cela, tu vas arrondir les nombres en ne gardant qu&apos;un seul chiffre significatif, puis faire l&apos;opération sur les nombres arrondis. 
 Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
