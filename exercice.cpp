@@ -458,9 +458,8 @@ void exercice::on_btnFeu_clicked()
         m_ui->lblMsg->setText(tr("PERDU"));
         QPixmap* imgN = new QPixmap("./data/images/will-lose.png");
         qDebug()<<*m_listeEchecs;
-        m_listeEchecs->append(QString::number(m_baudruche->getMGOperande())+";"+m_baudruche->getMOperation()+";"+QString::number(m_baudruche->getMDOperande())+";"+QString::number(reponse));
+        m_listeEchecs->append(QString::number(m_baudruche->getMGOperande())+";"+m_baudruche->getMOperation()+";"+QString::number(m_baudruche->getMDOperande())+";"+QString::number(reponse)+";"+m_baudruche->m_nomImage);
         qDebug()<<*m_listeEchecs;
-        qDebug()<<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++ "<<QString::number(m_baudruche->getMGOperande());
 
         imgN->scaledToHeight(imgN->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgN);

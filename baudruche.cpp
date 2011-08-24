@@ -223,10 +223,11 @@ baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
 //constructeur specifique à la remédiation
 baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString operation, QPoint pos,QObject* parent,QString image)
 {
+    qDebug()<<"Opération en paramètre : "<<operation;
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    if (operation=="addition" || operation=="tableA" || operation=="OdGrandeurAddition" || operation=="complementA" || operation=="") m_op = "+";
+    if (operation=="addition" || operation.left(6)=="tableA" || operation=="OdGrandeurAddition" || operation.left(11)=="complementA" || operation=="") m_op = "+";
     else if (operation=="soustraction" || operation=="OdGrandeurSoustraction") m_op = "-";
-        else if (operation=="multiplication" || operation=="tableM" || operation=="OdGrandeurMultiplication" || operation=="complementM") m_op = "x";
+        else if (operation=="multiplication" || operation.left(6)=="tableM" || operation=="OdGrandeurMultiplication" || operation.left(11)=="complementM") m_op = "x";
     m_position.setX(pos.x());
     m_position.setY(pos.y());
     m_timer = new QTimeLine(tempsAccorde*1000,this);
@@ -240,10 +241,8 @@ baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString
 
 
 void baudruche::dessineMoi(QString image, int taillePolice)
-
-
 {
-    qDebug()<<"baudruche::dessineMoi(1)";
+    qDebug()<<"baudruche::dessineMoi(1) appelée avec comme image "<<image;
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     qDebug()<<"FactX = "<<factX;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
@@ -298,6 +297,7 @@ void baudruche::construisAffichage()
         m_affichage.append(QString::number(g_operande));
         m_affichage.append(" ");
         m_affichage.append(m_op);
+
         if (m_nomOperation.left(10) == "complement") m_affichage.append(" ? = ");
         else m_affichage.append(" ");
         m_affichage.append(QString::number(d_operande));

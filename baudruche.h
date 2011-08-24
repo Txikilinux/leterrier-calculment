@@ -34,6 +34,7 @@ public:
     QGraphicsTextItem* m_texteAffiche;
     QGraphicsPixmapItem m_image;
     QPoint m_position;
+    QString m_nomImage;
 
 public slots:
     void detruire();
@@ -49,7 +50,6 @@ signals:
 private:
     QString m_op;
     QString m_nomOperation;
-    QString m_nomImage;
     float g_operande;
     float d_operande;
     float m_resultat;
