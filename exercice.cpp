@@ -515,9 +515,11 @@ void exercice::on_btnEditeur_clicked()
 
 void exercice::on_btnRejouer_clicked()
 {
+    qDebug()<<"exercice::on_btnRejouer_clicked(1), lance un exercice avec exo : "<<m_operation<<" et cible :"<<m_cible;
     exercice* ex = new exercice(m_operation, this->parentWidget(),m_cible);
     ex->show();
     this->close();
+    //le problème en mode remédiation c'est l'absence de cible
 }
 
 void exercice::on_btnAide_clicked()
@@ -618,7 +620,7 @@ void exercice::pousseLogs(QString neSertPasDavantage)
 
 void exercice::on_btn2chance_clicked()
 {
-    ExerciceRepechage* essaieEncore = new ExerciceRepechage(*m_listeEchecs, m_score, m_total, m_operation);
+    ExerciceRepechage* essaieEncore = new ExerciceRepechage(*m_listeEchecs, m_score, m_total, m_operation,getAbeExerciceName(), getAbeSkill(),m_cible);
     essaieEncore->show();
     this->deleteLater();
 }

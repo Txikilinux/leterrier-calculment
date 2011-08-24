@@ -27,6 +27,7 @@ protected:
     int m_score;
     int m_total;
     int m_resultatEnCours;
+    int m_cible;
     QStringList* m_listeEchecs;
     baudruche* m_baudruche;
     QPoint* m_depart;
@@ -41,7 +42,6 @@ private:
     int m_maxG;
     int m_minD;
     int m_maxD;
-    int m_cible;
     void chargerParametres();
     double m_ratioTaille;
     QTextEdit* m_consignes;

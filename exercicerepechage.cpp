@@ -5,17 +5,22 @@ const int NBCHIFFRE = 3;
 const float SEUIL_NON_ACQUIS=0.4;
 const float SEUIL_ACQUIS=0.8;
 
-ExerciceRepechage::ExerciceRepechage(QStringList listeErreurs, int scoreActuel, int total, QString exo,QWidget *parent)
+ExerciceRepechage::ExerciceRepechage(QStringList listeErreurs, int scoreActuel, int total, QString exo, QString nomABE, QString skillABE, int valeur, QWidget *parent)
     :exercice(exo, parent)
 {
     qDebug()<<"ExerciceRepechage::constructeur(1)";
     m_score = scoreActuel;
     m_total = total;
     m_operation = exo;
+    m_cible = valeur;
     *m_listeEchecs = listeErreurs;
     m_ui->btn2chance->setEnabled(false);
     m_ui->lblPoints->setText(QString::number(m_score));
     m_ui->lblTotal->setText(QString::number(m_total));
+    this->setAbeExerciceName(nomABE);
+    this->setAbeSkill(skillABE);
+    this->setWindowTitle(getAbeExerciceName());
+    qDebug()<<"ExerciceRepechage::constructeur(2) "<<getAbeExerciceName();
 }
 
 void ExerciceRepechage::on_btnBallon_clicked()
