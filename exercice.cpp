@@ -392,7 +392,8 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
             }
         connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnFeu, SLOT(setDisabled(bool)));
         connect(m_baudruche, SIGNAL(destroyed()), m_ui->leResultat, SLOT(clear()));
-        connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));//
+        connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));
+        connect(m_baudruche->m_timer, SIGNAL(finished()), this, SLOT(ajouteErreur()));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
         connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
@@ -457,10 +458,7 @@ void exercice::on_btnFeu_clicked()
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
         QPixmap* imgN = new QPixmap("./data/images/will-lose.png");
-        qDebug()<<*m_listeEchecs;
-        m_listeEchecs->append(QString::number(m_baudruche->getMGOperande())+";"+m_baudruche->getMOperation()+";"+QString::number(m_baudruche->getMDOperande())+";"+QString::number(reponse)+";"+m_baudruche->m_nomImage);
-        qDebug()<<*m_listeEchecs;
-
+        ajouteErreur();
         imgN->scaledToHeight(imgN->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgN);
         evaluation="d";
@@ -623,4 +621,11 @@ void exercice::on_btn2chance_clicked()
     ExerciceRepechage* essaieEncore = new ExerciceRepechage(*m_listeEchecs, m_score, m_total, m_operation);
     essaieEncore->show();
     this->deleteLater();
+}
+
+void exercice::ajouteErreur()
+{
+    qDebug()<<"exercice::ajouteErreur(1)";
+    m_listeEchecs->append(QString::number(m_baudruche->getMGOperande())+";"+m_baudruche->getMOperation()+";"+QString::number(m_baudruche->getMDOperande())+";"+QString::number(m_resultatEnCours)+";"+m_baudruche->m_nomImage);
+    qDebug()<<*m_listeEchecs;
 }

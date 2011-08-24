@@ -56,6 +56,7 @@ protected slots:
     void on_btnQuitter_clicked();
     void afficheResultat(QString);
     void pousseLogs(QString);
+    virtual void ajouteErreur();
     void on_btn2chance_clicked();
 };
 
