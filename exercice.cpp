@@ -345,7 +345,7 @@ void exercice::on_btnQuitter_clicked()
 
 void exercice::on_btnBallon_clicked()
 {
-    qDebug()<<"________exercice::on_btnBallon_clicked(1)";
+    qDebug()<<"exercice::on_btnBallon_clicked(1)";
     if (m_consignes->isVisible()) m_consignes->hide();
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
@@ -393,7 +393,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnFeu, SLOT(setDisabled(bool)));
         connect(m_baudruche, SIGNAL(destroyed()), m_ui->leResultat, SLOT(clear()));
         connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));
-        connect(m_baudruche->m_timer, SIGNAL(finished()), this, SLOT(ajouteErreur()));
+        connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(ajouteErreur(QString)));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
         connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
@@ -458,7 +458,7 @@ void exercice::on_btnFeu_clicked()
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
         QPixmap* imgN = new QPixmap("./data/images/will-lose.png");
-        ajouteErreur();
+        ajouteErreur("Erreur calcul");
         imgN->scaledToHeight(imgN->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgN);
         evaluation="d";
@@ -625,9 +625,9 @@ void exercice::on_btn2chance_clicked()
     this->deleteLater();
 }
 
-void exercice::ajouteErreur()
+void exercice::ajouteErreur(QString msg)
 {
-    qDebug()<<"exercice::ajouteErreur(1)";
+    qDebug()<<"exercice::ajouteErreur(1)"<<msg;
     m_listeEchecs->append(QString::number(m_baudruche->getMGOperande())+";"+m_baudruche->getMOperation()+";"+QString::number(m_baudruche->getMDOperande())+";"+QString::number(m_resultatEnCours)+";"+m_baudruche->m_nomImage);
     qDebug()<<*m_listeEchecs;
 }

@@ -26,7 +26,10 @@ ExerciceRepechage::ExerciceRepechage(QStringList listeErreurs, int scoreActuel, 
 void ExerciceRepechage::on_btnBallon_clicked()
 {
     qDebug()<<"ExerciceRepechage::on_btnBallon_clicked(1)";
-    if (!m_ui->lblMsgReponse->isHidden()) m_ui->lblMsgReponse->hide();
+    if (!m_ui->lblMsgReponse->isHidden()) {
+        m_ui->lblMsgReponse->hide();
+        m_ui->lblMsgReponse->setText(trUtf8("Réponse exacte : "));
+    }
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     if (!m_listeEchecs->isEmpty())
