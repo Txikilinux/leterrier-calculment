@@ -33,7 +33,10 @@ FORMS += interface.ui \
     abuleduaproposv0.ui \
     abuledulanceurv1.ui
 TRANSLATIONS = lang/leterrier-calcul-mental_es.ts \
-    lang/leterrier-calcul-mental_en.ts
+    lang/leterrier-calcul-mental_en.ts \
+    lang/leterrier-calcul-mental_de.ts \
+    lang/leterrier-calcul-mental_af.ts \
+    lang/leterrier-calcul-mental_mi.ts
 QT += script
 QT += network
 QT += xml
