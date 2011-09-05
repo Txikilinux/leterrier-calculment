@@ -21,6 +21,7 @@ public:
     void adapte(QPixmap);
     int m_temps;
 
+
 protected:
     Ui::exercice *m_ui;
     virtual void changeEvent(QEvent *e);

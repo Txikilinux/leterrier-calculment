@@ -27,6 +27,7 @@
 #include "interfacecompetence.h"
 #include "editeur.h"
 #include "abuledulanceurv1.h"
+#include "exercicemaisonnombres.h"
 #include <QtGui>
 //#include <QPropertyAnimation>
 
@@ -93,6 +94,11 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
         AbuleduLanceurV1* lanceur = new AbuleduLanceurV1();
         lanceur->show();
                         }
+
+    else if (*m_action == "maison") {
+        ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(*m_action);
+        maisonNombres->show();
+        }
                 else {
                     exercice* ex = new exercice(*m_action,0,m_val);
                     ex->show();

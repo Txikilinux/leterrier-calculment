@@ -40,8 +40,13 @@ public slots:
     void detruire();
     void detruireTps();
 
+protected:
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
 signals:
      void valueChanged(int newValue);
+     void lacheIci(QPoint pos);
+//     void lache();
      void destroyed(bool);
      void destroyed();
      void tempsFini(QString msg);

@@ -148,6 +148,11 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
         setAbeSkill(nomCompetence);
     }
 
+    if (exo == "maison")
+    {
+        setAbeExerciceName(trUtf8("La maison des nombres"));
+    }
+
     m_imgFond = new QPixmap("./data/images/"+exo+".jpg");
 
     qDebug()<<"Image de fond : "<<qApp->applicationDirPath()+"/data/images/"+exo+".jpg";

@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     abuleduexercicev0.cpp \
     abuleduaproposv0.cpp \
     abuledulanceurv1.cpp \
-    exercicerepechage.cpp
+    exercicerepechage.cpp \
+    exercicemaisonnombres.cpp
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
@@ -25,7 +26,8 @@ HEADERS += interface.h \
     abuleduexercicev0.h \
     abuleduaproposv0.h \
     abuledulanceurv1.h \
-    exercicerepechage.h
+    exercicerepechage.h \
+    exercicemaisonnombres.h
 FORMS += interface.ui \
     exercice.ui \
     editeur.ui \

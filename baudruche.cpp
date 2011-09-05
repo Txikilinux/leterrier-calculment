@@ -28,6 +28,7 @@
 #include <QApplication>
  #include <QDesktopWidget>
  #include <QFontMetrics>
+#include <QGraphicsSceneMouseEvent>
 
 const int MULTIPLE_MAX=11;
 
@@ -449,4 +450,10 @@ void baudruche::changeImage(QString nomNouvelleImage)
     m_image.setPos(m_position);
     qDebug()<<"Position image après changement : "<<m_image.x()<<" X "<<m_image.y();
 
+}
+
+void baudruche::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    emit lacheIci(event->scenePos().toPoint());
+//    emit lache();
 }
