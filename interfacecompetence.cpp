@@ -102,13 +102,13 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 m_scene->addItem(btn3);
 
                 //fantome pour la maison des nombres
-            boutonsPolygone* btn4 = new boutonsPolygone("maison",0);
-                btn4->QGraphicsItem::setToolTip(trUtf8("Les maisons des nombres"));
-                btn4->deplace((origine.x()+ m_decor->width()/2), (origine.y()+ m_decor->height()/2));
-                btn4->retaille(im.width()*m_ratioTaille,im.height()*m_ratioTaille);
-                btn4->setImage(im);
-                btn4->setMTransformable(2);
-                m_scene->addItem(btn4);
+//            boutonsPolygone* btn4 = new boutonsPolygone("maison",0);
+//                btn4->QGraphicsItem::setToolTip(trUtf8("Les maisons des nombres"));
+//                btn4->deplace((origine.x()+ m_decor->width()/2), (origine.y()+ m_decor->height()/2));
+//                btn4->retaille(im.width()*m_ratioTaille,im.height()*m_ratioTaille);
+//                btn4->setImage(im);
+//                btn4->setMTransformable(2);
+//                m_scene->addItem(btn4);
             }
             break;
 
