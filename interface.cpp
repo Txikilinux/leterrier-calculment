@@ -427,10 +427,3 @@ void interface::on_actionSur_des_multiplications_triggered()
     m_exercice = new exercice("OdGrandeurMultiplication",this,100,"");
     m_exercice->show();
 }
-
-void interface::on_pushButton_clicked()
-{
-    QString langue = "en";
-changelangue(langue);
-
-}

@@ -71,7 +71,6 @@ private slots:
     void on_actionMultiplications_triggered();
     void on_actionAdditions_triggered();
     void on_actionQuitter_triggered();
-    void on_pushButton_clicked();
     void changelangue(QString langue);
 };
 
