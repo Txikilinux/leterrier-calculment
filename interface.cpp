@@ -53,9 +53,9 @@ interface::interface(QWidget *parent)
 
     ui->setupUi(this);
     AbulEduAproposV0 *monAide=new AbulEduAproposV0(this);
-    creeMenuLangue();
     m_signalMapper = new QSignalMapper(this);
     connect(m_signalMapper, SIGNAL(mapped(QString)), this, SLOT(changelangue(QString)) );
+    creeMenuLangue();
 
     QRect ecran;
     ecran=QApplication::desktop()->availableGeometry();
@@ -199,8 +199,8 @@ void interface::creeMenuLangue()
             actionLangue->setCheckable(true);
             if (clef ==m_locale) actionLangue->setChecked(true);
             else actionLangue->setChecked(false);
-//            m_signalMapper->setMapping(actionLangue, clef );
-//            connect(actionLangue, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
+            m_signalMapper->setMapping(actionLangue, clef );
+            connect(actionLangue, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
             ui->menuLangues->addAction(actionLangue);
      }
 
