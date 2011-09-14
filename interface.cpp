@@ -62,7 +62,7 @@ interface::interface(QWidget *parent)
     QRect ecran;
     ecran=QApplication::desktop()->availableGeometry();
 
-    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf");
+    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("lang").toString()+".conf");
     if (!fichierConf->exists()) qDebug()<<trUtf8("Fichier config NON trouvé");
     else qDebug() << trUtf8("Fichier config trouvé");
     m_hauteurMax = ecran.height();
@@ -347,7 +347,7 @@ void interface::on_actionAfficher_l_diteur_triggered()
 
 void interface::on_btnInitialise_clicked()
 {
-    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf");
+    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("lang").toString()+".conf");
     fichierConf->remove();
     m_editeur->initialiser();
 }

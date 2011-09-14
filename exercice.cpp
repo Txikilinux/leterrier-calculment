@@ -54,7 +54,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_operation=exo;
     m_cible=val;
 
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("lang").toString()+".conf", QSettings::IniFormat);
     m_nbTotalQuestions = config.value("NombreBallons").toInt();
     setAbeNbTotalQuestions(m_nbTotalQuestions);
 
@@ -168,7 +168,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     /*          Bloc déplacé en particulier pour que les attributs m_min et m_max soit "remplis" avant les setAbeExerciceName() et setAbeSkill()
             Mais laissé en copie à son ancien emplacement par peur que le déplacement m'ait cassé qch...
 
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("lang").toString()+".conf", QSettings::IniFormat);
     m_nbTotalQuestions = config.value("NombreBallons").toInt();
     setAbeNbTotalQuestions(m_nbTotalQuestions);
 
@@ -291,7 +291,7 @@ void exercice::adapte(QPixmap cheminImage)
 void exercice::chargerParametres()
 {
     qDebug()<<" exercice::chargerParametres(1)";
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("lang").toString()+".conf", QSettings::IniFormat);
         config.beginGroup(m_operation);
         if (m_level=="") m_level = config.value("NiveauEnCours"+m_operation).toString();
         else qDebug()<<"Dans chargerParametres(), m_level valait déjà "<<m_level;
@@ -489,7 +489,7 @@ void exercice::on_btnFeu_clicked()
 	//if (m_baudruche) delete m_baudruche;
         afficheResultat("peutImporteCeQuiEstEcritIci");
         //mise à jour ou pas du niveau
-        QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
+        QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("lang").toString()+".conf", QSettings::IniFormat);
         config.beginGroup(m_operation);
         if (m_score==m_total) {
             if (m_level=="Niveau1") config.setValue("NiveauEnCours"+m_operation, "Niveau2");

@@ -79,7 +79,6 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
         QScriptValue resultat = calculateur.evaluate(m_ligne);
         m_resultat = resultat.toNumber();
 
-    //QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
     construisAffichage();
@@ -124,7 +123,6 @@ baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operatio
         m_approximation = resultat.toNumber();
     qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeurApprochee(d_operande, intMaxD)<<" valeurAppro : "<<m_approximation;
 
-    //QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
     construisAffichage();
@@ -169,7 +167,6 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
         m_resultat = resultat.toNumber();
         }
 
-    //QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres.conf", QSettings::IniFormat);
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
     QRect ecran;
