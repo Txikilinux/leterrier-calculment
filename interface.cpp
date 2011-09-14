@@ -38,9 +38,11 @@
 interface::interface(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::interfaceClass)
 {
-    qDebug()<<"interface::constructeur (1)";
+
     //Langue
-    m_locale = QLocale::system().name().section('_', 0, 0);
+    //m_locale = QLocale::system().name().section('_', 0, 0);
+    m_locale = qApp->property("lang").toString();
+    qDebug()<<"interface::constructeur (1) - "<<m_locale;
     //Un 1er qtTranslator pour prendre les traductions QT Systeme
     //c'est d'ailleurs grâce à ça qu'on est en RTL
     qtTranslator.load("qt_" + m_locale,
@@ -210,6 +212,7 @@ void interface::creeMenuLangue()
 void interface::changelangue(QString langue)
 {
     qDebug()<<"interface::changelangue(1)";
+    qApp->setProperty("lang",langue);
     myappTranslator.load("leterrier-calcul-mental_"+langue, "lang");
     qApp->installTranslator(&myappTranslator);
     interface* nouvelleInterface = new interface();
