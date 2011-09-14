@@ -28,6 +28,9 @@ private:
     Ui::interfaceClass *ui;
     QTranslator qtTranslator;
     QTranslator myappTranslator;
+    QString m_locale;
+    QSignalMapper* m_signalMapper;
+    void creeMenuLangue();
 
 private slots:
 
@@ -68,6 +71,8 @@ private slots:
     void on_actionMultiplications_triggered();
     void on_actionAdditions_triggered();
     void on_actionQuitter_triggered();
+    void on_pushButton_clicked();
+    void changelangue(QString langue);
 };
 
 #endif // INTERFACE_H

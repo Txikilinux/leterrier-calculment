@@ -40,19 +40,22 @@ interface::interface(QWidget *parent)
 {
     qDebug()<<"interface::constructeur (1)";
     //Langue
-    QString locale = QLocale::system().name().section('_', 0, 0);
+    m_locale = QLocale::system().name().section('_', 0, 0);
     //Un 1er qtTranslator pour prendre les traductions QT Systeme
     //c'est d'ailleurs grâce à ça qu'on est en RTL
-    qtTranslator.load("qt_" + locale,
+    qtTranslator.load("qt_" + m_locale,
                       QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     qApp->installTranslator(&qtTranslator);
     //Et un second qtTranslator pour les traductions spécifiques du logiciel
-    myappTranslator.load("leterrier-calcul-mental_" + locale, "lang");
-    qDebug()<<trUtf8("Langue chargée : ")<<locale;
+    myappTranslator.load("leterrier-calcul-mental_" + m_locale, "lang");
+    qDebug()<<trUtf8("Langue chargée : ")<<m_locale;
     qApp->installTranslator(&myappTranslator);
 
     ui->setupUi(this);
     AbulEduAproposV0 *monAide=new AbulEduAproposV0(this);
+    creeMenuLangue();
+    m_signalMapper = new QSignalMapper(this);
+    connect(m_signalMapper, SIGNAL(mapped(QString)), this, SLOT(changelangue(QString)) );
 
     QRect ecran;
     ecran=QApplication::desktop()->availableGeometry();
@@ -67,8 +70,6 @@ interface::interface(QWidget *parent)
 
     QPixmap imgFond("./data/images/fondecran.jpg");
     QPixmap imgFond2=imgFond.scaled(ecran.width(),m_hauteurMax,Qt::KeepAspectRatio,Qt::SmoothTransformation);
-    //    qDebug() << "Taille imageFond : " << imgFond.width()<< " X "<<imgFond.height();
-    //    qDebug() << "Taille imageFond2 : " << imgFond2.width()<< " X "<<imgFond2.height();
     QBrush* fond = new QBrush(imgFond2);
     ui->fete->setBackgroundBrush(*fond);
     this->setFixedSize(imgFond2.width(),imgFond2.height());
@@ -77,8 +78,6 @@ interface::interface(QWidget *parent)
 
     double kw=static_cast<double>(imgFond2.width())/static_cast<double>(imgFond.width());
     double kh=static_cast<double>(imgFond2.height())/static_cast<double>(imgFond.height());
-//    qDebug()<<"kw vaut "<<kw;
-//    qDebug()<<"kh vaut "<<kh;
 
     QGraphicsScene* dessin = new QGraphicsScene(this);
     ui->fete->setScene(dessin);
@@ -180,6 +179,45 @@ interface::interface(QWidget *parent)
 interface::~interface()
 {
     delete ui;
+}
+
+void interface::creeMenuLangue()
+{
+    QString nomFichierConf = "./conf/abuledulangselector.conf";
+    if (!QFile(nomFichierConf).exists())
+    {
+        QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,trUtf8("Problème !!"),trUtf8("Fichier de configuration des langues non trouvé"));
+        alertBox->show();
+        return;
+    }
+    QSettings configLang(nomFichierConf, QSettings::IniFormat);
+     configLang.setIniCodec("UTF-8");
+     configLang.beginGroup(m_locale);
+     foreach (QString clef, configLang.allKeys())
+     {
+            QAction* actionLangue = new QAction(configLang.value(clef).toString(),this);
+            actionLangue->setCheckable(true);
+            if (clef ==m_locale) actionLangue->setChecked(true);
+            else actionLangue->setChecked(false);
+//            m_signalMapper->setMapping(actionLangue, clef );
+//            connect(actionLangue, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
+            ui->menuLangues->addAction(actionLangue);
+     }
+
+
+}
+
+void interface::changelangue(QString langue)
+{
+    qDebug()<<"interface::changelangue(1)";
+    myappTranslator.load("leterrier-calcul-mental_"+langue, "lang");
+    qApp->installTranslator(&myappTranslator);
+    interface* nouvelleInterface = new interface();
+    nouvelleInterface->setGeometry(this->geometry());
+    nouvelleInterface->show();
+    nouvelleInterface->setWindowTitle(QObject::trUtf8("Calcul Mental"));
+    this->close();
+    nouvelleInterface->activateWindow();
 }
 
 void interface::paintEvent(QPaintEvent* e )
@@ -388,4 +426,11 @@ void interface::on_actionSur_des_multiplications_triggered()
 {
     m_exercice = new exercice("OdGrandeurMultiplication",this,100,"");
     m_exercice->show();
+}
+
+void interface::on_pushButton_clicked()
+{
+    QString langue = "en";
+changelangue(langue);
+
 }

@@ -46,6 +46,19 @@
      <string>Initialiser &amp;Paramètres</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>97</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -134,9 +147,15 @@
     </property>
     <addaction name="actionAfficher_l_diteur"/>
    </widget>
+   <widget class="QMenu" name="menuLangues">
+    <property name="title">
+     <string>Langues</string>
+    </property>
+   </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuExercices"/>
    <addaction name="menuEditeur"/>
+   <addaction name="menuLangues"/>
   </widget>
   <action name="actionQuitter">
    <property name="text">
