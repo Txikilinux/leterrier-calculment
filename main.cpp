@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     qApp->setApplicationName("leterrier-calculment");
     qApp->setApplicationVersion("1.0.9");
     qApp->setFont(QFont("LiberationSans",14));
-    qApp->setProperty("lang",QLocale::system().name().section('_', 0, 0));
+    qApp->setProperty("langageUtilise",QLocale::system().name().section('_', 0, 0));
     QString exo;
     QString nivo="";
     int nombre=0;

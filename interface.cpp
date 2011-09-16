@@ -41,7 +41,7 @@ interface::interface(QWidget *parent)
 
     //Langue
     //m_locale = QLocale::system().name().section('_', 0, 0);
-    m_locale = qApp->property("lang").toString();
+    m_locale = qApp->property("langageUtilise").toString();
     qDebug()<<"interface::constructeur (1) - "<<m_locale;
     //Un 1er qtTranslator pour prendre les traductions QT Systeme
     //c'est d'ailleurs grâce à ça qu'on est en RTL
@@ -62,7 +62,7 @@ interface::interface(QWidget *parent)
     QRect ecran;
     ecran=QApplication::desktop()->availableGeometry();
 
-    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("lang").toString()+".conf");
+    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
     if (!fichierConf->exists()) qDebug()<<trUtf8("Fichier config NON trouvé");
     else qDebug() << trUtf8("Fichier config trouvé");
     m_hauteurMax = ecran.height();
@@ -212,8 +212,9 @@ void interface::creeMenuLangue()
 void interface::changelangue(QString langue)
 {
     qDebug()<<"interface::changelangue(1)";
-    qApp->setProperty("lang",langue);
+    qApp->setProperty("langageUtilise",langue);
     myappTranslator.load("leterrier-calcul-mental_"+langue, "lang");
+
     qApp->installTranslator(&myappTranslator);
     interface* nouvelleInterface = new interface();
     nouvelleInterface->setGeometry(this->geometry());
@@ -347,7 +348,7 @@ void interface::on_actionAfficher_l_diteur_triggered()
 
 void interface::on_btnInitialise_clicked()
 {
-    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("lang").toString()+".conf");
+    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
     fichierConf->remove();
     m_editeur->initialiser();
 }

@@ -40,7 +40,8 @@ TRANSLATIONS = lang/leterrier-calcul-mental_es.ts \
     lang/leterrier-calcul-mental_en.ts \
     lang/leterrier-calcul-mental_de.ts \
     lang/leterrier-calcul-mental_af.ts \
-    lang/leterrier-calcul-mental_mi.ts
+    lang/leterrier-calcul-mental_mi.ts \
+    lang/leterrier-calcul-mental_fr.ts
 QT += script
 QT += network
 QT += xml

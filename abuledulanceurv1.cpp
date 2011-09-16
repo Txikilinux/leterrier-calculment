@@ -25,7 +25,7 @@ AbuleduLanceurV1::~AbuleduLanceurV1()
 
 void AbuleduLanceurV1::fillCbExercice()
 {
-    QString locale = QLocale::system().name().section('_', 0, 0);
+    QString locale = qApp->property("langageUtilise").toString();
     qDebug()<<"AbuleduLanceurV1::fillCbExercice(1)";
     ui->cbExercice->clear();
     QString nomFichierConf = "./conf/alacarte.conf";
