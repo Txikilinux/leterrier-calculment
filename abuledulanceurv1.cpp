@@ -15,6 +15,7 @@ AbuleduLanceurV1::AbuleduLanceurV1(QWidget *parent) :
     connect(ui->cbExercice, SIGNAL(currentIndexChanged(QString)), this, SLOT(associeNomIntitule(QString)));
     connect(this,SIGNAL(cbExerciceFini(QString)),this, SLOT(fillCbNombre(QString)));
     connect(this,SIGNAL(cbExerciceFini(QString)),this, SLOT(fillCbNiveau(QString)));
+    connect(ui->cbExercice, SIGNAL(currentIndexChanged(QString)), this, SLOT(associeNomIntitule(QString)));
 
 }
 
@@ -48,7 +49,7 @@ void AbuleduLanceurV1::fillCbExercice()
         return;
     }
 qDebug()<<"dans le général de config on a "<<configExo.childKeys();
-    m_listeNiveaux = configExo.value("niveaux_fr").toString().split(";");
+    m_listeNiveaux = configExo.value("niveaux_"+locale).toString().split(";");
 
     configExo.beginGroup("Exercices");
     m_listeExercices = configExo.childGroups();
@@ -75,7 +76,7 @@ qDebug()<<"dans le général de config on a "<<configExo.childKeys();
 void AbuleduLanceurV1::fillCbNiveau(QString)
 {
     qDebug()<<"AbuleduLanceurV1::fillCbNiveau(1)";
-    QString locale = QLocale::system().name().section('_', 0, 0);
+    QString locale = qApp->property("langageUtilise").toString();
     ui->cbNiveau->clear();
     QString nomFichierConf = "./conf/alacarte.conf";
     if (!QFile(nomFichierConf).exists()) {
@@ -109,7 +110,7 @@ void AbuleduLanceurV1::fillCbNiveau(QString)
 
 void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
 {
-    qDebug()<<"AbuleduLanceurV1::fillCbNombre(1)";
+    qDebug()<<"AbuleduLanceurV1::fillCbNombre(1)"<<m_nomExercice ;
     ui->cbNombre->hide();
     ui->lblNombre->hide();
     ui->cbNombre->clear();
@@ -163,8 +164,8 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
 
 void AbuleduLanceurV1::associeNomIntitule(QString intitule)
 {
-    qDebug()<<"AbuleduLanceurV1::associeNomIntitule(1)";
-    QString locale = QLocale::system().name().section('_', 0, 0);
+    qDebug()<<"AbuleduLanceurV1::associeNomIntitule(1) : "<<intitule;
+    QString locale = qApp->property("langageUtilise").toString();
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
     configExo.setIniCodec("UTF-8");
     configExo.beginGroup("Exercices");
