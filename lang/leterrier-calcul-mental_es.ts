@@ -453,22 +453,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../editeur.cpp" line="268"/>
         <source>Multiples de 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Múltiplos de 5</translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="269"/>
         <source>Multiples de </source>
-        <translation type="unfinished"></translation>
+        <translation>Múltiplos de </translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="275"/>
         <source>Table d&apos;addition de </source>
-        <translation type="unfinished"></translation>
+        <translation>Tablas de sumar de </translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="277"/>
         <source>Table de multiplication par </source>
-        <translation type="unfinished"></translation>
+        <translation>Tablas de multiplicar por </translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="165"/>
