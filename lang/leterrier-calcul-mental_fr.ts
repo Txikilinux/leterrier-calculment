@@ -356,32 +356,32 @@ p, li { white-space: pre-wrap; }
         <translation>Lanceur</translation>
     </message>
     <message utf8="true">
-        <location filename="../abuledulanceurv1.cpp" line="33"/>
-        <location filename="../abuledulanceurv1.cpp" line="45"/>
-        <location filename="../abuledulanceurv1.cpp" line="62"/>
-        <location filename="../abuledulanceurv1.cpp" line="82"/>
+        <location filename="../abuledulanceurv1.cpp" line="34"/>
+        <location filename="../abuledulanceurv1.cpp" line="46"/>
+        <location filename="../abuledulanceurv1.cpp" line="63"/>
+        <location filename="../abuledulanceurv1.cpp" line="83"/>
         <source>Problème !!</source>
         <translation>Problème !!</translation>
     </message>
     <message utf8="true">
-        <location filename="../abuledulanceurv1.cpp" line="33"/>
-        <location filename="../abuledulanceurv1.cpp" line="82"/>
+        <location filename="../abuledulanceurv1.cpp" line="34"/>
+        <location filename="../abuledulanceurv1.cpp" line="83"/>
         <source>Fichier de configuration non trouvé</source>
         <translation>Fichier de configuration non trouvé</translation>
     </message>
     <message utf8="true">
-        <location filename="../abuledulanceurv1.cpp" line="38"/>
-        <location filename="../abuledulanceurv1.cpp" line="87"/>
+        <location filename="../abuledulanceurv1.cpp" line="39"/>
+        <location filename="../abuledulanceurv1.cpp" line="88"/>
         <source>Conf trouvé</source>
         <translation>Conf trouvé</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.cpp" line="45"/>
+        <location filename="../abuledulanceurv1.cpp" line="46"/>
         <source>Le fichier de configuration ne contient pas la clef : niveaux_</source>
         <translation>Le fichier de configuration ne contient pas la clef : niveaux_</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.cpp" line="62"/>
+        <location filename="../abuledulanceurv1.cpp" line="63"/>
         <source>Le fichier de configuration ne contient pas toutes les clefs : intitule_</source>
         <translation>Le fichier de configuration ne contient pas toutes les clefs : intitule_</translation>
     </message>

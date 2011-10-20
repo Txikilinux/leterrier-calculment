@@ -114,8 +114,9 @@ interface::interface(QWidget *parent)
 
     //Bouton sur le panneau sortie
     boutonsPolygone* btnPoly4 = new boutonsPolygone("sortie");
-    btnPoly4->deplace(1325*kw,710*kh);
-    btnPoly4->retaille(200*kw,70*kh);
+    btnPoly4->setImage(QPixmap("./data/images/texteSortie_"+m_locale+".png"));
+    btnPoly4->deplace(1340*kw,723*kh);
+    btnPoly4->retaille(170*kw,40*kh);
     btnPoly4->QGraphicsItem::setToolTip(trUtf8("Quitter"));
     connect(btnPoly4, SIGNAL(sortie()), this, SLOT(close()));
     dessin->addItem(btnPoly4);

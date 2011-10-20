@@ -356,32 +356,32 @@ p, li { white-space: pre-wrap; }
         <translation>Launcher</translation>
     </message>
     <message utf8="true">
-        <location filename="../abuledulanceurv1.cpp" line="33"/>
-        <location filename="../abuledulanceurv1.cpp" line="45"/>
-        <location filename="../abuledulanceurv1.cpp" line="62"/>
-        <location filename="../abuledulanceurv1.cpp" line="82"/>
+        <location filename="../abuledulanceurv1.cpp" line="34"/>
+        <location filename="../abuledulanceurv1.cpp" line="46"/>
+        <location filename="../abuledulanceurv1.cpp" line="63"/>
+        <location filename="../abuledulanceurv1.cpp" line="83"/>
         <source>Problème !!</source>
         <translation>Problem !!</translation>
     </message>
     <message utf8="true">
-        <location filename="../abuledulanceurv1.cpp" line="33"/>
-        <location filename="../abuledulanceurv1.cpp" line="82"/>
+        <location filename="../abuledulanceurv1.cpp" line="34"/>
+        <location filename="../abuledulanceurv1.cpp" line="83"/>
         <source>Fichier de configuration non trouvé</source>
         <translation>Settings file not found</translation>
     </message>
     <message utf8="true">
-        <location filename="../abuledulanceurv1.cpp" line="38"/>
-        <location filename="../abuledulanceurv1.cpp" line="87"/>
+        <location filename="../abuledulanceurv1.cpp" line="39"/>
+        <location filename="../abuledulanceurv1.cpp" line="88"/>
         <source>Conf trouvé</source>
         <translation>Settings file found</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.cpp" line="45"/>
+        <location filename="../abuledulanceurv1.cpp" line="46"/>
         <source>Le fichier de configuration ne contient pas la clef : niveaux_</source>
         <translation>Missing level key in settings file : niveaux_</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.cpp" line="62"/>
+        <location filename="../abuledulanceurv1.cpp" line="63"/>
         <source>Le fichier de configuration ne contient pas toutes les clefs : intitule_</source>
         <translation>Missing key in settings file : intitule_</translation>
     </message>

@@ -270,32 +270,32 @@ p, li { white-space: pre-wrap; }
         <translation>Lanzador</translation>
     </message>
     <message utf8="true">
-        <location filename="../abuledulanceurv1.cpp" line="33"/>
-        <location filename="../abuledulanceurv1.cpp" line="45"/>
-        <location filename="../abuledulanceurv1.cpp" line="62"/>
-        <location filename="../abuledulanceurv1.cpp" line="82"/>
+        <location filename="../abuledulanceurv1.cpp" line="34"/>
+        <location filename="../abuledulanceurv1.cpp" line="46"/>
+        <location filename="../abuledulanceurv1.cpp" line="63"/>
+        <location filename="../abuledulanceurv1.cpp" line="83"/>
         <source>Problème !!</source>
         <translation>Problema !!</translation>
     </message>
     <message utf8="true">
-        <location filename="../abuledulanceurv1.cpp" line="33"/>
-        <location filename="../abuledulanceurv1.cpp" line="82"/>
+        <location filename="../abuledulanceurv1.cpp" line="34"/>
+        <location filename="../abuledulanceurv1.cpp" line="83"/>
         <source>Fichier de configuration non trouvé</source>
         <translation>Archivo de configuracíon ausente</translation>
     </message>
     <message utf8="true">
-        <location filename="../abuledulanceurv1.cpp" line="38"/>
-        <location filename="../abuledulanceurv1.cpp" line="87"/>
+        <location filename="../abuledulanceurv1.cpp" line="39"/>
+        <location filename="../abuledulanceurv1.cpp" line="88"/>
         <source>Conf trouvé</source>
         <translation>Archivo de configuracíon encontrado</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.cpp" line="45"/>
+        <location filename="../abuledulanceurv1.cpp" line="46"/>
         <source>Le fichier de configuration ne contient pas la clef : niveaux_</source>
         <translation>El archivo de configuracíon ne contiene la llave : niveaux_</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.cpp" line="62"/>
+        <location filename="../abuledulanceurv1.cpp" line="63"/>
         <source>Le fichier de configuration ne contient pas toutes les clefs : intitule_</source>
         <translation>El archivo de configuracíon ne contiene todas las llaves : intitule_</translation>
     </message>
@@ -545,7 +545,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../interfacecompetence.cpp" line="126"/>
         <location filename="../interfacecompetence.cpp" line="139"/>
         <source>Multiples de </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Múltiplos de </translation>
     </message>
     <message>
         <location filename="../interfacecompetence.cpp" line="152"/>
@@ -681,17 +681,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../exercice.cpp" line="90"/>
         <source>Multiples de </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Múltiplos de </translation>
     </message>
     <message>
         <location filename="../exercice.cpp" line="97"/>
         <source>Table de multiplication par </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tablas de multiplicar por </translation>
     </message>
     <message>
         <location filename="../exercice.cpp" line="103"/>
         <source>Table d&apos;addition de </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tablas de sumar de </translation>
     </message>
     <message utf8="true">
         <location filename="../exercice.cpp" line="108"/>
