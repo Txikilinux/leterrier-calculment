@@ -623,6 +623,11 @@ p, li { white-space: pre-wrap; }
         <translation>Compléments à 1000</translation>
     </message>
     <message>
+        <location filename="../interfacecompetence.cpp" line="106"/>
+        <source>Les maisons des nombres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../interfacecompetence.cpp" line="117"/>
         <source>Les multiples</source>
         <translation>Les multiples</translation>
@@ -646,7 +651,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../interfacecompetence.cpp" line="175"/>
         <source>Ordres de grandeur</source>
-        <translation>Table +</translation>
+        <translation type="unfinished">Ordres de grandeur</translation>
     </message>
     <message>
         <location filename="../interfacecompetence.cpp" line="182"/>
@@ -667,7 +672,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../interface.cpp" line="222"/>
+        <location filename="../interface.cpp" line="223"/>
         <location filename="../main.cpp" line="114"/>
         <source>Calcul Mental</source>
         <translation>Calcul Mental</translation>
@@ -899,61 +904,61 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</translation>
         <translation>Lancer l&apos;éditeur</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="119"/>
+        <location filename="../interface.cpp" line="120"/>
         <source>Quitter</source>
         <translation>Quitter</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="127"/>
         <location filename="../interface.cpp" line="128"/>
+        <location filename="../interface.cpp" line="129"/>
         <source>Tables de multiplication</source>
         <translation>Tables de multiplication</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="136"/>
         <location filename="../interface.cpp" line="137"/>
+        <location filename="../interface.cpp" line="138"/>
         <source>Compléments additifs</source>
         <translation>Compléments additifs</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="145"/>
         <location filename="../interface.cpp" line="146"/>
+        <location filename="../interface.cpp" line="147"/>
         <source>Multiples</source>
         <translation>Multiples</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="153"/>
+        <location filename="../interface.cpp" line="154"/>
         <source>Faire des soustractions</source>
         <translation>Faire des soustractions</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="154"/>
+        <location filename="../interface.cpp" line="155"/>
         <source>Soustractions</source>
         <translation>Soustractions</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="162"/>
         <location filename="../interface.cpp" line="163"/>
+        <location filename="../interface.cpp" line="164"/>
         <source>Tables d&apos;addition</source>
         <translation>Tables d&apos;addition</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="170"/>
+        <location filename="../interface.cpp" line="171"/>
         <source>Ordres de grandeur</source>
         <translation>Ordres de grandeur</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="177"/>
+        <location filename="../interface.cpp" line="178"/>
         <source>Choisir son exercice</source>
         <translation>Choisir son exercice</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="191"/>
+        <location filename="../interface.cpp" line="192"/>
         <source>Problème !!</source>
         <translation>Problème !!</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="191"/>
+        <location filename="../interface.cpp" line="192"/>
         <source>Fichier de configuration des langues non trouvé</source>
         <translation>Fichier de configuration des langues non trouvé</translation>
     </message>

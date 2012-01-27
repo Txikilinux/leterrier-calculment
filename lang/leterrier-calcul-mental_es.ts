@@ -537,6 +537,11 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../interfacecompetence.cpp" line="106"/>
+        <source>Les maisons des nombres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../interfacecompetence.cpp" line="117"/>
         <source>Les multiples</source>
         <translation type="unfinished"></translation>
@@ -586,7 +591,7 @@ p, li { white-space: pre-wrap; }
         <translation>AbulÉdu LeTerrier -- Cálculo Mental</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="222"/>
+        <location filename="../interface.cpp" line="223"/>
         <location filename="../main.cpp" line="114"/>
         <source>Calcul Mental</source>
         <translation>Cálculo Mental</translation>
@@ -811,61 +816,61 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
         <translation>Lanzar el editor</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="119"/>
+        <location filename="../interface.cpp" line="120"/>
         <source>Quitter</source>
         <translation>Terminar</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="127"/>
         <location filename="../interface.cpp" line="128"/>
+        <location filename="../interface.cpp" line="129"/>
         <source>Tables de multiplication</source>
         <translation>Tablas de multiplicar</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="136"/>
         <location filename="../interface.cpp" line="137"/>
+        <location filename="../interface.cpp" line="138"/>
         <source>Compléments additifs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="145"/>
         <location filename="../interface.cpp" line="146"/>
+        <location filename="../interface.cpp" line="147"/>
         <source>Multiples</source>
         <translation>Múltiplos</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="153"/>
+        <location filename="../interface.cpp" line="154"/>
         <source>Faire des soustractions</source>
         <translation>Sustraer</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="154"/>
+        <location filename="../interface.cpp" line="155"/>
         <source>Soustractions</source>
         <translation>Sustracciónes</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="162"/>
         <location filename="../interface.cpp" line="163"/>
+        <location filename="../interface.cpp" line="164"/>
         <source>Tables d&apos;addition</source>
         <translation>Tablas de sumar</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="170"/>
+        <location filename="../interface.cpp" line="171"/>
         <source>Ordres de grandeur</source>
         <translation>Ordenes de magnitud</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="177"/>
+        <location filename="../interface.cpp" line="178"/>
         <source>Choisir son exercice</source>
         <translation>Elejir un ejercicio</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="191"/>
+        <location filename="../interface.cpp" line="192"/>
         <source>Problème !!</source>
         <translation>Problema !!</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="191"/>
+        <location filename="../interface.cpp" line="192"/>
         <source>Fichier de configuration des langues non trouvé</source>
         <translation>Archivo de configuracíon de idiomas ausente</translation>
     </message>
