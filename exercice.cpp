@@ -362,25 +362,25 @@ void exercice::on_btnBallon_clicked()
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
 qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     if (m_operation=="addition")
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,this,"auto");
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,0,"auto");
     else if(m_operation==""
             || m_operation=="soustraction"
             || m_operation=="multiplication")
-                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,this);
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,0);
 
         else if (m_operation.left(6)=="tableA")
-                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,this,"nacelle");
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,0,"nacelle");
         else if(m_operation.left(6)=="tableM")
-                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,this,"cabine");
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,0,"cabine");
         else if (m_operation.left(11)=="complementA")
-                        m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,this,"fantome");
+                        m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,0,"fantome");
             else if (m_operation.left(11)=="complementM")
-                    m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,this);
+                    m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,0);
 
                  else if (m_operation=="OdGrandeurAddition"
                           || m_operation=="OdGrandeurSoustraction"
                           || m_operation=="OdGrandeurMultiplication")
-                                  m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart,this);
+                                  m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart,0);
 
                       else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(trUtf8(", ça n'existe pas comme opération...")));
 
@@ -569,7 +569,7 @@ void exercice::afficheResultat(QString neSertARien)
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbTotalQuestions << "et score :: " << m_score;
 
         m_depart = new QPoint(m_imgFond->width()*0.3,m_imgFond->height()*0.5/factY);
-        m_baudruche = new baudruche(m_score,*m_depart,this);
+        m_baudruche = new baudruche(m_score,*m_depart,0);
         m_ui->vue->setScene(m_scene);
 
         //Ajout d'une image de William personnalisée au résultat de l'exercice

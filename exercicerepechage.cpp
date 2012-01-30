@@ -45,7 +45,7 @@ void ExerciceRepechage::on_btnBallon_clicked()
     if (m_operation=="addition") m_depart = new QPoint(0*factX,m_imgFond->height()*0.3*factX);
     else if(m_operation.left(6)=="tableA"|| m_operation.left(6)=="tableM") m_depart = new QPoint(m_imgFond->width()/2-80*factY,0*factY);
     else m_depart = new QPoint(m_imgFond->width()/2-80*factY,500*factY);
-    m_baudruche = new baudruche(operG,operD,10,m_operation,*m_depart,this,imageBallon);
+    m_baudruche = new baudruche(operG,operD,10,m_operation,*m_depart,0,imageBallon);
 
 
     m_scene->addItem(m_baudruche);

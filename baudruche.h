@@ -11,11 +11,11 @@ class baudruche : public QObject, public QGraphicsItemGroup
 {
    Q_OBJECT
 public:
-    baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString op,QPoint pos, QObject* parent=0,QString image="");
-    baudruche(int intMaxG, int intMaxD, int tempsAccorde,QString op,QPoint pos,QObject* parent=0,QString image="");
-    baudruche(int intDroite, int tempsAccorde,QString op,QPoint pos, QObject* parent=0,QString image="");
-    baudruche(int pts, QPoint pos, QObject* parent=0,QString image="");
-    baudruche(float operandeG, float operandeD, int tempsAccorde, QString op,QPoint pos,QObject* parent=0,QString image="");
+    baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString op,QPoint pos, QGraphicsScene* parent=0,QString image="");
+    baudruche(int intMaxG, int intMaxD, int tempsAccorde,QString op,QPoint pos,QGraphicsScene* parent=0,QString image="");
+    baudruche(int intDroite, int tempsAccorde,QString op,QPoint pos, QGraphicsScene* parent=0,QString image="");
+    baudruche(int pts, QPoint pos, QGraphicsScene* parent=0,QString image="");
+    baudruche(float operandeG, float operandeD, int tempsAccorde, QString op,QPoint pos,QGraphicsScene* parent=0,QString image="");
     QPoint getMPosition();
     float getMResultat();
     float getMApproximation();

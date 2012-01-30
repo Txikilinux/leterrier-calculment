@@ -27,7 +27,7 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     qDebug()<<"ExerciceMaisonNombres::on_btnBallon_clicked(1)";
     bool inferieurA11 = false;
     while (!inferieurA11) {
-        m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,this);
+        m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,0);
         this->m_resultatEnCours=m_baudruche->getMResultat();
         qDebug()<<"Ballon créé avec comme résultat "<<m_resultatEnCours;
         if (m_resultatEnCours > 10) {

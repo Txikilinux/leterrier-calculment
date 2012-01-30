@@ -45,12 +45,12 @@ const int MULTIPLE_MAX=11;
     * @param image -initialisé à 0- est le nom (sans chemin, sans extension) de l'image. Tant qu'image vaut 0, c'est un ballon de baudruche
     */
 
-baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QObject *parent,QString image)
+baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QGraphicsScene *parent,QString image)
 {
     qDebug()<<"baudruche::constructeur normal (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
 
-    qDebug()<<"Parent de baudruche: "<<parent->objectName();
+//    qDebug()<<"Parent de baudruche: "<<parent->objectName();
     m_nomOperation = operation;
     m_nomImage = image;
     m_approximation=0;
@@ -91,7 +91,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
 }
 
 //constructeur spécifique aux valeurs approchées
-baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QObject *parent,QString image)
+baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QGraphicsScene *parent,QString image)
 {
     qDebug()<<"baudruche::constructeur valeurs approchées (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
@@ -133,7 +133,7 @@ baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operatio
 }
 
 //constructeur spécifique aux compléments
-baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QObject *parent,QString image)
+baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QGraphicsScene *parent,QString image)
 {
     qDebug()<<"baudruche::constructeur compléments (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
@@ -180,7 +180,7 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
 }
 
 //constructeur spécifique à l'affichage du résultat
-baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
+baudruche::baudruche(int pts, QPoint pos,QGraphicsScene *parent,QString image)
 {
     qDebug()<<"baudruche::constructeur affichage (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
@@ -219,7 +219,7 @@ baudruche::baudruche(int pts, QPoint pos,QObject *parent,QString image)
 }
 
 //constructeur specifique à la remédiation
-baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString operation, QPoint pos,QObject* parent,QString image)
+baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString operation, QPoint pos,QGraphicsScene* parent,QString image)
 {
     qDebug()<<"Opération en paramètre : "<<operation;
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
