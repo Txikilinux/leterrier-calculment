@@ -159,8 +159,8 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     this->setWindowTitle("Calcul Mental - "+exo);
     adapte(*m_imgFond);
 
-    this->m_score=0;
-    this->m_total=0;
+    m_score=0;
+    m_total=0;
     m_ui->lblPoints->setText("0");
     m_ui->lblTotal->setText("0");
     //m_ui->lblArg->setText(exo);
@@ -362,25 +362,25 @@ void exercice::on_btnBallon_clicked()
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
 qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     if (m_operation=="addition")
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,0,"auto");
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,m_scene,"auto");
     else if(m_operation==""
             || m_operation=="soustraction"
             || m_operation=="multiplication")
-                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,0);
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation,*m_depart,m_scene);
 
         else if (m_operation.left(6)=="tableA")
-                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,0,"nacelle");
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,m_scene,"nacelle");
         else if(m_operation.left(6)=="tableM")
-                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,0,"cabine");
+                    m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operation.left(6),*m_depart,m_scene,"cabine");
         else if (m_operation.left(11)=="complementA")
-                        m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,0,"fantome");
+                        m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,m_scene,"fantome");
             else if (m_operation.left(11)=="complementM")
-                    m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,0);
+                    m_baudruche = new baudruche(m_minG,m_temps,m_operation.left(11), *m_depart,m_scene);
 
                  else if (m_operation=="OdGrandeurAddition"
                           || m_operation=="OdGrandeurSoustraction"
                           || m_operation=="OdGrandeurMultiplication")
-                                  m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart,0);
+                                  m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operation, *m_depart,m_scene);
 
                       else  QMessageBox::critical(this, tr("Opération inexistante"), m_operation.append(trUtf8(", ça n'existe pas comme opération...")));
 
@@ -448,6 +448,7 @@ void exercice::on_btnFeu_clicked()
     QString evaluation="";
     float proposition = m_ui->leResultat->text().toFloat();
     float reponse = m_resultatEnCours;
+    qDebug()<<"Valeur du ballon : "<<reponse<<", lache sur "<<proposition;
     QString demande = "";
         demande = m_baudruche->getMGOperande()+m_baudruche->getMOperation()+m_baudruche->getMDOperande();
     m_score = m_ui->lblPoints->text().toInt();
@@ -480,7 +481,7 @@ void exercice::on_btnFeu_clicked()
         setAbeLineLog(m_baudruche->getMLigne(),m_ui->leResultat->text(),m_score, m_total,evaluation,reponseAttendueEnString);
         qDebug()<<getPluginLogs();
 
-    if (m_baudruche!=NULL) m_baudruche->detruire();
+    if (m_baudruche) m_baudruche->detruire();// <<<<-------------------------------------- Merdier
 
     m_ui->btnFeu->setDisabled(true);
 

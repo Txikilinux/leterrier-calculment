@@ -30,15 +30,15 @@ protected:
     int m_resultatEnCours;
     int m_cible;
     QStringList* m_listeEchecs;
-    baudruche* m_baudruche;
+    QPointer<baudruche> m_baudruche;
     QPoint* m_depart;
     QString m_operation;
     QPixmap* m_imgFond;
     QGraphicsScene* m_scene;
+    QString* m_trace;
     void animeBaudruche();
 
 private:
-    QString* m_trace;
     int m_minG;
     int m_maxG;
     int m_minD;

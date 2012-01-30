@@ -24,6 +24,7 @@ public:
     QString getMLigne();
     QString getMOperation();
     QString getMAffichage();
+    QString getMDropValeur();
     int valeurApprochee(int,int);
 //    QTimeLine getMTimer();
     QTimeLine* m_timer;
@@ -61,6 +62,8 @@ private:
     float m_approximation;
     QString m_ligne;
     QString m_affichage;
+    QString m_dropValeur;
+    QGraphicsScene* m_parent;
     void dessineMoi(QString,int);
     void construisAffichage();
 };
