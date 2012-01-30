@@ -11,7 +11,6 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     m_depart = new QPoint(m_imgFond->width()/2-80*factY,500*factY);
     m_temps = 10;//provisoirement
-    //    QGraphicsPixmapItem* maison = new QGraphicsPixmapItem(QPixmap("./data/images/maison2.png"),0,m_scene);
     float coefficiantEtirement = (float)m_imgFond->height()/(5*QPixmap("./data/images/maison2.png").height());
     qDebug()<<"----------------------------------------------------"<<coefficiantEtirement;
     for (int i=2;i<=10;i++)
@@ -21,26 +20,9 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
 
         PixmapMaison* maison = new PixmapMaison(dessinBouton);
         maison->setToolTip("Maison du "+QString::number(i));
-        //maison->setPos(m_imgFond->width()/2 - dessinBouton.width() + qPow(-1,i-1)* dessinBouton.width(),20);
         maison->setPos(((1+qPow(-1,i))/2)*(m_imgFond->width() - dessinBouton.width()),qFloor((i-1)/2)* dessinBouton.height()*coefficiantEtirement);
         m_scene->addItem(maison);//
     }
-    //    PixmapMaison* maison2 = new PixmapMaison(QPixmap("./data/images/maison2.png"));
-    //    maison2->setToolTip("Maison du 2");
-    //    maison2->setPos(10,10);
-
-    //    PixmapMaison* maison3 = new PixmapMaison(QPixmap("./data/images/maison3.png"));
-    //    maison3->setToolTip("Maison du 3");
-    //    maison3->setPos(300,10);
-
-    //    connect(this, SIGNAL(baudrucheLancee()),maison2, SLOT(rendSelectionnable()));
-    //    connect(this, SIGNAL(baudrucheDetruite()),maison2, SLOT(rendNonSelectionnable()));
-
-    //    m_scene->addItem(maison2);
-    //    m_scene->addItem(maison3);
-    //    connect(m_scene, SIGNAL(selectionChanged()), SLOT(selectionChanged()));
-
-    qDebug()<<" ExerciceMaisonNombres::constructeur (fin) "<<m_score<<"/"<<m_total;
 }
 
 void ExerciceMaisonNombres::on_btnBallon_clicked()
