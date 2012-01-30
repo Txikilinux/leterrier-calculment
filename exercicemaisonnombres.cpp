@@ -11,21 +11,34 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     m_depart = new QPoint(m_imgFond->width()/2-80*factY,500*factY);
     m_temps = 10;//provisoirement
-//    QGraphicsPixmapItem* maison = new QGraphicsPixmapItem(QPixmap("./data/images/maison2.png"),0,m_scene);
-    PixmapMaison* maison2 = new PixmapMaison(QPixmap("./data/images/maison2.png"));
-    maison2->setToolTip("Maison du 2");
-    maison2->setPos(10,10);
+    //    QGraphicsPixmapItem* maison = new QGraphicsPixmapItem(QPixmap("./data/images/maison2.png"),0,m_scene);
+    float coefficiantEtirement = (float)m_imgFond->height()/(5*QPixmap("./data/images/maison2.png").height());
+    qDebug()<<"----------------------------------------------------"<<coefficiantEtirement;
+    for (int i=2;i<=10;i++)
+    {
+        QPixmap dessinBouton ("./data/images/maison"+QString::number(i)+".png");
+        //        float coefficiantEtirement = m_imgFond->height()/(5*dessinBouton.height());
 
-    PixmapMaison* maison3 = new PixmapMaison(QPixmap("./data/images/maison3.png"));
-    maison3->setToolTip("Maison du 3");
-    maison3->setPos(300,10);
+        PixmapMaison* maison = new PixmapMaison(dessinBouton);
+        maison->setToolTip("Maison du "+QString::number(i));
+        //maison->setPos(m_imgFond->width()/2 - dessinBouton.width() + qPow(-1,i-1)* dessinBouton.width(),20);
+        maison->setPos(((1+qPow(-1,i))/2)*(m_imgFond->width() - dessinBouton.width()),qFloor((i-1)/2)* dessinBouton.height()*coefficiantEtirement);
+        m_scene->addItem(maison);//
+    }
+    //    PixmapMaison* maison2 = new PixmapMaison(QPixmap("./data/images/maison2.png"));
+    //    maison2->setToolTip("Maison du 2");
+    //    maison2->setPos(10,10);
 
-    connect(this, SIGNAL(baudrucheLancee()),maison2, SLOT(rendSelectionnable()));
-    connect(this, SIGNAL(baudrucheDetruite()),maison2, SLOT(rendNonSelectionnable()));
+    //    PixmapMaison* maison3 = new PixmapMaison(QPixmap("./data/images/maison3.png"));
+    //    maison3->setToolTip("Maison du 3");
+    //    maison3->setPos(300,10);
 
-    m_scene->addItem(maison2);
-    m_scene->addItem(maison3);
-    connect(m_scene, SIGNAL(selectionChanged()), SLOT(selectionChanged()));
+    //    connect(this, SIGNAL(baudrucheLancee()),maison2, SLOT(rendSelectionnable()));
+    //    connect(this, SIGNAL(baudrucheDetruite()),maison2, SLOT(rendNonSelectionnable()));
+
+    //    m_scene->addItem(maison2);
+    //    m_scene->addItem(maison3);
+    //    connect(m_scene, SIGNAL(selectionChanged()), SLOT(selectionChanged()));
 
     qDebug()<<" ExerciceMaisonNombres::constructeur (fin) "<<m_score<<"/"<<m_total;
 }
@@ -37,9 +50,9 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     while (!inferieurA11) {
         m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_scene);
         this->m_resultatEnCours=m_baudruche->getMResultat();
-//        qDebug()<<"Ballon créé avec comme résultat "<<m_resultatEnCours;
-        if (m_resultatEnCours > 3 || m_resultatEnCours < 1) {
-//            qDebug()<<"Je détruis";
+        //        qDebug()<<"Ballon créé avec comme résultat "<<m_resultatEnCours;
+        if (m_resultatEnCours > 10 || m_resultatEnCours < 1) {
+            //            qDebug()<<"Je détruis";
             m_baudruche->deleteLater();
         }
         else inferieurA11 = true;
@@ -61,7 +74,7 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
     connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(pousseLogs(QString)));
     connect(m_baudruche, SIGNAL(lacheIci(QPoint)), this, SLOT(affichePosBaudruche(QPoint)));
-//    connect(m_baudruche, SIGNAL(lache()), m_baudruche, SLOT(detruire()));
+    //    connect(m_baudruche, SIGNAL(lache()), m_baudruche, SLOT(detruire()));
     m_baudruche->emetRes();
     m_scene->addItem(m_baudruche);
 
@@ -99,21 +112,21 @@ void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
         qDebug()<<"L102 Je suis sur l'objet "<<m_scene->itemAt(point);
         m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(1));
         on_btnFeu_clicked();
-//    m_baudruche->detruire();
-//    emit baudrucheDetruite();
+        //    m_baudruche->detruire();
+        //    emit baudrucheDetruite();
 
-//    qDebug()<<"ExerciceMaisonNombres::affichePosBaudruche : "<<point<<" , Valeur recue : "<<m_scene->itemAt(point)->toolTip()<<" Valeur affichee "<<m_ui->leResultat->text();
+        //    qDebug()<<"ExerciceMaisonNombres::affichePosBaudruche : "<<point<<" , Valeur recue : "<<m_scene->itemAt(point)->toolTip()<<" Valeur affichee "<<m_ui->leResultat->text();
     }
-//    QGraphicsPixmapItem item(m_scene->itemAt(point));
-//    qDebug()<<m_scene->items();
-//    qDebug()<<item.boundingRect();
+    //    QGraphicsPixmapItem item(m_scene->itemAt(point));
+    //    qDebug()<<m_scene->items();
+    //    qDebug()<<item.boundingRect();
 }
 
 void ExerciceMaisonNombres::selectionChanged() {
-  qDebug() << "debug selectionChanged()";
-  // Affiche la position de chaque élément de la sélection
-  foreach(QGraphicsItem * item, m_scene->selectedItems()) {
-    qDebug() << item->scenePos();
-  }
-  qDebug() << "fin selectionChanged()";
+    qDebug() << "debug selectionChanged()";
+    // Affiche la position de chaque élément de la sélection
+    foreach(QGraphicsItem * item, m_scene->selectedItems()) {
+        qDebug() << item->scenePos();
+    }
+    qDebug() << "fin selectionChanged()";
 }
