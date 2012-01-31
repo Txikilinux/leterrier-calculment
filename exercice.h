@@ -36,6 +36,7 @@ protected:
     QPixmap* m_imgFond;
     QGraphicsScene* m_scene;
     QString* m_trace;
+    void chargerParametres();
     void animeBaudruche();
 
 private:
@@ -43,7 +44,6 @@ private:
     int m_maxG;
     int m_minD;
     int m_maxD;
-    void chargerParametres();
     double m_ratioTaille;
     QTextEdit* m_consignes;
 

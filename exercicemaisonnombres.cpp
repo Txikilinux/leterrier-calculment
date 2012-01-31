@@ -7,10 +7,13 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
     :exercice(exo, parent,val,niveau)
 {
     m_ui->vue->setInteractive(true);
+    m_operation = exo;
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     m_depart = new QPoint(m_imgFond->width()/2-80*factY,500*factY);
-    m_temps = 10;//provisoirement
+    qDebug() <<"Opération : "<<m_operation<<", valeur passée : "<<m_cible<<" et niveau : "<<m_level;
+    chargerParametres();
+    qDebug()<<"Apres chargement des parametres, m_temps vaut "<<m_temps;
     float coefficiantEtirement = (float)m_imgFond->height()/(5*QPixmap("./data/images/maison2.png").height());
     qDebug()<<"----------------------------------------------------"<<coefficiantEtirement;
     for (int i=2;i<=10;i++)

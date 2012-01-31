@@ -148,7 +148,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
         setAbeSkill(nomCompetence);
     }
 
-    if (exo == "maison")
+    if (exo == "maisonDesNombres")
     {
         setAbeExerciceName(trUtf8("La maison des nombres"));
     }
@@ -290,7 +290,7 @@ void exercice::adapte(QPixmap cheminImage)
 
 void exercice::chargerParametres()
 {
-    qDebug()<<" exercice::chargerParametres(1)";
+    qDebug()<<" exercice::chargerParametres(1) pour "<<m_operation;
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
         config.beginGroup(m_operation);
         if (m_level=="") m_level = config.value("NiveauEnCours"+m_operation).toString();

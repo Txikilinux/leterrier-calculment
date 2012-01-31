@@ -95,8 +95,8 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
         lanceur->show();
                         }
 
-    else if (*m_action == "maison") {
-        ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(*m_action);
+    else if (*m_action == "maisonDesNombres") {
+        ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(*m_action,0,0);
         maisonNombres->show();
         }
                 else {
