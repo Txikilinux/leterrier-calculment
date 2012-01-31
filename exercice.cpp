@@ -28,6 +28,7 @@
 #include "sauvegardelog.h"
 #include "editeur.h"
 #include "exercicerepechage.h"
+#include "exercicemaisonnombres.h"
 #include <QDate>
 #include <QTime>
 
@@ -523,8 +524,16 @@ void exercice::on_btnEditeur_clicked()
 void exercice::on_btnRejouer_clicked()
 {
     qDebug()<<"exercice::on_btnRejouer_clicked(1), lance un exercice avec exo : "<<m_operation<<" et cible :"<<m_cible;
-    exercice* ex = new exercice(m_operation, this->parentWidget(),m_cible);
-    ex->show();
+    if (m_operation == "maisonDesNombres")
+    {
+        ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(m_operation,0,0);
+        maisonNombres->show();
+    }
+    else
+    {
+        exercice* ex = new exercice(m_operation, this->parentWidget(),m_cible);
+        ex->show();
+    }
     this->close();
     //le problème en mode remédiation c'est l'absence de cible
 }
