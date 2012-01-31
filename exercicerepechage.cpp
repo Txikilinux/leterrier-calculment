@@ -59,6 +59,7 @@ void ExerciceRepechage::on_btnBallon_clicked()
     connect(m_baudruche, SIGNAL(destroyed()), m_ui->btnBallon, SLOT(setFocus()));
     connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnFeu, SLOT(setDisabled(bool)));
     connect(m_baudruche, SIGNAL(destroyed()), m_ui->leResultat, SLOT(clear()));
+    connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->leResultat, SLOT(setDisabled(bool)));
     m_ui->btnFeu->setEnabled(true);
     if (m_baudruche!=NULL) m_ui->btnBallon->setDisabled(true);
     m_ui->leResultat->setEnabled(true);

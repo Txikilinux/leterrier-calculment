@@ -589,8 +589,6 @@ void exercice::afficheResultat(QString neSertARien)
         if (m_score<m_total*SEUIL_NON_ACQUIS) {
             prof = new QPixmap("./data/images/rate.png");
             prof2 = new QPixmap(prof->scaledToHeight(prof->height()*factY,Qt::SmoothTransformation));
-            qDebug()<< "Hauteur prof : "<<prof->height();
-            qDebug()<< "Hauteur prof après retaillage: "<<prof2->height();
         }
         else if (m_score>=m_total*SEUIL_ACQUIS) {
                 prof = new QPixmap("./data/images/bien.png");

@@ -58,6 +58,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     m_approximation=0;
     m_parent = new QGraphicsScene();
     m_parent = parent;
+    setParent(parent);
     if (operation=="addition" || operation=="tableA" || operation=="") m_op = "+";
     else if (operation=="soustraction") m_op = "-";
         else if (operation=="multiplication" || operation=="tableM") m_op = "x";
@@ -91,13 +92,16 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
         
     this->emetRes();
 //    qDebug()<<"res emis instanciation "<<m_resultat;
-//    qDebug()<<"baudruche::constructeur normal (2)";
+    qDebug()<<"baudruche::constructeur normal (2) avec parent "<<m_parent;
 }
 
 //constructeur spécifique aux valeurs approchées
 baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QGraphicsScene *parent,QString image)
 {
     qDebug()<<"baudruche::constructeur valeurs approchées (1)";
+    m_parent = new QGraphicsScene();
+    m_parent = parent;
+    setParent(parent);
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
     m_dropValeur = "";
@@ -142,6 +146,9 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
 {
     qDebug()<<"baudruche::constructeur compléments (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
+    m_parent = new QGraphicsScene();
+    m_parent = parent;
+    setParent(parent);
     m_nomImage = image;
     m_dropValeur = "";
     m_nomOperation = operation;
@@ -189,6 +196,9 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
 baudruche::baudruche(int pts, QPoint pos,QGraphicsScene *parent,QString image)
 {
     qDebug()<<"baudruche::constructeur affichage (1)";
+    m_parent = new QGraphicsScene();
+    m_parent = parent;
+    setParent(parent);
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     qDebug()<<"Fact X vaut "<< factX;
     m_nomImage = image;
@@ -233,6 +243,9 @@ baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString
     if (operation=="addition" || operation.left(6)=="tableA" || operation=="OdGrandeurAddition" || operation.left(11)=="complementA" || operation=="") m_op = "+";
     else if (operation=="soustraction" || operation=="OdGrandeurSoustraction") m_op = "-";
         else if (operation=="multiplication" || operation.left(6)=="tableM" || operation=="OdGrandeurMultiplication" || operation.left(11)=="complementM") m_op = "x";
+    m_parent = new QGraphicsScene();
+    m_parent = parent;
+    setParent(parent);
     m_dropValeur = "";
     m_position.setX(pos.x());
     m_position.setY(pos.y());
@@ -240,6 +253,7 @@ baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString
     m_nomOperation = operation;
     g_operande = operandeG;
     d_operande = operandeD;
+    m_approximation=0;
 
     construisAffichage();
     dessineMoi(image,16*factX);
@@ -465,10 +479,12 @@ void baudruche::changeImage(QString nomNouvelleImage)
 
 void baudruche::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-
+    qDebug()<<" --- 1 ---"<<m_parent;
         QList<QGraphicsItem *>listeItems = static_cast<QGraphicsScene *>(m_parent)->items(event->scenePos());
+        qDebug()<<" --- 2 ---";
         //qDebug()<<"Liste items 1 : "<<listeItems;
         listeItems.removeAt(listeItems.indexOf(this)); // On enleve cette piece de la liste
+        qDebug()<<" --- 3 ---";
         foreach(QGraphicsItem* elt, listeItems)
         {
             if (elt->parentItem() == this) listeItems.removeOne(elt);
@@ -477,10 +493,12 @@ void baudruche::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                 m_dropValeur = elt->toolTip();
             }
         }
-
+qDebug()<<" --- 4 ---";
         //qDebug()<<"Liste items 2 : "<<listeItems;
         if(listeItems.size() == 0){ // On essaie de déposer la pièce en dehors d'une cellule ou d'un autre objet(autre pièce)
             qDebug()<<"Rien ici...";
         }
+        qDebug()<<" --- 5 ---";
     emit lacheIci(event->scenePos().toPoint());
+    qDebug()<<" --- 6 ---";
 }

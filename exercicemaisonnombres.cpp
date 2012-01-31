@@ -36,7 +36,7 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     while (!inferieurA11) {
         m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_scene);
         this->m_resultatEnCours=m_baudruche->getMResultat();
-        //        qDebug()<<"Ballon créé avec comme résultat "<<m_resultatEnCours;
+        qDebug()<<"kkkkkkkk    Ballon créé avec comme résultat "<<m_resultatEnCours<<" et comme parent "<<m_scene<<" euh "<<m_baudruche.data()->parent();
         if (m_resultatEnCours > 10 || m_resultatEnCours < 1) {
             //            qDebug()<<"Je détruis";
             m_baudruche->deleteLater();
@@ -53,6 +53,7 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     }
     connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->btnFeu, SLOT(setDisabled(bool)));
     connect(m_baudruche, SIGNAL(destroyed()), m_ui->leResultat, SLOT(clear()));
+    connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->leResultat, SLOT(setDisabled(bool)));
     connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));
     connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(ajouteErreur(QString)));
     connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
@@ -103,7 +104,7 @@ void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
           de laquelle je la lache, et que j'appellerai comme valeur de résultat
           */
 
-        qDebug()<<"L102 Je suis sur l'objet "<<m_scene->itemAt(point);
+        qDebug()<<"L107 Je suis sur l'objet "<<m_scene->itemAt(point);
         m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(1));
         on_btnFeu_clicked();
         //    m_baudruche->detruire();
