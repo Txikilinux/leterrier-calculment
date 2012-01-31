@@ -1,5 +1,6 @@
 #include "exercicemaisonnombres.h"
 #include "ui_exercice.h"
+#include "exercicerepechagemaisonnombres.h"
 #include "pixmapmaison.h"
 #include <QDesktopWidget>
 
@@ -79,6 +80,14 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
 
     m_baudruche->m_timer->start();
     if (m_baudruche!=NULL) m_ui->btnBallon->setDisabled(true);
+}
+
+void ExerciceMaisonNombres::on_btn2chance_clicked()
+{
+    qDebug()<<"ExerciceMaisonNombres::on_btn2chance_clicked()";
+    ExerciceRepechageMaisonNombres* essaieEncore = new ExerciceRepechageMaisonNombres(*m_listeEchecs, m_temps, m_score, m_total, m_operation,getAbeExerciceName(), getAbeSkill(),m_cible);
+    essaieEncore->show();
+    this->deleteLater();
 }
 
 void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)

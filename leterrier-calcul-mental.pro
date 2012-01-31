@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     abuledulanceurv1.cpp \
     exercicerepechage.cpp \
     exercicemaisonnombres.cpp \
-    pixmapmaison.cpp
+    pixmapmaison.cpp \
+    exercicerepechagemaisonnombres.cpp
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
@@ -29,7 +30,8 @@ HEADERS += interface.h \
     abuledulanceurv1.h \
     exercicerepechage.h \
     exercicemaisonnombres.h \
-    pixmapmaison.h
+    pixmapmaison.h \
+    exercicerepechagemaisonnombres.h
 FORMS += interface.ui \
     exercice.ui \
     editeur.ui \
@@ -46,3 +48,5 @@ QT += script
 QT += network
 QT += xml
 RC_FILE = windows/icone.rc
+
+

@@ -58,7 +58,7 @@ protected slots:
     void afficheResultat(QString);
     void pousseLogs(QString);
     virtual void ajouteErreur(QString msg);
-    void on_btn2chance_clicked();
+    virtual void on_btn2chance_clicked();
 };
 
 #endif // EXERCICE_H

@@ -31,7 +31,6 @@
 #include "exercicemaisonnombres.h"
 #include <QDate>
 #include <QTime>
-
 #include <QGraphicsItemAnimation>
  #include <QMessageBox>
 #include <QApplication>
