@@ -277,6 +277,10 @@ void Editeur::initialiserComplement(QString operation)
                     config.setValue("NomPourAffichage", trUtf8("Table de multiplication par ")+operation.remove(0,6));
 
             }
+            else if (operation[0] == 'm')
+            {
+                config.setValue("NomPourAffichage", trUtf8("Maison des nombres"));
+            }
     config.endGroup();
 }
 
@@ -305,6 +309,7 @@ void Editeur::initialiser()
     initialiserComplement("complementM50");
     for (int i=2;i<=9;i++) initialiserComplement("tableM"+QString::number(i));
     for (int i=2;i<=9;i++) initialiserComplement("tableA"+QString::number(i));
+    initialiserComplement("maisonDesNombres");
 
 }
 
@@ -316,7 +321,7 @@ void Editeur::sauverNiveau(QString niveau)
         config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
         config.beginGroup(*m_operationEnCours);
             config.beginGroup(niveau);
-            if ((m_operationEnCours->left(1) != "t") && (m_operationEnCours->left(1) != "c"))
+            if ((m_operationEnCours->left(1) != "t") && (m_operationEnCours->left(1) != "c") && (m_operationEnCours->left(2) != "ma"))
             {
                 if (m_operationEnCours->left(10)!="OdGrandeur") {
                     config.setValue("MinGauche", m_ui->spbGMin->value());
@@ -405,7 +410,7 @@ void Editeur::sauverOperation(QString operation)
         config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
         config.beginGroup(operation);
             config.beginGroup(*m_niveauEnCours);
-            if ((m_operationEnCours->left(1) != "t") && (m_operationEnCours->left(1) != "c"))
+            if ((m_operationEnCours->left(1) != "t") && (m_operationEnCours->left(1) != "c") && (m_operationEnCours->left(2) != "ma"))
             {
                 if (m_operationEnCours->left(10)!="OdGrandeur") {
                     config.setValue("MinGauche", m_ui->spbGMin->value());
