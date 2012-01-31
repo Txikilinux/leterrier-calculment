@@ -561,6 +561,11 @@ p, li { white-space: pre-wrap; }
         <translation>Time table of </translation>
     </message>
     <message>
+        <location filename="../editeur.cpp" line="282"/>
+        <source>Maison des nombres</source>
+        <translation>Home numbers</translation>
+    </message>
+    <message>
         <location filename="../editeur.cpp" line="165"/>
         <source>Soustraction</source>
         <translation>Subtraction</translation>
@@ -586,12 +591,30 @@ p, li { white-space: pre-wrap; }
         <translation>Correct answer : </translation>
     </message>
     <message>
-        <location filename="../exercicerepechage.cpp" line="81"/>
+        <location filename="../exercicerepechage.cpp" line="82"/>
         <source>GAGNE</source>
         <translation>WON</translation>
     </message>
     <message>
-        <location filename="../exercicerepechage.cpp" line="88"/>
+        <location filename="../exercicerepechage.cpp" line="89"/>
+        <source>PERDU</source>
+        <translation>LOST</translation>
+    </message>
+</context>
+<context>
+    <name>ExerciceRepechageMaisonNombres</name>
+    <message utf8="true">
+        <location filename="../exercicerepechagemaisonnombres.cpp" line="29"/>
+        <source>Réponse exacte : </source>
+        <translation>Correct answer : </translation>
+    </message>
+    <message>
+        <location filename="../exercicerepechagemaisonnombres.cpp" line="72"/>
+        <source>GAGNE</source>
+        <translation>WON</translation>
+    </message>
+    <message>
+        <location filename="../exercicerepechagemaisonnombres.cpp" line="79"/>
         <source>PERDU</source>
         <translation>LOST</translation>
     </message>
@@ -639,9 +662,13 @@ p, li { white-space: pre-wrap; }
         <translation>Additive complement to 1000</translation>
     </message>
     <message>
-        <location filename="../interfacecompetence.cpp" line="106"/>
         <source>Les maisons des nombres</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Home numbers</translation>
+    </message>
+    <message>
+        <location filename="../interfacecompetence.cpp" line="106"/>
+        <source>La maison des nombres</source>
+        <translation>Home numbers</translation>
     </message>
     <message>
         <location filename="../interfacecompetence.cpp" line="117"/>
@@ -702,22 +729,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>baudruche</name>
     <message>
-        <location filename="../baudruche.cpp" line="198"/>
+        <location filename="../baudruche.cpp" line="215"/>
         <source>Ton score est de </source>
         <translation>Your score is </translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="200"/>
+        <location filename="../baudruche.cpp" line="217"/>
         <source> point.</source>
         <translation> point.</translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="201"/>
+        <location filename="../baudruche.cpp" line="218"/>
         <source> points.</source>
         <translation> points.</translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="402"/>
+        <location filename="../baudruche.cpp" line="430"/>
         <source>TROP TARD...</source>
         <translation>TOO LATE...</translation>
     </message>
@@ -858,17 +885,17 @@ p, li { white-space: pre-wrap; }
         <translation>, it doesn&apos;t exist as operation...</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="457"/>
+        <location filename="../exercice.cpp" line="459"/>
         <source>GAGNE</source>
         <translation>WON</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="464"/>
+        <location filename="../exercice.cpp" line="466"/>
         <source>PERDU</source>
         <translation>LOST</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="539"/>
+        <location filename="../exercice.cpp" line="549"/>
         <source>Tu dois trouver l&apos;ordre de grandeur du résultat du calcul proposé. 
 Pour cela, tu vas arrondir les nombres en ne gardant qu&apos;un seul chiffre significatif, puis faire l&apos;opération sur les nombres arrondis. 
 Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>

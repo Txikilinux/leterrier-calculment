@@ -471,6 +471,11 @@ p, li { white-space: pre-wrap; }
         <translation>Tablas de multiplicar por </translation>
     </message>
     <message>
+        <location filename="../editeur.cpp" line="282"/>
+        <source>Maison des nombres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../editeur.cpp" line="165"/>
         <source>Soustraction</source>
         <translation>Sustracción</translation>
@@ -484,12 +489,30 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercicerepechage.cpp" line="81"/>
+        <location filename="../exercicerepechage.cpp" line="82"/>
         <source>GAGNE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercicerepechage.cpp" line="88"/>
+        <location filename="../exercicerepechage.cpp" line="89"/>
+        <source>PERDU</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ExerciceRepechageMaisonNombres</name>
+    <message utf8="true">
+        <location filename="../exercicerepechagemaisonnombres.cpp" line="29"/>
+        <source>Réponse exacte : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../exercicerepechagemaisonnombres.cpp" line="72"/>
+        <source>GAGNE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../exercicerepechagemaisonnombres.cpp" line="79"/>
         <source>PERDU</source>
         <translation type="unfinished"></translation>
     </message>
@@ -538,7 +561,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../interfacecompetence.cpp" line="106"/>
-        <source>Les maisons des nombres</source>
+        <source>La maison des nombres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -600,22 +623,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>baudruche</name>
     <message>
-        <location filename="../baudruche.cpp" line="198"/>
+        <location filename="../baudruche.cpp" line="215"/>
         <source>Ton score est de </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="200"/>
+        <location filename="../baudruche.cpp" line="217"/>
         <source> point.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="201"/>
+        <location filename="../baudruche.cpp" line="218"/>
         <source> points.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="402"/>
+        <location filename="../baudruche.cpp" line="430"/>
         <source>TROP TARD...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -756,17 +779,17 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="457"/>
+        <location filename="../exercice.cpp" line="459"/>
         <source>GAGNE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="464"/>
+        <location filename="../exercice.cpp" line="466"/>
         <source>PERDU</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="539"/>
+        <location filename="../exercice.cpp" line="549"/>
         <source>Tu dois trouver l&apos;ordre de grandeur du résultat du calcul proposé. 
 Pour cela, tu vas arrondir les nombres en ne gardant qu&apos;un seul chiffre significatif, puis faire l&apos;opération sur les nombres arrondis. 
 Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
