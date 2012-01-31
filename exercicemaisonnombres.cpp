@@ -105,7 +105,9 @@ void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
           */
 
         qDebug()<<"L107 Je suis sur l'objet "<<m_scene->itemAt(point);
-        m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(1));
+        if (m_baudruche.data()->getMDropValeur().right(1) == "0")
+            m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(2));
+        else m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(1));
         on_btnFeu_clicked();
         //    m_baudruche->detruire();
         //    emit baudrucheDetruite();
