@@ -15,16 +15,17 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
     qDebug() <<"Opération : "<<m_operation<<", valeur passée : "<<m_cible<<" et niveau : "<<m_level;
     chargerParametres();
     qDebug()<<"Apres chargement des parametres, m_temps vaut "<<m_temps;
-    float coefficiantEtirement = (float)m_imgFond->height()/(5*QPixmap("./data/images/maison2.png").height());
-    qDebug()<<"----------------------------------------------------"<<coefficiantEtirement;
-    for (int i=2;i<=10;i++)
+    int ordonneMaison = 0;
+    int nombreMaisons = 5;
+    for (int i=1;i<=10;i++)
     {
-        QPixmap dessinBouton ("./data/images/maison"+QString::number(i)+".png");
-        //        float coefficiantEtirement = m_imgFond->height()/(5*dessinBouton.height());
 
-        PixmapMaison* maison = new PixmapMaison(dessinBouton);
+        QPixmap dessinBouton ("./data/images/maison"+QString::number(i)+".png");
+        QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        PixmapMaison* maison = new PixmapMaison(dessinBouton2);
         maison->setToolTip("Maison du "+QString::number(i));
-        maison->setPos(((1+qPow(-1,i))/2)*(m_imgFond->width() - dessinBouton.width()),qFloor((i-1)/2)* dessinBouton.height()*coefficiantEtirement);
+        ordonneMaison = qFloor((i-1)/2)*(dessinBouton2.height()-1 + ((m_imgFond->height()-nombreMaisons*dessinBouton2.height())/nombreMaisons-1));
+        maison->setPos(((1+qPow(-1,i))/2)*(m_imgFond->width() - dessinBouton2.width()),ordonneMaison);
         m_scene->addItem(maison);//
     }
 }
@@ -38,7 +39,6 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
         this->m_resultatEnCours=m_baudruche->getMResultat();
         qDebug()<<"kkkkkkkk    Ballon créé avec comme résultat "<<m_resultatEnCours<<" et comme parent "<<m_scene<<" euh "<<m_baudruche.data()->parent();
         if (m_resultatEnCours > 10 || m_resultatEnCours < 1) {
-            //            qDebug()<<"Je détruis";
             m_baudruche->deleteLater();
         }
         else inferieurA11 = true;
