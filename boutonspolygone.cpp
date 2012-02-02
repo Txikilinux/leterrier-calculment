@@ -33,10 +33,7 @@
 
 boutonsPolygone::boutonsPolygone(QString operation, int val)
         : QGraphicsItem()
-        //:QPushButton() 
 {
-    //this->setObjectName("bouton"+operation+val);
-    //qDebug()<<"Nom du bouton : "<<this->objectName();     Plus besoin de le nommer si pas de filiation
     m_base = new QPoint(0,0);
     m_taille = new QSize(100,100);
     m_val = val;

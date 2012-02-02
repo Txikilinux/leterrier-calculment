@@ -84,11 +84,21 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QPushButton" name="btnBallon">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
           <property name="text">
-           <string>&amp;Question</string>
+           <string>&amp;Suivant</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>data/images/suivant.png</normaloff>data/images/suivant.png</iconset>
           </property>
           <property name="default">
            <bool>true</bool>
@@ -100,11 +110,21 @@
         </item>
         <item>
          <widget class="QPushButton" name="btnFeu">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="toolTip">
            <string>Propose ta réponse</string>
           </property>
           <property name="text">
-           <string>&amp;Proposer</string>
+           <string>&amp;Vérifier</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>data/images/verifier.png</normaloff>data/images/verifier.png</iconset>
           </property>
          </widget>
         </item>
@@ -219,11 +239,21 @@ font: 10pt;
       </item>
       <item>
        <widget class="QPushButton" name="btnRejouer">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="toolTip">
          <string>Refais le même exercice</string>
         </property>
         <property name="text">
          <string>&amp;Rejouer</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>data/images/refaire.png</normaloff>data/images/refaire.png</iconset>
         </property>
        </widget>
       </item>
@@ -242,8 +272,18 @@ font: 10pt;
       </item>
       <item>
        <widget class="QPushButton" name="btnAide">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>&amp;Aide</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>data/images/aide.png</normaloff>data/images/aide.png</iconset>
         </property>
        </widget>
       </item>
@@ -262,6 +302,12 @@ font: 10pt;
       </item>
       <item>
        <widget class="QPushButton" name="btn2chance">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="toolTip">
          <string>Propose une autre réponse</string>
         </property>
@@ -289,11 +335,21 @@ font: 10pt;
       </item>
       <item>
        <widget class="QPushButton" name="btnEditeur">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="toolTip">
          <string>Modifie les paramètres</string>
         </property>
         <property name="text">
          <string>&amp;Editeur</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>data/images/editeur.png</normaloff>data/images/editeur.png</iconset>
         </property>
        </widget>
       </item>
@@ -312,8 +368,18 @@ font: 10pt;
       </item>
       <item>
        <widget class="QPushButton" name="btnQuitter">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>&amp;Quitter</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>data/images/quitter.png</normaloff>data/images/quitter.png</iconset>
         </property>
        </widget>
       </item>

@@ -58,7 +58,7 @@ void debugOutput(QtMsgType type, const char *msg)
 int main(int argc, char *argv[])
 {
     QApplication appli(argc, argv);
-    qInstallMsgHandler(debugOutput);
+//    qInstallMsgHandler(debugOutput);
     qDebug()<<"Nom de mon appli : "<<appli.objectName();
     qApp->setApplicationName(VER_INTERNALNAME_STR);
     qApp->setApplicationVersion(VER_PRODUCTVERSION_STR);

@@ -187,10 +187,10 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btnRejouer->setDisabled(true);
     m_ui->leResultat->setDisabled(true);
     m_ui->btn2chance->setEnabled(false);
-    m_ui->btnRejouer->setIcon(QIcon("./data/images/souris.png"));
-    m_ui->btnAide->setIcon(QIcon("./data/images/souris.png"));
-    m_ui->btnQuitter->setIcon(QIcon("./data/images/souris.png"));
-    m_ui->btnEditeur->setIcon(QIcon("./data/images/souris.png"));
+//    m_ui->btnRejouer->setIcon(QIcon("./data/images/souris.png"));
+//    m_ui->btnAide->setIcon(QIcon("./data/images/souris.png"));
+//    m_ui->btnQuitter->setIcon(QIcon("./data/images/souris.png"));
+//    m_ui->btnEditeur->setIcon(QIcon("./data/images/souris.png"));
     qDebug()<<"Skill : "<<getAbeSkill();
     qDebug()<<"Exercice : "<<getAbeExerciceName();
     QPixmap collierNiveau("./data/images/"+m_level+".png");
