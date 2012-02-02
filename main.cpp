@@ -57,9 +57,6 @@ void debugOutput(QtMsgType type, const char *msg)
 
 int main(int argc, char *argv[])
 {
-//    MonApplication appli(argc,argv);
-//    QObject* appliCastee = qobject_cast<QApplication*>(&appli);
-//    appli.QObject::installEventFilter(appliCastee);
     QApplication appli(argc, argv);
 //    qInstallMsgHandler(debugOutput);
     qDebug()<<"Nom de mon appli : "<<appli.objectName();

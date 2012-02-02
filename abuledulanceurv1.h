@@ -2,6 +2,7 @@
 #define ABULEDULANCEURV1_H
 
 #include "exercice.h"
+#include "exercicemaisonnombres.h"
 #include <QWidget>
 #include <QFile>
 #include <QMessageBox>
