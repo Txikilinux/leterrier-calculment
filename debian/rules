@@ -5,6 +5,8 @@ include /usr/share/cdbs/1/class/qmake.mk
 
 # Add here any variable or target overrides you need.
 QMAKE=qmake-qt4
+QTDIR=/usr
+QTPLUGINS=/usr/lib/qt4/plugins
 MAKE=make -j4
 CFLAGS=-O3
 CXXFLAGS=-O3
@@ -27,4 +29,25 @@ install/leterrier-calcul-mental::
 	cp -a $(CURDIR)/data/* $(BUILDTEMP)/$(DEST)/data
 	cp -a $(CURDIR)/*.png $(BUILDTEMP)/$(DEST)/
 	cp -a $(CURDIR)/leterrier-calcul-mental $(BUILDTEMP)/$(EXECDEST)/
-	
+
+	#special jaunty, please copy all libs to app lib dir
+	install -D --mode=0755 $(QTDIR)/lib/libQtCore.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtXml.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtXmlPatterns.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtMultimedia.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtNetwork.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtDBus.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtGui.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libphonon.so.4 $(BUILDTEMP)/$(EXECDEST)
+
+	install -D --mode=0755 $(QTDIR)/lib/libQtWebKit.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtScript.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtDesigner.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtDBus.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtOpenGL.so.4 $(BUILDTEMP)/$(EXECDEST)
+	install -D --mode=0755 $(QTDIR)/lib/libQtSvg.so.4 $(BUILDTEMP)/$(EXECDEST)
+
+	#and plugins (phonon backend, jpeg and co)
+	cp -a $(QTPLUGINS)/imageformats $(BUILDTEMP)/$(EXECDEST)/
+	mkdir -p $(BUILDTEMP)/$(EXECDEST)/phonon_backend
+
