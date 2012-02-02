@@ -25,6 +25,7 @@
 #include "interface.h"
 #include "ui_interface.h"
 #include "exercice.h"
+#include "exercicemaisonnombres.h"
 #include "ui_exercice.h"
 #include "editeur.h"
 #include "boutonspolygone.h"
@@ -431,4 +432,10 @@ void interface::on_actionSur_des_multiplications_triggered()
 {
     m_exercice = new exercice("OdGrandeurMultiplication",this,100,"");
     m_exercice->show();
+}
+
+void interface::on_actionMaison_des_nombres_triggered()
+{
+    ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres("maisonDesNombres",0,0);
+    maisonNombres->show();
 }

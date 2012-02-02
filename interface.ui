@@ -110,6 +110,7 @@
      <addaction name="action_10"/>
      <addaction name="action_100"/>
      <addaction name="action_20"/>
+     <addaction name="actionMaison_des_nombres"/>
     </widget>
     <widget class="QMenu" name="menuOrdres_de_grandeur">
      <property name="title">
@@ -322,6 +323,11 @@
   <action name="actionSur_des_multiplications">
    <property name="text">
     <string>sur des multiplications</string>
+   </property>
+  </action>
+  <action name="actionMaison_des_nombres">
+   <property name="text">
+    <string>Maison des nombres</string>
    </property>
   </action>
  </widget>
