@@ -84,6 +84,9 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QPushButton" name="btnBallon">
+          <property name="toolTip">
+           <string/>
+          </property>
           <property name="text">
            <string>&amp;Question</string>
           </property>
@@ -97,6 +100,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="btnFeu">
+          <property name="toolTip">
+           <string>Propose ta réponse</string>
+          </property>
           <property name="text">
            <string>&amp;Proposer</string>
           </property>
@@ -213,6 +219,9 @@ font: 10pt;
       </item>
       <item>
        <widget class="QPushButton" name="btnRejouer">
+        <property name="toolTip">
+         <string>Refais le même exercice</string>
+        </property>
         <property name="text">
          <string>&amp;Rejouer</string>
         </property>
@@ -253,6 +262,9 @@ font: 10pt;
       </item>
       <item>
        <widget class="QPushButton" name="btn2chance">
+        <property name="toolTip">
+         <string>Propose une autre réponse</string>
+        </property>
         <property name="text">
          <string>Erreurs</string>
         </property>
@@ -277,6 +289,9 @@ font: 10pt;
       </item>
       <item>
        <widget class="QPushButton" name="btnEditeur">
+        <property name="toolTip">
+         <string>Modifie les paramètres</string>
+        </property>
         <property name="text">
          <string>&amp;Editeur</string>
         </property>
