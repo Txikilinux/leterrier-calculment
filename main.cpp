@@ -27,6 +27,7 @@
 #include "interface.h"
 #include "exercice.h"
 #include "editeur.h"
+#include "version.h"
 #include <stdio.h>
 
 extern const QString abeApplicationLongName=QObject::trUtf8("AbulÉdu LeTerrier -- Calcul-Mental");
@@ -62,8 +63,8 @@ int main(int argc, char *argv[])
     QApplication appli(argc, argv);
 //    qInstallMsgHandler(debugOutput);
     qDebug()<<"Nom de mon appli : "<<appli.objectName();
-    qApp->setApplicationName("leterrier-calculment");
-    qApp->setApplicationVersion("1.0.9");
+    qApp->setApplicationName(VER_INTERNALNAME_STR);
+    qApp->setApplicationVersion(VER_PRODUCTVERSION_STR);
     qApp->setFont(QFont("LiberationSans",14));
     qApp->setProperty("langageUtilise",QLocale::system().name().section('_', 0, 0));
     QString exo;

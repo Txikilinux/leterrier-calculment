@@ -31,6 +31,7 @@ HEADERS += interface.h \
     exercicerepechage.h \
     exercicemaisonnombres.h \
     pixmapmaison.h \
+    version.h \
     exercicerepechagemaisonnombres.h
 FORMS += interface.ui \
     exercice.ui \
@@ -47,6 +48,13 @@ TRANSLATIONS = lang/leterrier-calcul-mental_es.ts \
 QT += script
 QT += network
 QT += xml
-RC_FILE = windows/icone.rc
 
+win32{
+  OTHER_FILES += windows/windows.rc
+  RC_FILE = windows/windows.rc
+}
+
+macx {
+ ICON = macos/icones/leterrier-calcul-mental.icns
+}
 
