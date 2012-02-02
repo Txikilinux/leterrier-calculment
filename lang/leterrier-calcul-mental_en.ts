@@ -715,13 +715,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message utf8="true">
-        <location filename="../main.cpp" line="32"/>
+        <location filename="../main.cpp" line="33"/>
         <source>AbulÉdu LeTerrier -- Calcul-Mental</source>
         <translation>AbulEdu LeTerrier -- Mental calculation</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="223"/>
-        <location filename="../main.cpp" line="114"/>
+        <location filename="../main.cpp" line="115"/>
         <source>Calcul Mental</source>
         <translation>Mental calculation</translation>
     </message>
@@ -792,18 +792,22 @@ p, li { white-space: pre-wrap; }
         <source>&amp;Aide</source>
         <translation>&amp;Help</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../exercice.ui" line="257"/>
+        <source>Erreurs</source>
+        <translation>Errors</translation>
+    </message>
+    <message utf8="true">
         <source>2ème chance</source>
-        <translation>2nd chance</translation>
+        <translation type="obsolete">2nd chance</translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="277"/>
+        <location filename="../exercice.ui" line="281"/>
         <source>&amp;Editeur</source>
         <translation>&amp;Editor</translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="297"/>
+        <location filename="../exercice.ui" line="301"/>
         <source>&amp;Quitter</source>
         <translation>&amp;Quit</translation>
     </message>

@@ -696,12 +696,12 @@ p, li { white-space: pre-wrap; }
     <name>QObject</name>
     <message>
         <location filename="../interface.cpp" line="223"/>
-        <location filename="../main.cpp" line="114"/>
+        <location filename="../main.cpp" line="115"/>
         <source>Calcul Mental</source>
         <translation>Calcul Mental</translation>
     </message>
     <message utf8="true">
-        <location filename="../main.cpp" line="32"/>
+        <location filename="../main.cpp" line="33"/>
         <source>AbulÉdu LeTerrier -- Calcul-Mental</source>
         <translation>AbulÉdu LeTerrier -- Calcul-Mental</translation>
     </message>
@@ -772,18 +772,22 @@ p, li { white-space: pre-wrap; }
         <source>&amp;Aide</source>
         <translation>&amp;Aide</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../exercice.ui" line="257"/>
+        <source>Erreurs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
         <source>2ème chance</source>
-        <translation>2ème chance</translation>
+        <translation type="obsolete">2ème chance</translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="277"/>
+        <location filename="../exercice.ui" line="281"/>
         <source>&amp;Editeur</source>
         <translation>&amp;Editeur</translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="297"/>
+        <location filename="../exercice.ui" line="301"/>
         <source>&amp;Quitter</source>
         <translation>&amp;Quitter</translation>
     </message>

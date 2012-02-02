@@ -609,13 +609,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message utf8="true">
-        <location filename="../main.cpp" line="32"/>
+        <location filename="../main.cpp" line="33"/>
         <source>AbulÉdu LeTerrier -- Calcul-Mental</source>
         <translation>AbulÉdu LeTerrier -- Cálculo Mental</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="223"/>
-        <location filename="../main.cpp" line="114"/>
+        <location filename="../main.cpp" line="115"/>
         <source>Calcul Mental</source>
         <translation>Cálculo Mental</translation>
     </message>
@@ -686,18 +686,18 @@ p, li { white-space: pre-wrap; }
         <source>&amp;Aide</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../exercice.ui" line="257"/>
-        <source>2ème chance</source>
+        <source>Erreurs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="277"/>
+        <location filename="../exercice.ui" line="281"/>
         <source>&amp;Editeur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="297"/>
+        <location filename="../exercice.ui" line="301"/>
         <source>&amp;Quitter</source>
         <translation type="unfinished">&amp;Terminar</translation>
     </message>

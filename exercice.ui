@@ -254,7 +254,11 @@ font: 10pt;
       <item>
        <widget class="QPushButton" name="btn2chance">
         <property name="text">
-         <string>2ème chance</string>
+         <string>Erreurs</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>data/images/cartable.png</normaloff>data/images/cartable.png</iconset>
         </property>
        </widget>
       </item>
