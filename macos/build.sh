@@ -2,8 +2,8 @@
 #script de creation de l'image pour OSX
 #Eric Seigne 2011 <eric.seigne@ryxeo.com>
 #documentation https://redmine.ryxeo.com/projects/ryxeo/wiki/Cr%C3%A9er_un_paquet_avec_OSX
-APPNAME="leterrier-raconte-moi"
-APPVERSION="0.9.18"
+APPNAME="leterrier-calcul-mental"
+APPVERSION="1.0.10"
 
 #On stoppe dès qu'on rencontre un problème
 set -e
