@@ -235,32 +235,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>AbuleduLanceurV1</name>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="14"/>
+        <location filename="../abuledulanceurv1.ui" line="17"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="20"/>
+        <location filename="../abuledulanceurv1.ui" line="23"/>
         <source>Exercice</source>
         <translation>Ejercicio</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="109"/>
+        <location filename="../abuledulanceurv1.ui" line="112"/>
         <source>Nombre</source>
         <translation>Número</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="33"/>
+        <location filename="../abuledulanceurv1.ui" line="36"/>
         <source>Niveau</source>
         <translation>Nivel</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="69"/>
+        <location filename="../abuledulanceurv1.ui" line="72"/>
         <source>&amp;Annuler</source>
         <translation>&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="89"/>
+        <location filename="../abuledulanceurv1.ui" line="92"/>
         <source>&amp;Lancer</source>
         <translation>&amp;Lanzar</translation>
     </message>
@@ -614,8 +614,8 @@ p, li { white-space: pre-wrap; }
         <translation>AbulÉdu LeTerrier -- Cálculo Mental</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="223"/>
-        <location filename="../main.cpp" line="115"/>
+        <location filename="../interface.cpp" line="224"/>
+        <location filename="../main.cpp" line="112"/>
         <source>Calcul Mental</source>
         <translation>Cálculo Mental</translation>
     </message>
@@ -651,53 +651,73 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="88"/>
-        <source>&amp;Question</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../exercice.ui" line="101"/>
-        <source>&amp;Proposer</source>
+        <location filename="../exercice.ui" line="97"/>
+        <source>&amp;Suivant</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="159"/>
+        <location filename="../exercice.ui" line="120"/>
+        <source>Propose ta réponse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../exercice.ui" line="123"/>
+        <source>&amp;Vérifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../exercice.ui" line="185"/>
         <source>Réponse exacte : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="172"/>
-        <location filename="../exercice.ui" line="192"/>
+        <location filename="../exercice.ui" line="198"/>
+        <location filename="../exercice.ui" line="218"/>
         <source>.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="182"/>
+        <location filename="../exercice.ui" line="208"/>
         <source>sur</source>
         <translation type="unfinished"></translation>
     </message>
+    <message utf8="true">
+        <location filename="../exercice.ui" line="249"/>
+        <source>Refais le même exercice</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
-        <location filename="../exercice.ui" line="217"/>
+        <location filename="../exercice.ui" line="252"/>
         <source>&amp;Rejouer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="237"/>
+        <location filename="../exercice.ui" line="282"/>
         <source>&amp;Aide</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../exercice.ui" line="257"/>
-        <source>Erreurs</source>
+    <message utf8="true">
+        <location filename="../exercice.ui" line="312"/>
+        <source>Propose une autre réponse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="281"/>
+        <location filename="../exercice.ui" line="315"/>
+        <source>Erreurs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../exercice.ui" line="345"/>
+        <source>Modifie les paramètres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../exercice.ui" line="348"/>
         <source>&amp;Editeur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="301"/>
+        <location filename="../exercice.ui" line="378"/>
         <source>&amp;Quitter</source>
         <translation type="unfinished">&amp;Terminar</translation>
     </message>
@@ -799,101 +819,101 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
 <context>
     <name>interface</name>
     <message utf8="true">
-        <location filename="../interface.cpp" line="53"/>
+        <location filename="../interface.cpp" line="54"/>
         <source>Langue chargée : </source>
         <translation>Idioma cargado : </translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="66"/>
+        <location filename="../interface.cpp" line="67"/>
         <source>Fichier config NON trouvé</source>
         <translation>Archivo de configuracíon ausente</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="67"/>
+        <location filename="../interface.cpp" line="68"/>
         <source>Fichier config trouvé</source>
         <translation>Archivo de configuracíon encontrado</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="95"/>
+        <location filename="../interface.cpp" line="96"/>
         <source>Faire des additions</source>
         <translation>Sumar</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="96"/>
+        <location filename="../interface.cpp" line="97"/>
         <source>Additions</source>
         <translation>Adiciónes</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="104"/>
+        <location filename="../interface.cpp" line="105"/>
         <source>Faire des multiplications</source>
         <translation>Multiplicar</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="105"/>
+        <location filename="../interface.cpp" line="106"/>
         <source>Multiplications</source>
         <translation>Multiplicaciónes</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="112"/>
+        <location filename="../interface.cpp" line="113"/>
         <source>Lancer l&apos;éditeur</source>
         <translation>Lanzar el editor</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="120"/>
+        <location filename="../interface.cpp" line="121"/>
         <source>Quitter</source>
         <translation>Terminar</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="128"/>
         <location filename="../interface.cpp" line="129"/>
+        <location filename="../interface.cpp" line="130"/>
         <source>Tables de multiplication</source>
         <translation>Tablas de multiplicar</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="137"/>
         <location filename="../interface.cpp" line="138"/>
+        <location filename="../interface.cpp" line="139"/>
         <source>Compléments additifs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="146"/>
         <location filename="../interface.cpp" line="147"/>
+        <location filename="../interface.cpp" line="148"/>
         <source>Multiples</source>
         <translation>Múltiplos</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="154"/>
+        <location filename="../interface.cpp" line="155"/>
         <source>Faire des soustractions</source>
         <translation>Sustraer</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="155"/>
+        <location filename="../interface.cpp" line="156"/>
         <source>Soustractions</source>
         <translation>Sustracciónes</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="163"/>
         <location filename="../interface.cpp" line="164"/>
+        <location filename="../interface.cpp" line="165"/>
         <source>Tables d&apos;addition</source>
         <translation>Tablas de sumar</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="171"/>
+        <location filename="../interface.cpp" line="172"/>
         <source>Ordres de grandeur</source>
         <translation>Ordenes de magnitud</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="178"/>
+        <location filename="../interface.cpp" line="179"/>
         <source>Choisir son exercice</source>
         <translation>Elejir un ejercicio</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="192"/>
+        <location filename="../interface.cpp" line="193"/>
         <source>Problème !!</source>
         <translation>Problema !!</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="192"/>
+        <location filename="../interface.cpp" line="193"/>
         <source>Fichier de configuration des langues non trouvé</source>
         <translation>Archivo de configuracíon de idiomas ausente</translation>
     </message>
@@ -941,198 +961,203 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="116"/>
+        <location filename="../interface.ui" line="117"/>
         <source>Ordres de grandeur</source>
         <translation>Ordenes de magnitud</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="133"/>
+        <location filename="../interface.ui" line="134"/>
         <source>Editeur</source>
         <translation>Editor</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="139"/>
+        <location filename="../interface.ui" line="140"/>
         <source>Langues</source>
         <translation>Idiomas</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="149"/>
+        <location filename="../interface.ui" line="150"/>
         <source>&amp;Quitter</source>
         <translation>&amp;Terminar</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="154"/>
+        <location filename="../interface.ui" line="155"/>
         <source>Additions</source>
         <translation>Sumar</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="159"/>
+        <location filename="../interface.ui" line="160"/>
         <source>Multiplications</source>
         <translation>Multiplicar</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="164"/>
+        <location filename="../interface.ui" line="165"/>
         <source>+ 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="169"/>
+        <location filename="../interface.ui" line="170"/>
         <source>+ 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="174"/>
+        <location filename="../interface.ui" line="175"/>
         <source>+ 4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="179"/>
+        <location filename="../interface.ui" line="180"/>
         <source>+ 5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="184"/>
+        <location filename="../interface.ui" line="185"/>
         <source>+ 6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="189"/>
+        <location filename="../interface.ui" line="190"/>
         <source>+ 7</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="194"/>
+        <location filename="../interface.ui" line="195"/>
         <source>+ 8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="199"/>
+        <location filename="../interface.ui" line="200"/>
         <source>+ 9</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="204"/>
+        <location filename="../interface.ui" line="205"/>
         <source>x 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="209"/>
+        <location filename="../interface.ui" line="210"/>
         <source>x 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="214"/>
+        <location filename="../interface.ui" line="215"/>
         <source>x 4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="219"/>
+        <location filename="../interface.ui" line="220"/>
         <source>x 5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="224"/>
+        <location filename="../interface.ui" line="225"/>
         <source>x 6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="229"/>
+        <location filename="../interface.ui" line="230"/>
         <source>x 7</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="234"/>
+        <location filename="../interface.ui" line="235"/>
         <source>x 8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="239"/>
+        <location filename="../interface.ui" line="240"/>
         <source>x 9</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.ui" line="244"/>
+        <location filename="../interface.ui" line="245"/>
         <source>Afficher l&apos;éditeur</source>
         <translation>Ver el editor</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="249"/>
+        <location filename="../interface.ui" line="250"/>
         <source>A &amp;propos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="254"/>
+        <location filename="../interface.ui" line="255"/>
         <source>Documentation utilisateurs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="259"/>
+        <location filename="../interface.ui" line="260"/>
         <source>Soustractions</source>
         <translation>Sustraer</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="264"/>
+        <location filename="../interface.ui" line="265"/>
         <source>de 5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="269"/>
+        <location filename="../interface.ui" line="270"/>
         <source>de 10</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="274"/>
+        <location filename="../interface.ui" line="275"/>
         <source>de 15</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="279"/>
+        <location filename="../interface.ui" line="280"/>
         <source>de 20</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="284"/>
+        <location filename="../interface.ui" line="285"/>
         <source>de 25</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="289"/>
+        <location filename="../interface.ui" line="290"/>
         <source>de 50</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.ui" line="294"/>
+        <location filename="../interface.ui" line="295"/>
         <source>à 10</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.ui" line="299"/>
+        <location filename="../interface.ui" line="300"/>
         <source>à 1000</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.ui" line="304"/>
+        <location filename="../interface.ui" line="305"/>
         <source>à 100</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.ui" line="309"/>
+        <location filename="../interface.ui" line="310"/>
         <source>à un nombre aléatoire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="314"/>
+        <location filename="../interface.ui" line="315"/>
         <source>sur des additions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="319"/>
+        <location filename="../interface.ui" line="320"/>
         <source>sur des soustractions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="324"/>
+        <location filename="../interface.ui" line="325"/>
         <source>sur des multiplications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.ui" line="330"/>
+        <source>Maison des nombres</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
