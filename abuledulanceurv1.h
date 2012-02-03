@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QSettings>
+#include <QDesktopWidget>
 
 namespace Ui {
     class AbuleduLanceurV1;
@@ -28,6 +29,7 @@ private:
     QString m_intituleExercice;
     QStringList m_listeExercices;
     QStringList m_listeNiveaux;
+    void adapte();
 
 private slots:
     void fillCbNombre(QString);

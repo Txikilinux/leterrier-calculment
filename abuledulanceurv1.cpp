@@ -16,7 +16,7 @@ AbuleduLanceurV1::AbuleduLanceurV1(QWidget *parent) :
     connect(this,SIGNAL(cbExerciceFini(QString)),this, SLOT(fillCbNombre(QString)));
     connect(this,SIGNAL(cbExerciceFini(QString)),this, SLOT(fillCbNiveau(QString)));
     connect(ui->cbExercice, SIGNAL(currentIndexChanged(QString)), this, SLOT(associeNomIntitule(QString)));
-
+    adapte();
 }
 
 AbuleduLanceurV1::~AbuleduLanceurV1()
@@ -205,4 +205,18 @@ void AbuleduLanceurV1::associeNomIntitule(QString intitule)
     qDebug()<<"Intitule"<<m_intituleExercice;
     emit cbExerciceFini(m_nomExercice);
     qDebug()<<"Signal emis avec "<<m_nomExercice;
+}
+
+void AbuleduLanceurV1::adapte()
+{
+    int factX= static_cast<int> (QApplication::desktop()->screenGeometry().width())/1600;
+    int factY= static_cast<int> (QApplication::desktop()->screenGeometry().height())/1600;
+    QPixmap imageIllustration("./data/images/avion.jpg");
+    QPixmap imageIllustration2 = imageIllustration.scaledToWidth(imageIllustration.width()*factX, Qt::SmoothTransformation);
+    QBrush* fond = new QBrush(imageIllustration2);
+    QPalette palette;
+    palette.setBrush(this->backgroundRole(),*fond);
+    setPalette(palette);
+    setGeometry(900*factX,150*factY,imageIllustration2.width(),imageIllustration2.height());
+    setWindowModality(Qt::ApplicationModal);
 }
