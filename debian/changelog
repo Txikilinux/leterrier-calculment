@@ -1,9 +1,10 @@
-leterrier-calcul-mental (1.0.10~lucid1~ryxeo1) lucid; urgency=low
+leterrier-calcul-mental (1.0.10~lucid1~ryxeo2) lucid; urgency=low
 
   * Ajout de l'exercice maison des nombres
   * Traduction en anglais
   * Reprise des erreurs
   * Lanceur d'exercice sur le dessin de l'avion
+  * Ajout des fichiers de traduction
 
  -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 06 May 2011 09:22:46 +0200
 
