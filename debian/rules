@@ -25,7 +25,8 @@ install/leterrier-calcul-mental::
 	mkdir -p $(BUILDTEMP)/usr/share/applications
 	cp -a $(CURDIR)/debian/leterrier-calcul-mental.wrapper $(BUILDTEMP)/usr/bin/leterrier-calcul-mental
 	cp -a $(CURDIR)/debian/*.desktop $(BUILDTEMP)/usr/share/applications/
-#	cp -a $(CURDIR)/lang/*.qm $(BUILDTEMP)/$(DEST)/lang
+	cp -a $(CURDIR)/lang/*.qm $(BUILDTEMP)/$(DEST)/lang
+	cp -a $(CURDIR)/conf/*.conf $(BUILDTEMP)/$(DEST)/conf
 	cp -a $(CURDIR)/data/* $(BUILDTEMP)/$(DEST)/data
 	cp -a $(CURDIR)/*.png $(BUILDTEMP)/$(DEST)/
 	cp -a $(CURDIR)/leterrier-calcul-mental $(BUILDTEMP)/$(EXECDEST)/
