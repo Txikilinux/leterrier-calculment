@@ -140,6 +140,7 @@ void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
                 ui->cbNombre->setSizeAdjustPolicy(QComboBox::AdjustToContents);
                 ui->cbNombre->show();
                 ui->lblNombre->show();
+                adapte();
             }
             return;
         }
@@ -209,14 +210,21 @@ void AbuleduLanceurV1::associeNomIntitule(QString intitule)
 
 void AbuleduLanceurV1::adapte()
 {
-    int factX= static_cast<int> (QApplication::desktop()->screenGeometry().width())/1600;
-    int factY= static_cast<int> (QApplication::desktop()->screenGeometry().height())/1600;
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
+    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+//    QFile* fichierImage = new QFile("./data/images/avion.jpg");
+//    if (fichierImage->exists()) {
+//        qDebug()<<"Image avion OK" << factX << ": " << factY << " :: " << QApplication::desktop()->screenGeometry().width();
+//    }
+//    else qDebug()<<"Image avion prout !!";
     QPixmap imageIllustration("./data/images/avion.jpg");
-    QPixmap imageIllustration2 = imageIllustration.scaledToWidth(imageIllustration.width()*factX, Qt::SmoothTransformation);
+    int larg = qRound((imageIllustration.width()+200)*factX);
+    QPixmap imageIllustration2 = imageIllustration.scaledToWidth(larg, Qt::SmoothTransformation);
+//    qDebug() << "Taille 2 :: " << larg << " -> " << imageIllustration.size() << " --> " << imageIllustration2.size();
     QBrush* fond = new QBrush(imageIllustration2);
     QPalette palette;
     palette.setBrush(this->backgroundRole(),*fond);
     setPalette(palette);
-    setGeometry(900*factX,150*factY,imageIllustration2.width(),imageIllustration2.height());
+    setGeometry(750*factX,150*factY,imageIllustration2.width(),imageIllustration2.height());
     setWindowModality(Qt::ApplicationModal);
 }
