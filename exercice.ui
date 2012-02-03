@@ -94,7 +94,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&amp;Suivant</string>
+           <string>&amp;Début</string>
           </property>
           <property name="icon">
            <iconset>

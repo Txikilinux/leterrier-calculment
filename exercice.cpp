@@ -352,6 +352,7 @@ void exercice::on_btnBallon_clicked()
 {
     qDebug()<<"exercice::on_btnBallon_clicked(1)";
     if (m_consignes->isVisible()) m_consignes->hide();
+    m_ui->btnBallon->setText(trUtf8("&Suivant"));
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     //instanciation d'une baudruche et connexion aux autres objets

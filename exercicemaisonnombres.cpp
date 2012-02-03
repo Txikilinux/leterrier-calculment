@@ -33,6 +33,7 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
 void ExerciceMaisonNombres::on_btnBallon_clicked()
 {
     qDebug()<<"ExerciceMaisonNombres::on_btnBallon_clicked(1)";
+    m_ui->btnBallon->setText(trUtf8("&Suivant"));
     bool inferieurA11 = false;
     while (!inferieurA11) {
         m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_scene);

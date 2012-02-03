@@ -26,6 +26,7 @@ ExerciceRepechage::ExerciceRepechage(QStringList listeErreurs, int scoreActuel, 
 void ExerciceRepechage::on_btnBallon_clicked()
 {
     qDebug()<<"ExerciceRepechage::on_btnBallon_clicked(1)";
+    m_ui->btnBallon->setText(trUtf8("&Suivant"));
     if (!m_ui->lblMsgReponse->isHidden()) {
         m_ui->lblMsgReponse->hide();
         m_ui->lblMsgReponse->setText(trUtf8("Réponse exacte : "));
