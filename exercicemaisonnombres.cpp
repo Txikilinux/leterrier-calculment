@@ -127,3 +127,11 @@ void ExerciceMaisonNombres::selectionChanged() {
     }
     qDebug() << "fin selectionChanged()";
 }
+
+void ExerciceMaisonNombres::mousePressEvent(QMouseEvent *)
+{
+    if (m_ui->btnBallon->isEnabled())
+    {
+        on_btnBallon_clicked();
+    }
+}
