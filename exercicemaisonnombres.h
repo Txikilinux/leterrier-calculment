@@ -22,6 +22,8 @@ signals:
 protected slots:
     void affichePosBaudruche(QPoint point);
     void selectionChanged();
+    void trouveMaisonSurvolee(QString bulleAide);
+    void zeroMaisonSurvolee();
 
 };
 

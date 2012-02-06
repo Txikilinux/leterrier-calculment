@@ -294,20 +294,20 @@ void baudruche::dessineMoi(QString image, int taillePolice)
             m_image.setPos(m_position);
             this->addToGroup(&m_image);
 
-    QGraphicsTextItem* affichage = new QGraphicsTextItem("",&m_image);
-        affichage->setFont( QFont( "dejaVuSans",taillePolice,QFont::Bold ) );
+    m_pointeurVersAffichage = new QGraphicsTextItem("",&m_image);
+        m_pointeurVersAffichage->setFont( QFont( "dejaVuSans",taillePolice,QFont::Bold ) );
         QFontMetrics mesureur(QFont("dejaVuSans",taillePolice));
         int longueurAffichage,largeurIllustration,decalageCentrage;
         longueurAffichage=mesureur.width(m_affichage);
         largeurIllustration=imageIllustration2.width();
         decalageCentrage=(largeurIllustration-longueurAffichage)/2;
-        affichage->setHtml(m_affichage);
-        if (image=="auto") affichage->setPos(50*factX,190*factY);
-        else affichage->setPos(decalageCentrage,75*factY);
-        affichage->setZValue(k+1);
-        this->addToGroup(affichage);
+        m_pointeurVersAffichage->setHtml(m_affichage);
+        if (image=="auto") m_pointeurVersAffichage->setPos(50*factX,190*factY);
+        else m_pointeurVersAffichage->setPos(decalageCentrage,75*factY);
+        m_pointeurVersAffichage->setZValue(k+1);
+        this->addToGroup(m_pointeurVersAffichage);
         m_texteAffiche = new QGraphicsTextItem();
-        m_texteAffiche = affichage;
+        m_texteAffiche = m_pointeurVersAffichage;
 //    qDebug()<<"baudruche::dessineMoi(2)";
 }
 
@@ -478,7 +478,7 @@ void baudruche::changeImage(QString nomNouvelleImage)
 
 void baudruche::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug()<<" --- 1 ---"<<m_parent;
+    qDebug()<<" --- Release ---"<<m_parent;
         QList<QGraphicsItem *>listeItems = static_cast<QGraphicsScene *>(m_parent)->items(event->scenePos());
         listeItems.removeAt(listeItems.indexOf(this)); // On enleve cette piece de la liste
         foreach(QGraphicsItem* elt, listeItems)
@@ -493,4 +493,50 @@ void baudruche::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             qDebug()<<"Rien ici...";
         }
     emit lacheIci(event->scenePos().toPoint());
+}
+
+void baudruche::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+//    qDebug()<<" --- Move ---"<<m_parent;
+//        QList<QGraphicsItem *>listeItems = static_cast<QGraphicsScene *>(m_parent)->items(event->scenePos());
+//        listeItems.removeAt(listeItems.indexOf(this)); // On enleve cette piece de la liste
+//        foreach(QGraphicsItem* elt, listeItems)
+//        {
+//            if (elt->parentItem() == this) listeItems.removeOne(elt);
+//            else {
+//                qDebug()<<" ---- >>>> Je suis sur l'objet "<<elt->toolTip()<<"->"<<elt;
+//                m_dropValeur = elt->toolTip();
+//                emit baudrucheSurvole(elt->toolTip());
+//            }
+//        }
+//        if(listeItems.size() == 0){ // On essaie de déposer la pièce en dehors d'une cellule ou d'un autre objet(autre pièce)
+//            qDebug()<<" ---- >>>> Rien ici...";
+
+//            emit baudrucheSurvole("RienSousMoi");
+//        }
+////    emit lacheIci(event->scenePos().toPoint());
+    QGraphicsItem::mouseMoveEvent(event);
+    QList<QGraphicsItem *>listeItems = collidingItems();
+    bool isMaisonSurvolee = false;
+    QString nomMaisonSurvolee="";
+    foreach (QGraphicsItem* itemExamine, listeItems) {
+        if (itemExamine->toolTip().left(6) == "Maison")
+        {
+            isMaisonSurvolee = true ;
+            nomMaisonSurvolee = itemExamine->toolTip();
+        }
+    }
+    if (isMaisonSurvolee)
+    {
+        emit baudrucheSurvole(nomMaisonSurvolee);
+        qDebug()<<"baudrucheSurvolee("<<nomMaisonSurvolee<<") emis";
+    }
+    else
+    {
+        emit baudrucheSurvoleRien();
+        qDebug()<<"baudrucheSurvoleRien() émis";
+    }
+        //emit baudrucheSurvole("Rien");
+
+//    qDebug()<<" ++++++++++++ "<<collidingItems();
 }

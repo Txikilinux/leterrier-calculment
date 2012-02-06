@@ -43,6 +43,7 @@ public slots:
 
 protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 signals:
      void valueChanged(int newValue);
@@ -51,6 +52,8 @@ signals:
      void destroyed();
      void tempsFini(QString msg);
      void tempsFini(QPixmap pix);
+     void baudrucheSurvole(QString nom);
+     void baudrucheSurvoleRien();
 
 private:
     QString m_op;
@@ -65,6 +68,8 @@ private:
     QGraphicsScene* m_parent;
     void dessineMoi(QString,int);
     void construisAffichage();
+    QGraphicsTextItem* m_pointeurVersAffichage;
+    bool m_isMaisonSurvolee;
 };
 
 #endif // BAUDRUCHE_H

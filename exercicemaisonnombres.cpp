@@ -26,8 +26,8 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
         maison->setToolTip("Maison du "+QString::number(i));
         ordonneMaison = qFloor((i-1)/2)*(dessinBouton2.height()-1 + ((m_imgFond->height()-nombreMaisons*dessinBouton2.height())/nombreMaisons-1));
         maison->setPos(((1+qPow(-1,i))/2)*(m_imgFond->width() - dessinBouton2.width()),ordonneMaison);
-        connect(this,SIGNAL(baudrucheLancee()), maison, SLOT(peutChangerImage()));
-        connect(this,SIGNAL(baudrucheDetruite()),maison, SLOT(nePeutPasChangerImage()));
+//        connect(this,SIGNAL(baudrucheLancee()), maison, SLOT(peutChangerImage()));
+//        connect(this,SIGNAL(baudrucheDetruite()),maison, SLOT(nePeutPasChangerImage()));
         m_scene->addItem(maison);
     }
 }
@@ -64,7 +64,10 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
     connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(pousseLogs(QString)));
     connect(m_baudruche, SIGNAL(lacheIci(QPoint)), this, SLOT(affichePosBaudruche(QPoint)));
-    //    connect(m_baudruche, SIGNAL(lache()), m_baudruche, SLOT(detruire()));
+
+    connect(m_baudruche.data(), SIGNAL(baudrucheSurvole(QString)), this, SLOT(trouveMaisonSurvolee(QString)));
+    connect(m_baudruche.data(), SIGNAL(baudrucheSurvoleRien()), this, SLOT(trouveMaisonSurvolee(QString)));
+
     m_baudruche->emetRes();
     m_scene->addItem(m_baudruche);
 
@@ -122,6 +125,7 @@ void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
     //    qDebug()<<item.boundingRect();
 }
 
+/* sans doute scorie d'un ancien essai, à voir si on peut supprimer */
 void ExerciceMaisonNombres::selectionChanged() {
     qDebug() << "debug selectionChanged()";
     // Affiche la position de chaque élément de la sélection
@@ -143,4 +147,37 @@ void ExerciceMaisonNombres::ajouteErreur(QString msg)
 {
     exercice::ajouteErreur(msg);
     emit baudrucheDetruite();
+}
+
+void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
+{
+//    if (bulleAide == "Rien")
+//    {
+////        foreach(QGraphicsItem * item, m_scene->items())
+////        {
+////            PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
+////                itemMaison->setPixmap(QPixmap("./data/images/maison"+itemMaison->toolTip().right(1)+".png"));
+////        }
+//        foreach(QGraphicsItem * item, m_scene->items())
+//        {
+//            PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
+//        }
+//    }
+
+    foreach(QGraphicsItem * item, m_scene->items())
+    {
+        PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
+        if (itemMaison->toolTip() == bulleAide) itemMaison->setPixmap(QPixmap("./data/images/maison"+itemMaison->toolTip().right(1)+"b.png"));
+    }
+
+}
+
+void ExerciceMaisonNombres::zeroMaisonSurvolee()
+{
+    qDebug()<<"ExerciceMaisonNombres::zeroMaisonSurvolee(1)";
+    foreach(QGraphicsItem * item, m_scene->items())
+    {
+        PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
+        itemMaison->setPixmap(itemMaison->getMPixmapInitial());
+    }
 }
