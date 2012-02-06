@@ -68,7 +68,6 @@ private:
     QGraphicsScene* m_parent;
     void dessineMoi(QString,int);
     void construisAffichage();
-    QGraphicsTextItem* m_pointeurVersAffichage;
     bool m_isMaisonSurvolee;
 };
 

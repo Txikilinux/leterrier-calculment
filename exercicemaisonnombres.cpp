@@ -103,13 +103,6 @@ void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
 
     if (m_scene->itemAt(point)!=0)
     {
-        /* Alors là deux solutions :
-          - soit je détruis ma baudruche avant d'appeler on_btnFeu_clicked() et c'est la m..., parce que j'appelle l'objet dans la fonction
-          - soit je ne la détruis pas, mais du coup c'est elle qui est au-dessus et qui arrive quand j'appelle m_scene->itemAt(point)
-          Je vais essayer de m'en sortir en créant un attribut m_dropValeur dans la baudruche, auquel je vais passer le nom de la maison au-dessus
-          de laquelle je la lache, et que j'appellerai comme valeur de résultat
-          */
-
         qDebug()<<"L107 Je suis sur l'objet "<<m_scene->itemAt(point);
         if (m_baudruche.data()->getMDropValeur().right(1) == "0")
             m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(2));
@@ -120,9 +113,6 @@ void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
 
         //    qDebug()<<"ExerciceMaisonNombres::affichePosBaudruche : "<<point<<" , Valeur recue : "<<m_scene->itemAt(point)->toolTip()<<" Valeur affichee "<<m_ui->leResultat->text();
     }
-    //    QGraphicsPixmapItem item(m_scene->itemAt(point));
-    //    qDebug()<<m_scene->items();
-    //    qDebug()<<item.boundingRect();
 }
 
 /* sans doute scorie d'un ancien essai, à voir si on peut supprimer */
@@ -151,18 +141,6 @@ void ExerciceMaisonNombres::ajouteErreur(QString msg)
 
 void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
 {
-//    if (bulleAide == "Rien")
-//    {
-////        foreach(QGraphicsItem * item, m_scene->items())
-////        {
-////            PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
-////                itemMaison->setPixmap(QPixmap("./data/images/maison"+itemMaison->toolTip().right(1)+".png"));
-////        }
-//        foreach(QGraphicsItem * item, m_scene->items())
-//        {
-//            PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
-//        }
-//    }
     zeroMaisonSurvolee();
     foreach(QGraphicsItem * item, m_scene->items())
     {
