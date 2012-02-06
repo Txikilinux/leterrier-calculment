@@ -163,6 +163,12 @@
         </item>
         <item>
          <widget class="QLabel" name="lblMsg">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -176,13 +182,22 @@
           <property name="enabled">
            <bool>true</bool>
           </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="styleSheet">
            <string notr="true">color : #ff6b00;
-font: 10pt;
-</string>
+font: 12pt;
+font-weight:bold</string>
           </property>
           <property name="text">
-           <string>Réponse exacte : </string>
+           <string>Réponse exacte : 
+</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -194,6 +209,12 @@ font: 10pt;
         </item>
         <item>
          <widget class="QLabel" name="lblPoints">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>.</string>
           </property>
@@ -204,6 +225,12 @@ font: 10pt;
         </item>
         <item>
          <widget class="QLabel" name="lblSur">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>sur</string>
           </property>
@@ -214,6 +241,12 @@ font: 10pt;
         </item>
         <item>
          <widget class="QLabel" name="lblTotal">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>.</string>
           </property>

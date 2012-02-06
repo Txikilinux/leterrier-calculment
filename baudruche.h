@@ -47,7 +47,6 @@ protected:
 signals:
      void valueChanged(int newValue);
      void lacheIci(QPoint pos);
-//     void lache();
      void destroyed(bool);
      void destroyed();
      void tempsFini(QString msg);

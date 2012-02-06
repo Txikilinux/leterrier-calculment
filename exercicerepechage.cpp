@@ -29,7 +29,7 @@ void ExerciceRepechage::on_btnBallon_clicked()
     m_ui->btnBallon->setText(trUtf8("&Suivant"));
     if (!m_ui->lblMsgReponse->isHidden()) {
         m_ui->lblMsgReponse->hide();
-        m_ui->lblMsgReponse->setText(trUtf8("Réponse exacte : "));
+        m_ui->lblMsgReponse->setText(trUtf8("Réponse exacte :  \n"));
     }
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;

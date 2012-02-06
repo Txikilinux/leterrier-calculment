@@ -397,7 +397,6 @@ void baudruche::detruire()
 {
     if (this!=NULL) {
         if (m_approximation==0) {
-            qDebug()<<"Avant la destruction le résultat vaut "<<m_resultat;
             emit valueChanged(m_resultat);//ici le problème
             qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
         }
@@ -481,10 +480,7 @@ void baudruche::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug()<<" --- 1 ---"<<m_parent;
         QList<QGraphicsItem *>listeItems = static_cast<QGraphicsScene *>(m_parent)->items(event->scenePos());
-        qDebug()<<" --- 2 ---";
-        //qDebug()<<"Liste items 1 : "<<listeItems;
         listeItems.removeAt(listeItems.indexOf(this)); // On enleve cette piece de la liste
-        qDebug()<<" --- 3 ---";
         foreach(QGraphicsItem* elt, listeItems)
         {
             if (elt->parentItem() == this) listeItems.removeOne(elt);
@@ -493,12 +489,8 @@ void baudruche::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                 m_dropValeur = elt->toolTip();
             }
         }
-qDebug()<<" --- 4 ---";
-        //qDebug()<<"Liste items 2 : "<<listeItems;
         if(listeItems.size() == 0){ // On essaie de déposer la pièce en dehors d'une cellule ou d'un autre objet(autre pièce)
             qDebug()<<"Rien ici...";
         }
-        qDebug()<<" --- 5 ---";
     emit lacheIci(event->scenePos().toPoint());
-    qDebug()<<" --- 6 ---";
 }
