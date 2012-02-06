@@ -39,6 +39,7 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     bool inferieurA11 = false;
     while (!inferieurA11) {
         m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_scene);
+        m_valeurSurvolee = "";
         this->m_resultatEnCours=m_baudruche->getMResultat();
 //        qDebug()<<" Ballon créé avec comme résultat "<<m_resultatEnCours<<" et comme parent "<<m_scene<<" euh "<<m_baudruche.data()->parent();
         if (m_resultatEnCours > 10 || m_resultatEnCours < 1) {
@@ -104,9 +105,10 @@ void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
     if (m_scene->itemAt(point)!=0)
     {
         qDebug()<<"L107 Je suis sur l'objet "<<m_scene->itemAt(point);
-        if (m_baudruche.data()->getMDropValeur().right(1) == "0")
-            m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(2));
-        else m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(1));
+//        if (m_baudruche.data()->getMDropValeur().right(1) == "0")
+//            m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(2));
+//        else m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(1));
+        m_ui->leResultat->setText(m_valeurSurvolee);
         on_btnFeu_clicked();
         //    m_baudruche->detruire();
             emit baudrucheDetruite();
@@ -145,7 +147,14 @@ void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
     foreach(QGraphicsItem * item, m_scene->items())
     {
         PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
-        if (itemMaison->toolTip() == bulleAide) itemMaison->setPixmap(QPixmap("./data/images/maison"+itemMaison->toolTip().right(1)+"b.png"));
+        if (itemMaison->toolTip() == bulleAide)
+        {
+            itemMaison->setPixmap(QPixmap("./data/images/maison"+itemMaison->toolTip().right(1)+"b.png"));
+            if (itemMaison->toolTip().right(1) == "0")
+                m_valeurSurvolee = itemMaison->toolTip().right(2);
+            else
+                m_valeurSurvolee = itemMaison->toolTip().right(1);
+        }
     }
 
 }
@@ -153,6 +162,7 @@ void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
 void ExerciceMaisonNombres::zeroMaisonSurvolee()
 {
     qDebug()<<"ExerciceMaisonNombres::zeroMaisonSurvolee(1)";
+    m_valeurSurvolee = "";
     foreach(QGraphicsItem * item, m_scene->items())
     {
         if (item->toolTip().left(6) == "Maison")

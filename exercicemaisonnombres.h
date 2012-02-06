@@ -8,6 +8,7 @@ class ExerciceMaisonNombres : public exercice
 public:
     ExerciceMaisonNombres(QString exo,QWidget *parent = 0,int val = 0, QString niveau = "");
 protected:
+    QString m_valeurSurvolee;
     void on_btnBallon_clicked();
     void on_btn2chance_clicked();
     void mousePressEvent(QMouseEvent *);
