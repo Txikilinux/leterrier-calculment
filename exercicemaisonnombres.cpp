@@ -66,7 +66,7 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     connect(m_baudruche, SIGNAL(lacheIci(QPoint)), this, SLOT(affichePosBaudruche(QPoint)));
 
     connect(m_baudruche.data(), SIGNAL(baudrucheSurvole(QString)), this, SLOT(trouveMaisonSurvolee(QString)));
-    connect(m_baudruche.data(), SIGNAL(baudrucheSurvoleRien()), this, SLOT(trouveMaisonSurvolee(QString)));
+    connect(m_baudruche.data(), SIGNAL(baudrucheSurvoleRien()), this, SLOT(zeroMaisonSurvolee()));
 
     m_baudruche->emetRes();
     m_scene->addItem(m_baudruche);
@@ -163,7 +163,7 @@ void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
 //            PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
 //        }
 //    }
-
+    zeroMaisonSurvolee();
     foreach(QGraphicsItem * item, m_scene->items())
     {
         PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
@@ -177,7 +177,10 @@ void ExerciceMaisonNombres::zeroMaisonSurvolee()
     qDebug()<<"ExerciceMaisonNombres::zeroMaisonSurvolee(1)";
     foreach(QGraphicsItem * item, m_scene->items())
     {
+        if (item->toolTip().left(6) == "Maison")
+        {
         PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
         itemMaison->setPixmap(itemMaison->getMPixmapInitial());
+        }
     }
 }

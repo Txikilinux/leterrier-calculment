@@ -309,6 +309,7 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         m_texteAffiche = new QGraphicsTextItem();
         m_texteAffiche = m_pointeurVersAffichage;
 //    qDebug()<<"baudruche::dessineMoi(2)";
+        m_isMaisonSurvolee = false;
 }
 
 void baudruche::construisAffichage()
@@ -538,5 +539,6 @@ void baudruche::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
         //emit baudrucheSurvole("Rien");
 
+//    listeItems.removeAt(listeItems.indexOf(this));
 //    qDebug()<<" ++++++++++++ "<<collidingItems();
 }
