@@ -11,9 +11,12 @@ public:
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+    bool m_isChangeableAuSurvol;
 private slots:
     void rendSelectionnable();
     void rendNonSelectionnable();
+    void peutChangerImage();
+    void nePeutPasChangerImage();
 };
 
 #endif // PIXMAPMAISON_H

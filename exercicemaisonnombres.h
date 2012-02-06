@@ -11,6 +11,8 @@ protected:
     void on_btnBallon_clicked();
     void on_btn2chance_clicked();
     void mousePressEvent(QMouseEvent *);
+    void ajouteErreur(QString msg);
+
 signals:
     /** Signal destiné à prévenir qu'une baudruche est lancée
       * Créé pour avoir un comportement d'un autre objet SI une baudruche est lancée
