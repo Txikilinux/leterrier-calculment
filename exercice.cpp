@@ -198,8 +198,9 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->lblImageNiveau->setPixmap(collierNiveau2);
     this->setWindowTitle(getAbeExerciceName());
 
-    on_btnAide_clicked();
-//    if (m_consignes->isVisible()) m_consignes->setGeometry(0,0,m_imgFond->width(),m_imgFond->height());
+    if (exo.left(10)=="OdGrandeur")
+        on_btnAide_clicked();
+
     qDebug()<<"exercice::constructeur (2)";
 }
 
