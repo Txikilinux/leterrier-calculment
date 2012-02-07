@@ -5,6 +5,10 @@ leterrier-calcul-mental (1.0.10~lucid1~ryxeo2) lucid; urgency=low
   * Reprise des erreurs
   * Lanceur d'exercice sur le dessin de l'avion
   * Ajout des fichiers de traduction
+  * Lancement au clic dans Maison des nombres
+  * Changement du mot sur bouton au début d'exercice
+  * Amélioration affichage
+  * Aide affichée au début d'exercice Ordres de grandeur
 
  -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 06 May 2011 09:22:46 +0200
 
