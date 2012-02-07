@@ -1,11 +1,8 @@
 [Desktop Entry]
-Name=Abuledu Calcul-Mental
+Name=AbulEdu Calcul-Mental
 Comment=Exercices de Calcul Mental
-TryExec=leterrier-calcul-mental
 Exec=leterrier-calcul-mental %U
 Icon=/usr/share/leterrier-calcul-mental/abuledu-calcul-mental-48.png
-StartupNotify=true
-NoDisplay=true
 Terminal=false
 Type=Application
-Categories=Math;Education
+Categories=Education;abuledu-6ans-leterrier;abuledu-8ans-leterrier;abuledu-12ans-leterrier;
