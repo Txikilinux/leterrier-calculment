@@ -197,6 +197,9 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     QPixmap collierNiveau2 = collierNiveau.scaledToWidth(m_ui->btnBallon->width(),Qt::SmoothTransformation);
     m_ui->lblImageNiveau->setPixmap(collierNiveau2);
     this->setWindowTitle(getAbeExerciceName());
+
+    on_btnAide_clicked();
+//    if (m_consignes->isVisible()) m_consignes->setGeometry(0,0,m_imgFond->width(),m_imgFond->height());
     qDebug()<<"exercice::constructeur (2)";
 }
 
@@ -552,13 +555,7 @@ void exercice::on_btnAide_clicked()
                 texteAide.append("\n\nAttention : n'arrondis pas les nombres à 1 seul chiffre");
             }
             m_consignes->setText(texteAide);
-            QFontMetrics mesureur(qApp->font());
-            int longueurAffichage=mesureur.width(texteAide);
-            int hauteurAffichage= mesureur.height();
-            qDebug()<<"longueur affichage : "<<longueurAffichage;
-            int nombreDeLignes = (longueurAffichage / m_imgFond->width()) + 1;
-            qDebug()<<"nombre lignes : "<<nombreDeLignes;
-            m_consignes->setGeometry(m_ui->vue->pos().x(),m_ui->vue->pos().y(),m_imgFond->width(),nombreDeLignes*hauteurAffichage*2);
+            adapteFenetreConsigne(texteAide);
         }
     }
     else
@@ -644,4 +641,15 @@ void exercice::ajouteErreur(QString msg)
     qDebug()<<"exercice::ajouteErreur(1)"<<msg;
     m_listeEchecs->append(QString::number(m_baudruche->getMGOperande())+";"+m_baudruche->getMOperation()+";"+QString::number(m_baudruche->getMDOperande())+";"+QString::number(m_resultatEnCours)+";"+m_baudruche->m_nomImage);
     qDebug()<<*m_listeEchecs;
+}
+
+void exercice::adapteFenetreConsigne(QString texte)
+{
+    QFontMetrics mesureur(qApp->font());
+    int longueurAffichage=mesureur.width(texte);
+    int hauteurAffichage= mesureur.height();
+    qDebug()<<"longueur affichage : "<<longueurAffichage;
+    int nombreDeLignes = (longueurAffichage / m_imgFond->width()) + 1;
+    qDebug()<<"nombre lignes : "<<nombreDeLignes;
+    m_consignes->setGeometry(m_ui->vue->pos().x(),m_ui->vue->pos().y(),m_imgFond->width()-50,nombreDeLignes*hauteurAffichage*2);
 }

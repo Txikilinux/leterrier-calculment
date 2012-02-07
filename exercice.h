@@ -38,6 +38,7 @@ protected:
     QString* m_trace;
     void chargerParametres();
     void animeBaudruche();
+    void adapteFenetreConsigne(QString texte);
 
 private:
     int m_minG;
