@@ -24,10 +24,9 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
         QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         PixmapMaison* maison = new PixmapMaison(dessinBouton2);
         maison->setToolTip("Maison du "+QString::number(i));
+        maison->setProperty("Valeur",i);
         ordonneMaison = qFloor((i-1)/2)*(dessinBouton2.height()-1 + ((m_imgFond->height()-nombreMaisons*dessinBouton2.height())/nombreMaisons-1));
         maison->setPos(((1+qPow(-1,i))/2)*(m_imgFond->width() - dessinBouton2.width()),ordonneMaison);
-//        connect(this,SIGNAL(baudrucheLancee()), maison, SLOT(peutChangerImage()));
-//        connect(this,SIGNAL(baudrucheDetruite()),maison, SLOT(nePeutPasChangerImage()));
         m_scene->addItem(maison);
     }
 }
@@ -39,7 +38,7 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     bool inferieurA11 = false;
     while (!inferieurA11) {
         m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_scene);
-        m_valeurSurvolee = "";
+        m_valeurSurvolee = 0;
         this->m_resultatEnCours=m_baudruche->getMResultat();
 //        qDebug()<<" Ballon créé avec comme résultat "<<m_resultatEnCours<<" et comme parent "<<m_scene<<" euh "<<m_baudruche.data()->parent();
         if (m_resultatEnCours > 10 || m_resultatEnCours < 1) {
@@ -104,13 +103,8 @@ void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
 
     if (m_scene->itemAt(point)!=0)
     {
-        qDebug()<<"L107 Je suis sur l'objet "<<m_scene->itemAt(point);
-//        if (m_baudruche.data()->getMDropValeur().right(1) == "0")
-//            m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(2));
-//        else m_ui->leResultat->setText(m_baudruche.data()->getMDropValeur().right(1));
-        m_ui->leResultat->setText(m_valeurSurvolee);
+        m_ui->leResultat->setText(QString::number(m_valeurSurvolee));
         on_btnFeu_clicked();
-        //    m_baudruche->detruire();
             emit baudrucheDetruite();
 
         //    qDebug()<<"ExerciceMaisonNombres::affichePosBaudruche : "<<point<<" , Valeur recue : "<<m_scene->itemAt(point)->toolTip()<<" Valeur affichee "<<m_ui->leResultat->text();
@@ -149,11 +143,8 @@ void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
         PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
         if (itemMaison->toolTip() == bulleAide)
         {
-            itemMaison->setPixmap(QPixmap("./data/images/maison"+itemMaison->toolTip().right(1)+"b.png"));
-            if (itemMaison->toolTip().right(1) == "0")
-                m_valeurSurvolee = itemMaison->toolTip().right(2);
-            else
-                m_valeurSurvolee = itemMaison->toolTip().right(1);
+            itemMaison->setPixmap(QPixmap("./data/images/maison"+QString::number(itemMaison->property("Valeur").toInt())+"b.png"));
+            m_valeurSurvolee = itemMaison->property("Valeur").toInt();
         }
     }
 
@@ -162,7 +153,7 @@ void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
 void ExerciceMaisonNombres::zeroMaisonSurvolee()
 {
     qDebug()<<"ExerciceMaisonNombres::zeroMaisonSurvolee(1)";
-    m_valeurSurvolee = "";
+    m_valeurSurvolee = 0;
     foreach(QGraphicsItem * item, m_scene->items())
     {
         if (item->toolTip().left(6) == "Maison")
