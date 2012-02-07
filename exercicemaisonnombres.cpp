@@ -137,13 +137,17 @@ void ExerciceMaisonNombres::ajouteErreur(QString msg)
 
 void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
 {
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
+    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     zeroMaisonSurvolee();
     foreach(QGraphicsItem * item, m_scene->items())
     {
         PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
         if (itemMaison->toolTip() == bulleAide)
         {
-            itemMaison->setPixmap(QPixmap("./data/images/maison"+QString::number(itemMaison->property("Valeur").toInt())+"b.png"));
+            QPixmap dessinBouton ("./data/images/maison"+QString::number(itemMaison->property("Valeur").toInt())+"b.png");
+            QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            itemMaison->setPixmap(dessinBouton2);
             m_valeurSurvolee = itemMaison->property("Valeur").toInt();
         }
     }
