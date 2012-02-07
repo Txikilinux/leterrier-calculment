@@ -54,6 +54,10 @@ void ExerciceRepechageMaisonNombres::on_btnBallon_clicked()
     connect(m_baudruche, SIGNAL(destroyed()), m_ui->leResultat, SLOT(clear()));
     connect(m_baudruche, SIGNAL(destroyed(bool)), m_ui->leResultat, SLOT(setDisabled(bool)));
     connect(m_baudruche, SIGNAL(lacheIci(QPoint)), this, SLOT(affichePosBaudruche(QPoint)));
+
+    connect(m_baudruche.data(), SIGNAL(baudrucheSurvole(QString)), this, SLOT(trouveMaisonSurvolee(QString)));
+    connect(m_baudruche.data(), SIGNAL(baudrucheSurvoleRien()), this, SLOT(zeroMaisonSurvolee()));
+
     m_scene->addItem(m_baudruche);
     if (m_baudruche!=NULL) m_ui->btnBallon->setDisabled(true);
     m_baudruche->m_timer->start();

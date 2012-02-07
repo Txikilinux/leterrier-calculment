@@ -23,7 +23,18 @@ signals:
 protected slots:
     void affichePosBaudruche(QPoint point);
     void selectionChanged();
+
+    /** Affecte l'image en couleurs inversées pour une PixmapMaison survolée
+      * Connecté au signal baudrucheSurvole(QString)
+      * @param bulleAide est le toolTip() de la PixmapMaison envoyé par le signal.
+      * L'envoi du toolTip plutôt que la QProperty("Valeur") évite un cast dans le mouseMoveEvent de la baudruche
+      */
     void trouveMaisonSurvolee(QString bulleAide);
+
+    /** Réinitialise les dessins de PixmapMaisons contenus dans la scène
+      * en leur donnant comme image l'image initiale
+      * Connecté au signal baudrucheSurvoleRien()
+      */
     void zeroMaisonSurvolee();
 
 };
