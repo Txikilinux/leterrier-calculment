@@ -46,6 +46,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 {
     qDebug()<<"exercice::constructeur (1)";
     m_ui->setupUi(this);
+//    installEventFilter(m_ui->leResultat);
     this->setWindowModality(Qt::ApplicationModal);
     this->setAbeExerciceName(exo);
     m_ui->btnAide->hide();
@@ -653,4 +654,9 @@ void exercice::adapteFenetreConsigne(QString texte)
     int nombreDeLignes = (longueurAffichage / m_imgFond->width()) + 1;
     qDebug()<<"nombre lignes : "<<nombreDeLignes;
     m_consignes->setGeometry(m_ui->vue->pos().x(),m_ui->vue->pos().y(),m_imgFond->width()-50,nombreDeLignes*hauteurAffichage*2);
+}
+
+void exercice::keyPressEvent(QKeyEvent *)
+{
+    qDebug()<<"Touche pressée";
 }
