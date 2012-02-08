@@ -482,37 +482,56 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>ExerciceMaisonNombres</name>
+    <message>
+        <location filename="../exercicemaisonnombres.cpp" line="37"/>
+        <source>&amp;Suivant</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ExerciceRepechage</name>
+    <message>
+        <location filename="../exercicerepechage.cpp" line="29"/>
+        <source>&amp;Suivant</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message utf8="true">
-        <location filename="../exercicerepechage.cpp" line="31"/>
-        <source>Réponse exacte : </source>
+        <location filename="../exercicerepechage.cpp" line="32"/>
+        <source>Réponse exacte :  
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercicerepechage.cpp" line="82"/>
+        <location filename="../exercicerepechage.cpp" line="83"/>
         <source>GAGNE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercicerepechage.cpp" line="89"/>
+        <location filename="../exercicerepechage.cpp" line="90"/>
         <source>PERDU</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ExerciceRepechageMaisonNombres</name>
+    <message>
+        <location filename="../exercicerepechagemaisonnombres.cpp" line="27"/>
+        <source>&amp;Suivant</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message utf8="true">
-        <location filename="../exercicerepechagemaisonnombres.cpp" line="29"/>
+        <location filename="../exercicerepechagemaisonnombres.cpp" line="30"/>
         <source>Réponse exacte : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercicerepechagemaisonnombres.cpp" line="72"/>
+        <location filename="../exercicerepechagemaisonnombres.cpp" line="77"/>
         <source>GAGNE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercicerepechagemaisonnombres.cpp" line="79"/>
+        <location filename="../exercicerepechagemaisonnombres.cpp" line="84"/>
         <source>PERDU</source>
         <translation type="unfinished"></translation>
     </message>
@@ -525,7 +544,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interfacecompetence.ui" line="43"/>
+        <location filename="../interfacecompetence.ui" line="49"/>
         <source>&amp;Fermer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -651,7 +670,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="97"/>
+        <location filename="../exercice.cpp" line="359"/>
         <source>&amp;Suivant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -666,58 +685,64 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="185"/>
-        <source>Réponse exacte : </source>
+        <location filename="../exercice.ui" line="97"/>
+        <source>&amp;Début</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../exercice.ui" line="199"/>
+        <source>Réponse exacte : 
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="198"/>
-        <location filename="../exercice.ui" line="218"/>
+        <location filename="../exercice.ui" line="219"/>
+        <location filename="../exercice.ui" line="251"/>
         <source>.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="208"/>
+        <location filename="../exercice.ui" line="235"/>
         <source>sur</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="249"/>
+        <location filename="../exercice.ui" line="282"/>
         <source>Refais le même exercice</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="252"/>
+        <location filename="../exercice.ui" line="285"/>
         <source>&amp;Rejouer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="282"/>
+        <location filename="../exercice.ui" line="315"/>
         <source>&amp;Aide</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="312"/>
+        <location filename="../exercice.ui" line="345"/>
         <source>Propose une autre réponse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="315"/>
-        <source>Erreurs</source>
+        <location filename="../exercice.ui" line="348"/>
+        <source>&amp;Bonus</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="345"/>
+        <location filename="../exercice.ui" line="378"/>
         <source>Modifie les paramètres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="348"/>
+        <location filename="../exercice.ui" line="381"/>
         <source>&amp;Editeur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="378"/>
+        <location filename="../exercice.ui" line="411"/>
         <source>&amp;Quitter</source>
         <translation type="unfinished">&amp;Terminar</translation>
     </message>
@@ -789,27 +814,27 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="385"/>
+        <location filename="../exercice.cpp" line="390"/>
         <source>OpÃ©ration inexistante</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="385"/>
+        <location filename="../exercice.cpp" line="390"/>
         <source>, ça n&apos;existe pas comme opération...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="459"/>
+        <location filename="../exercice.cpp" line="464"/>
         <source>GAGNE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="466"/>
+        <location filename="../exercice.cpp" line="471"/>
         <source>PERDU</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="549"/>
+        <location filename="../exercice.cpp" line="554"/>
         <source>Tu dois trouver l&apos;ordre de grandeur du résultat du calcul proposé. 
 Pour cela, tu vas arrondir les nombres en ne gardant qu&apos;un seul chiffre significatif, puis faire l&apos;opération sur les nombres arrondis. 
 Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
