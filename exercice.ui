@@ -345,7 +345,7 @@ font-weight:bold</string>
          <string>Propose une autre réponse</string>
         </property>
         <property name="text">
-         <string>Erreurs</string>
+         <string>&amp;Bonus</string>
         </property>
         <property name="icon">
          <iconset>
