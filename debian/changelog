@@ -9,6 +9,7 @@ leterrier-calcul-mental (1.0.10~lucid1~ryxeo2) lucid; urgency=low
   * Changement du mot sur bouton au début d'exercice
   * Amélioration affichage
   * Aide affichée au début d'exercice Ordres de grandeur
+  * Gestion par l'intermédiaire d'un menu Options de l'utilisation des nombres hors pavé numérique
 
  -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 06 May 2011 09:22:46 +0200
 
