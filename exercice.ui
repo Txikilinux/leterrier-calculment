@@ -106,7 +106,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="leResultat"/>
+         <widget class="AbulEduLineEditV0" name="leResultat"/>
         </item>
         <item>
          <widget class="QPushButton" name="btnFeu">
@@ -445,6 +445,13 @@ font-weight:bold</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AbulEduLineEditV0</class>
+   <extends>QLineEdit</extends>
+   <header location="global">abuledulineeditv0.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

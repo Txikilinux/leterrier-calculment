@@ -4,8 +4,10 @@
 #include <QtGui/QMainWindow>
 #include <QGraphicsScene>
 #include <QTextEdit>
+#include <QKeyEvent>
 #include "baudruche.h"
 #include "abuleduexercicev0.h"
+#include "abuledulineeditv0.h"
 
 namespace Ui {
     class exercice;
@@ -60,6 +62,7 @@ protected slots:
     void pousseLogs(QString);
     virtual void ajouteErreur(QString msg);
     virtual void on_btn2chance_clicked();
+    void keyPressEvent(QKeyEvent *);
 };
 
 #endif // EXERCICE_H
