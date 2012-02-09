@@ -10,7 +10,11 @@ AbulEduLineEditV0::AbulEduLineEditV0(QWidget* parent)
 void AbulEduLineEditV0::keyPressEvent(QKeyEvent* event)
 {
     //empêcher la propagation de l'événement
-    event->accept();
+    if (!qApp->property("VerrouNombres").toBool())
+        QLineEdit::keyPressEvent(event);
+    else
+    {
+        event->accept();
     qDebug()<<event->key()<<" <-> "<<event->text();
 
     switch (event->key())
@@ -101,5 +105,6 @@ void AbulEduLineEditV0::keyPressEvent(QKeyEvent* event)
     }
     default:
         QLineEdit::keyPressEvent(event);
+    }
     }
 }

@@ -140,10 +140,17 @@
      <string>Langues</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionVerrouillage_nombres"/>
+   </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuExercices"/>
    <addaction name="menuEditeur"/>
    <addaction name="menuLangues"/>
+   <addaction name="menuOptions"/>
   </widget>
   <action name="actionQuitter">
    <property name="text">
@@ -328,6 +335,17 @@
   <action name="actionMaison_des_nombres">
    <property name="text">
     <string>Maison des nombres</string>
+   </property>
+  </action>
+  <action name="actionVerrouillage_nombres">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Verrouillage nombres</string>
    </property>
   </action>
  </widget>

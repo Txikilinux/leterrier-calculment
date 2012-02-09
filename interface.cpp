@@ -178,6 +178,8 @@ interface::interface(QWidget *parent)
     btnPoly11->retaille(85*kw,50*kh);
     btnPoly11->QGraphicsItem::setToolTip(trUtf8("Choisir son exercice"));
     dessin->addItem(btnPoly11);
+
+    qApp->setProperty("VerrouNombres",true);
 }
 
 interface::~interface()
@@ -438,4 +440,12 @@ void interface::on_actionMaison_des_nombres_triggered()
 {
     ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres("maisonDesNombres",0,0);
     maisonNombres->show();
+}
+
+void interface::on_actionVerrouillage_nombres_changed()
+{
+    if (ui->actionVerrouillage_nombres->isChecked())
+        qApp->setProperty("VerrouNombres",true);
+    else
+        qApp->setProperty("VerrouNombres",false);
 }

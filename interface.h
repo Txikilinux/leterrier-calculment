@@ -73,6 +73,7 @@ private slots:
     void on_actionQuitter_triggered();
     void changelangue(QString langue);
     void on_actionMaison_des_nombres_triggered();
+    void on_actionVerrouillage_nombres_changed();
 };
 
 #endif // INTERFACE_H
