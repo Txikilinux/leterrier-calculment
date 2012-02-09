@@ -226,5 +226,6 @@ void AbuleduLanceurV1::adapte()
     palette.setBrush(this->backgroundRole(),*fond);
     setPalette(palette);
     setGeometry(750*factX,150*factY,imageIllustration2.width(),imageIllustration2.height());
+    setFixedSize(imageIllustration2.width(),imageIllustration2.height());
     setWindowModality(Qt::ApplicationModal);
 }
