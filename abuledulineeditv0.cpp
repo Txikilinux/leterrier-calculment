@@ -1,62 +1,59 @@
 #include "abuledulineeditv0.h"
+#include <QApplication>
 
 AbulEduLineEditV0::AbulEduLineEditV0(QWidget* parent)
     :QLineEdit(parent)
 {
+
 }
 
 void AbulEduLineEditV0::keyPressEvent(QKeyEvent* event)
 {
     //empêcher la propagation de l'événement
     event->accept();
-    qDebug()<<"Touche pressée dans AbulEduLineEdit";
+    qDebug()<<event->key()<<" <-> "<<event->text();
 
     switch (event->key())
     {
     case Qt::Key_Ampersand:
-        //Quand je mets la ligne 2 seule, rien...
-        // Quand je mets la ligne 1 seule, j'ai le N
-        // Quand je mets les 2 lignes, j'ai Nn
-        //     ???????????
-          /* 1- */setText(this->text()+"1");
-        // 2- keyPressEvent(&QKeyEvent(QEvent::KeyPress,Qt::Key_N,Qt::NoModifier,"n"));
-        qDebug()<<"Touche AltGr pressée";
+          /* 1- setText(this->text()+"1");*/
+        QApplication::sendEvent(this,new QKeyEvent(QEvent::KeyPress,Qt::Key_1,Qt::NoModifier,QString(QChar(Qt::Key_1))));
         break;
 
     case Qt::Key_Eacute:
-        setText(this->text()+"2");
+        QApplication::sendEvent(this,new QKeyEvent(QEvent::KeyPress,Qt::Key_2,Qt::NoModifier,QString(QChar(Qt::Key_2))));
         break;
 
     case Qt::Key_QuoteDbl:
-        setText(this->text()+"3");
+        QApplication::sendEvent(this,new QKeyEvent(QEvent::KeyPress,Qt::Key_3,Qt::NoModifier,QString(QChar(Qt::Key_3))));
         break;
 
     case Qt::Key_Apostrophe:
-        setText(this->text()+"4");
+        QApplication::sendEvent(this,new QKeyEvent(QEvent::KeyPress,Qt::Key_4,Qt::NoModifier,QString(QChar(Qt::Key_4))));
         break;
 
-    case Qt::Key_BracketLeft:
-        setText(this->text()+"5");
+    case Qt::Key_ParenLeft:
+        QApplication::sendEvent(this,new QKeyEvent(QEvent::KeyPress,Qt::Key_5,Qt::NoModifier,QString(QChar(Qt::Key_5))));
         break;
 
     case Qt::Key_Minus:
-        setText(this->text()+"6");
+        QApplication::sendEvent(this,new QKeyEvent(QEvent::KeyPress,Qt::Key_6,Qt::NoModifier,QString(QChar(Qt::Key_6))));
         break;
 
     case Qt::Key_Egrave:
-        setText(this->text()+"7");
+        QApplication::sendEvent(this,new QKeyEvent(QEvent::KeyPress,Qt::Key_7,Qt::NoModifier,QString(QChar(Qt::Key_7))));
         break;
 
     case Qt::Key_Underscore:
-        setText(this->text()+"8");
+        QApplication::sendEvent(this,new QKeyEvent(QEvent::KeyPress,Qt::Key_8,Qt::NoModifier,QString(QChar(Qt::Key_8))));
         break;
 
     case Qt::Key_Ccedilla:
-        setText(this->text()+"9");
+        QApplication::sendEvent(this,new QKeyEvent(QEvent::KeyPress,Qt::Key_9,Qt::NoModifier,QString(QChar(Qt::Key_9))));
         break;
 
     case Qt::Key_Agrave:
-        setText(this->text()+"0");
+        QApplication::sendEvent(this,new QKeyEvent(QEvent::KeyPress,Qt::Key_0,Qt::NoModifier,QString(QChar(Qt::Key_0))));
         break;
 
     default:
