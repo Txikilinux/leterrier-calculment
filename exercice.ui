@@ -17,18 +17,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="minimumSize">
-    <size>
-     <width>450</width>
-     <height>600</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>1500</width>
-     <height>1200</height>
-    </size>
-   </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QGraphicsView" name="vue"/>
