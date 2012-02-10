@@ -208,6 +208,35 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
 
             }
             break;
+// ----------------------------- Implémentation des additions à trou en suspens -----------------------------
+//        case 6 : {
+//            m_decor = new QPixmap("./data/images/6autoTampon.jpg");
+//            this->setGeometry(0,0, m_decor->width()+26,m_decor->height()+60);
+//            this->setWindowTitle(trUtf8("Additions"));
+//            adapte(*m_decor);
+//            move(200,0);
+//            QPoint origine(m_decor->width()/5.4,m_decor->height()/2.7);
+//                boutonsPolygone* btnNormales = new boutonsPolygone("OdGrandeurAddition",100);
+//                btnA->deplace(origine.x(), origine.y());
+//                btnA->retaille(103*m_ratioTaille,96*m_ratioTaille);
+//                btnA->QGraphicsItem::setToolTip(trUtf8("... d'additions"));
+//                QPixmap im("./data/images/aie0"+ QString::number(rand()%3 +1)+".png");
+//                QPixmap im2 = im.scaled(103*m_ratioTaille,96*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+//                btnA->setImage(im2);
+//                btnA->setMTransformable(2);
+//                m_scene->addItem(btnA);
+
+//                boutonsPolygone* btnATrous = new boutonsPolygone("OdGrandeurSoustraction",100);
+//                btnS->deplace(origine.x()+m_decor->width()/4, origine.y()+m_decor->height()/6);
+//                btnS->retaille(103*m_ratioTaille,96*m_ratioTaille);
+//                btnS->QGraphicsItem::setToolTip(trUtf8("... de soustractions"));
+//                im = QPixmap("./data/images/aie0"+ QString::number(rand()%3 +1)+".png");
+//                im2 = im.scaled(103*m_ratioTaille,96*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+//                btnS->setImage(im2);
+//                btnS->setMTransformable(2);
+//                m_scene->addItem(btnS);
+//            }
+//        break;
         }
 }
 
