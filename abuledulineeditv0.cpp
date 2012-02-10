@@ -15,7 +15,7 @@ void AbulEduLineEditV0::keyPressEvent(QKeyEvent* event)
     else
     {
         event->accept();
-    qDebug()<<event->key()<<" <-> "<<event->text();
+//    qDebug()<<event->key()<<" <-> "<<event->text();
 
     switch (event->key())
     {

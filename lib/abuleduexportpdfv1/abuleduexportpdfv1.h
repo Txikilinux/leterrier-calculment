@@ -33,6 +33,7 @@
 #include <QUrl>
 #include <QHashIterator>
 #include <QDateTime>
+#include <QDebug>
 
 class AbulEduExportPDFV1 : public QObject
 {

@@ -678,5 +678,5 @@ void exercice::adapteFenetreConsigne(QString texte)
 
 void exercice::keyPressEvent(QKeyEvent *)
 {
-    qDebug()<<"Touche pressée";
+//    qDebug()<<"Touche pressée";
 }
