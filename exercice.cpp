@@ -157,7 +157,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_imgFond = new QPixmap("./data/images/"+exo+".jpg");
 
     qDebug()<<"Image de fond : "<<qApp->applicationDirPath()+"/data/images/"+exo+".jpg";
-    this->setWindowTitle("Calcul Mental - "+exo);
+
     adapte(*m_imgFond);
 
     m_score=0;
@@ -199,8 +199,17 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->lblImageNiveau->setPixmap(collierNiveau2);
     this->setWindowTitle(getAbeExerciceName());
 
+    QString nomUtilisateur = qApp->property("utilisateur").toString();
+    nomUtilisateur.replace(";"," ");
+    if (qApp->property("utilisateur").toString().isEmpty())
+        setWindowTitle("Calcul Mental - "+getAbeExerciceName());
+    else
+        setWindowTitle("Calcul Mental - "+getAbeExerciceName()+" - "+nomUtilisateur);
+
     if (exo.left(10)=="OdGrandeur")
         on_btnAide_clicked();
+
+    m_pdfExport = new AbulEduExportPDFV1();
 
     qDebug()<<"exercice::constructeur (2)";
 }
@@ -620,6 +629,17 @@ void exercice::afficheResultat(QString neSertARien)
         totalEnString.setNum(m_total);
     //écriture du SCORE et du NBTOTAL dans le journal des logs
    // sauvegardeLog* envoieScore = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, "score", totalEnString, scoreEnString);
+
+
+
+        //Export du fichier PDF des logs si demandé
+        if(qApp->property("afficheBilanExercice").toBool() && m_ui->btn2chance->isEnabled())
+        {
+            m_pdfExport->abeExportPDFSetLogin(qApp->property("utilisateur").toString());
+            m_pdfExport->abeExportPDFSetSoftware("Calcul Mental");
+            m_pdfExport->abeExportPDFSetLogs(getPluginLogs());
+            m_pdfExport->abeExportPDFFile();
+        }
 }
 
 void exercice::pousseLogs(QString neSertPasDavantage)

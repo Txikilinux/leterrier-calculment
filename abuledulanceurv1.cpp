@@ -158,6 +158,7 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
     if (!ui->cbNombre->currentText().isNull())
         m_nomExercice.append(ui->cbNombre->currentText());
     qDebug()<<"AbuleduLanceurV1::on_btnLancer_clicked() pour "<<m_nomExercice;
+    qApp->setProperty("utilisateur",ui->lePrenom->text() +";"+ui->leNom->text());
     if (m_nomExercice == "maisonDesNombres")
     {
         ExerciceMaisonNombres* exerciceLance = new ExerciceMaisonNombres(m_nomExercice, 0, 0,m_listeNiveaux[ui->cbNiveau->currentIndex()]);
@@ -218,7 +219,7 @@ void AbuleduLanceurV1::adapte()
 //    }
 //    else qDebug()<<"Image avion prout !!";
     QPixmap imageIllustration("./data/images/avion.jpg");
-    int larg = qRound((imageIllustration.width()+200)*factX);
+    int larg = qRound((imageIllustration.width())*factX);
     QPixmap imageIllustration2 = imageIllustration.scaledToWidth(larg, Qt::SmoothTransformation);
 //    qDebug() << "Taille 2 :: " << larg << " -> " << imageIllustration.size() << " --> " << imageIllustration2.size();
     QBrush* fond = new QBrush(imageIllustration2);
@@ -228,4 +229,16 @@ void AbuleduLanceurV1::adapte()
     setGeometry(750*factX,150*factY,imageIllustration2.width(),imageIllustration2.height());
     setFixedSize(imageIllustration2.width(),imageIllustration2.height());
     setWindowModality(Qt::ApplicationModal);
+}
+
+void AbuleduLanceurV1::on_chbBilan_clicked()
+{
+    if (ui->chbBilan->isChecked())
+    {
+        qApp->setProperty("afficheBilanExercice",true);
+    }
+    else
+    {
+        qApp->setProperty("afficheBilanExercice",false);
+    }
 }

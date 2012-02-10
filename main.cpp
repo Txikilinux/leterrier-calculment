@@ -64,6 +64,8 @@ int main(int argc, char *argv[])
     qApp->setApplicationVersion(VER_PRODUCTVERSION_STR);
     qApp->setFont(QFont("LiberationSans",14));
     qApp->setProperty("langageUtilise",QLocale::system().name().section('_', 0, 0));
+    qApp->setProperty("utilisateur","");
+    qApp->setProperty("afficheBilanExercice",false);
     QString exo;
     QString nivo="";
     int nombre=0;

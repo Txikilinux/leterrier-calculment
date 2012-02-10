@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     exercicemaisonnombres.cpp \
     pixmapmaison.cpp \
     exercicerepechagemaisonnombres.cpp \
-    abuledulineeditv0.cpp
+    abuledulineeditv0.cpp \
+    lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
@@ -34,7 +35,8 @@ HEADERS += interface.h \
     pixmapmaison.h \
     version.h \
     exercicerepechagemaisonnombres.h \
-    abuledulineeditv0.h
+    abuledulineeditv0.h \
+    lib/abuleduexportpdfv1/abuleduexportpdfv1.h
 FORMS += interface.ui \
     exercice.ui \
     editeur.ui \
@@ -59,3 +61,5 @@ win32{
 macx {
  ICON = macos/icones/leterrier-calcul-mental.icns
 }
+
+

@@ -40,6 +40,8 @@ private slots:
     void on_btnAnnuler_clicked();
     void on_btnLancer_clicked();
 
+    void on_chbBilan_clicked();
+
 signals:
     void cbExerciceFini(QString exercice);
 };

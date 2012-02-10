@@ -8,6 +8,7 @@
 #include "baudruche.h"
 #include "abuleduexercicev0.h"
 #include "abuledulineeditv0.h"
+#include "lib/abuleduexportpdfv1/abuleduexportpdfv1.h"
 
 namespace Ui {
     class exercice;
@@ -49,6 +50,7 @@ private:
     int m_maxD;
     double m_ratioTaille;
     QTextEdit* m_consignes;
+    AbulEduExportPDFV1* m_pdfExport;
 
 protected slots:
     void on_btnAide_clicked();
