@@ -11,6 +11,7 @@ leterrier-calcul-mental (1.0.10~lucid1~ryxeo2) lucid; urgency=low
   * Aide affichée au début d'exercice Ordres de grandeur
   * Gestion par l'intermédiaire d'un menu Options de l'utilisation des nombres hors pavé numérique
   * Correction du bug d'affichage 10 pouces (minimum dans exercice.ui)
+  * Affichage à la demande d'un bilan depuis le lanceur
 
  -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 06 May 2011 09:22:46 +0200
 

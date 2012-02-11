@@ -582,7 +582,7 @@ void exercice::afficheResultat(QString neSertARien)
     m_ui->btnBallon->setEnabled(false);
 
     if (m_total==m_nbTotalQuestions) {
-    if (!m_listeEchecs->isEmpty()) m_ui->btn2chance->setEnabled(true);
+        if (!m_listeEchecs->isEmpty() && (!qApp->property("afficheBilanExercice").toBool())) m_ui->btn2chance->setEnabled(true);
     m_ui->btnRejouer->setEnabled(true);
         //debug eric
         qDebug() << "m_total:" << m_total << " et NBTOTAL:" << m_nbTotalQuestions << "et score :: " << m_score;
@@ -630,10 +630,11 @@ void exercice::afficheResultat(QString neSertARien)
     //écriture du SCORE et du NBTOTAL dans le journal des logs
    // sauvegardeLog* envoieScore = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, "score", totalEnString, scoreEnString);
 
-
+qDebug()<<" ------------------ >>>>>>>>>        Fin d'exercice ";
+qDebug()<<getPluginLogs();
 
         //Export du fichier PDF des logs si demandé
-        if(qApp->property("afficheBilanExercice").toBool() && m_ui->btn2chance->isEnabled())
+        if(qApp->property("afficheBilanExercice").toBool() && m_ui->btnRejouer->isEnabled())
         {
             m_pdfExport->abeExportPDFSetLogin(qApp->property("utilisateur").toString());
             m_pdfExport->abeExportPDFSetSoftware("Calcul Mental");

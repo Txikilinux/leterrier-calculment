@@ -31,6 +31,10 @@ AbulEduExportPDFV1::AbulEduExportPDFV1(QObject *parent) :
 void AbulEduExportPDFV1::abeExportPDFSetLogs(QHash<int, QHash<QString, QString> > arrayLogs)
 {
     m_arrayLogs = arrayLogs;
+    qDebug()<< "-----------------------------";
+    qDebug()<< "Dans abeExportPDFSetLogs() : ";
+    qDebug()<<m_arrayLogs;
+    qDebug()<< "-----------------------------";
 }
 
 void AbulEduExportPDFV1::abeExportPDFSetLogin(QString login)
