@@ -338,7 +338,7 @@ p, li { white-space: pre-wrap; }
     <message utf8="true">
         <location filename="../lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp" line="87"/>
         <source>&lt;table width=&quot;100%&quot; border=&quot;1&quot;&gt;&lt;tr&gt;&lt;th&gt;Question&lt;/th&gt;&lt;th&gt;Réponse&lt;/th&gt;&lt;th&gt;Réponse attendue&lt;/th&gt;&lt;th&gt;Évaluation&lt;/th&gt;&lt;/tr&gt;</source>
-        <translation>&lt;table width=&quot;100%&quot; border=&quot;1&quot;&gt;&lt;tr&gt;&lt;th&gt;Question&lt;/th&gt;&lt;th&gt;Réponse&lt;/th&gt;&lt;th&gt;Réponse attendue&lt;/th&gt;&lt;th&gt;Appraisal&lt;/th&gt;&lt;/tr&gt;</translation>
+        <translation type="unfinished">&lt;table width=&quot;100%&quot; border=&quot;1&quot;&gt;&lt;tr&gt;&lt;th&gt;Question&lt;/th&gt;&lt;th&gt;Réponse&lt;/th&gt;&lt;th&gt;Réponse attendue&lt;/th&gt;&lt;th&gt;Évaluation&lt;/th&gt;&lt;/tr&gt;</translation>
     </message>
     <message>
         <location filename="../lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp" line="96"/>
