@@ -55,7 +55,7 @@ void AbulEduExportPDFV1::abeExportPDFFile()
     QDateTime ladate = QDateTime::currentDateTime();
 
 
-    QTemporaryFile file("fichier-bilan-");
+    QTemporaryFile file(QDir::tempPath() + "/fichier-bilan-");
 //    qDebug() << "Nom du fichier temp " << file.fileName();
     if (file.open()) {
         file.close();
