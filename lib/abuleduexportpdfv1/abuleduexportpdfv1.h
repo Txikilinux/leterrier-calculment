@@ -34,6 +34,7 @@
 #include <QHashIterator>
 #include <QDateTime>
 #include <QDebug>
+#include <QDir>
 
 class AbulEduExportPDFV1 : public QObject
 {
