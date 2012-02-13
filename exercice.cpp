@@ -44,9 +44,8 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     AbulEduExerciceV0(parent),
     m_ui(new Ui::exercice)
 {
-    qDebug()<<"exercice::constructeur (1)";
+    //qDebug()<<"exercice::constructeur (1)";
     m_ui->setupUi(this);
-//    installEventFilter(m_ui->leResultat);
     this->setWindowModality(Qt::ApplicationModal);
     this->setAbeExerciceName(exo);
     m_ui->btnAide->hide();
@@ -59,12 +58,14 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_nbTotalQuestions = config.value("NombreBallons").toInt();
     setAbeNbTotalQuestions(m_nbTotalQuestions);
 
-    if (niveau.isEmpty()) m_level = niveau;
-    else {
-    if (niveau.right(1).toInt() == 0) {
+    if (niveau.isEmpty())
+        m_level = niveau;
+    else
+    {
+    if (niveau.right(1).toInt() == 0)
         m_level = "Personnel";
-        }
-    else m_level = "Niveau"+niveau.right(1);
+    else
+        m_level = "Niveau"+niveau.right(1);
     }
 
     m_trace = new QString("");
@@ -76,72 +77,80 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_consignes->setPalette(QColor(255,255,255,127));
     m_consignes->hide();
 
-    qDebug() <<"Opération : "<<m_operation<<", valeur passée : "<<m_cible<<" et niveau : "<<m_level;
+    //qDebug() <<"Opération : "<<m_operation<<", valeur passée : "<<m_cible<<" et niveau : "<<m_level;
     chargerParametres();
-    qDebug()<<"Apres chargement des parametres, m_temps vaut "<<m_temps;
+    //qDebug()<<"Apres chargement des parametres, m_temps vaut "<<m_temps;
 
-    if (exo.left(11)=="complementA") {
+    if (exo.left(11)=="complementA")
+    {
         exo.truncate(11);
         setAbeExerciceName(trUtf8("Complément additif à ")+QString::number(val));
         //Skill non existant dans les competences Educ Nat
     }
 
-    if(exo.left(11)=="complementM") {
+    if(exo.left(11)=="complementM")
+    {
         exo.truncate(11);
         setAbeExerciceName(trUtf8("Multiples de ")+QString::number(val));
         setAbeSkill("multiples-"+QString::number(val));
 
     }
 
-    if (exo.left(6)=="tableM") {
+    if (exo.left(6)=="tableM")
+    {
         exo.truncate(6);
         setAbeExerciceName(trUtf8("Table de multiplication par ")+QString::number(val));
         setAbeSkill("table-multiplication-"+QString::number(val));
     }
 
-    if (exo.left(6)=="tableA") {
+    if (exo.left(6)=="tableA")
+    {
         exo.truncate(6);
         setAbeExerciceName(trUtf8("Table d'addition de ")+QString::number(val));
         setAbeSkill("table-addition-"+QString::number(val));
     }
 
-    if (exo=="addition") {
+    if (exo=="addition")
+    {
         setAbeExerciceName(trUtf8("Additions de nombres inférieurs à ")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
         if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
             setAbeSkill("somme-mental-inferieur-"+QString::number(m_maxG));
-
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
     }
 
-    if (exo=="soustraction") {
+    if (exo=="soustraction")
+    {
         setAbeExerciceName(trUtf8("Soustractions de nombres inférieurs à ")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
         if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
             setAbeSkill("difference-mental-inferieur-"+QString::number(m_maxG));
-
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
     }
 
-    if (exo=="multiplication") {
+    if (exo=="multiplication")
+    {
         setAbeExerciceName(trUtf8("Multiplications de nombres inférieurs à ")+QString::number(m_maxG)+trUtf8(" et ")+QString::number(m_maxD));
         if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
             setAbeSkill("produit-mental-inferieur-"+QString::number(m_maxG));
-
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
     }
 
-    if (exo.left(10)=="OdGrandeur") {
+    if (exo.left(10)=="OdGrandeur")
+    {
         m_ui->btnAide->show();
         QString nomExercice = trUtf8("Ordres de grandeur sur des ");
         QString nomCompetence = "ordre-grandeur-";
-        if (exo[10]=='A') {
+        if (exo[10]=='A')
+        {
             nomExercice.append(trUtf8("additions"));
             nomCompetence.append("somme");
         }
-        else if (exo[10]=='S') {
+        else if (exo[10]=='S')
+        {
             nomExercice.append(trUtf8("soustractions"));
             nomCompetence.append("difference");
         }
-        else  {
+        else
+        {
             nomExercice.append(trUtf8("multiplications"));
             nomCompetence.append("produit");
         }
@@ -156,7 +165,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 
     m_imgFond = new QPixmap("./data/images/"+exo+".jpg");
 
-    qDebug()<<"Image de fond : "<<qApp->applicationDirPath()+"/data/images/"+exo+".jpg";
+    //qDebug()<<"Image de fond : "<<qApp->applicationDirPath()+"/data/images/"+exo+".jpg";
 
     adapte(*m_imgFond);
 
@@ -164,22 +173,6 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_total=0;
     m_ui->lblPoints->setText("0");
     m_ui->lblTotal->setText("0");
-    //m_ui->lblArg->setText(exo);
-
-    /*          Bloc déplacé en particulier pour que les attributs m_min et m_max soit "remplis" avant les setAbeExerciceName() et setAbeSkill()
-            Mais laissé en copie à son ancien emplacement par peur que le déplacement m'ait cassé qch...
-
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    m_nbTotalQuestions = config.value("NombreBallons").toInt();
-    setAbeNbTotalQuestions(m_nbTotalQuestions);
-
-    m_level = niveau;
-    m_trace = new QString("");
-
-    qDebug() <<"L'opération en cours est une "<<m_operation<<" et m_level valait "<<m_level;
-
-    chargerParametres();
-*/
 
     if (m_level=="Personnel") m_ui->btnEditeur->setEnabled(true);
     else m_ui->btnEditeur->setDisabled(true);
@@ -188,12 +181,8 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btnRejouer->setDisabled(true);
     m_ui->leResultat->setDisabled(true);
     m_ui->btn2chance->setEnabled(false);
-//    m_ui->btnRejouer->setIcon(QIcon("./data/images/souris.png"));
-//    m_ui->btnAide->setIcon(QIcon("./data/images/souris.png"));
-//    m_ui->btnQuitter->setIcon(QIcon("./data/images/souris.png"));
-//    m_ui->btnEditeur->setIcon(QIcon("./data/images/souris.png"));
-    qDebug()<<"Skill : "<<getAbeSkill();
-    qDebug()<<"Exercice : "<<getAbeExerciceName();
+    //qDebug()<<"Skill : "<<getAbeSkill();
+    //qDebug()<<"Exercice : "<<getAbeExerciceName();
     QPixmap collierNiveau("./data/images/"+m_level+".png");
     QPixmap collierNiveau2 = collierNiveau.scaledToWidth(m_ui->btnBallon->width(),Qt::SmoothTransformation);
     m_ui->lblImageNiveau->setPixmap(collierNiveau2);
@@ -211,7 +200,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 
     m_pdfExport = new AbulEduExportPDFV1();
 
-    qDebug()<<"exercice::constructeur (2)";
+    //qDebug()<<"exercice::constructeur (2)";
 }
 
 exercice::~exercice()
@@ -256,8 +245,8 @@ void exercice::adapte(QPixmap cheminImage)
     QRect ecran;
     ecran=QApplication::desktop()->screenGeometry();
         QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-60 - 2*bordure, Qt::SmoothTransformation);
-//     qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
-//     qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
+     //qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
+     //qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
     *m_imgFond = imgFond2;
     QBrush* fond = new QBrush(imgFond2);
             m_ui->vue->setBackgroundBrush(*fond);
@@ -417,7 +406,7 @@ qDebug()<<"Creation de baudruche avec temps "<<m_temps;
         connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(ajouteErreur(QString)));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
         connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
-        connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
+//        connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
         connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(pousseLogs(QString)));
         m_baudruche->emetRes();
         m_scene->addItem(m_baudruche);
@@ -650,6 +639,7 @@ void exercice::pousseLogs(QString neSertPasDavantage)
         reponseAttendueEnString.setNum(m_resultatEnCours);
     setAbeLineLog(m_baudruche->getMLigne(),m_ui->leResultat->text(),m_score, m_total,"z",reponseAttendueEnString);
     qDebug()<<getPluginLogs();
+    afficheResultat(neSertPasDavantage);
 }
 
 void exercice::on_btn2chance_clicked()

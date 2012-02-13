@@ -48,10 +48,9 @@ const int MULTIPLE_MAX=11;
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QGraphicsScene *parent,QString image)
 {
-//    qDebug()<<"baudruche::constructeur normal (1)";
+    //qDebug()<<"baudruche::constructeur normal (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
 
-//    qDebug()<<"Parent de baudruche: "<<parent->objectName();
     m_nomOperation = operation;
     m_nomImage = image;
     m_dropValeur = "";
@@ -71,11 +70,12 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     if (intMinD==intMaxD) d_operande=intMaxD;
     else d_operande = intMinD + rand()%(intMaxD-intMinD);
     //Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes...
-    if (d_operande>g_operande) {
+    if (d_operande>g_operande)
+    {
         int tmp=g_operande;
         g_operande=d_operande;
         d_operande=tmp;
-        }
+    }
 
     //Calcul du résultat à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*")
     if (m_op=="x") m_ligne = QString::number(g_operande)+"*"+QString::number(d_operande);
@@ -88,11 +88,10 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
 
     construisAffichage();
     dessineMoi(image,16*factX);
-//    qDebug()<<" Taille police "<<16*factX;
         
     this->emetRes();
-//    qDebug()<<"res emis instanciation "<<m_resultat;
-    qDebug()<<"baudruche::constructeur normal (2) avec parent "<<m_parent;
+    //qDebug()<<"res emis instanciation "<<m_resultat;
+    //qDebug()<<"baudruche::constructeur normal (2) avec parent "<<m_parent;
 }
 
 //constructeur spécifique aux valeurs approchées
@@ -138,7 +137,7 @@ baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operatio
     dessineMoi(image,16*factX);
 
     this->emetApprox();
-    qDebug()<<"baudruche::constructeur valeurs approchées (2)";
+    //qDebug()<<"baudruche::constructeur valeurs approchées (2)";
 }
 
 //constructeur spécifique aux compléments
@@ -189,18 +188,18 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
     dessineMoi(image,12*factX);
 
     this->emetRes();
-    qDebug()<<"baudruche::constructeur compléments (2)";
+    //qDebug()<<"baudruche::constructeur compléments (2)";
 }
 
 //constructeur spécifique à l'affichage du résultat
 baudruche::baudruche(int pts, QPoint pos,QGraphicsScene *parent,QString image)
 {
-    qDebug()<<"baudruche::constructeur affichage (1)";
+    //qDebug()<<"baudruche::constructeur affichage (1)";
     m_parent = new QGraphicsScene();
     m_parent = parent;
     setParent(parent);
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    qDebug()<<"Fact X vaut "<< factX;
+    //qDebug()<<"Fact X vaut "<< factX;
     m_nomImage = image;
     m_dropValeur = "";
     const int k=100;
@@ -231,14 +230,13 @@ baudruche::baudruche(int pts, QPoint pos,QGraphicsScene *parent,QString image)
         affichage->setZValue(k+2);
         affichage->setPos(40/factX,100/factX);
         this->addToGroup(affichage);
-        //m_timer = new QTimeLine(TPS*1000,this);
-    qDebug()<<"baudruche::constructeur affichage (2)";
+    //qDebug()<<"baudruche::constructeur affichage (2)";
 }
 
 //constructeur specifique à la remédiation
 baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString operation, QPoint pos,QGraphicsScene* parent,QString image)
 {
-    qDebug()<<"Opération en paramètre : "<<operation;
+    //qDebug()<<"Opération en paramètre : "<<operation;
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     if (operation=="addition" || operation.left(6)=="tableA" || operation=="OdGrandeurAddition" || operation.left(11)=="complementA" || operation=="") m_op = "+";
     else if (operation=="soustraction" || operation=="OdGrandeurSoustraction") m_op = "-";
@@ -262,13 +260,12 @@ baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString
 
 void baudruche::dessineMoi(QString image, int taillePolice)
 {
-//    qDebug()<<"baudruche::dessineMoi(1) appelée avec comme image "<<image;
+    //qDebug()<<"baudruche::dessineMoi(1) appelée avec comme image "<<image;
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-//    qDebug()<<"FactX = "<<factX;
+    //qDebug()<<"FactX = "<<factX;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
-//    qDebug()<<"FactY = "<<factY;
+    //qDebug()<<"FactY = "<<factY;
     const int k=100;
-//    QGraphicsPixmapItem* m_image = new QGraphicsPixmapItem(this);
         int coulAlea = rand()%(5);
         QString illustration;
         QString imageBase="ballon";
@@ -287,8 +284,7 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         else illustration="./data/images/"+imageBase;
         QPixmap imageIllustration(illustration);
         QPixmap imageIllustration2 = imageIllustration.scaledToHeight(imageIllustration.height()*factY, Qt::SmoothTransformation);
-//avant//QPixmap imageIllustration2 = imageIllustration.scaled(imageIllustration.width()*factX, imageIllustration.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-//        qDebug()<<"Taille baudruche : "<<imageIllustration2.width()<<" X "<<imageIllustration2.height();
+        //qDebug()<<"Taille baudruche : "<<imageIllustration2.width()<<" X "<<imageIllustration2.height();
             m_image.setPixmap(imageIllustration2);
             m_image.setZValue(k);
             m_image.setPos(m_position);
@@ -308,7 +304,7 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         this->addToGroup(affichage);
         m_texteAffiche = new QGraphicsTextItem();
         m_texteAffiche = affichage;
-//    qDebug()<<"baudruche::dessineMoi(2)";
+        //qDebug()<<"baudruche::dessineMoi(2)";
         m_isMaisonSurvolee = false;
 }
 
@@ -385,24 +381,19 @@ int baudruche::valeurApprochee(int operande, int maximum)
             else apeupres=((operande/(maximum/100))+1)*(maximum/100);
             }
         }
-    qDebug()<<"A ce stade, la valeur approchee vaut "<<apeupres;
+    //qDebug()<<"A ce stade, la valeur approchee vaut "<<apeupres;
     return apeupres;
 }
-
-//QTimeLine baudruche::getMTimer()
-//{
-//    return m_timer;
-//}
 
 void baudruche::detruire()
 {
     if (this!=NULL) {
         if (m_approximation==0) {
             emit valueChanged(m_resultat);//ici le problème
-            qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
+            //qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
         }
         else {emit valueChanged(m_approximation);
-            qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
+            //qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
         }
         emit destroyed(true);
         emit destroyed();
@@ -413,20 +404,16 @@ void baudruche::detruire()
 void baudruche::detruireTps()
 {
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
-    if (this!=NULL) {
-//        emit valueChanged(m_resultat);//pas sûr utile si baudruche termine temps, en fait probablement si pour récupérer les "ratés" mais plutôt ce qui suit qui inclut le cas d'approximation
-
+    if (this!=NULL)
+    {
         if (m_approximation==0) {
-            emit valueChanged(m_resultat);//ici le problème
-            qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
+            emit valueChanged(m_resultat);
+            //qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
         }
         else {emit valueChanged(m_approximation);
-            qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
+            //qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
         }
 
-        //Résolution bug Hayat : les signaux sont émits par detruire() connecté à la fin de tiptip
-//        emit destroyed(true);
-//        emit destroyed();
         emit tempsFini(tr("TROP TARD..."));
         QPixmap image("./data/images/will-let.png");
         QPixmap imageRetaillee = image.scaledToHeight(image.height()*factY);
@@ -441,8 +428,7 @@ void baudruche::detruireTps()
         QTimeLine* tiptip = new QTimeLine(1000,this);
         connect(tiptip, SIGNAL(finished()),this, SLOT(detruire()));
         tiptip->start();
-        //delete this;
-        }
+   }
 }
 
 void baudruche::emetRes()
@@ -473,19 +459,19 @@ void baudruche::changeImage(QString nomNouvelleImage)
 
 void baudruche::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug()<<" --- Release ---"<<m_parent;
+    //qDebug()<<" --- Release ---"<<m_parent;
         QList<QGraphicsItem *>listeItems = static_cast<QGraphicsScene *>(m_parent)->items(event->scenePos());
         listeItems.removeAt(listeItems.indexOf(this)); // On enleve cette piece de la liste
         foreach(QGraphicsItem* elt, listeItems)
         {
             if (elt->parentItem() == this) listeItems.removeOne(elt);
             else {
-                qDebug()<<"J'ai ete lachee sur l'objet "<<elt->toolTip()<<"->"<<elt;
+                //qDebug()<<"J'ai ete lachee sur l'objet "<<elt->toolTip()<<"->"<<elt;
                 m_dropValeur = elt->toolTip();
             }
         }
         if(listeItems.size() == 0){ // On essaie de déposer la pièce en dehors d'une cellule ou d'un autre objet(autre pièce)
-            qDebug()<<"Rien ici...";
+            //qDebug()<<"Rien ici...";
         }
     emit lacheIci(event->scenePos().toPoint());
 }
@@ -506,11 +492,11 @@ void baudruche::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     if (isMaisonSurvolee)
     {
         emit baudrucheSurvole(nomMaisonSurvolee);
-        qDebug()<<"baudrucheSurvolee("<<nomMaisonSurvolee<<") emis";
+        //qDebug()<<"baudrucheSurvolee("<<nomMaisonSurvolee<<") emis";
     }
     else
     {
         emit baudrucheSurvoleRien();
-        qDebug()<<"baudrucheSurvoleRien() émis";
+        //qDebug()<<"baudrucheSurvoleRien() émis";
     }
 }
