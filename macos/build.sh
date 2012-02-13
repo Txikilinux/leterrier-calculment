@@ -35,17 +35,16 @@ cp -a MacOS/.DS_Store /tmp/build-dmg/
 cp -a MacOS/.background /tmp/build-dmg/
 cp -a MacOS/Applications /tmp/build-dmg/
 
-#monecoleadistance utilise une commande système qu'il faut embarquer dans le dossier Ressources
-if [ ! -f macos/oggenc -o ! -f macos/sox ]; then
-  echo "Erreur Grave: il manque des fichiers dans macos ... sox et oggenc sont necessaires"
-  echo "Vous pouvez les télécharger depuis le projet sur redmine, merci de le déposer dans le répertoire macos"
-  echo "Relancez ensuite ce script"
-else
-  cp -a macos/sox macos/oggenc /tmp/build-dmg/${APPNAME}.app/Contents/Resources/
-fi
+#copie des donnees
+cp -a data /tmp/build-dmg/${APPNAME}.app/Contents/MacOS/
+cp -a conf /tmp/build-dmg/${APPNAME}.app/Contents/MacOS/
+cp -a lang /tmp/build-dmg/${APPNAME}.app/Contents/MacOS/
 
 #creation du fichier dmg
 hdiutil create ${APPNAME}-${APPVERSION}.dmg -srcfolder /tmp/build-dmg -format UDZO -volname ${APPNAME}
 
 #nettoyage
 rm -rf /tmp/build-dmg
+
+echo "deplacement du fichier dmg sur le bureau ..."
+mv *.dmg ~/Desktop
