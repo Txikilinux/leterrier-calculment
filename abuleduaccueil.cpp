@@ -32,7 +32,7 @@ void AbulEduAccueil::changeEvent(QEvent *e)
 
 void AbulEduAccueil::on_pbInstaller_clicked()
 {
-    QDesktopServices::openUrl(QUrl("file:///" + QCoreApplication::applicationDirPath() + "/Logiciel/Windows/leterrier-calcul-mental-1.0.7-setup.exe"));
+    QDesktopServices::openUrl(QUrl("file:///" + QCoreApplication::applicationDirPath() + "/Logiciel/Windows/leterrier-calcul-mental-1.0.10-setup.exe"));
 }
 
 void AbulEduAccueil::on_pbDocumentation_clicked()
