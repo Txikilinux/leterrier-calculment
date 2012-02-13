@@ -630,6 +630,7 @@ qDebug()<<getPluginLogs();
             m_pdfExport->abeExportPDFSetLogs(getPluginLogs());
             m_pdfExport->abeExportPDFFile();
         }
+        qApp->setProperty("afficheBilanExercice",false);
 }
 
 void exercice::pousseLogs(QString neSertPasDavantage)
