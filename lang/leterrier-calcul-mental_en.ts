@@ -319,6 +319,37 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>AbulEduExportPDFV1</name>
+    <message>
+        <location filename="../lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp" line="68"/>
+        <source>&lt;!DOCTYPE html PUBLIC &apos;-//W3C//DTD XHTML 1.0 Strict//EN&apos; &apos;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&apos;&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;%1&lt;/title&gt; &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp" line="79"/>
+        <source>&lt;/head&gt;&lt;body&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp" line="82"/>
+        <source>&lt;center&gt;&lt;h5&gt;Utilisateur: %1 - %2 - %3&lt;/h5&gt;&lt;/center&gt;&lt;br /&gt;&lt;br /&gt;</source>
+        <translation>&lt;center&gt;&lt;h5&gt;User: %1 - %2 - %3&lt;/h5&gt;&lt;/center&gt;&lt;br /&gt;&lt;br /&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp" line="87"/>
+        <source>&lt;table width=&quot;100%&quot; border=&quot;1&quot;&gt;&lt;tr&gt;&lt;th&gt;Question&lt;/th&gt;&lt;th&gt;Réponse&lt;/th&gt;&lt;th&gt;Réponse attendue&lt;/th&gt;&lt;th&gt;Évaluation&lt;/th&gt;&lt;/tr&gt;</source>
+        <translation>&lt;table width=&quot;100%&quot; border=&quot;1&quot;&gt;&lt;tr&gt;&lt;th&gt;Question&lt;/th&gt;&lt;th&gt;Answer&lt;/th&gt;&lt;th&gt;Correct answer&lt;/th&gt;&lt;th&gt;Évaluation&lt;/th&gt;&lt;/tr&gt;</translation>
+    </message>
+    <message>
+        <location filename="../lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp" line="96"/>
+        <location filename="../lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp" line="97"/>
+        <location filename="../lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp" line="98"/>
+        <location filename="../lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp" line="99"/>
+        <source>&lt;td&gt;%1&lt;/td&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AbuleduLanceurV1</name>
     <message>
         <location filename="../abuledulanceurv1.ui" line="17"/>
@@ -326,27 +357,42 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="23"/>
+        <location filename="../abuledulanceurv1.ui" line="25"/>
         <source>Exercice</source>
         <translation>Exercise</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="112"/>
+        <location filename="../abuledulanceurv1.ui" line="32"/>
         <source>Nombre</source>
         <translation>Number</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="36"/>
+        <location filename="../abuledulanceurv1.ui" line="42"/>
         <source>Niveau</source>
         <translation>Level</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="72"/>
+        <location filename="../abuledulanceurv1.ui" line="85"/>
+        <source>Nom :</source>
+        <translation>Last Name :</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../abuledulanceurv1.ui" line="95"/>
+        <source>Prénom :</source>
+        <translation>First Name :</translation>
+    </message>
+    <message>
+        <location filename="../abuledulanceurv1.ui" line="122"/>
+        <source>Afficher le bilan en fin d&apos;exercice</source>
+        <translation>Display report at the end</translation>
+    </message>
+    <message>
+        <location filename="../abuledulanceurv1.ui" line="172"/>
         <source>&amp;Annuler</source>
         <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <location filename="../abuledulanceurv1.ui" line="92"/>
+        <location filename="../abuledulanceurv1.ui" line="192"/>
         <source>&amp;Lancer</source>
         <translation>&amp;Launch</translation>
     </message>
@@ -743,8 +789,8 @@ p, li { white-space: pre-wrap; }
         <translation>AbulEdu LeTerrier -- Mental calculation</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="224"/>
-        <location filename="../main.cpp" line="112"/>
+        <location filename="../interface.cpp" line="226"/>
+        <location filename="../main.cpp" line="114"/>
         <source>Calcul Mental</source>
         <translation>Mental calculation</translation>
     </message>
@@ -752,22 +798,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>baudruche</name>
     <message>
-        <location filename="../baudruche.cpp" line="215"/>
+        <location filename="../baudruche.cpp" line="214"/>
         <source>Ton score est de </source>
         <translation>Your score is </translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="217"/>
+        <location filename="../baudruche.cpp" line="216"/>
         <source> point.</source>
         <translation> point.</translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="218"/>
+        <location filename="../baudruche.cpp" line="217"/>
         <source> points.</source>
         <translation> points.</translation>
     </message>
     <message>
-        <location filename="../baudruche.cpp" line="430"/>
+        <location filename="../baudruche.cpp" line="417"/>
         <source>TROP TARD...</source>
         <translation>TOO LATE...</translation>
     </message>
@@ -788,17 +834,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Suggest</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="359"/>
+        <location filename="../exercice.cpp" line="358"/>
         <source>&amp;Suivant</source>
         <translation>&amp;Next</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="120"/>
+        <location filename="../exercice.ui" line="118"/>
         <source>Propose ta réponse</source>
         <translation>Propose your answer</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="123"/>
+        <location filename="../exercice.ui" line="121"/>
         <source>&amp;Vérifier</source>
         <translation>&amp;Check</translation>
     </message>
@@ -807,49 +853,54 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Correct answer : </translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="97"/>
+        <location filename="../exercice.ui" line="95"/>
         <source>&amp;Début</source>
         <translation>&amp;Begin</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="199"/>
         <source>Réponse exacte : 
 </source>
-        <translation>Correct answer : </translation>
+        <translation type="obsolete">Correct answer : </translation>
+    </message>
+    <message utf8="true">
+        <location filename="../exercice.ui" line="181"/>
+        <source>Réponse exacte 
+</source>
+        <translation>Correct answer </translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="219"/>
-        <location filename="../exercice.ui" line="251"/>
+        <location filename="../exercice.ui" line="203"/>
+        <location filename="../exercice.ui" line="235"/>
         <source>.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="235"/>
+        <location filename="../exercice.ui" line="219"/>
         <source>sur</source>
         <translation>from</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="282"/>
+        <location filename="../exercice.ui" line="284"/>
         <source>Refais le même exercice</source>
         <translation>Redo the same exercise</translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="285"/>
+        <location filename="../exercice.ui" line="287"/>
         <source>&amp;Rejouer</source>
         <translation>&amp;Replay</translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="315"/>
+        <location filename="../exercice.ui" line="317"/>
         <source>&amp;Aide</source>
         <translation>&amp;Help</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="345"/>
+        <location filename="../exercice.ui" line="347"/>
         <source>Propose une autre réponse</source>
         <translation>Propose another answer</translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="348"/>
+        <location filename="../exercice.ui" line="350"/>
         <source>&amp;Bonus</source>
         <translation>&amp;Bonus</translation>
     </message>
@@ -858,7 +909,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Errors</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.ui" line="378"/>
+        <location filename="../exercice.ui" line="380"/>
         <source>Modifie les paramètres</source>
         <translation>Change settings</translation>
     </message>
@@ -867,104 +918,104 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">2nd chance</translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="381"/>
+        <location filename="../exercice.ui" line="383"/>
         <source>&amp;Editeur</source>
         <translation>&amp;Editor</translation>
     </message>
     <message>
-        <location filename="../exercice.ui" line="411"/>
+        <location filename="../exercice.ui" line="413"/>
         <source>&amp;Quitter</source>
         <translation>&amp;Quit</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="84"/>
+        <location filename="../exercice.cpp" line="87"/>
         <source>Complément additif à </source>
         <translation>Additional additive to </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="90"/>
+        <location filename="../exercice.cpp" line="94"/>
         <source>Multiples de </source>
         <translation>Multiple of </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="97"/>
+        <location filename="../exercice.cpp" line="102"/>
         <source>Table de multiplication par </source>
         <translation>Multiplication table of </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="103"/>
+        <location filename="../exercice.cpp" line="109"/>
         <source>Table d&apos;addition de </source>
         <translation>Addition table of </translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="108"/>
+        <location filename="../exercice.cpp" line="115"/>
         <source>Additions de nombres inférieurs à </source>
         <translation>Additions with numbers less than </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="108"/>
-        <location filename="../exercice.cpp" line="116"/>
-        <location filename="../exercice.cpp" line="124"/>
+        <location filename="../exercice.cpp" line="115"/>
+        <location filename="../exercice.cpp" line="123"/>
+        <location filename="../exercice.cpp" line="131"/>
         <source> et </source>
         <translation> and </translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="116"/>
+        <location filename="../exercice.cpp" line="123"/>
         <source>Soustractions de nombres inférieurs à </source>
         <translation>Subtraction with numbers less than </translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="124"/>
+        <location filename="../exercice.cpp" line="131"/>
         <source>Multiplications de nombres inférieurs à </source>
         <translation>Multiplication with numbers less than </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="133"/>
+        <location filename="../exercice.cpp" line="140"/>
         <source>Ordres de grandeur sur des </source>
         <translation>Order of magnitude with </translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="136"/>
+        <location filename="../exercice.cpp" line="144"/>
         <source>additions</source>
         <translation>additions</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="140"/>
+        <location filename="../exercice.cpp" line="149"/>
         <source>soustractions</source>
         <translation>subtractions</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="144"/>
+        <location filename="../exercice.cpp" line="154"/>
         <source>multiplications</source>
         <translation>multiplications</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="153"/>
+        <location filename="../exercice.cpp" line="163"/>
         <source>La maison des nombres</source>
         <translation>Number&apos;s home</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="390"/>
+        <location filename="../exercice.cpp" line="389"/>
         <source>OpÃ©ration inexistante</source>
         <translation>Non existing operation</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="390"/>
+        <location filename="../exercice.cpp" line="389"/>
         <source>, ça n&apos;existe pas comme opération...</source>
         <translation>, it doesn&apos;t exist as operation...</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="464"/>
+        <location filename="../exercice.cpp" line="463"/>
         <source>GAGNE</source>
         <translation>WON</translation>
     </message>
     <message>
-        <location filename="../exercice.cpp" line="471"/>
+        <location filename="../exercice.cpp" line="470"/>
         <source>PERDU</source>
         <translation>LOST</translation>
     </message>
     <message utf8="true">
-        <location filename="../exercice.cpp" line="554"/>
+        <location filename="../exercice.cpp" line="553"/>
         <source>Tu dois trouver l&apos;ordre de grandeur du résultat du calcul proposé. 
 Pour cela, tu vas arrondir les nombres en ne gardant qu&apos;un seul chiffre significatif, puis faire l&apos;opération sur les nombres arrondis. 
 Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
@@ -1043,12 +1094,12 @@ Example : 372 - 198 -&gt; 400 - 200 = 200</translation>
         <translation>Choose an exercise</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="193"/>
+        <location filename="../interface.cpp" line="195"/>
         <source>Problème !!</source>
         <translation>Problem !!</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.cpp" line="193"/>
+        <location filename="../interface.cpp" line="195"/>
         <source>Fichier de configuration des langues non trouvé</source>
         <translation>Languages settings file not found</translation>
     </message>
@@ -1137,189 +1188,199 @@ Example : 372 - 198 -&gt; 400 - 200 = 200</translation>
         <translation>Languages</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="150"/>
+        <location filename="../interface.ui" line="145"/>
+        <source>Options</source>
+        <translation>Options</translation>
+    </message>
+    <message>
+        <location filename="../interface.ui" line="157"/>
         <source>&amp;Quitter</source>
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="155"/>
+        <location filename="../interface.ui" line="162"/>
         <source>Additions</source>
         <translation>Additions</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="160"/>
+        <location filename="../interface.ui" line="167"/>
         <source>Multiplications</source>
         <translation>Multiplications</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="165"/>
+        <location filename="../interface.ui" line="172"/>
         <source>+ 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="170"/>
+        <location filename="../interface.ui" line="177"/>
         <source>+ 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="175"/>
+        <location filename="../interface.ui" line="182"/>
         <source>+ 4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="180"/>
+        <location filename="../interface.ui" line="187"/>
         <source>+ 5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="185"/>
+        <location filename="../interface.ui" line="192"/>
         <source>+ 6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="190"/>
+        <location filename="../interface.ui" line="197"/>
         <source>+ 7</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="195"/>
+        <location filename="../interface.ui" line="202"/>
         <source>+ 8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="200"/>
+        <location filename="../interface.ui" line="207"/>
         <source>+ 9</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="205"/>
+        <location filename="../interface.ui" line="212"/>
         <source>x 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="210"/>
+        <location filename="../interface.ui" line="217"/>
         <source>x 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="215"/>
+        <location filename="../interface.ui" line="222"/>
         <source>x 4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="220"/>
+        <location filename="../interface.ui" line="227"/>
         <source>x 5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="225"/>
+        <location filename="../interface.ui" line="232"/>
         <source>x 6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="230"/>
+        <location filename="../interface.ui" line="237"/>
         <source>x 7</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="235"/>
+        <location filename="../interface.ui" line="242"/>
         <source>x 8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="240"/>
+        <location filename="../interface.ui" line="247"/>
         <source>x 9</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.ui" line="245"/>
+        <location filename="../interface.ui" line="252"/>
         <source>Afficher l&apos;éditeur</source>
         <translation>Display editor</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="250"/>
+        <location filename="../interface.ui" line="257"/>
         <source>A &amp;propos</source>
         <translation>A&amp;bout</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="255"/>
+        <location filename="../interface.ui" line="262"/>
         <source>Documentation utilisateurs</source>
         <translation>Information users</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="260"/>
+        <location filename="../interface.ui" line="267"/>
         <source>Soustractions</source>
         <translation>Subtractions</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="265"/>
+        <location filename="../interface.ui" line="272"/>
         <source>de 5</source>
         <translation>of 5</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="270"/>
+        <location filename="../interface.ui" line="277"/>
         <source>de 10</source>
         <translation>of 10</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="275"/>
+        <location filename="../interface.ui" line="282"/>
         <source>de 15</source>
         <translation>of 15</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="280"/>
+        <location filename="../interface.ui" line="287"/>
         <source>de 20</source>
         <translation>of 20</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="285"/>
+        <location filename="../interface.ui" line="292"/>
         <source>de 25</source>
         <translation>of 25</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="290"/>
+        <location filename="../interface.ui" line="297"/>
         <source>de 50</source>
         <translation>of 50</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.ui" line="295"/>
+        <location filename="../interface.ui" line="302"/>
         <source>à 10</source>
         <translation>to 10</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.ui" line="300"/>
+        <location filename="../interface.ui" line="307"/>
         <source>à 1000</source>
         <translation>to 1000</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.ui" line="305"/>
+        <location filename="../interface.ui" line="312"/>
         <source>à 100</source>
         <translation>to 100</translation>
     </message>
     <message utf8="true">
-        <location filename="../interface.ui" line="310"/>
+        <location filename="../interface.ui" line="317"/>
         <source>à un nombre aléatoire</source>
         <translation>to a random number</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="315"/>
+        <location filename="../interface.ui" line="322"/>
         <source>sur des additions</source>
         <translation>with additions</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="320"/>
+        <location filename="../interface.ui" line="327"/>
         <source>sur des soustractions</source>
         <translation>with subtractions</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="325"/>
+        <location filename="../interface.ui" line="332"/>
         <source>sur des multiplications</source>
         <translation>with multiplications</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="330"/>
+        <location filename="../interface.ui" line="337"/>
         <source>Maison des nombres</source>
         <translation>Home numbers</translation>
+    </message>
+    <message>
+        <location filename="../interface.ui" line="348"/>
+        <source>Verrouillage nombres</source>
+        <translation>Numbers Lock</translation>
     </message>
 </context>
 </TS>
