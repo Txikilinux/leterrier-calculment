@@ -189,7 +189,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     this->setWindowTitle(getAbeExerciceName());
 
     QString nomUtilisateur = qApp->property("utilisateur").toString();
-    nomUtilisateur.replace(";"," ");
+//    nomUtilisateur.replace(";"," ");
     if (qApp->property("utilisateur").toString().isEmpty())
         setWindowTitle("Calcul Mental - "+getAbeExerciceName());
     else

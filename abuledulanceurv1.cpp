@@ -158,7 +158,7 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
     if (!ui->cbNombre->currentText().isNull())
         m_nomExercice.append(ui->cbNombre->currentText());
     qDebug()<<"AbuleduLanceurV1::on_btnLancer_clicked() pour "<<m_nomExercice;
-    qApp->setProperty("utilisateur",ui->lePrenom->text() +";"+ui->leNom->text());
+    qApp->setProperty("utilisateur",ui->lePrenom->text() +" "+ui->leNom->text());
 //    Attention à changer ligne 203 de exercice.cpp si on change le caractère de concaténation dans la ligne au dessus
 //    qApp->setProperty("utilisateur",qApp->property("utilisateur").toString().replace(";"," "));
     if (m_nomExercice == "maisonDesNombres")
