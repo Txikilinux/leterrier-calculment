@@ -1,4 +1,4 @@
-leterrier-calcul-mental (1.0.10~lucid1~ryxeo2) lucid; urgency=low
+leterrier-calcul-mental (1.0.10~lucid1~ryxeo3) lucid; urgency=low
 
   * Ajout de l'exercice maison des nombres
   * Traduction en anglais
@@ -13,7 +13,7 @@ leterrier-calcul-mental (1.0.10~lucid1~ryxeo2) lucid; urgency=low
   * Correction du bug d'affichage 10 pouces (minimum dans exercice.ui)
   * Affichage à la demande d'un bilan depuis le lanceur
 
- -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 06 May 2011 09:22:46 +0200
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Sun, 11 Mar 2012 18:09:02 +0100
 
 leterrier-calcul-mental (1.0.9~ppa1~jaunty1) jaunty; urgency=low
 
@@ -43,6 +43,12 @@ leterrier-calcul-mental (1.0.7~ppa1~jaunty1) jaunty; urgency=low
   * Versionnement de alacarte.conf
 
  -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 26 Nov 2010 09:01:34 +0100
+
+leterrier-calcul-mental (1.0.7~lucid1) lucid; urgency=low
+
+  * lucid package
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Tue, 08 Mar 2011 14:00:36 +0100
 
 leterrier-calcul-mental (1.0.6~ppa1~jaunty1) jaunty; urgency=low
 
