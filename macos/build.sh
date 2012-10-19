@@ -33,7 +33,8 @@ macdeployqt ${APPNAME}.app
 cp -a ${APPNAME}.app /tmp/build-dmg/
 cp -a MacOS/.DS_Store /tmp/build-dmg/
 cp -a MacOS/.background /tmp/build-dmg/
-cp -a MacOS/Applications /tmp/build-dmg/
+#on n'a plus les liens symboliques, on doit donc les re-creer
+ln -s /Applications /tmp/build-dmg/Applications
 
 #copie des donnees
 cp -a data /tmp/build-dmg/${APPNAME}.app/Contents/MacOS/
@@ -46,5 +47,5 @@ hdiutil create ${APPNAME}-${APPVERSION}.dmg -srcfolder /tmp/build-dmg -format UD
 #nettoyage
 rm -rf /tmp/build-dmg
 
-echo "deplacement du fichier dmg sur le bureau ..."
-mv *.dmg ~/Desktop
+#echo "deplacement du fichier dmg sur le bureau ..."
+#mv *.dmg ~/Desktop
