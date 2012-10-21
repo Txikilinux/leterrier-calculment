@@ -37,9 +37,9 @@ macdeployqt ${APPNAME}.app
 ln -s /Applications /tmp/build-dmg-${APPNAME}/Applications
 
 #copie des donnees
-cp -a data /tmp/build-dmg/${APPNAME}.app/Contents/MacOS/
-cp -a conf /tmp/build-dmg/${APPNAME}.app/Contents/MacOS/
-cp -a lang /tmp/build-dmg/${APPNAME}.app/Contents/MacOS/
+cp -a data /tmp/build-dmg/${APPNAME}.app/Contents/Resources/
+cp -a conf /tmp/build-dmg/${APPNAME}.app/Contents/Resources/
+cp -a lang /tmp/build-dmg/${APPNAME}.app/Contents/Resources/
 
 #creation du fichier dmg
 ~/create-dmg/create-dmg --window-size 415 295 --volname "${VOLNAME}" --volicon ${VOLICON} --background "macos/.background/background.png" ${APPNAME}-${APPVERSION}-osx.dmg ${APPNAME}.app
