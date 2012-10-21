@@ -16,6 +16,9 @@ fi
 if [ -f ${APPNAME}-${APPVERSION}-osx.dmg ]; then
     rm -f ${APPNAME}-${APPVERSION}-osx.dmg
 fi
+if [ -f ${APPNAME}.app ]; then
+    rm -rf ${APPNAME}.app
+fi
 
 #on fabrique une arborescence "dmg" temporaire
 mkdir /tmp/build-dmg-${APPNAME}
