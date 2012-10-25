@@ -176,6 +176,11 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../abuleduaproposv0.cpp" line="126"/>
+        <source>&amp;Aide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../abuleduaproposv0.cpp" line="134"/>
         <source>Aide</source>
         <translation type="unfinished"></translation>
@@ -530,7 +535,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ExerciceMaisonNombres</name>
     <message>
-        <location filename="../exercicemaisonnombres.cpp" line="37"/>
+        <location filename="../exercicemaisonnombres.cpp" line="38"/>
         <source>&amp;Suivant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -626,47 +631,52 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../interfacecompetence.cpp" line="106"/>
-        <source>La maison des nombres</source>
+        <source>La maison des nombres, niveau1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interfacecompetence.cpp" line="117"/>
+        <location filename="../interfacecompetence.cpp" line="114"/>
+        <source>La maison des nombres, niveau2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interfacecompetence.cpp" line="125"/>
         <source>Les multiples</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interfacecompetence.cpp" line="126"/>
-        <location filename="../interfacecompetence.cpp" line="139"/>
+        <location filename="../interfacecompetence.cpp" line="134"/>
+        <location filename="../interfacecompetence.cpp" line="147"/>
         <source>Multiples de </source>
         <translation type="unfinished">Múltiplos de </translation>
     </message>
     <message>
-        <location filename="../interfacecompetence.cpp" line="152"/>
+        <location filename="../interfacecompetence.cpp" line="160"/>
         <source>Tables d&apos;addition</source>
         <translation type="unfinished">Tablas de sumar</translation>
     </message>
     <message>
-        <location filename="../interfacecompetence.cpp" line="163"/>
+        <location filename="../interfacecompetence.cpp" line="171"/>
         <source>Table +</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interfacecompetence.cpp" line="175"/>
+        <location filename="../interfacecompetence.cpp" line="183"/>
         <source>Ordres de grandeur</source>
         <translation type="unfinished">Ordenes de magnitud</translation>
     </message>
     <message>
-        <location filename="../interfacecompetence.cpp" line="182"/>
+        <location filename="../interfacecompetence.cpp" line="190"/>
         <source>... d&apos;additions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interfacecompetence.cpp" line="192"/>
+        <location filename="../interfacecompetence.cpp" line="200"/>
         <source>... de soustractions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../interfacecompetence.cpp" line="202"/>
+        <location filename="../interfacecompetence.cpp" line="210"/>
         <source>... de multiplications</source>
         <translation type="unfinished"></translation>
     </message>
