@@ -9,6 +9,7 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
 {
     m_ui->vue->setInteractive(true);
     m_operation = exo;
+    m_valeurBase = val;
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     m_depart = new QPoint(m_imgFond->width()/2-80*factY,500*factY);
@@ -20,11 +21,11 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
     for (int i=1;i<=10;i++)
     {
 
-        QPixmap dessinBouton ("./data/images/maison"+QString::number(i)+".png");
+        QPixmap dessinBouton ("./data/images/maison"+QString::number(i+m_valeurBase)+".png");
         QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         PixmapMaison* maison = new PixmapMaison(dessinBouton2);
-        maison->setToolTip("Maison du "+QString::number(i));
-        maison->setProperty("Valeur",i);
+        maison->setToolTip("Maison du "+QString::number(i+m_valeurBase));
+        maison->setProperty("Valeur",i+m_valeurBase);
         ordonneMaison = qFloor((i-1)/2)*(dessinBouton2.height()-1 + ((m_imgFond->height()-nombreMaisons*dessinBouton2.height())/nombreMaisons-1));
         maison->setPos(((1+qPow(-1,i))/2)*(m_imgFond->width() - dessinBouton2.width()),ordonneMaison);
         m_scene->addItem(maison);
@@ -41,7 +42,7 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
         m_valeurSurvolee = 0;
         this->m_resultatEnCours=m_baudruche->getMResultat();
 //        qDebug()<<" Ballon créé avec comme résultat "<<m_resultatEnCours<<" et comme parent "<<m_scene<<" euh "<<m_baudruche.data()->parent();
-        if (m_resultatEnCours > 10 || m_resultatEnCours < 1) {
+        if (m_resultatEnCours > (10+m_valeurBase) || m_resultatEnCours < (1+m_valeurBase)) {
             m_baudruche->deleteLater();
         }
         else inferieurA11 = true;
@@ -83,7 +84,6 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     m_ui->lblMsg->setText("");
     QPixmap* rien = new QPixmap("");
     m_ui->lblImgMsg->setPixmap(*rien);
-
 
     m_baudruche->m_timer->start();
     if (m_baudruche!=NULL) m_ui->btnBallon->setDisabled(true);

@@ -1,3 +1,9 @@
+leterrier-calcul-mental (1.0.11~lucid1~ryxeo2) lucid; urgency=low
+
+  * synchro avec le paquet windows (codesign)
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 26 Oct 2012 19:26:50 +0200
+
 leterrier-calcul-mental (1.0.10~lucid1~ryxeo3) lucid; urgency=low
 
   * Ajout de l'exercice maison des nombres
@@ -14,6 +20,23 @@ leterrier-calcul-mental (1.0.10~lucid1~ryxeo3) lucid; urgency=low
   * Affichage à la demande d'un bilan depuis le lanceur
 
  -- Eric Seigne <eric.seigne@ryxeo.com>  Sun, 11 Mar 2012 18:09:02 +0100
+
+leterrier-calcul-mental (1.0.10~lucid1~ryxeo2) lucid; urgency=low
+
+  * Ajout de l'exercice maison des nombres
+  * Traduction en anglais
+  * Reprise des erreurs
+  * Lanceur d'exercice sur le dessin de l'avion
+  * Ajout des fichiers de traduction
+  * Lancement au clic dans Maison des nombres
+  * Changement du mot sur bouton au début d'exercice
+  * Amélioration affichage
+  * Aide affichée au début d'exercice Ordres de grandeur
+  * Gestion par l'intermédiaire d'un menu Options de l'utilisation des nombres hors pavé numérique
+  * Correction du bug d'affichage 10 pouces (minimum dans exercice.ui)
+  * Affichage à la demande d'un bilan depuis le lanceur
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 06 May 2011 09:22:46 +0200
 
 leterrier-calcul-mental (1.0.9~ppa1~jaunty1) jaunty; urgency=low
 

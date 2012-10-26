@@ -9,6 +9,7 @@ public:
     ExerciceMaisonNombres(QString exo,QWidget *parent = 0,int val = 0, QString niveau = "");
 protected:
     int m_valeurSurvolee;
+    int m_valeurBase;
     void on_btnBallon_clicked();
     void on_btn2chance_clicked();
     void mousePressEvent(QMouseEvent *);

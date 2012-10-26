@@ -43,7 +43,7 @@ AbulEduAproposV0::AbulEduAproposV0(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle(trUtf8("A propos de")+" "+abeApplicationLongName+" "+qApp->applicationVersion());
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+//    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 
     installeMenu(); //Installe le menu Aide dans la menuBar
 
@@ -123,7 +123,7 @@ void AbulEduAproposV0::installeMenu()
 
     if(!m)  //sinon, on crée le menu Aide
     {
-        QMenu *menuAide = new QMenu("&Aide",b);
+        QMenu *menuAide = new QMenu(trUtf8("&Aide"),b);
         menuAide->setObjectName("menuAide");
         b->addMenu(menuAide); //Ajoute l'entrée Aide au menu
 
