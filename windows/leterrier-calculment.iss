@@ -33,10 +33,10 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "../release\leterrier-calcul-mental.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "../data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "../lang\*"; DestDir: "{app}\lang"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "../conf\*"; DestDir: "{app}\conf"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "../release/leterrier-calcul-mental.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "../data/*"; DestDir: "{app}/data"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "../lang/*.qm"; DestDir: "{app}/lang"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "../conf/*"; DestDir: "{app}/conf"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:/code/quazip.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:/code/exiv2/bin/libexiv2-12.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:/QtSDK/mingw/bin/libstdc++-6.dll"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -66,5 +66,5 @@ Name: "{group}\Calcul Mental"; Filename: "{app}\leterrier-calcul-mental.exe"; Wo
 Name: "{commondesktop}\Calcul Mental"; Filename: "{app}\leterrier-calcul-mental.exe"; WorkingDir: "{app}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\leterrier-calcul-mental.exe"; Description: "{cm:LaunchProgram,Le Terrier d'AbulEdu}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\leterrier-calcul-mental.exe"; Description: "{cm:LaunchProgram,Calcul Mental}"; Flags: nowait postinstall skipifsilent
 
