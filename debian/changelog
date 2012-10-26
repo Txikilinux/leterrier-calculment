@@ -1,3 +1,9 @@
+leterrier-calcul-mental (1.0.11~lucid1~ryxeo2) lucid; urgency=low
+
+  * synchro avec le paquet windows (codesign)
+
+ -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 26 Oct 2012 19:26:50 +0200
+
 leterrier-calcul-mental (1.0.10~lucid1~ryxeo2) lucid; urgency=low
 
   * Ajout de l'exercice maison des nombres

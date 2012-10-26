@@ -3,7 +3,7 @@
 #Eric Seigne 2011-2012 <eric.seigne@ryxeo.com>
 #documentation https://redmine.ryxeo.com/projects/ryxeo/wiki/Cr%C3%A9er_un_paquet_avec_OSX
 APPNAME="leterrier-calcul-mental"
-APPVERSION="1.0.10"
+APPVERSION="1.0.11"
 VOLNAME="AbulEdu LeTerrier Calcul Mental ${APPVERSION}"
 VOLICON="macos/icones/leterrier-calcul-mental.icns"
 
