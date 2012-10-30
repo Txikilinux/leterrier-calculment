@@ -2,5 +2,5 @@
 # application launcher
 (
     cd /usr/share/leterrier-calcul-mental
-    exec /usr/lib/leterrier-calcul-mental/leterrier-calculment $@
+    exec /usr/lib/leterrier-calcul-mental/leterrier-calcul-mental $@
 )
