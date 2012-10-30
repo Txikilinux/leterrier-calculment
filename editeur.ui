@@ -102,7 +102,7 @@
           </sizepolicy>
          </property>
          <property name="styleSheet">
-          <string> QGroupBox {
+          <string notr="true"> QGroupBox {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #E0E0E0, stop: 1 #FFFFFF);
      border: 2px solid gray;
@@ -113,7 +113,7 @@
  QGroupBox::title {
      subcontrol-origin: margin;
      padding: 0 3px;
-
+   
  }</string>
          </property>
          <property name="title">
@@ -177,7 +177,7 @@
           </sizepolicy>
          </property>
          <property name="styleSheet">
-          <string> QGroupBox {
+          <string notr="true"> QGroupBox {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #E0E0E0, stop: 1 #FFFFFF);
      border: 2px solid gray;
