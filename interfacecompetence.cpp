@@ -61,7 +61,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 boutonsPolygone* btn = new boutonsPolygone("tableM"+QString::number(i+2),i+2);
                 btn->deplace((origine.x()+R*cos((2*3.14/nb)*i+angleDepart)), (origine.y()+deformation*R*sin((2*3.14/nb)*i+angleDepart)));
                 btn->retaille(100*m_ratioTaille,100*m_ratioTaille);
-                btn->QGraphicsItem::setToolTip(trUtf8("Table x")+QString::number(i+2));
+                btn->QGraphicsItem::setToolTip(trUtf8("Table x%1").arg(QString::number(i+2)));
 //                QPixmap im("./data/images/nacellePourrie.png");
 //                btn->setImage(im);
                 btn->setMTransformable(2);
@@ -131,7 +131,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 boutonsPolygone* btn = new boutonsPolygone("complementM"+QString::number((i+1)*5),(i+1)*5);
                 btn->deplace(origine.x()+m_decor->width()/5*i, origine.y()+m_decor->height()/16*i);
                 btn->retaille(60*m_ratioTaille,77*m_ratioTaille);
-                btn->QGraphicsItem::setToolTip(trUtf8("Multiples de ")+QString::number((i+1)*5));
+                btn->QGraphicsItem::setToolTip(trUtf8("Multiples de %1").arg(QString::number((i+1)*5)));
                 QPixmap im("./data/images/carabine.png");
                 QPixmap im2 = im.scaled(60*m_ratioTaille,77*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 btn->setImage(im2);
@@ -144,7 +144,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 boutonsPolygone* btn = new boutonsPolygone("complementM"+QString::number((i+1)*25),(i+1)*25);
                 btn->deplace(origine2.x()+m_decor->width()/5*i, origine2.y()+m_decor->height()/16*i);
                 btn->retaille(60*m_ratioTaille,77*m_ratioTaille);
-                btn->QGraphicsItem::setToolTip(trUtf8("Multiples de ")+QString::number((i+1)*25));
+                btn->QGraphicsItem::setToolTip(trUtf8("Multiples de %1").arg(QString::number((i+1)*25)));
                 QPixmap im("./data/images/carabine.png");
                 QPixmap im2 = im.scaled(60*m_ratioTaille,77*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 btn->setImage(im2);
@@ -154,7 +154,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
 
             }
             break;
-            
+
         case 4 : {
             m_decor = new QPixmap("./data/images/4booster.jpg");
             this->setWindowTitle(trUtf8("Tables d'addition"));
@@ -168,7 +168,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 boutonsPolygone* btn = new boutonsPolygone("tableA"+QString::number(i+2),i+2);
                 btn->deplace((origine.x()+R*cos((2*3.14/nb)*i)), (origine.y()+deformation*R*sin((2*3.14/nb)*i)));
                 btn->retaille(66*m_ratioTaille,65*m_ratioTaille);
-                btn->QGraphicsItem::setToolTip(trUtf8("Table +")+QString::number(i+2));
+                btn->QGraphicsItem::setToolTip(trUtf8("Table +%1").arg(QString::number(i+2)));
                 QPixmap im("./data/images/nausee0"+QString::number(i%3+1)+".png");
                 QPixmap im2 = im.scaled(66*m_ratioTaille,65*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 btn->setImage(im2);
