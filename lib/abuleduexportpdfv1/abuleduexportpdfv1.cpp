@@ -1,5 +1,5 @@
 /**
-  * Classe 
+  * Classe
   * @author 2011 Eric Seigne <eric.seigne@ryxeo.com>
   * @see The GNU Public License (GNU/GPL) v3
   *
@@ -65,7 +65,7 @@ void AbulEduExportPDFV1::abeExportPDFFile()
             QTextEdit document;
 
             //Parcours de la QHash pour sortir le tableau des logs
-            html.append(trUtf8("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'><html><head><title>%1</title> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />").arg("Export des logs"));
+            html.append(QString("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'><html><head><title>%1</title> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />").arg(trUtf8("Export des logs")));
 
             //style css
             styleSheet.append("<style type=\"text/css\">\
@@ -76,7 +76,7 @@ table { border: 1px solid black; }\
 
             document.setStyleSheet(styleSheet);
             html.append(styleSheet);
-            html.append(trUtf8("</head><body>"));
+            html.append(QString("</head><body>"));
 
             //Le titre
             html.append(trUtf8("<center><h5>Utilisateur: %1 - %2 - %3</h5></center><br /><br />").arg(m_login).arg(m_software).arg(ladate.toString("dd/mm/yyyy - hh:mm:ss")));
@@ -93,10 +93,10 @@ table { border: 1px solid black; }\
                 ligne = liste.next().value();
                 numligne++;
                 if(ligne.count()>0) {
-                    html.append(trUtf8("<td>%1</td>").arg(ligne.value("question")));
-                    html.append(trUtf8("<td>%1</td>").arg(ligne.value("answer")));
-                    html.append(trUtf8("<td>%1</td>").arg(ligne.value("expected")));
-                    html.append(trUtf8("<td>%1</td>").arg(ligne.value("evaluation")));
+                    html.append(QString("<td>%1</td>").arg(ligne.value("question")));
+                    html.append(QString("<td>%1</td>").arg(ligne.value("answer")));
+                    html.append(QString("<td>%1</td>").arg(ligne.value("expected")));
+                    html.append(QString("<td>%1</td>").arg(ligne.value("evaluation")));
                 }
                 html.append("</tr>");
             }
