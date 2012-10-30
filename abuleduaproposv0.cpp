@@ -113,7 +113,7 @@ AbulEduAproposV0::~AbulEduAproposV0()
 
 void AbulEduAproposV0::installeMenu()
 {
-    QString titreAbout=trUtf8("<center>%1 %2</center").arg(abeApplicationLongName) //Récupère les paramètres
+    QString titreAbout=QString("<center>%1 %2</center").arg(abeApplicationLongName) //Récupère les paramètres
                        .arg(qApp->applicationVersion());
     ui->textAbout->setHtml(titreAbout+" "+ui->textAbout->toHtml());         // Ajoute Nom application et Version en haut de la page
 
