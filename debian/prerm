@@ -2,6 +2,6 @@
 
 set -e
 
-xdg-desktop-menu uninstall /usr/share/applications/leterrier-calcul-mental.desktop
+xdg-desktop-menu uninstall /usr/share/applications/leterrier-calculment.desktop
 
 #DEBHELPER#

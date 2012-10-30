@@ -12,11 +12,11 @@ CFLAGS=-O3
 CXXFLAGS=-O3
 DEST=/usr/share/leterrier-calcul-mental
 EXECDEST=/usr/lib/leterrier-calcul-mental
-BUILDTEMP=$(CURDIR)/debian/leterrier-calcul-mental
+BUILDTEMP=$(CURDIR)/debian/leterrier-calculment
 
-MANPAGES := $(CURDIR)/debian/leterrier-calcul-mental.1
+MANPAGES := $(CURDIR)/debian/leterrier-calculment.1
 
-install/leterrier-calcul-mental::
+install/leterrier-calculment::
 	mkdir -p $(BUILDTEMP)/usr/bin/
 	mkdir -p $(BUILDTEMP)/$(EXECDEST)
 	mkdir -p $(BUILDTEMP)/$(DEST)/lang
