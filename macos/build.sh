@@ -2,10 +2,10 @@
 #script de creation de l'image pour OSX
 #Eric Seigne 2011-2012 <eric.seigne@ryxeo.com>
 #documentation https://redmine.ryxeo.com/projects/ryxeo/wiki/Cr%C3%A9er_un_paquet_avec_OSX
-APPNAME="leterrier-calcul-mental"
+APPNAME="leterrier-calculment"
 APPVERSION="1.0.11"
 VOLNAME="AbulEdu LeTerrier Calcul Mental ${APPVERSION}"
-VOLICON="macos/icones/leterrier-calcul-mental.icns"
+VOLICON="macos/icones/leterrier-calculment.icns"
 
 #On stoppe dès qu'on rencontre un problème
 set -e

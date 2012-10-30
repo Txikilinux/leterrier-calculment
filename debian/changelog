@@ -1,6 +1,7 @@
-leterrier-calcul-mental (1.0.11~lucid1~ryxeo2) lucid; urgency=low
+leterrier-calculment (1.0.11~lucid1~ryxeo3) lucid; urgency=low
 
   * synchro avec le paquet windows (codesign)
+  * changement du nom de paquet pour que ca soit coherent avec l'ensemble
 
  -- Eric Seigne <eric.seigne@ryxeo.com>  Fri, 26 Oct 2012 19:26:50 +0200
 
