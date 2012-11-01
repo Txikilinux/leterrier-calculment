@@ -2,9 +2,10 @@ Source: leterrier-calculment
 Section: misc
 Priority: extra
 Maintainer: Eric Seigne <eric.seigne@ryxeo.com>
-Build-Depends: debhelper (>=7.0.17), cdbs, qt4-qmake, libqt4-dev
+Build-Depends: cdbs, libqtwebkit-dev | libqt4-webkit(<<4:4.8.1), qt4-qmake, libqt4-dev, libqt4-phonon-dev | libphonon-dev, phonon, zlib1g-dev, libpulse-dev, libexiv2-dev, libqt4-webkit
 Standards-Version: 3.8.3
-Homepage: http://www.abuledu.org/leterrier/
+Homepage: http://www.abuledu.org/leterrier/leterrier-calculment
+Vcs-Browser: https://redmine.ryxeo.com/projects/leterrier-calculment/issues
 
 Package: leterrier-calculment
 Architecture: any
