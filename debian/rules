@@ -23,7 +23,7 @@ install/leterrier-calculment::
 	mkdir -p $(BUILDTEMP)/$(DEST)/conf
 	mkdir -p $(BUILDTEMP)/$(DEST)/data
 	mkdir -p $(BUILDTEMP)/usr/share/applications
-	cp -a $(CURDIR)/debian/leterrier-calculment.wrapper $(BUILDTEMP)/usr/bin/leterrier-calculment
+	cp -a $(CURDIR)/debian/*.wrapper $(BUILDTEMP)/usr/bin/leterrier-calculment
 	cp -a $(CURDIR)/debian/*.desktop $(BUILDTEMP)/usr/share/applications/
 	cp -a $(CURDIR)/lang/*.qm $(BUILDTEMP)/$(DEST)/lang
 	cp -a $(CURDIR)/conf/*.conf $(BUILDTEMP)/$(DEST)/conf
