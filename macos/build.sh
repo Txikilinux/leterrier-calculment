@@ -36,7 +36,7 @@ if [ -f ../${APPNAME}.pro ]; then
     cd ..
 fi
 
-qmake ${APPNAME}.pro -r -spec macx-g++ CONFIG+=release
+qmake *.pro -r -spec macx-g++ CONFIG+=release
 
 #compilation
 make -w -j4
