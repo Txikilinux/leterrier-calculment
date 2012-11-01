@@ -33,7 +33,7 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "../release/leterrier-calcul-mental.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "../release/leterrier-calculment.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "../data/*"; DestDir: "{app}/data"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../lang/*.qm"; DestDir: "{app}/lang"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../conf/*"; DestDir: "{app}/conf"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -62,9 +62,9 @@ Source: "C:/QtSDK/Desktop/Qt/4.8.1/mingw/bin/phonon4.dll"; DestDir: "{app}"; Fla
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\Calcul Mental"; Filename: "{app}\leterrier-calcul-mental.exe"; WorkingDir: "{app}"
-Name: "{commondesktop}\Calcul Mental"; Filename: "{app}\leterrier-calcul-mental.exe"; WorkingDir: "{app}"; Tasks: desktopicon
+Name: "{group}\Calcul Mental"; Filename: "{app}\leterrier-calculment.exe"; WorkingDir: "{app}"
+Name: "{commondesktop}\Calcul Mental"; Filename: "{app}\leterrier-calculment.exe"; WorkingDir: "{app}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\leterrier-calcul-mental.exe"; Description: "{cm:LaunchProgram,Calcul Mental}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\leterrier-calculment.exe"; Description: "{cm:LaunchProgram,Calcul Mental}"; Flags: nowait postinstall skipifsilent
 

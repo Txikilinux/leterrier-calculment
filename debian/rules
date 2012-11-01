@@ -10,8 +10,8 @@ QTPLUGINS=/usr/lib/qt4/plugins
 MAKE=make -j4
 CFLAGS=-O3
 CXXFLAGS=-O3
-DEST=/usr/share/leterrier-calcul-mental
-EXECDEST=/usr/lib/leterrier-calcul-mental
+DEST=/usr/share/leterrier-calculment
+EXECDEST=/usr/lib/leterrier-calculment
 BUILDTEMP=$(CURDIR)/debian/leterrier-calculment
 
 MANPAGES := $(CURDIR)/debian/leterrier-calculment.1
@@ -23,13 +23,13 @@ install/leterrier-calculment::
 	mkdir -p $(BUILDTEMP)/$(DEST)/conf
 	mkdir -p $(BUILDTEMP)/$(DEST)/data
 	mkdir -p $(BUILDTEMP)/usr/share/applications
-	cp -a $(CURDIR)/debian/leterrier-calcul-mental.wrapper $(BUILDTEMP)/usr/bin/leterrier-calcul-mental
+	cp -a $(CURDIR)/debian/leterrier-calculment.wrapper $(BUILDTEMP)/usr/bin/leterrier-calculment
 	cp -a $(CURDIR)/debian/*.desktop $(BUILDTEMP)/usr/share/applications/
 	cp -a $(CURDIR)/lang/*.qm $(BUILDTEMP)/$(DEST)/lang
 	cp -a $(CURDIR)/conf/*.conf $(BUILDTEMP)/$(DEST)/conf
 	cp -a $(CURDIR)/data/* $(BUILDTEMP)/$(DEST)/data
 	cp -a $(CURDIR)/*.png $(BUILDTEMP)/$(DEST)/
-	cp -a $(CURDIR)/leterrier-calcul-mental $(BUILDTEMP)/$(EXECDEST)/
+	cp -a $(CURDIR)/leterrier-calculment $(BUILDTEMP)/$(EXECDEST)/
 
 	#special jaunty, please copy all libs to app lib dir
 	#install -D --mode=0755 $(QTDIR)/lib/libQtCore.so.4 $(BUILDTEMP)/$(EXECDEST)
