@@ -1,8 +1,12 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-07-13T16:03:17
 # -------------------------------------------------
+
+QT += script network xml
+
 TARGET = leterrier-calculment
 TEMPLATE = app
+
 SOURCES += main.cpp \
     interface.cpp \
     exercice.cpp \
@@ -20,6 +24,7 @@ SOURCES += main.cpp \
     exercicerepechagemaisonnombres.cpp \
     abuledulineeditv0.cpp \
     lib/abuleduexportpdfv1/abuleduexportpdfv1.cpp
+
 HEADERS += interface.h \
     exercice.h \
     baudruche.h \
@@ -37,21 +42,21 @@ HEADERS += interface.h \
     exercicerepechagemaisonnombres.h \
     abuledulineeditv0.h \
     lib/abuleduexportpdfv1/abuleduexportpdfv1.h
+
 FORMS += interface.ui \
     exercice.ui \
     editeur.ui \
     interfacecompetence.ui \
     abuleduaproposv0.ui \
     abuledulanceurv1.ui
+
 TRANSLATIONS = lang/leterrier-calcul-mental_es.ts \
     lang/leterrier-calcul-mental_en.ts \
     lang/leterrier-calcul-mental_de.ts \
     lang/leterrier-calcul-mental_af.ts \
     lang/leterrier-calcul-mental_mi.ts \
     lang/leterrier-calcul-mental_fr.ts
-QT += script
-QT += network
-QT += xml
+
 
 win32{
   OTHER_FILES += windows/windows.rc
@@ -59,7 +64,7 @@ win32{
 }
 
 macx {
- ICON = macos/icones/leterrier-calcul-mental.icns
+ ICON = macos/icones/leterrier-calculment.icns
 }
 
 
