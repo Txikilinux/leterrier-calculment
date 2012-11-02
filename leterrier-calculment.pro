@@ -1,6 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-07-13T16:03:17
 # -------------------------------------------------
+system(ccache -V):QMAKE_CXX = ccache g++
 
 QT += script network xml
 
