@@ -15,6 +15,7 @@
 #define VER_LEGALTRADEMARKS2_STR    "License GNU/GPL v3"
 #define VER_ORIGINALFILENAME_STR    "leterrier-calculment.exe"
 #define VER_PRODUCTNAME_STR         "AbulEdu LeTerrier -- Calcul Mental"
+
 #define VER_COMPANYDOMAIN_STR       "abuledu.org"
 
 #endif // VERSION_H
