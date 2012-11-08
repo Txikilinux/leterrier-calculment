@@ -55,7 +55,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_cible=val;
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    m_nbTotalQuestions = config.value("NombreBallons").toInt();
+    m_nbTotalQuestions = config.value("NombreBallons",10).toInt();
     setAbeNbTotalQuestions(m_nbTotalQuestions);
 
     if (niveau.isEmpty())
@@ -298,15 +298,15 @@ void exercice::chargerParametres()
     qDebug()<<" exercice::chargerParametres(1) pour "<<m_operation;
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     config.beginGroup(m_operation);
-    if (m_level=="") m_level = config.value("NiveauEnCours"+m_operation).toString();
+    if (m_level=="") m_level = config.value("NiveauEnCours"+m_operation,1).toString();
     else qDebug()<<"Dans chargerParametres(), m_level valait déjà "<<m_level;
     config.beginGroup(m_level);
     qDebug()<<"Lecture des paramètres dans "<<config.fileName()<<" - "<<m_operation<<" - "<<m_level;
-    m_maxG = config.value("MaxGauche").toInt();
-    m_minG = config.value("MinGauche").toInt();
-    m_maxD = config.value("MaxDroite").toInt();
-    m_minD = config.value("MinDroite").toInt();
-    m_temps = config.value("TempsAccorde").toInt();
+    m_maxG = config.value("MaxGauche",100).toInt();
+    m_minG = config.value("MinGauche",0).toInt();
+    m_maxD = config.value("MaxDroite",100).toInt();
+    m_minD = config.value("MinDroite",0).toInt();
+    m_temps = config.value("TempsAccorde",10).toInt();
     qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<m_level<<"Tps : "<<m_temps;
     config.endGroup();
     config.endGroup();

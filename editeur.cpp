@@ -356,16 +356,16 @@ void Editeur::chargerNiveau(QString niveau)
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     config.setIniCodec("UTF-8");
-    m_ui->spbNombreBallons->setValue(config.value("NombreBallons").toInt());
+    m_ui->spbNombreBallons->setValue(config.value("NombreBallons",10).toInt());
     config.beginGroup(*m_operationEnCours);
         config.beginGroup(niveau);
-            m_ui->spbGMin->setValue(config.value("MinGauche").toInt());
-            m_maxG = config.value("MaxGauche").toInt();
+            m_ui->spbGMin->setValue(config.value("MinGauche",0).toInt());
+            m_maxG = config.value("MaxGauche",100).toInt();
             m_ui->spbGMax->setValue(m_maxG);
-            m_ui->spbDMin->setValue(config.value("MinDroite").toInt());
-            m_maxD = config.value("MaxDroite").toInt();
+            m_ui->spbDMin->setValue(config.value("MinDroite",0).toInt());
+            m_maxD = config.value("MaxDroite",100).toInt();
             m_ui->spbDMax->setValue(m_maxD);
-            m_ui->sldVitesse->setValue(config.value("TempsAccorde").toInt());
+            m_ui->sldVitesse->setValue(config.value("TempsAccorde",10).toInt());
         config.endGroup();
     config.endGroup();
 
@@ -481,16 +481,16 @@ void Editeur::chargerOperation(QString operation)
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     config.setIniCodec("UTF-8");
-    m_ui->spbNombreBallons->setValue(config.value("NombreBallons").toInt());
+    m_ui->spbNombreBallons->setValue(config.value("NombreBallons",10).toInt());
     config.beginGroup(operation);
         config.beginGroup(*m_niveauEnCours);
-            m_maxG = config.value("MaxGauche").toInt();
+            m_maxG = config.value("MaxGauche",100).toInt();
             m_ui->spbGMax->setValue(m_maxG);
-            m_ui->spbGMin->setValue(config.value("MinGauche").toInt());
-            m_maxD = config.value("MaxDroite").toInt();
+            m_ui->spbGMin->setValue(config.value("MinGauche",0).toInt());
+            m_maxD = config.value("MaxDroite",100).toInt();
             m_ui->spbDMax->setValue(m_maxD);
-            m_ui->spbDMin->setValue(config.value("MinDroite").toInt());
-            m_ui->sldVitesse->setValue(config.value("TempsAccorde").toInt());
+            m_ui->spbDMin->setValue(config.value("MinDroite",0).toInt());
+            m_ui->sldVitesse->setValue(config.value("TempsAccorde",10).toInt());
         config.endGroup();
     config.endGroup();
 

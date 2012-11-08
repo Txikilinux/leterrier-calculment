@@ -49,7 +49,7 @@ void AbuleduLanceurV1::fillCbExercice()
         return;
     }
 qDebug()<<"dans le général de config on a "<<configExo.childKeys();
-    m_listeNiveaux = configExo.value("niveaux_"+locale).toString().split(";");
+    m_listeNiveaux = configExo.value("niveaux_"+locale,"Niveau1;Niveau2;Niveau3;Personnel").toString().split(";");
 
     configExo.beginGroup("Exercices");
     m_listeExercices = configExo.childGroups();
@@ -91,7 +91,7 @@ void AbuleduLanceurV1::fillCbNiveau(QString)
 
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
      configExo.setIniCodec("UTF-8");
-    QString niv = configExo.value("niveaux_"+locale).toString();
+    QString niv = configExo.value("niveaux_"+locale,"Niveau1;Niveau2;Niveau3;Personnel").toString();
     QStringList listeNiv = niv.split(";");
     qDebug()<<"Niveaux : "<<niv;
     qDebug()<<"Niveaux en liste : "<<listeNiv;
