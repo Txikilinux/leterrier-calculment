@@ -6,7 +6,7 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{62974C8F-0013-4262-AF5E-7F46C992672E}
-AppName=Calcul Mental
+AppName=Le Terrier d'AbulEdu - Calcul Mental
 AppVersion=LAVERSION
 AppPublisher=RyXéo SARL
 AppPublisherURL=http://www.abuledu.org/leterrier/
@@ -17,9 +17,9 @@ DefaultGroupName=Le Terrier d'AbulEdu
 LicenseFile=../gpl-2.0.txt
 OutputDir=.
 OutputBaseFilename=leterrier-calculment-LAVERSION-setup
+SetupIconFile=icone.ico
 Compression=lzma
 SolidCompression=yes
-SetupIconFile=icone.ico
 WizardImageFile=imageWizard.bmp
 SignTool=ryxeo /d $qPackage d'installation$q $f
 SignedUninstaller=True
