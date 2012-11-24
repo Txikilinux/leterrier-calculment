@@ -61,21 +61,24 @@ interface::interface(QWidget *parent)
     creeMenuLangue();
 
     QRect ecran;
-    ecran=QApplication::desktop()->availableGeometry();
+    this->showMaximized();
+    ecran = ui->fete->geometry();
 
     QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
     if (!fichierConf->exists()) qDebug()<<trUtf8("Fichier config NON trouvé");
     else qDebug() << trUtf8("Fichier config trouvé");
     m_hauteurMax = ecran.height();
     qDebug() << "Taille ecran : " << ecran.width()<< " X "<<ecran.height();
+    this->showNormal();
     this->resize(ecran.width(),ecran.height());
-    ui->fete->resize(ecran.width(),m_hauteurMax);
+    this->setMaximumSize(ecran.width(),ecran.height());
+//    ui->fete->resize(ecran.width(),m_hauteurMax);
 
     QPixmap imgFond("./data/images/fondecran.jpg");
     QPixmap imgFond2=imgFond.scaled(ecran.width(),m_hauteurMax,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     QBrush* fond = new QBrush(imgFond2);
     ui->fete->setBackgroundBrush(*fond);
-    this->setFixedSize(imgFond2.width(),imgFond2.height());
+//    this->setFixedSize(imgFond2.width(),imgFond2.height());
     ui->btnInitialise->setGeometry(imgFond2.width()-180,10,170,30);
     ui->btnInitialise->hide();
 
