@@ -4,6 +4,7 @@
 #include <QtGui/QMainWindow>
 #include "editeur.h"
 #include "exercice.h"
+#include "abuleduapplicationv1.h"
 
 namespace Ui
 {
@@ -74,6 +75,10 @@ private slots:
     void changelangue(QString langue);
     void on_actionMaison_des_nombres_triggered();
     void on_actionVerrouillage_nombres_changed();
+
+    void on_action_Journal_de_mes_activit_s_triggered();
+    void on_action_Changer_d_utilisateur_triggered();
+
 };
 
 #endif // INTERFACE_H

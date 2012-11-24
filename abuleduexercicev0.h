@@ -49,6 +49,8 @@
 #include <QtXml/QtXml>
 #include <QMessageBox>
 #include <QSharedMemory>
+#include "abuleduapplicationv1.h"
+#include "abuleduexercicelogsv1.h"
 
 class AbulEduExerciceV0: public QMainWindow
 {
@@ -118,15 +120,16 @@ public:
       * @param nbPrintedQuestions: le nombre de question qui ont déjà été affichées
       * @param evaluation: l'évaluation de la réponse, a: bien, b: bof, c: bofbof d: pas bien, z: pas de réponse
       * @param expected: la réponse qu'on attendait "bonne réponse"
-      * @param answerTime: le temps que l'utilisateur a mis pour fournir la réponse
+      * @param answerDuration: le temps que l'utilisateur a mis pour fournir la réponse
       * @param answerIntermediate: réponse intermédiaire (en cas de construction étape par étape d'une réponse)
       * @param answerProposed: la liste des réponses que le logiciel proposait (sous la forme d'une liste de
-      *                 réponses sépparées par des ";" (csv)
+      *                        réponses sépparées par des ";" (csv)
       */
     virtual void setAbeLineLog(QString question,   QString answer,
-                               int score=-1,        int nbPrintedQuestions=0, QString evaluation="",
-                               QString expected="", QString answerTime="",     QString answerIntermediate="",
+                               int score=-1,        int nbPrintedQuestions=0, abe::ABE_EVAL evaluation=abe::evalY,
+                               QString expected="", QString answerDuration="",     QString answerIntermediate="",
                                QString answerProposed="");
+
     /**
       * Permet au développeur de filtrer ce qu'on veut télécharger comme logs
       * @param dateBegin: date de début
@@ -185,6 +188,7 @@ private:
     QHash<QString, QString> m_downloadFilter;
     int m_localDebug;
     QSharedMemory sharedMemory;
+    AbulEduExerciceLogsV1               *m_abuleduExerciceLogs; /** pour expédier les logs */
 
 };
 

@@ -350,6 +350,9 @@ void exercice::animeBaudruche()
 
 void exercice::on_btnQuitter_clicked()
 {
+    //On expédie les logs sur le serveur
+    pushAbulEduLogs();
+
     this->close();
 }
 
@@ -452,7 +455,7 @@ void exercice::on_btnFeu_clicked()
 {
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     m_ui->leResultat->setDisabled(true);
-    QString evaluation="";
+    abe::ABE_EVAL evaluation=abe::evalY;
     float proposition = m_ui->leResultat->text().toFloat();
     float reponse = m_resultatEnCours;
     qDebug()<<"Valeur du ballon : "<<reponse<<", lache sur "<<proposition;
@@ -466,7 +469,7 @@ void exercice::on_btnFeu_clicked()
         QPixmap* imgO = new QPixmap("./data/images/will-win.png");
         imgO->scaledToHeight(imgO->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgO);
-        evaluation="a";
+        evaluation=abe::evalA;
     }
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
@@ -474,7 +477,7 @@ void exercice::on_btnFeu_clicked()
         ajouteErreur("Erreur calcul");
         imgN->scaledToHeight(imgN->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgN);
-        evaluation="d";
+        evaluation=abe::evalD;
     }
     QString monScore = "";
     monScore = monScore.setNum(m_score);
@@ -640,7 +643,7 @@ void exercice::pousseLogs(QString neSertPasDavantage)
     neSertPasDavantage="";
     QString reponseAttendueEnString;
     reponseAttendueEnString.setNum(m_resultatEnCours);
-    setAbeLineLog(m_baudruche->getMLigne(),m_ui->leResultat->text(),m_score, m_total,"z",reponseAttendueEnString);
+    setAbeLineLog(m_baudruche->getMLigne(),m_ui->leResultat->text(),m_score, m_total,abe::evalZ,reponseAttendueEnString);
     qDebug()<<getPluginLogs();
     afficheResultat(neSertPasDavantage);
 }

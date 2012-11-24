@@ -55,6 +55,8 @@ TRANSLATIONS = lang/leterrier-calcul-mental_es.ts \
     lang/leterrier-calcul-mental_en.ts \
     lang/leterrier-calcul-mental_fr.ts
 
+RESOURCES += \
+    ressources.qrc
 
 win32{
   OTHER_FILES += windows/windows.rc
@@ -73,6 +75,4 @@ include(lib/abuledumessageboxv1/abuledumessageboxv1.pri)
 include(lib/abuleduidentitesv1/abuleduidentitesv1.pri)
 include(lib/abuleduflatboutonv1/abuleduflatboutonv1.pri)
 include(lib/maia/maia.pri)
-
-RESOURCES += \
-    ressources.qrc
+include(lib/abuleduexercicev1/abuleduexercicev1.pri)

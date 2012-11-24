@@ -74,7 +74,7 @@ interface::interface(QWidget *parent)
     this->setMaximumSize(ecran.width(),ecran.height());
 //    ui->fete->resize(ecran.width(),m_hauteurMax);
 
-    QPixmap imgFond("./data/images/fondecran.jpg");
+    QPixmap imgFond(":/fond");
     QPixmap imgFond2=imgFond.scaled(ecran.width(),m_hauteurMax,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     QBrush* fond = new QBrush(imgFond2);
     ui->fete->setBackgroundBrush(*fond);
@@ -451,4 +451,15 @@ void interface::on_actionVerrouillage_nombres_changed()
         qApp->setProperty("VerrouNombres",true);
     else
         qApp->setProperty("VerrouNombres",false);
+}
+
+void interface::on_action_Journal_de_mes_activit_s_triggered()
+{
+    abeApp->getAbeIdentite()->abeGetMyLogsAsPDF();
+}
+
+void interface::on_action_Changer_d_utilisateur_triggered()
+{
+    abeApp->getAbeNetworkAccessManager()->abeSSOLogout();
+    abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
 }

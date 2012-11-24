@@ -69,7 +69,7 @@ void ExerciceRepechageMaisonNombres::on_btnFeu_clicked()
 {
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     m_ui->leResultat->setDisabled(true);
-    QString evaluation="";
+    abe::ABE_EVAL evaluation=abe::evalY;
     float proposition = m_ui->leResultat->text().toFloat();
 
     if (proposition==m_resultatEnCours) {
@@ -78,7 +78,7 @@ void ExerciceRepechageMaisonNombres::on_btnFeu_clicked()
         QPixmap* imgO = new QPixmap("./data/images/will-win.png");
         imgO->scaledToHeight(imgO->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgO);
-        evaluation="a";
+        evaluation=abe::evalA;
         }
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
@@ -87,7 +87,7 @@ void ExerciceRepechageMaisonNombres::on_btnFeu_clicked()
         m_ui->lblImgMsg->setPixmap(*imgN);
         m_ui->lblMsgReponse->show();
         m_ui->lblMsgReponse->setText(m_ui->lblMsgReponse->text()+QString::number(m_resultatEnCours));
-        evaluation="d";
+        evaluation=abe::evalD;
         }
     m_ui->lblPoints->setText(QString::number(m_score));
 
