@@ -1,1 +1,7 @@
 ./lib/abuleduapplicationv1
+./lib/abuleduconstantesv1
+./lib/abuledunetworkaccessmanagerv1
+./lib/abuledumessageboxv1
+./lib/abuleduidentitesv1
+./lib/abuleduflatboutonv1
+./lib/maia

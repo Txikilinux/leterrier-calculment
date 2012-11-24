@@ -23,7 +23,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtGui/QApplication>
+#include "abuleduapplicationv1.h"
 #include "interface.h"
 #include "exercice.h"
 #include "editeur.h"
@@ -32,40 +32,15 @@
 
 extern const QString abeApplicationLongName=QObject::trUtf8("AbulÉdu LeTerrier -- Calcul-Mental");
 
-void debugOutput(QtMsgType type, const char *msg)
- {
-     switch (type) {
-     case QtDebugMsg:
-#ifdef QT_NO_DEBUG_OUTPUT
-         fprintf(stderr, "Debug: %s\n", msg);
-#endif
-         break;
-     case QtWarningMsg:
-#ifdef QT_NO_WARNING_OUTPUT
-         fprintf(stderr, "Warning: %s\n", msg);
-#endif
-         break;
-     case QtCriticalMsg:
-         fprintf(stderr, "Critical: %s\n", msg);
-         break;
-     case QtFatalMsg:
-         fprintf(stderr, "Fatal: %s\n", msg);
-         abort();
-     }
- }
-
-
 int main(int argc, char *argv[])
 {
-    QApplication appli(argc, argv);
-    qInstallMsgHandler(debugOutput);
-    qDebug()<<"Nom de mon appli : "<<appli.objectName();
-    qApp->setApplicationName(VER_INTERNALNAME_STR);
-    qApp->setApplicationVersion(VER_PRODUCTVERSION_STR);
-    qApp->setFont(QFont("LiberationSans",14));
-    qApp->setProperty("langageUtilise",QLocale::system().name().section('_', 0, 0));
-    qApp->setProperty("utilisateur","");
-    qApp->setProperty("afficheBilanExercice",false);
+    AbulEduApplicationV1 a(argc, argv,VER_INTERNALNAME_STR, VER_PRODUCTVERSION_STR, VER_COMPANYDOMAIN_STR, "leterrier");
+    a.setAbeApplicationLongName(QObject::trUtf8(VER_FILEDESCRIPTION_STR));
+//    interface *w;
+
+    abeApp->setProperty("langageUtilise",QLocale::system().name().section('_', 0, 0));
+    abeApp->setProperty("utilisateur","");
+    abeApp->setProperty("afficheBilanExercice",false);
     QString exo;
     QString nivo="";
     int nombre=0;
@@ -74,7 +49,7 @@ int main(int argc, char *argv[])
         exo= argv[1];
         exo.remove("--exercice=", Qt::CaseInsensitive);
         exo.toLower();}
-    qDebug()<<"Valeur exo : "<<exo;
+//    qDebug()<<"Valeur exo : "<<exo;
 
     //Je teste si l'appel a d'autres arguments je récupère leur valeur, sachant qu'ici je me suis embêté à tester l'ordre des paramètres ce qui est inutile depuis la "normalisation"
     QString deuze;
@@ -82,32 +57,32 @@ int main(int argc, char *argv[])
     if (argc>2){
         deuze= argv[2];
         troize=argv[3];
-        qDebug()<<"deuze : "<<deuze<<"4ème lettre : "<<deuze[3];
+//        qDebug()<<"deuze : "<<deuze<<"4ème lettre : "<<deuze[3];
         if (deuze[3]=='i') {
             deuze.remove("--niveau=", Qt::CaseInsensitive);
             deuze.prepend("Niveau");
             nivo=deuze;
-            qDebug()<<"Exercice lancé directement avec niveau : "<<nivo;
+//            qDebug()<<"Exercice lancé directement avec niveau : "<<nivo;
             }
         else if (deuze[3]=='o') {
             deuze.remove("--nombre=", Qt::CaseInsensitive);
             nombre=deuze.toInt();
-            qDebug()<<"Exercice lancé directement avec nombre : "<<nombre;
+//            qDebug()<<"Exercice lancé directement avec nombre : "<<nombre;
             }
         if (troize[3]=='i') {
             troize.remove("--niveau=", Qt::CaseInsensitive);
             troize.prepend("Niveau");
             nivo=troize;
-            qDebug()<<"Exercice lancé directement avec niveau : "<<nivo;
+//            qDebug()<<"Exercice lancé directement avec niveau : "<<nivo;
             }
         else if (troize[3]=='o') {
             troize.remove("--nombre=", Qt::CaseInsensitive);
             nombre=troize.toInt();
-            qDebug()<<"Exercice lancé directement avec nombre : "<<nombre;
+//            qDebug()<<"Exercice lancé directement avec nombre : "<<nombre;
             }
         }
 #if defined(Q_OS_MAC)
-    QDir::setCurrent(qApp->applicationDirPath());
+    QDir::setCurrent(abeApp->applicationDirPath());
 #endif
     //à améliorer : dans un cas l'interface est créée pour rien, dans l'autre c'est l'exercice... de toute façon c'est de la mémoire utilisée pour rien !!
     interface w;
@@ -137,6 +112,6 @@ int main(int argc, char *argv[])
         e.setWindowTitle("exercice");
     if (argc==1) w.show();
     else e.show();
-    return appli.exec();
+    return a.exec();
 }
 
