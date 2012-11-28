@@ -74,37 +74,47 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
     qDebug()<<"boutonsPolygone::mousePressEvent(1) où m_action = "<<*m_action;
     QChar initialeAction;
     initialeAction=(QChar)m_action->operator [](0);
-    
+
     qDebug() << "initialeAction : "<<initialeAction << " mais début de m_action : " << m_action->operator [](0);
     QGraphicsItem::mousePressEvent(e);
     if (*m_action=="editeur") {
         Editeur* ed = new Editeur;
         ed->show();
-        }
+    }
     else if (*m_action=="sortie") emit sortie();
-        else if (initialeAction.isNumber()) {
-                InterfaceCompetence* inter = new InterfaceCompetence(*m_action);
-                inter->show();
-                }
+    else if (initialeAction.isNumber()) {
+        InterfaceCompetence* inter = new InterfaceCompetence(*m_action);
+        inter->show();
+    }
 
-            else if (*m_action=="lanceur") {
-        AbuleduLanceurV1* lanceur = new AbuleduLanceurV1();
-        lanceur->show();
-                        }
+    else if (*m_action=="lanceur") {
+        if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
+        {
+
+            abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+            abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
+//                        AbulEduMessageBoxV1* msgError = new AbulEduMessageBoxV1(trUtf8("Problème !"),trUtf8("Accès impossible au lanceur d'activité sans identification"));
+//                        msgError->show();
+        }
+        else
+        {
+            slotMontreLanceur();
+        }
+    }
 
     else if (*m_action == "maisonDesNombres") {
         ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(*m_action,0,m_val);
         maisonNombres->show();
-        }
-                else {
-                    exercice* ex = new exercice(*m_action,0,m_val);
-                    ex->show();
-                    }
+    }
+    else {
+        exercice* ex = new exercice(*m_action,0,m_val);
+        ex->show();
+    }
     e->accept();
     switch (m_transformable) {
-        case 1 :bouge(0,300);break;
-        case 2 : /*QPixmap img("./data/images/pomme2.png"); setImage(img);*/setTexte("Fait");break;
-        }
+    case 1 :bouge(0,300);break;
+    case 2 : /*QPixmap img("./data/images/pomme2.png"); setImage(img);*/setTexte("Fait");break;
+    }
 
 }
 
@@ -161,4 +171,11 @@ void boutonsPolygone::bouge(int dx, int dy)
     deplace(m_base->x() + dx, m_base->y()+dy);
     QGraphicsItem::update(m_base->x(), m_base->y(), m_taille->width(), m_taille->height());
     QGraphicsItem::show();
+}
+
+void boutonsPolygone::slotMontreLanceur()
+{
+        QString nom = abeApp->getAbeIdentite()->abeGetNom();
+        AbuleduLanceurV1* lanceur = new AbuleduLanceurV1();
+        lanceur->show();
 }

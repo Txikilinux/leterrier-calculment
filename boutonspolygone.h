@@ -42,6 +42,10 @@ private:
     int m_val;
     QPixmap* m_image;
     int m_transformable;
+
+private slots:
+    void slotMontreLanceur();
+
 };
 
 #endif // BOUTONSPOLYGONE_H
