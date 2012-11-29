@@ -46,7 +46,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
 {
     //qDebug()<<"exercice::constructeur (1)";
     m_ui->setupUi(this);
-//    this->setWindowModality(Qt::ApplicationModal);
+    this->setWindowModality(Qt::ApplicationModal);
     this->setAbeExerciceName(exo);
     m_ui->btnAide->hide();
     m_ui->lblMsgReponse->hide();

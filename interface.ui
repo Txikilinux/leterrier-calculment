@@ -23,9 +23,6 @@
     </property>
     <item row="0" column="0">
      <widget class="QGraphicsView" name="fete">
-      <property name="styleSheet">
-       <string notr="true">background-image: url(:/fond);</string>
-      </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
