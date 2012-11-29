@@ -1,7 +1,7 @@
 #include "abuledulanceurv1.h"
 #include "ui_abuledulanceurv1.h"
 
-AbuleduLanceurV1::AbuleduLanceurV1(QWidget *parent) :
+AbuleduLanceurV1::AbuleduLanceurV1(AbulEduIdentitesV1* identite, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AbuleduLanceurV1)
 {
@@ -10,6 +10,16 @@ AbuleduLanceurV1::AbuleduLanceurV1(QWidget *parent) :
     setWindowTitle(trUtf8("Lanceur"));
     fillCbExercice();
     associeNomIntitule(ui->cbExercice->currentText());
+    ui->leNom->setText(identite->abeGetNom());
+    if (ui->leNom->text().isEmpty())
+    {
+        ui->leNom->setText(identite->abeGetLogin());
+    }
+    else if(!identite->abeGetPreNom().isEmpty())
+    {
+        ui->leNom->setText(ui->leNom->text().prepend(identite->abeGetPreNom()+" "));
+    }
+    ui->leNom->setReadOnly(true);
     fillCbNiveau("sertARien");
     fillCbNombre("sertARien");
     connect(ui->cbExercice, SIGNAL(currentIndexChanged(QString)), this, SLOT(associeNomIntitule(QString)));
@@ -158,7 +168,7 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
     if (!ui->cbNombre->currentText().isNull())
         m_nomExercice.append(ui->cbNombre->currentText());
     qDebug()<<"AbuleduLanceurV1::on_btnLancer_clicked() pour "<<m_nomExercice;
-    qApp->setProperty("utilisateur",ui->lePrenom->text() +" "+ui->leNom->text());
+    qApp->setProperty("utilisateur",ui->leNom->text());
 //    Attention à changer ligne 203 de exercice.cpp si on change le caractère de concaténation dans la ligne au dessus
 //    qApp->setProperty("utilisateur",qApp->property("utilisateur").toString().replace(";"," "));
     if (m_nomExercice == "maisonDesNombres")

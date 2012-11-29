@@ -91,10 +91,9 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
         if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
         {
 
-            abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
             abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
-//                        AbulEduMessageBoxV1* msgError = new AbulEduMessageBoxV1(trUtf8("Problème !"),trUtf8("Accès impossible au lanceur d'activité sans identification"));
-//                        msgError->show();
+            abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
+            abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
         }
         else
         {
@@ -175,7 +174,12 @@ void boutonsPolygone::bouge(int dx, int dy)
 
 void boutonsPolygone::slotMontreLanceur()
 {
-        QString nom = abeApp->getAbeIdentite()->abeGetNom();
-        AbuleduLanceurV1* lanceur = new AbuleduLanceurV1();
+        AbuleduLanceurV1* lanceur = new AbuleduLanceurV1(abeApp->getAbeIdentite());
         lanceur->show();
+}
+
+void boutonsPolygone::slotMontreErreurId()
+{
+        AbulEduMessageBoxV1* msgError = new AbulEduMessageBoxV1(trUtf8("Problème !"),trUtf8("Accès impossible au lanceur d'activité sans identification correcte"));
+        msgError->show();
 }

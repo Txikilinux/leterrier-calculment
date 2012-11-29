@@ -45,6 +45,7 @@ private:
 
 private slots:
     void slotMontreLanceur();
+    void slotMontreErreurId();
 
 };
 

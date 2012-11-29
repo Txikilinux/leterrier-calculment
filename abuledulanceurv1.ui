@@ -82,22 +82,15 @@
      <item>
       <widget class="QLabel" name="lblNom">
        <property name="text">
-        <string>Nom :</string>
+        <string>Utilisateur :</string>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::NoTextInteraction</set>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLineEdit" name="leNom"/>
-     </item>
-     <item>
-      <widget class="QLabel" name="lblPrenom">
-       <property name="text">
-        <string>Prénom :</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lePrenom"/>
      </item>
     </layout>
    </item>
