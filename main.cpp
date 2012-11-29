@@ -24,6 +24,7 @@
  */
 
 #include "abuleduapplicationv1.h"
+#include "abuledusplashscreenv1.h"
 #include "interface.h"
 #include "exercice.h"
 #include "editeur.h"
@@ -85,8 +86,7 @@ int main(int argc, char *argv[])
     QDir::setCurrent(abeApp->applicationDirPath());
 #endif
     //à améliorer : dans un cas l'interface est créée pour rien, dans l'autre c'est l'exercice... de toute façon c'est de la mémoire utilisée pour rien !!
-    interface w;
-    w.setWindowTitle(QObject::trUtf8("Calcul Mental"));
+
 
     //Attention Usine à gaz : si on a un nombre j'ai besoin de l'ajouter ici pour avoir un truc du style tableM7 pour lire les valeurs dans le fichier de configuration
     QString exo1 = exo;
@@ -110,7 +110,15 @@ int main(int argc, char *argv[])
         e.setObjectName("exercoce");
         //e.setParent(&w);//c'est ça qui mettait le bazar et créait la fenêtre blanche... je le commente, j'espère que ce n'était indispensable pour autre chose...
         e.setWindowTitle("exercice");
-    if (argc==1) w.show();
+    if (argc==1)
+    {
+        // ================== splashscreen
+        AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true);
+        splash->show();
+        interface* w = new interface();
+        splash->setMainWindow(w);
+        splash->launch(1000);
+    }
     else e.show();
     return a.exec();
 }
