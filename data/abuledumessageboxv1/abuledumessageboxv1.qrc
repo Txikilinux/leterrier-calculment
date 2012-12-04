@@ -1,8 +1,4 @@
 <RCC>
-    <qresource prefix="/abuledumessageboxv1/background">
-        <file alias="small">picto/fondPetit.png</file>
-        <file alias="wilde">picto/fondGrand.png</file>
-    </qresource>
     <qresource prefix="/abuledumessageboxv1/icon">
         <file alias="oups">picto/etonnee.png</file>
         <file alias="wink">picto/wink.png</file>
