@@ -557,7 +557,8 @@ void exercice::on_btnAide_clicked()
             m_consignes->setStyleSheet("background-image : url(./data/images/fondAide.jpg)");
             texteAide = trUtf8("Tu dois trouver l'ordre de grandeur du résultat du calcul proposé. \nPour cela, tu vas arrondir les nombres en ne gardant qu'un seul chiffre significatif, puis faire l'opération sur les nombres arrondis. \nExemple : 372 - 198 -> 400 - 200 = 200");
             if (m_operation == "OdGrandeurMultiplication") {
-                texteAide.append("\n\nAttention : n'arrondis pas les nombres à 1 seul chiffre");
+                texteAide.append("\n \n");
+                texteAide.append(trUtf8("Attention : n'arrondis pas les nombres à 1 seul chiffre"));
             }
             m_consignes->setText(texteAide);
             adapteFenetreConsigne(texteAide);
@@ -670,7 +671,7 @@ void exercice::adapteFenetreConsigne(QString texte)
     qDebug()<<"longueur affichage : "<<longueurAffichage;
     int nombreDeLignes = (longueurAffichage / m_imgFond->width()) + 1;
     qDebug()<<"nombre lignes : "<<nombreDeLignes;
-    m_consignes->setGeometry(m_ui->vue->pos().x(),m_ui->vue->pos().y(),m_imgFond->width()-50,nombreDeLignes*hauteurAffichage*2);
+    m_consignes->setGeometry(m_ui->vue->pos().x(),m_ui->vue->pos().y(),m_imgFond->width()-50,nombreDeLignes*hauteurAffichage*2+10);
 }
 
 void exercice::keyPressEvent(QKeyEvent *)
