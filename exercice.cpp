@@ -651,6 +651,7 @@ void exercice::pousseLogs(QString neSertPasDavantage)
 
 void exercice::on_btn2chance_clicked()
 {
+    pushAbulEduLogs();
     ExerciceRepechage* essaieEncore = new ExerciceRepechage(*m_listeEchecs, m_score, m_total, m_operation,getAbeExerciceName(), getAbeSkill(),m_cible);
     essaieEncore->show();
     this->deleteLater();
