@@ -169,6 +169,7 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
         int sort = rand()%MULTIPLE_MAX;
         d_operande = nombreVise*sort;
         m_resultat = sort;
+        m_ligne = QString::number(g_operande)+" x ? = "+QString::number(d_operande);
         }
     else {
         g_operande = rand()%(nombreVise);
@@ -177,6 +178,7 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
         QScriptEngine calculateur;
         QScriptValue resultat = calculateur.evaluate(m_ligne);
         m_resultat = resultat.toNumber();
+        m_ligne = QString::number(g_operande)+" + ? = "+QString::number(d_operande);
         }
 
     m_timer = new QTimeLine(tempsAccorde*1000,this);
