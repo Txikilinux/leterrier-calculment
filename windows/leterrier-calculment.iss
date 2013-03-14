@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{62974C8F-0013-4262-AF5E-7F46C992672E}
 AppName=Le Terrier d'AbulEdu - Calcul Mental
-AppVersion=LAVERSION
+AppVersion=1.2.0
 AppPublisher=RyXéo SARL
 AppPublisherURL=http://www.abuledu.org/leterrier/
 AppSupportURL=http://www.abuledu.org/leterrier/
@@ -16,7 +16,7 @@ DefaultDirName={pf}\AbulEdu\Calcul Mental
 DefaultGroupName=Le Terrier d'AbulEdu
 LicenseFile=../gpl-2.0.txt
 OutputDir=.
-OutputBaseFilename=leterrier-calculment-LAVERSION-setup
+OutputBaseFilename=leterrier-calculment-1.2.0-setup
 SetupIconFile=icone.ico
 Compression=lzma
 SolidCompression=yes
