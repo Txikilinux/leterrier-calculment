@@ -2,7 +2,7 @@
 Name=AbulEdu Calcul-Mental
 Comment=Exercices de Calcul Mental
 Exec=leterrier-calculment %U
-Icon=/usr/share/leterrier-calculment/abuledu-calcul-mental-48.png
+Icon=/usr/share/leterrier-calculment/abuledu-calcul-mental-256.png
 Terminal=false
 Type=Application
 Categories=Education;abuledu-6ans-leterrier;abuledu-8ans-leterrier;abuledu-12ans-leterrier;
