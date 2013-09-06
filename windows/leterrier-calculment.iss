@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{62974C8F-0013-4262-AF5E-7F46C992672E}
 AppName=Le Terrier d'AbulEdu - Calcul Mental
-AppVersion=1.2.0
+AppVersion=LAVERSION
 AppPublisher=RyXéo SARL
 AppPublisherURL=http://www.abuledu.org/leterrier/
 AppSupportURL=http://www.abuledu.org/leterrier/
@@ -16,8 +16,8 @@ DefaultDirName={pf}\AbulEdu\Calcul Mental
 DefaultGroupName=Le Terrier d'AbulEdu
 LicenseFile=../gpl-2.0.txt
 OutputDir=.
-OutputBaseFilename=leterrier-calculment-1.2.0-setup
-SetupIconFile=icone.ico
+OutputBaseFilename=leterrier-calculment-LAVERSION-setup
+SetupIconFile=leterrier-calculment.ico
 Compression=lzma
 SolidCompression=yes
 WizardImageFile=imageWizard.bmp
@@ -63,7 +63,7 @@ Source: "C:/QtSDK/Desktop/Qt/4.8.1/mingw/bin/QtMultimedia4.dll"; DestDir: "{app}
 Source: "C:/QtSDK/Desktop/Qt/4.8.1/mingw/plugins/phonon_backend\phonon_ds94.dll"; DestDir: "{app}\phonon_backend"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:/QtSDK/Desktop/Qt/4.8.1/mingw/bin/phonon4.dll"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; pour alacarte > 1.0.8
-Source: "..\debian\*.desktop"; DestDir: "{win}\abuledu-alacarte\data\profile1.applications"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\debian\*.desktop"; DestDir: "{win}\abuledu-alacarte\data\profile1.applications"; AfterInstall: UpdateDesktopPath; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\data\picto\leterrier-calculment-128.png"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -74,3 +74,12 @@ Source: "..\data\picto\leterrier-calculment-128.png"; DestDir: "{app}"; Flags: i
 [Run]
 ; Filename: "{app}\leterrier-calculment.exe"; Description: "{cm:LaunchProgram,Calcul Mental}"; Flags: nowait postinstall skipifsilent
 
+[Code]
+procedure UpdateDesktopPath();
+var Strings : TArrayOfString;
+begin
+  SetArrayLength(Strings, 1);
+  Strings[0] := 'X-Horizon-WindowsExecPath=' + ExpandConstant('{app}');
+
+  SaveStringsToFile(ExpandConstant('{win}') + '\abuledu-alacarte\data\profile1.applications\leterrier-calculment.desktop', Strings, True);
+end;
