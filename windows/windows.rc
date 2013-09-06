@@ -1,4 +1,4 @@
-IDI_ICON1               ICON    DISCARDABLE     "windows/icone.ico"
+IDI_ICON1               ICON    DISCARDABLE     "windows/leterrier-calculment.ico"
 
 #include <windows.h>
 #include "../version.h"
