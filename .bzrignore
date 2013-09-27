@@ -9,3 +9,5 @@
 ./lib/abuledusplashscreenv1
 ./lib/abuledufilev1
 ./lib/abuleduvirtualkeyboardv1
+./lib/abuledusingletonv1
+./lib/abuledupluginloaderv1
