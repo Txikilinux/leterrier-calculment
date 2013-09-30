@@ -8,7 +8,7 @@
 #include "baudruche.h"
 #include "abuleduexercicev0.h"
 #include "abuledulineeditv0.h"
-#include "lib/abuleduexportpdfv1/abuleduexportpdfv1.h"
+#include "futurelib/abuleduexportpdfv1/abuleduexportpdfv1.h"
 
 namespace Ui {
     class exercice;
