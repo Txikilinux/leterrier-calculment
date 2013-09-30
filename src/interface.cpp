@@ -180,6 +180,10 @@ interface::interface(QWidget *parent)
     dessin->addItem(btnPoly11);
 
     qApp->setProperty("VerrouNombres",true);
+    QDesktopWidget *widget = QApplication::desktop();
+    int desktop_width = widget->width();
+    int desktop_height = widget->height();
+    this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
 }
 
 interface::~interface()
