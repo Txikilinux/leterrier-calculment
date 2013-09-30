@@ -1,7 +1,7 @@
-IDI_ICON1               ICON    DISCARDABLE     "windows/leterrier-calculment.ico"
+IDI_ICON1               ICON    DISCARDABLE     "../windows/leterrier-calculment.ico"
 
 #include <windows.h>
-#include "../version.h"
+#include "../src/version.h"
 
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION     VER_FILEVERSION
