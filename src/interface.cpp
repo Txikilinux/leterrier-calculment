@@ -50,7 +50,7 @@ interface::interface(QWidget *parent)
                       QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     qApp->installTranslator(&qtTranslator);
     //Et un second qtTranslator pour les traductions spécifiques du logiciel
-    myappTranslator.load("leterrier-calcul-mental_" + m_locale, "lang");
+    myappTranslator.load("leterrier-calculment_" + m_locale, "lang");
     qDebug()<<trUtf8("Langue chargée : ")<<m_locale;
     qApp->installTranslator(&myappTranslator);
 
@@ -221,7 +221,7 @@ void interface::changelangue(QString langue)
 {
     qDebug()<<"interface::changelangue(1)";
     qApp->setProperty("langageUtilise",langue);
-    myappTranslator.load("leterrier-calcul-mental_"+langue, "lang");
+    myappTranslator.load("leterrier-calculment_"+langue, "lang");
 
     qApp->installTranslator(&myappTranslator);
     interface* nouvelleInterface = new interface();
