@@ -1,7 +1,7 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 #include "editeur.h"
 #include "exercice.h"
 #include "abuleduapplicationv1.h"

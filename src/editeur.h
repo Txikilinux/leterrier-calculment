@@ -1,7 +1,7 @@
 #ifndef EDITEUR_H
 #define EDITEUR_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include <QSettings>
 
 namespace Ui {

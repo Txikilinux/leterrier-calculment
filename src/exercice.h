@@ -1,7 +1,7 @@
 #ifndef EXERCICE_H
 #define EXERCICE_H
 
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 #include <QGraphicsScene>
 #include <QTextEdit>
 #include <QKeyEvent>
