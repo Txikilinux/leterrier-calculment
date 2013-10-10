@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.0" language="de_DE">
 <context>
     <name>AbulEduAproposV0</name>
     <message>
@@ -242,17 +242,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../abuledulanceurv1.ui" line="25"/>
         <source>Exercice</source>
-        <translation>Ejercicio</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../abuledulanceurv1.ui" line="32"/>
         <source>Nombre</source>
-        <translation>Número</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../abuledulanceurv1.ui" line="42"/>
         <source>Niveau</source>
-        <translation>Nivel</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../abuledulanceurv1.ui" line="85"/>
@@ -267,17 +267,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../abuledulanceurv1.ui" line="165"/>
         <source>&amp;Annuler</source>
-        <translation>&amp;Cancelar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../abuledulanceurv1.ui" line="185"/>
         <source>&amp;Lancer</source>
-        <translation>&amp;Lanzar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../abuledulanceurv1.cpp" line="10"/>
         <source>Lanceur</source>
-        <translation>Lanzador</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../abuledulanceurv1.cpp" line="44"/>
@@ -285,29 +285,29 @@ p, li { white-space: pre-wrap; }
         <location filename="../abuledulanceurv1.cpp" line="73"/>
         <location filename="../abuledulanceurv1.cpp" line="93"/>
         <source>Problème !!</source>
-        <translation>Problema !!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../abuledulanceurv1.cpp" line="44"/>
         <location filename="../abuledulanceurv1.cpp" line="93"/>
         <source>Fichier de configuration non trouvé</source>
-        <translation>Archivo de configuracíon ausente</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../abuledulanceurv1.cpp" line="49"/>
         <location filename="../abuledulanceurv1.cpp" line="98"/>
         <source>Conf trouvé</source>
-        <translation>Archivo de configuracíon encontrado</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../abuledulanceurv1.cpp" line="56"/>
         <source>Le fichier de configuration ne contient pas la clef : niveaux_</source>
-        <translation>El archivo de configuracíon ne contiene la llave : niveaux_</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../abuledulanceurv1.cpp" line="73"/>
         <source>Le fichier de configuration ne contient pas toutes les clefs : intitule_</source>
-        <translation>El archivo de configuracíon ne contiene todas las llaves : intitule_</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -315,12 +315,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../editeur.ui" line="20"/>
         <source>Editeur de niveau</source>
-        <translation>Editor de niveles</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../editeur.ui" line="120"/>
         <source>Opérande Gauche</source>
-        <translation>Número izquierdo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.ui" line="128"/>
@@ -336,24 +336,20 @@ p, li { white-space: pre-wrap; }
         <source>Maximum</source>
         <translation type="unfinished"></translation>
     </message>
+    <message utf8="true">
+        <location filename="../editeur.ui" line="195"/>
+        <source>Opérande Droit</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <location filename="../editeur.ui" line="271"/>
         <source>Nombre Questions</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
-        <location filename="../editeur.ui" line="195"/>
-        <source>Opérande Droit</source>
-        <translation>Número derecho</translation>
-    </message>
-    <message>
-        <source>Nombre Ballons</source>
-        <translation type="obsolete">Total de globos</translation>
-    </message>
     <message>
         <location filename="../editeur.ui" line="340"/>
         <source>Temps</source>
-        <translation>Tiempo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.ui" line="372"/>
@@ -363,57 +359,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../editeur.ui" line="414"/>
         <source>&amp;Enregistrer et quitter</source>
-        <translation>&amp;Graver y terminar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../editeur.cpp" line="49"/>
         <source>Fichier paramètres déjà présent</source>
-        <translation>Archivo de configuracíon encontrado</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="58"/>
         <source>Niveau1</source>
-        <translation>Nivel 1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="59"/>
         <source>Niveau2</source>
-        <translation>Nivel 2</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="60"/>
         <source>Niveau3</source>
-        <translation>Nivel 3</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="61"/>
         <source>Personnel</source>
-        <translation>Personal</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="163"/>
         <source>Addition</source>
-        <translation>Adición</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../editeur.cpp" line="165"/>
+        <source>Soustraction</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="167"/>
         <source>Multiplication</source>
-        <translation>Multiplicación</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="198"/>
         <source>OdG Additions</source>
-        <translation>OdM Adiciónes</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="200"/>
         <source>OdG Soustractions</source>
-        <translation>OdM Sustracciónes</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="230"/>
         <source>OdG Multiplications</source>
-        <translation>OdM Multiplicación</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../editeur.cpp" line="257"/>
@@ -433,32 +434,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../editeur.cpp" line="268"/>
         <source>Multiples de 5</source>
-        <translation>Múltiplos de 5</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="269"/>
         <source>Multiples de </source>
-        <translation>Múltiplos de </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="275"/>
         <source>Table d&apos;addition de </source>
-        <translation>Tablas de sumar de </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="277"/>
         <source>Table de multiplication par </source>
-        <translation>Tablas de multiplicar por </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../editeur.cpp" line="282"/>
         <source>Maison des nombres</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../editeur.cpp" line="165"/>
-        <source>Soustraction</source>
-        <translation>Sustracción</translation>
     </message>
 </context>
 <context>
@@ -531,7 +527,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../interfacecompetence.cpp" line="51"/>
         <source>Tables de multiplication</source>
-        <translation type="unfinished">Tablas de multiplicar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interfacecompetence.cpp" line="64"/>
@@ -580,23 +576,19 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../interfacecompetence.cpp" line="160"/>
+        <source>Tables d&apos;addition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../interfacecompetence.cpp" line="171"/>
         <source>Table +%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Multiples de </source>
-        <translation type="obsolete">Múltiplos de </translation>
-    </message>
-    <message>
-        <location filename="../interfacecompetence.cpp" line="160"/>
-        <source>Tables d&apos;addition</source>
-        <translation type="unfinished">Tablas de sumar</translation>
-    </message>
-    <message>
         <location filename="../interfacecompetence.cpp" line="183"/>
         <source>Ordres de grandeur</source>
-        <translation type="unfinished">Ordenes de magnitud</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interfacecompetence.cpp" line="190"/>
@@ -616,15 +608,15 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>QObject</name>
-    <message utf8="true">
-        <location filename="../main.cpp" line="34"/>
-        <source>AbulÉdu LeTerrier -- Calcul-Mental</source>
-        <translation>AbulÉdu LeTerrier -- Cálculo Mental</translation>
-    </message>
     <message>
         <location filename="../interface.cpp" line="230"/>
         <source>Calcul Mental</source>
-        <translation>Cálculo Mental</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../main.cpp" line="34"/>
+        <source>AbulÉdu LeTerrier -- Calcul-Mental</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -670,9 +662,9 @@ p, li { white-space: pre-wrap; }
         <source>MainWindow</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../exercice.cpp" line="363"/>
-        <source>&amp;Suivant</source>
+    <message utf8="true">
+        <location filename="../exercice.ui" line="95"/>
+        <source>&amp;Début</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
@@ -683,11 +675,6 @@ p, li { white-space: pre-wrap; }
     <message utf8="true">
         <location filename="../exercice.ui" line="121"/>
         <source>&amp;Vérifier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="../exercice.ui" line="95"/>
-        <source>&amp;Début</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
@@ -745,19 +732,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../exercice.ui" line="413"/>
         <source>&amp;Quitter</source>
-        <translation type="unfinished">&amp;Terminar</translation>
-    </message>
-    <message>
-        <source>Multiples de </source>
-        <translation type="obsolete">Múltiplos de </translation>
-    </message>
-    <message>
-        <source>Table de multiplication par </source>
-        <translation type="obsolete">Tablas de multiplicar por </translation>
-    </message>
-    <message>
-        <source>Table d&apos;addition de </source>
-        <translation type="obsolete">Tablas de sumar de </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../exercice.cpp" line="87"/>
@@ -819,19 +794,19 @@ p, li { white-space: pre-wrap; }
         <source>La maison des nombres</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
-        <location filename="../exercice.cpp" line="561"/>
-        <source>Attention : n&apos;arrondis pas les nombres à 1 seul chiffre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="../exercice.cpp" line="394"/>
-        <source>, ça n&apos;existe pas comme opération...</source>
+    <message>
+        <location filename="../exercice.cpp" line="363"/>
+        <source>&amp;Suivant</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../exercice.cpp" line="394"/>
         <source>Opération inexistante</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../exercice.cpp" line="394"/>
+        <source>, ça n&apos;existe pas comme opération...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -851,59 +826,64 @@ Pour cela, tu vas arrondir les nombres en ne gardant qu&apos;un seul chiffre sig
 Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
         <translation type="unfinished"></translation>
     </message>
+    <message utf8="true">
+        <location filename="../exercice.cpp" line="561"/>
+        <source>Attention : n&apos;arrondis pas les nombres à 1 seul chiffre</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>interface</name>
     <message utf8="true">
         <location filename="../interface.cpp" line="54"/>
         <source>Langue chargée : </source>
-        <translation>Idioma cargado : </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../interface.cpp" line="67"/>
         <source>Fichier config NON trouvé</source>
-        <translation>Archivo de configuracíon ausente</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../interface.cpp" line="68"/>
         <source>Fichier config trouvé</source>
-        <translation>Archivo de configuracíon encontrado</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="96"/>
         <source>Faire des additions</source>
-        <translation>Sumar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="97"/>
         <source>Additions</source>
-        <translation>Adiciónes</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="105"/>
         <source>Faire des multiplications</source>
-        <translation>Multiplicar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="106"/>
         <source>Multiplications</source>
-        <translation>Multiplicaciónes</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../interface.cpp" line="113"/>
         <source>Lancer l&apos;éditeur</source>
-        <translation>Lanzar el editor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="121"/>
         <source>Quitter</source>
-        <translation>Terminar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="129"/>
         <location filename="../interface.cpp" line="130"/>
         <source>Tables de multiplication</source>
-        <translation>Tablas de multiplicar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../interface.cpp" line="138"/>
@@ -915,43 +895,43 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
         <location filename="../interface.cpp" line="147"/>
         <location filename="../interface.cpp" line="148"/>
         <source>Multiples</source>
-        <translation>Múltiplos</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="155"/>
         <source>Faire des soustractions</source>
-        <translation>Sustraer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="156"/>
         <source>Soustractions</source>
-        <translation>Sustracciónes</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="164"/>
         <location filename="../interface.cpp" line="165"/>
         <source>Tables d&apos;addition</source>
-        <translation>Tablas de sumar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="172"/>
         <source>Ordres de grandeur</source>
-        <translation>Ordenes de magnitud</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="179"/>
         <source>Choisir son exercice</source>
-        <translation>Elejir un ejercicio</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../interface.cpp" line="199"/>
         <source>Problème !!</source>
-        <translation>Problema !!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../interface.cpp" line="199"/>
         <source>Fichier de configuration des langues non trouvé</source>
-        <translation>Archivo de configuracíon de idiomas ausente</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -969,27 +949,27 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
     <message>
         <location filename="../interface.ui" line="57"/>
         <source>&amp;Fichier</source>
-        <translation>&amp;Archivo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="63"/>
         <source>Exercices</source>
-        <translation>Ejercicios</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="67"/>
         <source>Tables d&apos;addition</source>
-        <translation>Tablas de sumar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="80"/>
         <source>Tables de multiplication</source>
-        <translation>Tablas de multiplicar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="93"/>
         <source>Multiples</source>
-        <translation>Múltiplos</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../interface.ui" line="104"/>
@@ -999,17 +979,17 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
     <message>
         <location filename="../interface.ui" line="113"/>
         <source>Ordres de grandeur</source>
-        <translation>Ordenes de magnitud</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="130"/>
         <source>Editeur</source>
-        <translation>Editor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="136"/>
         <source>Langues</source>
-        <translation>Idiomas</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="141"/>
@@ -1024,22 +1004,22 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
     <message>
         <location filename="../interface.ui" line="161"/>
         <source>&amp;Quitter</source>
-        <translation>&amp;Terminar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="166"/>
         <source>Additions</source>
-        <translation>Sumar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="171"/>
         <source>Multiplications</source>
-        <translation>Multiplicar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
         <location filename="../interface.ui" line="256"/>
         <source>Afficher l&apos;éditeur</source>
-        <translation>Ver el editor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="261"/>
@@ -1054,7 +1034,7 @@ Exemple : 372 - 198 -&gt; 400 - 200 = 200</source>
     <message>
         <location filename="../interface.ui" line="271"/>
         <source>Soustractions</source>
-        <translation>Sustraer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.ui" line="276"/>
