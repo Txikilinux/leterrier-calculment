@@ -101,7 +101,7 @@ void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
 {
     qDebug()<<"ExerciceMaisonNombres::affichePosBaudruche("<<point<<")";
 
-    if (m_scene->itemAt(point)!=0)
+    if (m_scene->itemAt(point,QTransform())!=0)
     {
         m_ui->leResultat->setText(QString::number(m_valeurSurvolee));
         on_btnFeu_clicked();

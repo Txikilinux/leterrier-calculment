@@ -7,7 +7,7 @@ class PixmapMaison : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    PixmapMaison(QPixmap image = 0);
+    PixmapMaison(QPixmap image = QPixmap());
     QPixmap getMPixmapInitial();
     void setMPixmapInitial();
 protected:
