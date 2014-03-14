@@ -3,7 +3,7 @@
 # -------------------------------------------------
 system(ccache -V):QMAKE_CXX = ccache g++
 
-QT += script network xml
+QT += script network xml gui
 
 TARGET = leterrier-calculment
 TEMPLATE = app
