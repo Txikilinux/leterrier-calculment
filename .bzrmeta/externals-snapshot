@@ -1,6 +1,6 @@
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduapplicationv1 src/lib/abuleduapplicationv1 revid:eric.seigne@ryxeo.com-20140313172512-syntha84fr2ry4mj
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduconstantesv1/ src/lib/abuleduconstantesv1 revid:eric.seigne@ryxeo.com-20131019165344-8bl8beaepodjdc3k
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledunetworkaccessmanagerv1/ src/lib/abuledunetworkaccessmanagerv1 revid:eric.seigne@ryxeo.com-20140312182758-5ws5jtgt0sun3m4r
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledunetworkaccessmanagerv1/ src/lib/abuledunetworkaccessmanagerv1 revid:eric.seigne@ryxeo.com-20140316121931-kc8twqi87xg6koxg
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumessageboxv1/ src/lib/abuledumessageboxv1 revid:philippe.cadaugade@ryxeo.com-20140226142417-90h8ve6hgw3alp7v
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduidentitesv1/ src/lib/abuleduidentitesv1 revid:icham.sirat@ryxeo.com-20140311105823-i6vrajgv4xhauvzs
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduflatboutonv1/ src/lib/abuleduflatboutonv1 revid:eric.seigne@ryxeo.com-20140219231404-eif905fj39oemjba
@@ -14,3 +14,5 @@ bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupluginloaderv1/ src/lib
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledulangv1/ src/lib/abuledulangv1 revid:eric.seigne@ryxeo.com-20131030180044-nvpgvjev3917r1hb
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduloggerv1/ src/lib/abuleduloggerv1 revid:eric.seigne@ryxeo.com-20140219231438-w84nb7944bfk0ns5
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduloadinganimationv1/ src/lib/abuleduloadinganimationv1 revid:icham.sirat@ryxeo.com-20140225145527-mytpoibuhtvf6v2c
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduaproposv1/ src/lib/abuleduaproposv1 revid:philippe.cadaugade@ryxeo.com-20140226140343-4o5i46wv3ujso3lz
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledustackedwidgetv1 src/lib/abuledustackedwidgetv1 revid:icham.sirat@ryxeo.com-20140303141412-gw58hiag8e3onpmg

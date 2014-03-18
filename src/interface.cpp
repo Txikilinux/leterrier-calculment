@@ -29,7 +29,7 @@
 #include "ui_exercice.h"
 #include "editeur.h"
 #include "boutonspolygone.h"
-#include "abuleduaproposv0.h"
+#include "abuleduaproposv1.h"
 #include "abuledulanceurv1.h"
 #include <QApplication>
 #include <QDesktopWidget>
@@ -55,7 +55,12 @@ interface::interface(QWidget *parent)
     qApp->installTranslator(&myappTranslator);
 
     ui->setupUi(this);
-    AbulEduAproposV0 *monAide=new AbulEduAproposV0(this);
+#ifndef __ABULEDUTABLETTEV1__MODE__
+    ui->aboutPage->abeAproposSetMainWindow(this);
+#endif
+    connect(ui->aboutPage, SIGNAL(signalAbeAproposSetindex(int)),this,SLOT(slotInterfaceShowAboutPage()), Qt::UniqueConnection);
+    connect(ui->aboutPage, SIGNAL(signalAbeAproposBtnCloseClicked()), this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
+
     m_signalMapper = new QSignalMapper(this);
     connect(m_signalMapper, SIGNAL(mapped(QString)), this, SLOT(changelangue(QString)) );
     creeMenuLangue();
@@ -463,4 +468,14 @@ void interface::on_action_Changer_d_utilisateur_triggered()
 {
     abeApp->getAbeNetworkAccessManager()->abeSSOLogout();
     abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+}
+
+void interface::slotInterfaceShowMainPage()
+{
+    ui->stackedWidget->abeStackedWidgetSlideInWidget(ui->mainPage);
+}
+
+void interface::slotInterfaceShowAboutPage()
+{
+    ui->stackedWidget->abeStackedWidgetSlideInWidget(ui->aboutPage);
 }
