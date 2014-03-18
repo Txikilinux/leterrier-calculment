@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/buttons">
+        <file alias="verification">data/images/verifier.png</file>
+        <file alias="verificationHover">data/images/verifier-over.png</file>
+        <file alias="verificationDisabled">data/images/verifier-gris.png</file>
+        <file alias="suite">data/images/suivant.png</file>
+        <file alias="suiteHover">data/images/suivant-over.png</file>
+        <file alias="suiteDisabled">data/images/suivant-gris.png</file>
+        <file alias="sortie">data/images/quitter.png</file>
+        <file alias="sortieHover">data/images/quitter-over.png</file>
+        <file alias="sortieDisabled">data/images/quitter-gris.png</file>
+        <file alias="aide">data/images/aide.png</file>
+        <file alias="aideHover">data/images/aide-over.png</file>
+        <file alias="aideDisabled">data/images/aide-gris.png</file>
+        <file alias="bonusDisabled">data/images/bonus-gris.png</file>
+        <file alias="bonusHover">data/images/bonus-hover.png</file>
+        <file alias="bonus">data/images/bonus.png</file>
+        <file alias="debut">data/images/refaire.png</file>
+        <file alias="debutHover">data/images/refaire-over.png</file>
+        <file alias="debutDisabled">data/images/refaire-gris.png</file>
+        <file alias="editDisabled">data/images/editeur-gris.png</file>
+        <file alias="editHover">data/images/editeur-hover.png</file>
+        <file alias="edit">data/images/editeur.png</file>
+    </qresource>
+</RCC>

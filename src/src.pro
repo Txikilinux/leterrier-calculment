@@ -48,7 +48,8 @@ FORMS += interface.ui \
     interfacecompetence.ui \
     abuledulanceurv1.ui
 
-RESOURCES +=
+RESOURCES += \
+    calculment.qrc
 
 win32{
   OTHER_FILES += ../windows/windows.rc

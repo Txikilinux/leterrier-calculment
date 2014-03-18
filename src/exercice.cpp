@@ -258,7 +258,7 @@ void exercice::adapte(QPixmap cheminImage)
     m_ui->vue->setGeometry(coinFond.x(), coinFond.y(), imgFond2.width(), imgFond2.height());
     m_ui->vue->setMinimumSize(imgFond2.width(), imgFond2.height());
     m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height()-23);
-    this->setFixedSize(imgFond2.width()+130+bordure,imgFond2.height()+bordure);
+    this->setFixedSize(imgFond2.width()+160+bordure,imgFond2.height()+bordure);
 
     /*         Je croyais avoir trouvé le moyen de centrer mon exercice à l'écran mais ça marche pas...
             Pourtant comme exercice est une QMainWindow this->frameGeometry() doit retourner un QRect et moveCenter devrait déplacer ce QRect...

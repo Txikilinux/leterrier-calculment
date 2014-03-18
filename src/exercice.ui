@@ -81,33 +81,19 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QPushButton" name="btnBallon">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
+         <widget class="AbulEduFlatBoutonV1" name="btnFeu">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>64</height>
+           </size>
           </property>
-          <property name="toolTip">
-           <string/>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>64</height>
+           </size>
           </property>
-          <property name="text">
-           <string>&amp;Début</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>data/images/suivant.png</normaloff>data/images/suivant.png</iconset>
-          </property>
-          <property name="default">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="AbulEduLineEditV0" name="leResultat"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnFeu">
           <property name="font">
            <font>
             <weight>75</weight>
@@ -118,15 +104,105 @@
            <string>Propose ta réponse</string>
           </property>
           <property name="text">
-           <string>&amp;Vérifier</string>
+           <string>&amp;Vérification</string>
           </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>data/images/verifier.png</normaloff>data/images/verifier.png</iconset>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+          <property name="IconeNormale" stdset="0">
+           <string notr="true">:/buttons/verification</string>
+          </property>
+          <property name="IconeSurvol" stdset="0">
+           <string notr="true">:/buttons/verificationHover</string>
+          </property>
+          <property name="IconePressed" stdset="0">
+           <string notr="true">:/buttons/verificationHover</string>
+          </property>
+          <property name="IconeDisabled" stdset="0">
+           <string notr="true">:/buttons/verificationDisabled</string>
+          </property>
+          <property name="TexteAlignement" stdset="0">
+           <number>1</number>
+          </property>
+          <property name="TextePaddingLeft" stdset="0">
+           <double>60.000000000000000</double>
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="AbulEduLineEditV0" name="leResultat"/>
+        </item>
        </layout>
+      </item>
+      <item>
+       <widget class="AbulEduFlatBoutonV1" name="btnBallon">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="text">
+         <string>&amp;Commencer</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>64</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>true</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <property name="IconeNormale" stdset="0">
+         <string notr="true">:/buttons/suite</string>
+        </property>
+        <property name="IconeSurvol" stdset="0">
+         <string notr="true">:/buttons/suiteHover</string>
+        </property>
+        <property name="IconePressed" stdset="0">
+         <string notr="true">:/buttons/suiteHover</string>
+        </property>
+        <property name="IconeDisabled" stdset="0">
+         <string notr="true">:/buttons/suiteDisabled</string>
+        </property>
+        <property name="TexteAlignement" stdset="0">
+         <number>1</number>
+        </property>
+        <property name="TextePaddingLeft" stdset="0">
+         <double>60.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item>
        <spacer name="verticalSpacer_2">
@@ -273,7 +349,19 @@ font-weight:bold</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btnRejouer">
+       <widget class="AbulEduFlatBoutonV1" name="btnRejouer">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>64</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <weight>75</weight>
@@ -284,11 +372,37 @@ font-weight:bold</string>
          <string>Refais le même exercice</string>
         </property>
         <property name="text">
-         <string>&amp;Rejouer</string>
+         <string>&amp;Début</string>
         </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>data/images/refaire.png</normaloff>data/images/refaire.png</iconset>
+        <property name="iconSize">
+         <size>
+          <width>64</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <property name="IconeNormale" stdset="0">
+         <string notr="true">:/buttons/debut</string>
+        </property>
+        <property name="IconeSurvol" stdset="0">
+         <string notr="true">:/buttons/debutHover</string>
+        </property>
+        <property name="IconePressed" stdset="0">
+         <string notr="true">:/buttons/debutHover</string>
+        </property>
+        <property name="IconeDisabled" stdset="0">
+         <string notr="true">:/buttons/debutDisabled</string>
+        </property>
+        <property name="TexteAlignement" stdset="0">
+         <number>1</number>
+        </property>
+        <property name="TextePaddingLeft" stdset="0">
+         <double>60.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -306,7 +420,19 @@ font-weight:bold</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btnAide">
+       <widget class="AbulEduFlatBoutonV1" name="btnAide">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>64</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <weight>75</weight>
@@ -316,9 +442,35 @@ font-weight:bold</string>
         <property name="text">
          <string>&amp;Aide</string>
         </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>data/images/aide.png</normaloff>data/images/aide.png</iconset>
+        <property name="iconSize">
+         <size>
+          <width>64</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <property name="IconeNormale" stdset="0">
+         <string notr="true">:/buttons/aide</string>
+        </property>
+        <property name="IconeSurvol" stdset="0">
+         <string notr="true">:/buttons/aideHover</string>
+        </property>
+        <property name="IconePressed" stdset="0">
+         <string notr="true">:/buttons/aideHover</string>
+        </property>
+        <property name="IconeDisabled" stdset="0">
+         <string notr="true">:/buttons/aideDisabled</string>
+        </property>
+        <property name="TexteAlignement" stdset="0">
+         <number>1</number>
+        </property>
+        <property name="TextePaddingLeft" stdset="0">
+         <double>60.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -336,7 +488,19 @@ font-weight:bold</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btn2chance">
+       <widget class="AbulEduFlatBoutonV1" name="btn2chance">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>64</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <weight>75</weight>
@@ -349,9 +513,35 @@ font-weight:bold</string>
         <property name="text">
          <string>&amp;Bonus</string>
         </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>data/images/cartable.png</normaloff>data/images/cartable.png</iconset>
+        <property name="iconSize">
+         <size>
+          <width>64</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <property name="IconeNormale" stdset="0">
+         <string notr="true">:/buttons/bonus</string>
+        </property>
+        <property name="IconeSurvol" stdset="0">
+         <string notr="true">:/buttons/bonusHover</string>
+        </property>
+        <property name="IconePressed" stdset="0">
+         <string notr="true">:/buttons/bonusHover</string>
+        </property>
+        <property name="IconeDisabled" stdset="0">
+         <string notr="true">:/buttons/bonusDisabled</string>
+        </property>
+        <property name="TexteAlignement" stdset="0">
+         <number>1</number>
+        </property>
+        <property name="TextePaddingLeft" stdset="0">
+         <double>60.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -369,7 +559,19 @@ font-weight:bold</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btnEditeur">
+       <widget class="AbulEduFlatBoutonV1" name="btnEditeur">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>64</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <weight>75</weight>
@@ -382,9 +584,35 @@ font-weight:bold</string>
         <property name="text">
          <string>&amp;Editeur</string>
         </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>data/images/editeur.png</normaloff>data/images/editeur.png</iconset>
+        <property name="iconSize">
+         <size>
+          <width>64</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <property name="IconeNormale" stdset="0">
+         <string notr="true">:/buttons/edit</string>
+        </property>
+        <property name="IconeSurvol" stdset="0">
+         <string notr="true">:/buttons/editHover</string>
+        </property>
+        <property name="IconePressed" stdset="0">
+         <string notr="true">:/buttons/editHover</string>
+        </property>
+        <property name="IconeDisabled" stdset="0">
+         <string notr="true">:/buttons/editDisabled</string>
+        </property>
+        <property name="TexteAlignement" stdset="0">
+         <number>1</number>
+        </property>
+        <property name="TextePaddingLeft" stdset="0">
+         <double>60.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -402,7 +630,19 @@ font-weight:bold</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btnQuitter">
+       <widget class="AbulEduFlatBoutonV1" name="btnQuitter">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>64</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <weight>75</weight>
@@ -410,11 +650,37 @@ font-weight:bold</string>
          </font>
         </property>
         <property name="text">
-         <string>&amp;Quitter</string>
+         <string>&amp;Sortie</string>
         </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>data/images/quitter.png</normaloff>data/images/quitter.png</iconset>
+        <property name="iconSize">
+         <size>
+          <width>64</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <property name="IconeNormale" stdset="0">
+         <string notr="true">:/buttons/sortie</string>
+        </property>
+        <property name="IconeSurvol" stdset="0">
+         <string notr="true">:/buttons/sortieHover</string>
+        </property>
+        <property name="IconePressed" stdset="0">
+         <string notr="true">:/buttons/sortieHover</string>
+        </property>
+        <property name="IconeDisabled" stdset="0">
+         <string notr="true">:/buttons/sortieDisabled</string>
+        </property>
+        <property name="TexteAlignement" stdset="0">
+         <number>1</number>
+        </property>
+        <property name="TextePaddingLeft" stdset="0">
+         <double>60.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -428,7 +694,7 @@ font-weight:bold</string>
      <x>0</x>
      <y>0</y>
      <width>788</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -439,6 +705,11 @@ font-weight:bold</string>
    <class>AbulEduLineEditV0</class>
    <extends>QLineEdit</extends>
    <header location="global">abuledulineeditv0.h</header>
+  </customwidget>
+  <customwidget>
+   <class>AbulEduFlatBoutonV1</class>
+   <extends>QPushButton</extends>
+   <header>abuleduflatboutonv1.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
