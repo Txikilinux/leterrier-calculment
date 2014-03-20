@@ -67,6 +67,8 @@ interface::interface(QWidget *parent)
 
     QRect ecran;
     ecran=QApplication::desktop()->availableGeometry();
+    /* Pour tester en 1024x600, commentez les deux lignes précédentes et décommentez la ligne suivante */
+//    QRect ecran(0,0,1024,600);
 
     QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
     if (!fichierConf->exists()) qDebug()<<trUtf8("Fichier config NON trouvé");

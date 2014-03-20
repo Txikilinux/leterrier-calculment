@@ -243,9 +243,9 @@ void exercice::adapte(QPixmap cheminImage)
     qDebug()<<"exercice::adapte(1)";
     int bordure=20;
     QRect ecran;
-
     ecran=QApplication::desktop()->screenGeometry();
-
+    /* Pour tester en 1024x600, commentez les deux lignes précédentes et décommentez la ligne suivante */
+//    QRect ecran(0,0,1024,600);
     QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-60 - 2*bordure, Qt::SmoothTransformation);
     //qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
     //qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
@@ -277,20 +277,9 @@ void exercice::adapte(QPixmap cheminImage)
 
 */
 
-    QPoint centreEcran(ecran.width()/2, ecran.height()/2);
-    QRect toto;
-    toto = this->geometry();
-    toto.moveCenter(centreEcran);
-
-    //            move((desk.width() - frameGeometry().width()) / 2,
-    //                  (desk.height() - frameGeometry().height()) / 2);
-
-    //          Bloc de debug pour contrôle des différentes tailles des objets
-    //            qDebug()<<"Taille grView = "<<m_ui->vue->width()<<" X "<<m_ui->vue->height();
-    //            qDebug()<<"Taille grScene = "<<m_ui->vue->scene()->width()<<" X "<<m_ui->vue->scene()->height();
-    //            qDebug()<<"Taille imgFond = "<<imgFond2.width()<<" X "<<imgFond2.height();
-    //            qDebug()<<"Taille fenetre exercice = "<<this->width()<<" X "<<this->height();
-    //            qDebug()<<"Taille écran = "<<ecran.width()<<" X "<<ecran.height();
+    QRect desk = QApplication::desktop()->availableGeometry();
+                move((desk.width() - frameGeometry().width()) / 2,
+                      (desk.height() - frameGeometry().height()) / 2);
 }
 
 void exercice::chargerParametres()
