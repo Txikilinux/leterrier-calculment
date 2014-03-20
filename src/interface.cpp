@@ -474,10 +474,10 @@ void interface::on_action_Changer_d_utilisateur_triggered()
 
 void interface::slotInterfaceShowMainPage()
 {
-    ui->stackedWidget->abeStackedWidgetSlideInWidget(ui->mainPage);
+    ui->stackedWidget->setCurrentWidget(ui->mainPage);
 }
 
 void interface::slotInterfaceShowAboutPage()
 {
-    ui->stackedWidget->abeStackedWidgetSlideInWidget(ui->aboutPage);
+    ui->stackedWidget->setCurrentWidget(ui->aboutPage);
 }
