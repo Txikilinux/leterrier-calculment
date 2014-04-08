@@ -46,7 +46,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
 
     switch (choix) {
         case 1 : {
-            m_decor = new QPixmap(":/calculment/backgrounds/backgroundInterface/TablesM");
+            m_decor = new QPixmap(":/calculment/backgrounds/backgroundInterfaceTablesM");
             this->setGeometry(0,0, m_decor->width()+26,m_decor->height()+60);
             this->setWindowTitle(trUtf8("Tables de multiplication"));
             adapte(*m_decor);
@@ -62,8 +62,6 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btn->deplace((origine.x()+R*cos((2*3.14/nb)*i+angleDepart)), (origine.y()+deformation*R*sin((2*3.14/nb)*i+angleDepart)));
                 btn->retaille(100*m_ratioTaille,100*m_ratioTaille);
                 btn->QGraphicsItem::setToolTip(trUtf8("Table x%1").arg(QString::number(i+2)));
-//                QPixmap im("./data/images/nacellePourrie.png");
-//                btn->setImage(im);
                 btn->setMTransformable(2);
                 m_scene->addItem(btn);
                 }
