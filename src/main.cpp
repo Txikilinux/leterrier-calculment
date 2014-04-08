@@ -37,7 +37,6 @@ int main(int argc, char *argv[])
 {
     AbulEduApplicationV1 a(argc, argv,VER_INTERNALNAME_STR, VER_PRODUCTVERSION_STR, VER_COMPANYDOMAIN_STR, VER_COMPANYNAME_STR, VER_UNITVERSION_STR);
     a.setAbeApplicationLongName(QObject::trUtf8(VER_FILEDESCRIPTION_STR));
-//    interface *w;
 
     abeApp->setProperty("langageUtilise",QLocale::system().name().section('_', 0, 0));
     abeApp->setProperty("utilisateur","");
@@ -45,14 +44,14 @@ int main(int argc, char *argv[])
     QString exo;
     QString nivo="";
     int nombre=0;
-    //Je teste si l'appel a des arguments, le premier étant forcément le nom de l'exercice
+    /* Je teste si l'appel a des arguments, le premier étant forcément le nom de l'exercice */
     if (argc>1) {
         exo= argv[1];
         exo.remove("--exercice=", Qt::CaseInsensitive);
         exo.toLower();}
 //    qDebug()<<"Valeur exo : "<<exo;
 
-    //Je teste si l'appel a d'autres arguments je récupère leur valeur, sachant qu'ici je me suis embêté à tester l'ordre des paramètres ce qui est inutile depuis la "normalisation"
+    /* Je teste si l'appel a d'autres arguments je récupère leur valeur, sachant qu'ici je me suis embêté à tester l'ordre des paramètres ce qui est inutile depuis la "normalisation" */
     QString deuze;
     QString troize;
     if (argc>2){

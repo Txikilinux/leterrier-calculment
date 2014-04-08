@@ -40,7 +40,7 @@ Name: "french"; MessagesFile: "compiler:Languages/French.isl"
 [Files]
 Source: "../src/release/{#EXECNAME}.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "../debian/*.desktop"; DestDir: "{app}"; Flags: ignoreversion
-Source: "../src/data/*"; DestDir: "{app}/data"; Flags: ignoreversion recursesubdirs createallsubdirs
+;Source: "../src/data/*"; DestDir: "{app}/data"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; Source: "../src/exemples/*.abe"; DestDir: "{app}/data"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../src/conf/*"; DestDir: "{app}/conf"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../src/lang/*.qm"; DestDir: "{app}/lang"; Flags: ignoreversion
