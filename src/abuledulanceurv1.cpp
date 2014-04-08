@@ -5,7 +5,6 @@ AbuleduLanceurV1::AbuleduLanceurV1(AbulEduIdentitesV1* identite, QWidget *parent
     QWidget(parent),
     ui(new Ui::AbuleduLanceurV1)
 {
-    qDebug()<<"AbuleduLanceurV1::constructeur (1)";
     ui->setupUi(this);
     setWindowTitle(trUtf8("Lanceur"));
     fillCbExercice();
@@ -37,7 +36,6 @@ AbuleduLanceurV1::~AbuleduLanceurV1()
 void AbuleduLanceurV1::fillCbExercice()
 {
     QString locale = qApp->property("langageUtilise").toString();
-    qDebug()<<"AbuleduLanceurV1::fillCbExercice(1)";
     ui->cbExercice->clear();
     QString nomFichierConf = "./conf/alacarte.conf";
     if (!QFile(nomFichierConf).exists()) {
@@ -46,7 +44,6 @@ void AbuleduLanceurV1::fillCbExercice()
         on_btnAnnuler_clicked();
     }
     else {
-        qDebug()<<trUtf8("Conf trouvé");
         m_nomFichierConfExercices = nomFichierConf;
     }
 
@@ -58,7 +55,6 @@ void AbuleduLanceurV1::fillCbExercice()
         this->deleteLater();
         return;
     }
-qDebug()<<"dans le général de config on a "<<configExo.childKeys();
     m_listeNiveaux = configExo.value("niveaux_"+locale,"Niveau1;Niveau2;Niveau3;Personnel").toString().split(";");
 
     configExo.beginGroup("Exercices");
@@ -78,14 +74,11 @@ qDebug()<<"dans le général de config on a "<<configExo.childKeys();
         intitulesExercicesProposes.append(QString::fromUtf8((configExo.value("intitule_"+locale).toString()).toStdString().c_str()));
         configExo.endGroup();
     }
-    qDebug()<<"fillCbExercice()--m_listeExercices : "<<m_listeExercices;
-    qDebug()<<"fillCbExercice()-- intitulesExercicesProposes : "<<intitulesExercicesProposes;
     ui->cbExercice->addItems(intitulesExercicesProposes);
 }
 
 void AbuleduLanceurV1::fillCbNiveau(QString)
 {
-    qDebug()<<"AbuleduLanceurV1::fillCbNiveau(1)";
     QString locale = qApp->property("langageUtilise").toString();
     ui->cbNiveau->clear();
     QString nomFichierConf = "./conf/alacarte.conf";
@@ -95,7 +88,6 @@ void AbuleduLanceurV1::fillCbNiveau(QString)
         on_btnAnnuler_clicked();
     }
     else {
-        qDebug()<<trUtf8("Conf trouvé");
         m_nomFichierConfExercices = nomFichierConf;
     }
 
@@ -103,9 +95,6 @@ void AbuleduLanceurV1::fillCbNiveau(QString)
      configExo.setIniCodec("UTF-8");
     QString niv = configExo.value("niveaux_"+locale,"Niveau1;Niveau2;Niveau3;Personnel").toString();
     QStringList listeNiv = niv.split(";");
-    qDebug()<<"Niveaux : "<<niv;
-    qDebug()<<"Niveaux en liste : "<<listeNiv;
-    qDebug()<<"Vide ? "<<niv.isEmpty();
     if (niv.isEmpty()) {
         ui->cbNiveau->hide();
         ui->lblNiveau->hide();
@@ -120,6 +109,7 @@ void AbuleduLanceurV1::fillCbNiveau(QString)
 
 void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
 {
+    Q_UNUSED(jsaispasquoi)
     qDebug()<<"AbuleduLanceurV1::fillCbNombre(1)"<<m_nomExercice ;
     ui->cbNombre->hide();
     ui->lblNombre->hide();
@@ -137,9 +127,6 @@ void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
             trouve=true;
             QString val = configExo.value("liste").toString();
             QStringList listeVal = val.split(";");
-            qDebug()<<"Valeurs : "<<val;
-            qDebug()<<"Valeurs en liste : "<<listeVal;
-            qDebug()<<"Vide ? "<<val.isEmpty();
             if (val.isEmpty())
             {
                 ui->cbNombre->hide();
@@ -167,20 +154,17 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
 {
     if (!ui->cbNombre->currentText().isNull())
         m_nomExercice.append(ui->cbNombre->currentText());
-    qDebug()<<"AbuleduLanceurV1::on_btnLancer_clicked() pour "<<m_nomExercice;
     qApp->setProperty("utilisateur",ui->leNom->text());
-//    Attention à changer ligne 203 de exercice.cpp si on change le caractère de concaténation dans la ligne au dessus
+    /*  Attention à changer ligne 203 de exercice.cpp si on change le caractère de concaténation dans la ligne au dessus */
 //    qApp->setProperty("utilisateur",qApp->property("utilisateur").toString().replace(";"," "));
     if (m_nomExercice == "maisonDesNombres")
     {
         ExerciceMaisonNombres* exerciceLance = new ExerciceMaisonNombres(m_nomExercice, 0, 0,m_listeNiveaux[ui->cbNiveau->currentIndex()]);
-        qDebug()<<"---> Exercice appelé avec "<<m_nomExercice<<" et "<<m_listeNiveaux[ui->cbNiveau->currentIndex()];
         exerciceLance->show();
     }
     else
     {
     exercice* exerciceLance = new exercice(m_nomExercice,0,ui->cbNombre->currentText().toInt(),m_listeNiveaux[ui->cbNiveau->currentIndex()]);
-    qDebug()<<"---> Exercice appelé avec "<<m_nomExercice<<", "<<ui->cbNombre->currentText().toInt()<<", "<<m_listeNiveaux[ui->cbNiveau->currentIndex()];
     exerciceLance->show();
     }
     this->close();
@@ -188,7 +172,7 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
 
 void AbuleduLanceurV1::associeNomIntitule(QString intitule)
 {
-    qDebug()<<"AbuleduLanceurV1::associeNomIntitule(1) : "<<intitule;
+//    qDebug()<<"AbuleduLanceurV1::associeNomIntitule(1) : "<<intitule;
     QString locale = qApp->property("langageUtilise").toString();
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
     configExo.setIniCodec("UTF-8");
@@ -199,41 +183,24 @@ void AbuleduLanceurV1::associeNomIntitule(QString intitule)
     while (iterateur.hasNext() && !trouve) {
         QString exercice = iterateur.next();
         configExo.beginGroup(exercice);
-        qDebug()<<"exercice"<<exercice;
-        qDebug()<<"nom : "<<configExo.value("nom").toString();
-        qDebug()<<"intitule : "<<QString::fromUtf8((configExo.value("intitule_"+locale).toString()).toStdString().c_str());
         if (QString::fromUtf8((configExo.value("intitule_"+locale).toString()).toStdString().c_str())==intitule) {
             m_nomExercice = configExo.value("nom").toString();
             m_intituleExercice = QString::fromUtf8((configExo.value("intitule_"+locale).toString()).toStdString().c_str());
-            qDebug()<<"Nom : "<<m_nomExercice;
-            qDebug()<<"Intitule"<<m_intituleExercice;
             trouve = true;
-            qDebug()<<"............... variable trouve = true..................";
-            //return;
         }
         configExo.endGroup();
         i++;
     }
-    qDebug()<<"AbuleduLanceurV1::associeNomIntitule(2)";
-    qDebug()<<"Nom : "<<m_nomExercice;
-    qDebug()<<"Intitule"<<m_intituleExercice;
     emit cbExerciceFini(m_nomExercice);
-    qDebug()<<"Signal emis avec "<<m_nomExercice;
 }
 
 void AbuleduLanceurV1::adapte()
 {
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
-//    QFile* fichierImage = new QFile("./data/images/avion.jpg");
-//    if (fichierImage->exists()) {
-//        qDebug()<<"Image avion OK" << factX << ": " << factY << " :: " << QApplication::desktop()->screenGeometry().width();
-//    }
-//    else qDebug()<<"Image avion prout !!";
-    QPixmap imageIllustration("./data/images/avion.jpg");
+    QPixmap imageIllustration(":/calculment/backgrounds/backgroundLauncher");
     int larg = qRound((imageIllustration.width())*factX);
     QPixmap imageIllustration2 = imageIllustration.scaledToWidth(larg, Qt::SmoothTransformation);
-//    qDebug() << "Taille 2 :: " << larg << " -> " << imageIllustration.size() << " --> " << imageIllustration2.size();
     QBrush* fond = new QBrush(imageIllustration2);
     QPalette palette;
     palette.setBrush(this->backgroundRole(),*fond);

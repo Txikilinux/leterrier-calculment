@@ -21,7 +21,7 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
     for (int i=1;i<=10;i++)
     {
 
-        QPixmap dessinBouton ("./data/images/maison"+QString::number(i+m_valeurBase)+".png");
+        QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(i+m_valeurBase));
         QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         PixmapMaison* maison = new PixmapMaison(dessinBouton2);
         maison->setToolTip("Maison du "+QString::number(i+m_valeurBase));
@@ -145,7 +145,7 @@ void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
         PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
         if (itemMaison->toolTip() == bulleAide)
         {
-            QPixmap dessinBouton ("./data/images/maison"+QString::number(itemMaison->property("Valeur").toInt())+"b.png");
+            QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(itemMaison->property("Valeur").toInt())+"b");
             QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             itemMaison->setPixmap(dessinBouton2);
             m_valeurSurvolee = itemMaison->property("Valeur").toInt();

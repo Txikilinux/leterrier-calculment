@@ -46,7 +46,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
 
     switch (choix) {
         case 1 : {
-            m_decor = new QPixmap("./data/images/1gdRoue.jpg");
+            m_decor = new QPixmap(":/calculment/backgrounds/backgroundInterface/TablesM");
             this->setGeometry(0,0, m_decor->width()+26,m_decor->height()+60);
             this->setWindowTitle(trUtf8("Tables de multiplication"));
             adapte(*m_decor);
@@ -71,13 +71,13 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             break;
 
         case 2 : {
-            m_decor = new QPixmap("./data/images/2trainFantome.jpg");
+            m_decor = new QPixmap(":/calculment/backgrounds/backgroundInterfaceComplements");
             this->setWindowTitle(trUtf8("Trouve le complément à..."));
             adapte(*m_decor);
             this->move(150,0);
             //QPoint origine(m_decor->width()/4 ,m_decor->height()/4);
             QPoint origine((m_decor->width()/4)-80,(m_decor->height()/4)-80);
-            QPixmap im("./data/images/fantome.png");
+            QPixmap im(":/calculment/elements/fantomeRose");
             boutonsPolygone* btn1 = new boutonsPolygone("complementA10",10);
                 btn1->QGraphicsItem::setToolTip(trUtf8("Compléments à 10"));
                 btn1->deplace(origine.x(), origine.y());
@@ -121,7 +121,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             break;
 
         case 3 : {
-            m_decor = new QPixmap("./data/images/3standTir.jpg");
+            m_decor = new QPixmap(":/calculment/backgrounds/backgroundInterfaceMultiples");
             this->setWindowTitle(trUtf8("Les multiples"));
             adapte(*m_decor);
             this->move(200,0);
@@ -132,7 +132,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btn->deplace(origine.x()+m_decor->width()/5*i, origine.y()+m_decor->height()/16*i);
                 btn->retaille(60*m_ratioTaille,77*m_ratioTaille);
                 btn->QGraphicsItem::setToolTip(trUtf8("Multiples de %1").arg(QString::number((i+1)*5)));
-                QPixmap im("./data/images/carabine.png");
+                QPixmap im(":/calculment/elements/carabine");
                 QPixmap im2 = im.scaled(60*m_ratioTaille,77*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 btn->setImage(im2);
 
@@ -145,7 +145,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btn->deplace(origine2.x()+m_decor->width()/5*i, origine2.y()+m_decor->height()/16*i);
                 btn->retaille(60*m_ratioTaille,77*m_ratioTaille);
                 btn->QGraphicsItem::setToolTip(trUtf8("Multiples de %1").arg(QString::number((i+1)*25)));
-                QPixmap im("./data/images/carabine.png");
+                QPixmap im(":/calculment/elements/carabine");
                 QPixmap im2 = im.scaled(60*m_ratioTaille,77*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 btn->setImage(im2);
                 btn->setMTransformable(2);
@@ -156,7 +156,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             break;
 
         case 4 : {
-            m_decor = new QPixmap("./data/images/4booster.jpg");
+            m_decor = new QPixmap(":/calculment/backgrounds/backgroundInterfaceTablesA");
             this->setWindowTitle(trUtf8("Tables d'addition"));
             adapte(*m_decor);
             move(250,0);
@@ -169,7 +169,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btn->deplace((origine.x()+R*cos((2*3.14/nb)*i)), (origine.y()+deformation*R*sin((2*3.14/nb)*i)));
                 btn->retaille(66*m_ratioTaille,65*m_ratioTaille);
                 btn->QGraphicsItem::setToolTip(trUtf8("Table +%1").arg(QString::number(i+2)));
-                QPixmap im("./data/images/nausee0"+QString::number(i%3+1)+".png");
+                QPixmap im(":/calculment/elements/nausee"+QString::number(i%3+1));
                 QPixmap im2 = im.scaled(66*m_ratioTaille,65*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 btn->setImage(im2);
                 btn->setMTransformable(2);
@@ -179,7 +179,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             break;
 
         case 5 : {
-            m_decor = new QPixmap("./data/images/5palaisGlaces.jpg");
+            m_decor = new QPixmap(":/calculment/backgrounds/backgroundInterfaceODG");
             this->setWindowTitle(trUtf8("Ordres de grandeur"));
             adapte(*m_decor);
             move(300,0);
@@ -188,7 +188,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btnA->deplace(origine.x(), origine.y());
                 btnA->retaille(103*m_ratioTaille,96*m_ratioTaille);
                 btnA->QGraphicsItem::setToolTip(trUtf8("... d'additions"));
-                QPixmap im("./data/images/aie0"+ QString::number(rand()%3 +1)+".png");
+                QPixmap im = QPixmap(":/calculment/elements/aie"+ QString::number(rand()%3 +1));
                 QPixmap im2 = im.scaled(103*m_ratioTaille,96*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 btnA->setImage(im2);
                 btnA->setMTransformable(2);
@@ -198,7 +198,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btnS->deplace(origine.x()+m_decor->width()/4, origine.y()+m_decor->height()/6);
                 btnS->retaille(103*m_ratioTaille,96*m_ratioTaille);
                 btnS->QGraphicsItem::setToolTip(trUtf8("... de soustractions"));
-                im = QPixmap("./data/images/aie0"+ QString::number(rand()%3 +1)+".png");
+                im = QPixmap(":/calculment/elements/aie"+ QString::number(rand()%3 +1));
                 im2 = im.scaled(103*m_ratioTaille,96*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 btnS->setImage(im2);
                 btnS->setMTransformable(2);
@@ -208,7 +208,7 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btnM->deplace(origine.x()+2*m_decor->width()/4, origine.y()+2*m_decor->height()/6);
                 btnM->retaille(103*m_ratioTaille,96*m_ratioTaille);
                 btnM->QGraphicsItem::setToolTip(trUtf8("... de multiplications"));
-                im = QPixmap("./data/images/aie0"+ QString::number(rand()%3 +1)+".png");
+                im = QPixmap(":/calculment/elements/aie"+ QString::number(rand()%3 +1));
                 im2 = im.scaled(103*m_ratioTaille,96*m_ratioTaille, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 btnM->setImage(im2);
                 btnM->setMTransformable(2);

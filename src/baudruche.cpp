@@ -221,7 +221,7 @@ baudruche::baudruche(int pts, QPoint pos,QGraphicsScene *parent,QString image)
         QString illustration;
         QString imageBase="ballon";
         if (image!=0) imageBase=image;
-        illustration = "./data/images/"+image+"Rose.png";
+        illustration = ":/calculment/elements/"+image+"Rose";
         pixmap->setPixmap(illustration);
         pixmap->setZValue(k);
         pixmap->setPos(pos);
@@ -272,18 +272,18 @@ void baudruche::dessineMoi(QString image, int taillePolice)
         QString illustration;
         QString imageBase="ballon";
         if (image!=0) imageBase=image;
-        QFile* fichierImage = new QFile("./data/images/"+imageBase+"Vert.png");
+        QFile* fichierImage = new QFile(":/calculment/elements/"+imageBase+"Vert");
         if (fichierImage->exists()) {
                 switch (coulAlea) {
-                    case 0 : illustration = "./data/images/"+imageBase+"Vert.png"; break;
-                    case 1 : illustration = "./data/images/"+imageBase+"Jaune.png"; break;
-                    case 2 : illustration = "./data/images/"+imageBase+"Rouge.png"; break;
-                    case 3 : illustration = "./data/images/"+imageBase+"Orange.png"; break;
-                    case 4 : illustration = "./data/images/"+imageBase+"Bleu.png"; break;
-                    case 5 : illustration = "./data/images/"+imageBase+"Rose.png"; break;
+                    case 0 : illustration = ":/calculment/elements/"+imageBase+"Vert"; break;
+                    case 1 : illustration = ":/calculment/elements/"+imageBase+"Jaune"; break;
+                    case 2 : illustration = ":/calculment/elements/"+imageBase+"Rouge"; break;
+                    case 3 : illustration = ":/calculment/elements/"+imageBase+"Orange"; break;
+                    case 4 : illustration = ":/calculment/elements/"+imageBase+"Bleu"; break;
+                    case 5 : illustration = ":/calculment/elements/"+imageBase+"Rose"; break;
                     }
                 }
-        else illustration="./data/images/"+imageBase;
+        else illustration=":/calculment/elements/"+imageBase;
         QPixmap imageIllustration(illustration);
         QPixmap imageIllustration2 = imageIllustration.scaledToHeight(imageIllustration.height()*factY, Qt::SmoothTransformation);
         //qDebug()<<"Taille baudruche : "<<imageIllustration2.width()<<" X "<<imageIllustration2.height();
@@ -417,14 +417,14 @@ void baudruche::detruireTps()
         }
 
         emit tempsFini(tr("TROP TARD..."));
-        QPixmap image("./data/images/will-let.png");
+        QPixmap image(":/calculment/elements/let");
         QPixmap imageRetaillee = image.scaledToHeight(image.height()*factY);
         emit tempsFini(imageRetaillee);
         if (m_nomImage == "auto")
-            changeImage("./data/images/boum.png");
+            changeImage(":/calculment/elements/boum");
         else if (m_nomImage == "fantome")
-            changeImage("./data/images/pop.png");
-        else changeImage("./data/images/paf.png");
+            changeImage(":/calculment/elements/pop");
+        else changeImage(":/calculment/elements/paf");
         removeFromGroup(m_texteAffiche);
         delete m_texteAffiche;
         QTimeLine* tiptip = new QTimeLine(1000,this);

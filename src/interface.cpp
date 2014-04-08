@@ -78,7 +78,7 @@ interface::interface(QWidget *parent)
     this->resize(ecran.width(),ecran.height());
     ui->fete->resize(ecran.width(),m_hauteurMax);
 
-    QPixmap imgFond("./data/images/fondecran.jpg");
+    QPixmap imgFond(":/calculment/backgrounds/backgroundInterface");
     QPixmap imgFond2=imgFond.scaled(ecran.width(),m_hauteurMax,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     QBrush* fond = new QBrush(imgFond2);
     ui->fete->setBackgroundBrush(*fond);
@@ -122,7 +122,7 @@ interface::interface(QWidget *parent)
 
     //Bouton sur le panneau sortie
     boutonsPolygone* btnPoly4 = new boutonsPolygone("sortie");
-    btnPoly4->setImage(QPixmap("./data/images/texteSortie_"+m_locale+".png"));
+    btnPoly4->setImage(QPixmap(":/calculment/backgrounds/exitSign_"+m_locale));
     btnPoly4->deplace(1340*kw,723*kh);
     btnPoly4->retaille(170*kw,40*kh);
     btnPoly4->QGraphicsItem::setToolTip(trUtf8("Quitter"));

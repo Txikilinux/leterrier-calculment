@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
 //    qDebug()<<"temps accorde"<<e.m_temps;
 
     //Attention Usine à gaz : mais je dois l'enlever ici pour appeler l'image qui s'appelle du style tableM(tout court).jpg
-        QPixmap* imageFond = new QPixmap("./data/images/"+exo+".jpg");
+        QPixmap* imageFond = new QPixmap(":/calculment/backgrounds/"+exo);
         e.adapte(*imageFond);
 //        e.setImgFond(imageFond);
 //        e.setFixedSize(imageFond->width()+150,imageFond->height()+20);

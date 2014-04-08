@@ -119,16 +119,16 @@
            <bool>true</bool>
           </property>
           <property name="IconeNormale" stdset="0">
-           <string notr="true">:/buttons/verification</string>
+           <string notr="true">:/calculmental/buttons/verification</string>
           </property>
           <property name="IconeSurvol" stdset="0">
-           <string notr="true">:/buttons/verificationHover</string>
+           <string notr="true">:/calculmental/buttons/verificationHover</string>
           </property>
           <property name="IconePressed" stdset="0">
-           <string notr="true">:/buttons/verificationHover</string>
+           <string notr="true">:/calculmental/buttons/verificationHover</string>
           </property>
           <property name="IconeDisabled" stdset="0">
-           <string notr="true">:/buttons/verificationDisabled</string>
+           <string notr="true">:/calculmental/buttons/verificationDisabled</string>
           </property>
           <property name="TexteAlignement" stdset="0">
            <number>1</number>
@@ -185,16 +185,16 @@
          <bool>true</bool>
         </property>
         <property name="IconeNormale" stdset="0">
-         <string notr="true">:/buttons/suite</string>
+         <string notr="true">:/calculmental/buttons/suite</string>
         </property>
         <property name="IconeSurvol" stdset="0">
-         <string notr="true">:/buttons/suiteHover</string>
+         <string notr="true">:/calculmental/buttons/suiteHover</string>
         </property>
         <property name="IconePressed" stdset="0">
-         <string notr="true">:/buttons/suiteHover</string>
+         <string notr="true">:/calculmental/buttons/suiteHover</string>
         </property>
         <property name="IconeDisabled" stdset="0">
-         <string notr="true">:/buttons/suiteDisabled</string>
+         <string notr="true">:/calculmental/buttons/suiteDisabled</string>
         </property>
         <property name="TexteAlignement" stdset="0">
          <number>1</number>
@@ -243,16 +243,16 @@
          <bool>true</bool>
         </property>
         <property name="IconeNormale" stdset="0">
-         <string notr="true">:/buttons/debut</string>
+         <string notr="true">:/calculmental/buttons/debut</string>
         </property>
         <property name="IconeSurvol" stdset="0">
-         <string notr="true">:/buttons/debutHover</string>
+         <string notr="true">:/calculmental/buttons/debutHover</string>
         </property>
         <property name="IconePressed" stdset="0">
-         <string notr="true">:/buttons/debutHover</string>
+         <string notr="true">:/calculmental/buttons/debutHover</string>
         </property>
         <property name="IconeDisabled" stdset="0">
-         <string notr="true">:/buttons/debutDisabled</string>
+         <string notr="true">:/calculmental/buttons/debutDisabled</string>
         </property>
         <property name="TexteAlignement" stdset="0">
          <number>1</number>
@@ -416,16 +416,16 @@ font-weight:bold</string>
          <bool>true</bool>
         </property>
         <property name="IconeNormale" stdset="0">
-         <string notr="true">:/buttons/aide</string>
+         <string notr="true">:/calculmental/buttons/aide</string>
         </property>
         <property name="IconeSurvol" stdset="0">
-         <string notr="true">:/buttons/aideHover</string>
+         <string notr="true">:/calculmental/buttons/aideHover</string>
         </property>
         <property name="IconePressed" stdset="0">
-         <string notr="true">:/buttons/aideHover</string>
+         <string notr="true">:/calculmental/buttons/aideHover</string>
         </property>
         <property name="IconeDisabled" stdset="0">
-         <string notr="true">:/buttons/aideDisabled</string>
+         <string notr="true">:/calculmental/buttons/aideDisabled</string>
         </property>
         <property name="TexteAlignement" stdset="0">
          <number>1</number>
@@ -474,16 +474,16 @@ font-weight:bold</string>
          <bool>true</bool>
         </property>
         <property name="IconeNormale" stdset="0">
-         <string notr="true">:/buttons/bonus</string>
+         <string notr="true">:/calculmental/buttons/bonus</string>
         </property>
         <property name="IconeSurvol" stdset="0">
-         <string notr="true">:/buttons/bonusHover</string>
+         <string notr="true">:/calculmental/buttons/bonusHover</string>
         </property>
         <property name="IconePressed" stdset="0">
-         <string notr="true">:/buttons/bonusHover</string>
+         <string notr="true">:/calculmental/buttons/bonusHover</string>
         </property>
         <property name="IconeDisabled" stdset="0">
-         <string notr="true">:/buttons/bonusDisabled</string>
+         <string notr="true">:/calculmental/buttons/bonusDisabled</string>
         </property>
         <property name="TexteAlignement" stdset="0">
          <number>1</number>
@@ -532,16 +532,16 @@ font-weight:bold</string>
          <bool>true</bool>
         </property>
         <property name="IconeNormale" stdset="0">
-         <string notr="true">:/buttons/edit</string>
+         <string notr="true">:/calculmental/buttons/edit</string>
         </property>
         <property name="IconeSurvol" stdset="0">
-         <string notr="true">:/buttons/editHover</string>
+         <string notr="true">:/calculmental/buttons/editHover</string>
         </property>
         <property name="IconePressed" stdset="0">
-         <string notr="true">:/buttons/editHover</string>
+         <string notr="true">:/calculmental/buttons/editHover</string>
         </property>
         <property name="IconeDisabled" stdset="0">
-         <string notr="true">:/buttons/editDisabled</string>
+         <string notr="true">:/calculmental/buttons/editDisabled</string>
         </property>
         <property name="TexteAlignement" stdset="0">
          <number>1</number>
@@ -587,16 +587,16 @@ font-weight:bold</string>
          <bool>true</bool>
         </property>
         <property name="IconeNormale" stdset="0">
-         <string notr="true">:/buttons/sortie</string>
+         <string notr="true">:/calculmental/buttons/sortie</string>
         </property>
         <property name="IconeSurvol" stdset="0">
-         <string notr="true">:/buttons/sortieHover</string>
+         <string notr="true">:/calculmental/buttons/sortieHover</string>
         </property>
         <property name="IconePressed" stdset="0">
-         <string notr="true">:/buttons/sortieHover</string>
+         <string notr="true">:/calculmental/buttons/sortieHover</string>
         </property>
         <property name="IconeDisabled" stdset="0">
-         <string notr="true">:/buttons/sortieDisabled</string>
+         <string notr="true">:/calculmental/buttons/sortieDisabled</string>
         </property>
         <property name="TexteAlignement" stdset="0">
          <number>1</number>

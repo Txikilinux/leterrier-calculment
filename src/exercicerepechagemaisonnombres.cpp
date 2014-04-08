@@ -75,14 +75,14 @@ void ExerciceRepechageMaisonNombres::on_btnFeu_clicked()
     if (proposition==m_resultatEnCours) {
         m_score++;
         m_ui->lblMsg->setText(tr("GAGNE"));
-        QPixmap* imgO = new QPixmap("./data/images/will-win.png");
+        QPixmap* imgO = new QPixmap(":/calculment/elements/win");
         imgO->scaledToHeight(imgO->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgO);
         evaluation=abe::evalA;
         }
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
-        QPixmap* imgN = new QPixmap("./data/images/will-lose.png");
+        QPixmap* imgN = new QPixmap(":/calculment/elements/lose");
         imgN->scaledToHeight(imgN->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgN);
         m_ui->lblMsgReponse->show();

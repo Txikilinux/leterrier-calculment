@@ -163,7 +163,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
         setAbeExerciceName(trUtf8("La maison des nombres"));
     }
 
-    m_imgFond = new QPixmap("./data/images/"+exo+".jpg");
+    m_imgFond = new QPixmap(":/calculment/backgrounds/"+exo);
 
     //qDebug()<<"Image de fond : "<<qApp->applicationDirPath()+"/data/images/"+exo+".jpg";
 
@@ -183,7 +183,7 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui->btn2chance->setEnabled(false);
     //qDebug()<<"Skill : "<<getAbeSkill();
     //qDebug()<<"Exercice : "<<getAbeExerciceName();
-    QPixmap collierNiveau("./data/images/"+m_level+".png");
+    QPixmap collierNiveau(":/calculment/elements/"+m_level);
     QPixmap collierNiveau2 = collierNiveau.scaledToWidth(m_ui->btnBallon->width(),Qt::SmoothTransformation);
     m_ui->lblImageNiveau->setPixmap(collierNiveau2);
     this->setWindowTitle(getAbeExerciceName());
@@ -405,7 +405,7 @@ void exercice::on_btnBallon_clicked()
     m_baudruche->emetRes();
     m_scene->addItem(m_baudruche);
     if (m_operation == "addition") {
-        QPixmap cache("./data/images/cache.png");
+        QPixmap cache(":/calculment/elements/cache");
         int bordure=20;
         QRect ecran;
         ecran=QApplication::desktop()->screenGeometry();
@@ -455,14 +455,14 @@ void exercice::on_btnFeu_clicked()
     if (proposition==reponse) {
         m_score++;
         m_ui->lblMsg->setText(tr("GAGNE"));
-        QPixmap* imgO = new QPixmap("./data/images/will-win.png");
+        QPixmap* imgO = new QPixmap(":/calculment/elements/win");
         imgO->scaledToHeight(imgO->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgO);
         evaluation=abe::evalA;
     }
     else {
         m_ui->lblMsg->setText(tr("PERDU"));
-        QPixmap* imgN = new QPixmap("./data/images/will-lose.png");
+        QPixmap* imgN = new QPixmap(":/calculment/elements/lose");
         ajouteErreur("Erreur calcul");
         imgN->scaledToHeight(imgN->height()*factY);
         m_ui->lblImgMsg->setPixmap(*imgN);
@@ -543,7 +543,7 @@ void exercice::on_btnAide_clicked()
         m_consignes->show();
         if (m_operation.left(10)=="OdGrandeur") {
             m_consignes->setGeometry(0,0,m_imgFond->width(),m_imgFond->height());
-            m_consignes->setStyleSheet("background-image : url(./data/images/fondAide.jpg)");
+//            m_consignes->setStyleSheet("background-image : url(:/calculment/elements/fondAide.jpg)");
             texteAide = trUtf8("Tu dois trouver l'ordre de grandeur du résultat du calcul proposé. \nPour cela, tu vas arrondir les nombres en ne gardant qu'un seul chiffre significatif, puis faire l'opération sur les nombres arrondis. \nExemple : 372 - 198 -> 400 - 200 = 200");
             if (m_operation == "OdGrandeurMultiplication") {
                 texteAide.append("\n \n");
@@ -577,14 +577,14 @@ void exercice::afficheResultat(QString neSertARien)
 
         //Ajout d'une image de William personnalisée au résultat de l'exercice
         QGraphicsPixmapItem* fondProf = new QGraphicsPixmapItem();
-        QPixmap* prof = new QPixmap("./data/images/bof.png");
+        QPixmap* prof = new QPixmap(":/calculment/elements/bof");
         QPixmap* prof2 = new QPixmap(prof->scaledToHeight(prof->height()*factY,Qt::SmoothTransformation));
         if (m_score<m_total*SEUIL_NON_ACQUIS) {
-            prof = new QPixmap("./data/images/rate.png");
+            prof = new QPixmap(":/calculment/elements/rate");
             prof2 = new QPixmap(prof->scaledToHeight(prof->height()*factY,Qt::SmoothTransformation));
         }
         else if (m_score>=m_total*SEUIL_ACQUIS) {
-            prof = new QPixmap("./data/images/bien.png");
+            prof = new QPixmap(":/calculment/elements/bien");
             prof2 = new QPixmap(prof->scaledToHeight(prof->height()*factY,Qt::SmoothTransformation));
         }
         fondProf->setPixmap(*prof2);
@@ -592,7 +592,7 @@ void exercice::afficheResultat(QString neSertARien)
         fondProf->setPos(m_depart->x(),m_depart->y()-prof2->height()/1.2);
         fondProf->setZValue(m_nbTotalQuestions);
 
-        QString tabBallons[] = {"./data/images/ballonBleu.png","./data/images/ballonJaune.png","./data/images/ballonRouge.png","./data/images/ballonVert.png","./data/images/ballonOrange.png"};
+        QString tabBallons[] = {":/calculment/elements/ballonBleu",":/calculment/elements/ballonJaune",":/calculment/elements/ballonRouge",":/calculment/elements/ballonVert",":/calculment/elements/ballonOrange"};
         for (int i=0;i<5;i++) {
             QGraphicsPixmapItem* image = new QGraphicsPixmapItem();
             QPixmap* img = new QPixmap(tabBallons[i]);
