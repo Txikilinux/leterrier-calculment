@@ -27,14 +27,15 @@ protected:
 
 private:
     Ui::interfaceClass *ui;
+    bool m_localDebug;
     QTranslator qtTranslator;
     QTranslator myappTranslator;
     QString m_locale;
     QSignalMapper* m_signalMapper;
     void creeMenuLangue();
 
-private slots:
-
+public slots:
+    void slotSessionAuthenticated(bool enable);
 
 private slots:
     void on_actionSur_des_multiplications_triggered();
@@ -82,7 +83,7 @@ private slots:
     void slotInterfaceShowMainPage();
     void slotInterfaceShowAboutPage();
 
-
+    void setTitle(int authStatus);
 };
 
 #endif // INTERFACE_H

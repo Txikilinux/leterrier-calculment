@@ -39,11 +39,11 @@
 interface::interface(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::interfaceClass)
 {
-
+    m_localDebug = false;
     //Langue
     //m_locale = QLocale::system().name().section('_', 0, 0);
     m_locale = qApp->property("langageUtilise").toString();
-    qDebug()<<"interface::constructeur (1) - "<<m_locale;
+    if(m_localDebug) qDebug()<<"interface::constructeur (1) - "<<m_locale;
     //Un 1er qtTranslator pour prendre les traductions QT Systeme
     //c'est d'ailleurs grâce à ça qu'on est en RTL
     qtTranslator.load("qt_" + m_locale,
@@ -51,7 +51,7 @@ interface::interface(QWidget *parent)
     qApp->installTranslator(&qtTranslator);
     //Et un second qtTranslator pour les traductions spécifiques du logiciel
     myappTranslator.load("leterrier-calculment_" + m_locale, "lang");
-    qDebug()<<trUtf8("Langue chargée : ")<<m_locale;
+    if(m_localDebug) qDebug()<<trUtf8("Langue chargée : ")<<m_locale;
     qApp->installTranslator(&myappTranslator);
 
     ui->setupUi(this);
@@ -71,10 +71,10 @@ interface::interface(QWidget *parent)
 //    QRect ecran(0,0,1024,600);
 
     QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
-    if (!fichierConf->exists()) qDebug()<<trUtf8("Fichier config NON trouvé");
-    else qDebug() << trUtf8("Fichier config trouvé");
+    if (!fichierConf->exists()) if(m_localDebug) qDebug()<<trUtf8("Fichier config NON trouvé");
+    else if(m_localDebug) qDebug() << trUtf8("Fichier config trouvé");
     m_hauteurMax = ecran.height();
-    qDebug() << "Taille ecran : " << ecran.width()<< " X "<<ecran.height();
+    if(m_localDebug) qDebug() << "Taille ecran : " << ecran.width()<< " X "<<ecran.height();
     this->resize(ecran.width(),ecran.height());
     ui->fete->resize(ecran.width(),m_hauteurMax);
 
@@ -191,6 +191,8 @@ interface::interface(QWidget *parent)
     int desktop_width = widget->width();
     int desktop_height = widget->height();
     this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
+
+    setTitle(abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus());
 }
 
 interface::~interface()
@@ -220,13 +222,20 @@ void interface::creeMenuLangue()
             connect(actionLangue, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
             ui->menuLangues->addAction(actionLangue);
      }
+}
 
+void interface::slotSessionAuthenticated(bool enable)
+{
+    if(m_localDebug) qDebug()<<__FUNCTION__<<enable;
+    if(enable)
+        abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
 
+    connect(abeApp->getAbeNetworkAccessManager(), SIGNAL(ssoAuthStatus(int)), this,SLOT(setTitle(int)));
 }
 
 void interface::changelangue(QString langue)
 {
-    qDebug()<<"interface::changelangue(1)";
+    if(m_localDebug) qDebug()<<"interface::changelangue(1)";
     qApp->setProperty("langageUtilise",langue);
     myappTranslator.load("leterrier-calculment_"+langue, "lang");
 
@@ -480,4 +489,20 @@ void interface::slotInterfaceShowMainPage()
 void interface::slotInterfaceShowAboutPage()
 {
     ui->stackedWidget->setCurrentWidget(ui->aboutPage);
+}
+
+void interface::setTitle(int authStatus)
+{
+    if(m_localDebug) qDebug()<<__FUNCTION__<<authStatus;
+    QString title = abeApp->getAbeApplicationLongName();
+    if (authStatus == 1)
+    {
+        if(abeApp->getAbeIdentite()->abeGetPreNom().isEmpty() && abeApp->getAbeIdentite()->abeGetNom().isEmpty()){
+            title.append(" -- "+abeApp->getAbeNetworkAccessManager()->abeGetSSOLogin());
+        }
+        else{
+            title.append(" -- "+abeApp->getAbeIdentite()->abeGetPreNom()+" "+abeApp->getAbeIdentite()->abeGetNom());
+        }
+    }
+    setWindowTitle(title);
 }
