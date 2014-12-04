@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     pixmapmaison.cpp \
     exercicerepechagemaisonnombres.cpp \
     abuledulineeditv0.cpp \
-    futurelib/abuleduexportpdfv1/abuleduexportpdfv1.cpp
+    futurelib/abuleduexportpdfv1/abuleduexportpdfv1.cpp \
+    calculmentgraphicsview.cpp
 
 HEADERS += interface.h \
     exercice.h \
@@ -40,7 +41,8 @@ HEADERS += interface.h \
     version.h \
     exercicerepechagemaisonnombres.h \
     abuledulineeditv0.h \
-    futurelib/abuleduexportpdfv1/abuleduexportpdfv1.h
+    futurelib/abuleduexportpdfv1/abuleduexportpdfv1.h \
+    calculmentgraphicsview.h
 
 FORMS += interface.ui \
     exercice.ui \

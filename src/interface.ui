@@ -35,12 +35,15 @@
       <widget class="QWidget" name="mainPage">
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
-         <widget class="QGraphicsView" name="fete">
+         <widget class="CalculMentGraphicsView" name="fete">
           <property name="verticalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>
           </property>
           <property name="horizontalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="interactive">
+           <bool>true</bool>
           </property>
           <property name="optimizationFlags">
            <set>QGraphicsView::DontAdjustForAntialiasing</set>
@@ -394,6 +397,11 @@
    <extends>QStackedWidget</extends>
    <header>abuledustackedwidgetv1.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CalculMentGraphicsView</class>
+   <extends>QGraphicsView</extends>
+   <header>calculmentgraphicsview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -66,7 +66,7 @@ interface::interface(QWidget *parent)
     creeMenuLangue();
 
     QRect ecran;
-    ecran=QApplication::desktop()->availableGeometry();
+    ecran = QApplication::desktop()->availableGeometry();
     /* Pour tester en 1024x600, commentez les deux lignes précédentes et décommentez la ligne suivante */
 //    QRect ecran(0,0,1024,600);
 
