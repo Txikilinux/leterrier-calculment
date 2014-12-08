@@ -90,7 +90,6 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
     else if (*m_action=="lanceur") {
         if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
         {
-
             abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
             abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
             abeApp->getAbeNetworkAccessManager()->abeSSOLogin();

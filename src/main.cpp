@@ -37,6 +37,9 @@ int main(int argc, char *argv[])
 {
     AbulEduApplicationV1 a(argc, argv,VER_INTERNALNAME_STR, VER_PRODUCTVERSION_STR, VER_COMPANYDOMAIN_STR, VER_COMPANYNAME_STR, VER_UNITVERSION_STR);
     a.setAbeApplicationLongName(QObject::trUtf8(VER_FILEDESCRIPTION_STR));
+    QList<AbulEduLogLevelV1> bannishedLogs;
+    bannishedLogs << WarnLevel << InfoLevel << TraceLevel;
+    a.setAbeApplicationBannishedLogLevel(bannishedLogs);
 
     abeApp->setProperty("langageUtilise",QLocale::system().name().section('_', 0, 0));
     abeApp->setProperty("utilisateur","");
@@ -89,7 +92,7 @@ int main(int argc, char *argv[])
 
     //Attention Usine à gaz : si on a un nombre j'ai besoin de l'ajouter ici pour avoir un truc du style tableM7 pour lire les valeurs dans le fichier de configuration
     QString exo1 = exo;
-    if (nombre!=0) exo1 = exo+QString::number(nombre);
+    if (nombre != 0) exo1 = exo+QString::number(nombre);
     qDebug()<<"exo : "<<exo1;
     //exercice e(exo,&a,nombre,nivo);
     exercice e(exo1,0,nombre,nivo);
@@ -112,7 +115,7 @@ int main(int argc, char *argv[])
     if (argc==1)
     {
         // ================== splashscreen
-    AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
+    AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true);
         splash->show();
         interface* w = new interface();
         splash->setMainWindow(w);

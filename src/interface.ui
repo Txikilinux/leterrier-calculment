@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>960</height>
+    <width>1024</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,25 +33,13 @@
     <item row="0" column="0">
      <widget class="AbulEduStackedWidgetV1" name="stackedWidget">
       <widget class="QWidget" name="mainPage">
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="CalculMentGraphicsView" name="fete">
-          <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOff</enum>
-          </property>
-          <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOff</enum>
-          </property>
-          <property name="interactive">
-           <bool>true</bool>
-          </property>
-          <property name="optimizationFlags">
-           <set>QGraphicsView::DontAdjustForAntialiasing</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <layout class="QGridLayout" name="gridLayout_2"/>
       </widget>
+      <widget class="QWidget" name="transitionalPage">
+       <layout class="QGridLayout" name="gridLayout_3"/>
+      </widget>
+      <widget class="QWidget" name="exercicePage"/>
+      <widget class="QWidget" name="editorPage"/>
       <widget class="AbulEduAproposV1" name="aboutPage"/>
      </widget>
     </item>
@@ -69,7 +57,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1280</width>
+     <width>1024</width>
      <height>20</height>
     </rect>
    </property>
@@ -397,11 +385,6 @@
    <extends>QStackedWidget</extends>
    <header>abuledustackedwidgetv1.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>CalculMentGraphicsView</class>
-   <extends>QGraphicsView</extends>
-   <header>calculmentgraphicsview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

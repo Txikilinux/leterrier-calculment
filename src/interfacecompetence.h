@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QGraphicsScene>
+#include "boutonspolygone.h"
 
 namespace Ui {
     class InterfaceCompetence;
@@ -17,6 +18,7 @@ public:
 
 protected:
     virtual void changeEvent(QEvent *e);
+    void showEvent(QShowEvent *);
 
 private:
     Ui::InterfaceCompetence *m_ui;
@@ -24,9 +26,13 @@ private:
     QGraphicsScene* m_scene;
     QPixmap* m_decor;
     double m_ratioTaille;
+    QWidget* m_parent;
+    QList<boutonsPolygone*> m_buttons;
 
 private slots:
     void on_btnFermer_clicked();
+signals:
+    void signalInterfaceCompetenceClose();
 };
 
 #endif // INTERFACECOMPETENCE_H

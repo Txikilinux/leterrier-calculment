@@ -42,7 +42,8 @@ HEADERS += interface.h \
     exercicerepechagemaisonnombres.h \
     abuledulineeditv0.h \
     futurelib/abuleduexportpdfv1/abuleduexportpdfv1.h \
-    calculmentgraphicsview.h
+    calculmentgraphicsview.h \
+    leterrierstringtransition.h
 
 FORMS += interface.ui \
     exercice.ui \
@@ -83,3 +84,6 @@ include(lib/abuledustackedwidgetv1/abuledustackedwidgetv1.pri)
 include(lib/abuledumultimediav1/abuledumultimediav1.pri)
 include(lib/abuledupicottsv1/abuledupicottsv1.pri)
 include(lib/abuleduaudiov1/abuleduaudiov1.pri)
+include(lib/abuledupageaccueilv1/abuledupageaccueilv1.pri)
+include(lib/abuledugraphicmenuv1/abuledugraphicmenuv1.pri)
+include(lib/abuledulabelv1/abuledulabelv1.pri)
