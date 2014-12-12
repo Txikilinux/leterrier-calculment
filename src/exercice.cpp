@@ -44,15 +44,15 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     AbulEduExerciceV0(parent),
     m_ui(new Ui::exercice)
 {
-    //qDebug()<<"exercice::constructeur (1)";
+    qDebug()<<__PRETTY_FUNCTION__<<exo<<" :: "<<val<<" :: "<<niveau;
     m_ui->setupUi(this);
-    this->setWindowModality(Qt::ApplicationModal);
+
     this->setAbeExerciceName(exo);
     m_ui->btnAide->hide();
     m_ui->lblMsgReponse->hide();
 
-    m_operation=exo;
-    m_cible=val;
+    m_operation = exo;
+    m_cible = val;
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     m_nbTotalQuestions = config.value("NombreBallons",10).toInt();

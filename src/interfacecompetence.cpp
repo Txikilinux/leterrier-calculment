@@ -252,7 +252,6 @@ void InterfaceCompetence::adapte(QPixmap cheminImage)
     m_ui->grvFond->setBackgroundBrush(*fond);
     m_ui->grvFond->setScene(m_scene);
     m_scene->setSceneRect(0, 0, imgFond2.width(), imgFond2.height());
-
     move((m_parent->width()-width())/2,y());
 }
 

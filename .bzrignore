@@ -22,3 +22,6 @@
 ./src/lib/abuledupageaccueilv1
 ./src/lib/abuledugraphicmenuv1
 ./src/lib/abuledulabelv1
+./src/lib/abuleducommonstatesv1
+./src/lib/abuledustatemachinev1
+./src/lib/abuledutetev1

@@ -24,7 +24,9 @@ SOURCES += main.cpp \
     exercicerepechagemaisonnombres.cpp \
     abuledulineeditv0.cpp \
     futurelib/abuleduexportpdfv1/abuleduexportpdfv1.cpp \
-    calculmentgraphicsview.cpp
+    calculmentgraphicsview.cpp \
+    abstractexercise.cpp \
+    exerciceoperation.cpp
 
 HEADERS += interface.h \
     exercice.h \
@@ -43,7 +45,9 @@ HEADERS += interface.h \
     abuledulineeditv0.h \
     futurelib/abuleduexportpdfv1/abuleduexportpdfv1.h \
     calculmentgraphicsview.h \
-    leterrierstringtransition.h
+    leterrierstringtransition.h \
+    abstractexercise.h \
+    exerciceoperation.h
 
 FORMS += interface.ui \
     exercice.ui \
@@ -87,3 +91,6 @@ include(lib/abuleduaudiov1/abuleduaudiov1.pri)
 include(lib/abuledupageaccueilv1/abuledupageaccueilv1.pri)
 include(lib/abuledugraphicmenuv1/abuledugraphicmenuv1.pri)
 include(lib/abuledulabelv1/abuledulabelv1.pri)
+include(lib/abuleducommonstatesv1/abuleducommonstatesv1.pri)
+include(lib/abuledustatemachinev1/abuledustatemachinev1.pri)
+include(lib/abuledutetev1/abuledutetev1.pri)

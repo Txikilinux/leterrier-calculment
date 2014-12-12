@@ -31,6 +31,7 @@
 #include "boutonspolygone.h"
 #include "abuleduaproposv1.h"
 #include "abuledulanceurv1.h"
+#include "exerciceoperation.h"
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QDesktopServices>
@@ -358,7 +359,8 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     }
     else{
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
-
+        ui->stackedWidget->setCurrentWidget(ui->exercicePage);
+        ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage);
     }
 
 //    else if (*m_action=="lanceur") {

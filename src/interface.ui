@@ -36,11 +36,30 @@
        <layout class="QGridLayout" name="gridLayout_2"/>
       </widget>
       <widget class="QWidget" name="transitionalPage">
+       <property name="styleSheet">
+        <string notr="true">background-color:green;</string>
+       </property>
        <layout class="QGridLayout" name="gridLayout_3"/>
       </widget>
-      <widget class="QWidget" name="exercicePage"/>
-      <widget class="QWidget" name="editorPage"/>
-      <widget class="AbulEduAproposV1" name="aboutPage"/>
+      <widget class="QWidget" name="exercicePage">
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_4"/>
+      </widget>
+      <widget class="QWidget" name="editorPage">
+       <property name="styleSheet">
+        <string notr="true">background-color:brown;</string>
+       </property>
+      </widget>
+      <widget class="AbulEduAproposV1" name="aboutPage">
+       <property name="styleSheet">
+        <string notr="true">background-color:blue;</string>
+       </property>
+      </widget>
      </widget>
     </item>
     <item row="0" column="1">
