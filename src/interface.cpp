@@ -87,8 +87,12 @@ interface::interface(QWidget *parent)
     connect(m_demoTimeLine, SIGNAL(finished()),this, SLOT(slotInterfaceEndDemo()),Qt::UniqueConnection);
 
     QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
-    if (!fichierConf->exists()) if(m_localDebug) qDebug()<<trUtf8("Fichier config NON trouvé");
-    else if(m_localDebug) qDebug() << trUtf8("Fichier config trouvé");
+    if (!fichierConf->exists()){
+        if(m_localDebug) qDebug()<<trUtf8("Fichier config NON trouvé");
+    }
+    else {
+        if(m_localDebug) qDebug() << trUtf8("Fichier config trouvé");
+    }
 
     ui->btnInitialise->setGeometry(10,10,170,30);
     ui->btnInitialise->hide();
@@ -194,6 +198,7 @@ interface::interface(QWidget *parent)
     // On est prêt à démarrer
     createStateMachine();
     m_leterrierStateMachine.start();
+    ui->exercicePage->abeWidgetSetBackgroundPixmap(":/calculment/backgrounds/backgroundInterface");
 }
 
 interface::~interface()
@@ -333,7 +338,7 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
     }
-     /*" Tables de multiplication"
+    /*" Tables de multiplication"
     " Tables d'addition"
     "Soustractions"
     "Compléments"
@@ -357,34 +362,38 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
         connect(inter,SIGNAL(signalInterfaceCompetenceClose()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
         inter->show();
     }
+    /* ça c'est la bonne façon de faire */
     else{
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
         ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage);
+        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
     }
 
-//    else if (*m_action=="lanceur") {
-//        if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
-//        {
+    //    else if (*m_action=="lanceur") {
+    //        if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
+    //        {
 
-//            abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
-//            abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
-//            abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
-//        }
-//        else
-//        {
-//            slotMontreLanceur();
-//        }
-//    }
+    //            abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
+    //            abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
+    //            abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+    //        }
+    //        else
+    //        {
+    //            slotMontreLanceur();
+    //        }
+    //    }
 
-//    else if (*m_action == "maisonDesNombres") {
-//        ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(*m_action,0,m_val);
-//        maisonNombres->show();
-//    }
+    //    else if (*m_action == "maisonDesNombres") {
+    //        ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(*m_action,0,m_val);
+    //        maisonNombres->show();
+    //    }
 //    else {
-//        exercice* ex = new exercice(*m_action,0,m_val);
+//        ui->stackedWidget->setCurrentWidget(ui->exercicePage);
+//        exercice* ex = new exercice(m_exerciceNames.key(name.simplified()),ui->widgetContainer,0);
 //        ex->show();
 //    }
+
 }
 
 void interface::slotInterfaceBackFromExercise()

@@ -45,7 +45,9 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     m_ui(new Ui::exercice)
 {
     qDebug()<<__PRETTY_FUNCTION__<<exo<<" :: "<<val<<" :: "<<niveau;
+    m_parent = parent;
     m_ui->setupUi(this);
+    setWindowFlags(Qt::CustomizeWindowHint);
 
     this->setAbeExerciceName(exo);
     m_ui->btnAide->hide();
@@ -240,13 +242,14 @@ void exercice::setImgFond(QPixmap* image)
 
 void exercice::adapte(QPixmap cheminImage)
 {
+    if(!m_parent) return;
     qDebug()<<"exercice::adapte(1)";
     int bordure=20;
     QRect ecran;
-    ecran=QApplication::desktop()->screenGeometry();
+    ecran = QApplication::desktop()->screenGeometry();
     /* Pour tester en 1024x600, commentez les deux lignes précédentes et décommentez la ligne suivante */
 //    QRect ecran(0,0,1024,600);
-    QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-60 - 2*bordure, Qt::SmoothTransformation);
+    QPixmap imgFond2 = cheminImage.scaledToHeight(m_parent->height()-20 - 2*bordure, Qt::SmoothTransformation);
     //qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
     //qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
     *m_imgFond = imgFond2;

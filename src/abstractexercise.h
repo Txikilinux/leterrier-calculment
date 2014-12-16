@@ -24,9 +24,12 @@
 #define ABSTRACTEXERCISE_H
 
 #include "abuleducommonstatesv1.h"
+#include "baudruche.h"
 
 class AbstractExercise : public AbulEduCommonStatesV1
 {
+    Q_OBJECT
+
 public:
     AbstractExercise(QWidget *parent);
     virtual ~AbstractExercise();
@@ -57,6 +60,27 @@ protected:
     /** Dimensionne et place les widgets
       * @param ratio le ratio est par défaut celui calculé dans l'AbulEduApplicationV1 */
     virtual void setDimensionsWidgets(float ratio = abeApp->getAbeApplicationDecorRatio());
+
+    baudruche* m_baudruche;
+
+    QPoint* m_depart;
+
+    QPixmap* m_imageFond;
+
+    int m_score;
+    int m_total;
+
+    ///
+    /// \brief Stocke la réponse attendue
+    ///
+    int m_resultatEnCours;
+
+    int m_cible;
+    QStringList m_listeEchecs;
+
+    QString m_trace;
+
+    QLineEdit* m_leResultat;
 
 protected slots:
 

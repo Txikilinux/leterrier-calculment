@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     futurelib/abuleduexportpdfv1/abuleduexportpdfv1.cpp \
     calculmentgraphicsview.cpp \
     abstractexercise.cpp \
-    exerciceoperation.cpp
+    exerciceoperation.cpp \
+    abuleduwidgetv1.cpp
 
 HEADERS += interface.h \
     exercice.h \
@@ -47,7 +48,8 @@ HEADERS += interface.h \
     calculmentgraphicsview.h \
     leterrierstringtransition.h \
     abstractexercise.h \
-    exerciceoperation.h
+    exerciceoperation.h \
+    abuleduwidgetv1.h
 
 FORMS += interface.ui \
     exercice.ui \

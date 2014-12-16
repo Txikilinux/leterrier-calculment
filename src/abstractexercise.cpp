@@ -1,3 +1,25 @@
+/** Classe de base pour les exercices du logiciel Calcul mental
+  *
+  * @see https://redmine.ryxeo.com/projects/ryxeo/wiki/LeTerrierExercice
+  * @author 2014 Philippe Cadaugade <philippe.cadaugade@ryxeo.com>
+  *
+  * @see The GNU Public License (GPL)
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful, but
+  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  * for more details.
+  *
+  * You should have received a copy of the GNU General Public License along
+  * with this program; if not, write to the Free Software Foundation, Inc.,
+  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+  */
+
 #include "abstractexercise.h"
 
 AbstractExercise::AbstractExercise(QWidget *parent):
@@ -7,6 +29,7 @@ AbstractExercise::AbstractExercise(QWidget *parent):
 {
     /* Création de l'aire de jeu et de sa scène */
     m_AireDeJeu = new QGraphicsView();
+
     m_sceneAireDeJeu = new QGraphicsScene(this);
     m_AireDeJeu->setScene(m_sceneAireDeJeu);
     m_AireDeJeu->setSceneRect(m_AireDeJeu->rect());
@@ -17,9 +40,10 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_AireDeJeu->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_AireDeJeu->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     /* On lui donne un fond transparent et pas de bordure */
-    m_AireDeJeu->setStyleSheet("background-color: rgba(0,0,0,0)");
     m_AireDeJeu->setFrameShape(QFrame::NoFrame);
+    m_AireDeJeu->setStyleSheet("background-color: rgba(0,0,0,0)");
     m_AireDeJeu->setVisible(true);
+    getAbeExerciceAireDeTravailV1()->setStyleSheet("border:8px solid orange;border-radius:18px;");
 
     connect(getAbeExerciceTelecommandeV1(), SIGNAL(btnTelecommandeAideClicked()), this, SLOT(slotAide()), Qt::UniqueConnection);
     sequenceMachine->start();
@@ -71,7 +95,7 @@ void AbstractExercise::slotSequenceEntered()
     getAbeExerciceMessageV1()->setParent(0);
     getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->scene()->addWidget(getAbeExerciceMessageV1());
 
-    abeStateMachineSetOnPeutPresenterSequence(true);
+    abeStateMachineSetOnPeutPresenterSequence(false);
     abeStateMachineSetOnPeutPresenterExercice(false);
     abeStateMachineSetOnPeutPresenterBilanExercice(false);
 
@@ -81,6 +105,15 @@ void AbstractExercise::slotSequenceEntered()
 
     /* Attention : la ligne ci-dessous peut être déplacée à condition de rester avant l'appel à setDimensionsWidgets(); */
     AbulEduCommonStatesV1::slotSequenceEntered();
+
+    /* Corrections par rapport au fonctionnement général de la machine à états */
+    question->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnAide, "enabled",false);
+    question->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnCorriger, "enabled",false);
+    question->assignProperty(m_leResultat, "enabled", true);
+    question->assignProperty(m_leResultat, "focus", true);
+    afficheVerificationQuestion->assignProperty(m_leResultat, "enabled", false);
+    finVerificationQuestion->addTransition(getAbeExerciceTelecommandeV1()->ui->btnSuivant,SIGNAL(clicked()),initQuestion);
+
     setDimensionsWidgets();
 }
 
@@ -95,10 +128,12 @@ void AbstractExercise::slotRealisationExerciceEntered()
 
 void AbstractExercise::slotInitQuestionEntered()
 {
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
     AbulEduCommonStatesV1::slotInitQuestionEntered();
     setAbeExerciceEvaluation(abe::evalY);
     boiteTetes->setEtatTete(m_numExercice, abe::evalY,false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
-
 }
 
 void AbstractExercise::slotQuestionEntered()
@@ -108,12 +143,18 @@ void AbstractExercise::slotQuestionEntered()
 
 void AbstractExercise::slotAfficheVerificationQuestionEntered()
 {
-
+    AbulEduCommonStatesV1::slotAfficheVerificationQuestionEntered();
+    m_leResultat->clearFocus();
 }
 
 void AbstractExercise::slotFinVerificationQuestionEntered()
 {
-
+//    if(getAbeNumQuestion() == getAbeNbTotalQuestions()) {
+//        sequenceMachine->postDelayedEvent(new StringEvent("Questionsdone"),7000);
+//    }
+//    else {
+//        sequenceMachine->postDelayedEvent(new StringEvent("Questionsloop"),7000);
+//    }
 }
 
 void AbstractExercise::slotAfficheCorrectionQuestionEntered()

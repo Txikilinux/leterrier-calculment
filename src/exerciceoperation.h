@@ -24,15 +24,21 @@
 #define EXERCICEOPERATION_H
 
 #include "abstractexercise.h"
+#include <QGraphicsItemAnimation>
+
 
 class ExerciceOperation : public AbstractExercise
 {
+
+Q_OBJECT
 public:
     ExerciceOperation(QString exerciseName,QWidget *parent);
     ~ExerciceOperation();
 
-private:
+protected:
     QString m_operationName;
+    QWidget* m_parent;
+
     int verifieReponse();
     int donneReponse();
 
@@ -40,7 +46,17 @@ private:
       * @param ratio le ratio est par défaut celui calculé dans l'AbulEduApplicationV1 */
     void setDimensionsWidgets(float ratio = abeApp->getAbeApplicationDecorRatio());
 
-private slots:
+    int m_minG;
+    int m_maxG;
+    int m_minD;
+    int m_maxD;
+    int m_temps;
+
+    void chargerParametres();
+
+    void animeBaudruche();
+
+protected slots:
     /** Entrée dans l'état "sequence" de l'AbulEduStateMachineV1
       * Passage unique au lancement de la machine à états */
     void slotSequenceEntered();
@@ -92,6 +108,8 @@ private slots:
 
     /** Slot destiné à fournir une aide à l'utilisateur lors de la réalisation des exercices */
     void slotAide();
+
+    void ajouteErreur(QString msg);
 };
 
 #endif // EXERCICEOPERATION_H
