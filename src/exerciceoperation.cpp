@@ -3,7 +3,11 @@
 ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent) :
     AbstractExercise(parent),
     m_operationName(exerciseName),
-    m_parent(parent)
+    m_parent(parent),
+    m_minG(0),
+    m_maxG(9),
+    m_minD(0),
+    m_maxD(9)
 {
     m_localDebug = true;
     m_score = 0;
@@ -11,9 +15,12 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent) :
     m_leResultat->setObjectName("leResultat");
     QRegExp expressionReguliere("[0-9][0-9]{0,"+QString::number(3)+"}");
     m_leResultat->setValidator(new QRegExpValidator(expressionReguliere, this));
-    connect(m_leResultat, SIGNAL(returnPressed()),getAbeExerciceTelecommandeV1()->ui->btnVerifier, SLOT(click()),Qt::UniqueConnection);
+    /** @todo gratter un peu : la ligne ci-dessous n'est plus utile parce que l'eventFilter fait que le clic sur Entrée équivaut à BtnVerification
+     *  du coup si on la laisse la vérification déclenche aussitôt l'envoi d'un autre ballon
+     *  si on la laissait il faudrait réimplémenter l'eventFilter
+     *  par contre il faut trouver pourquoi il faut appuyer deux fois  */
+//    connect(m_leResultat, SIGNAL(returnPressed()),getAbeExerciceTelecommandeV1()->ui->btnVerifier, SLOT(click()),Qt::UniqueConnection);
     getAbeExerciceTelecommandeV1()->setDimensionsWidget();
-    abeApp->installEventFilter(this);
 }
 
 ExerciceOperation::~ExerciceOperation()
@@ -56,13 +63,9 @@ void ExerciceOperation::setDimensionsWidgets(float ratio)
     getAbeExerciceAireDeTravailV1()->setImageFond(backgr.scaled(imageFond.width()+75*abeApp->getAbeApplicationDecorRatio(),imageFond.height()+150*abeApp->getAbeApplicationDecorRatio()));
     int ecartAireTelecommande = 0;
     int abscisseAire = (m_parent->width() - (getAbeExerciceAireDeTravailV1()->width() + getAbeExerciceTelecommandeV1()->width() + ecartAireTelecommande))/2;
-    qDebug()<<abscisseAire;
     int abscisseTelecommande = abscisseAire + getAbeExerciceAireDeTravailV1()->width() + ecartAireTelecommande;
-    qDebug()<<abscisseTelecommande;
     getAbeExerciceAireDeTravailV1()->move(abscisseAire,0);
-    qDebug()<<getAbeExerciceAireDeTravailV1()->pos();
     getAbeExerciceTelecommandeV1()->move(abscisseTelecommande,-25*abeApp->getAbeApplicationDecorRatio());
-    qDebug()<<getAbeExerciceTelecommandeV1()->pos();
     getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->move(abscisseTelecommande - getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->width()+30*abeApp->getAbeApplicationDecorRatio(),
                                                                 getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->y());
     boiteTetes->setPos((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - boiteTetes->geometry().width())/2,
@@ -152,6 +155,7 @@ void ExerciceOperation::slotInitQuestionEntered()
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
         ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+        ABULEDU_LOG_DEBUG() <<m_total<<getAbeNbTotalQuestions()<<getAbeNumQuestion()<<m_score;
     }
     AbstractExercise::slotInitQuestionEntered();
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
@@ -223,29 +227,10 @@ void ExerciceOperation::slotInitQuestionEntered()
     /** @todo voir ça, dessous */
 //    m_total = m_ui->lblTotal->text().toInt();
     m_total++;
-    QString monTotal = "";
-    monTotal = monTotal.setNum(m_total);
-    /** @todo voir ça, dessous */
-//    m_ui->lblTotal->setText(monTotal);
-    /** @todo voir ça, dessous */
-//    m_ui->lblMsg->setText("");
-    QPixmap* rien = new QPixmap("");
-    /** @todo voir ça, dessous. C'est maintenant à régler avec la boite à têtes */
-//    m_ui->lblImgMsg->setPixmap(*rien);
 
-    //accessibilité des boutons
-    /** @todo voir ça, dessous. Machine à état ? */
-//    m_ui->btnFeu->setEnabled(true);
-//    if (m_baudruche!=NULL) m_ui->btnBallon->setDisabled(true);
-//    m_ui->leResultat->setEnabled(true);
-//    m_ui->leResultat->setFocus(Qt::OtherFocusReason);
-    //à régler si le résultat est zéro...
-    // QString expressRegul = "
-    QRegExp expressionReguliere("[0-9][0-9]{0,"+QString::number(3)+"}");
-//    m_ui->leResultat->setValidator(new QRegExpValidator(expressionReguliere, this));
-
-    //animation du ballon
+    /* animation du ballon */
     animeBaudruche();
+    boiteTetes->setEtatTete(m_numExercice, abe::evalY,false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
 }
 
 void ExerciceOperation::slotQuestionEntered()
@@ -265,38 +250,38 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
         ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
+    AbstractExercise::slotAfficheVerificationQuestionEntered();
     if(m_leResultat->text().simplified().isEmpty()){
-        boiteTetes->setEtatTete(m_numExercice, getAbeExerciceEvaluation(),false);
+        setAbeExerciceEvaluation(abe::evalZ);
+        boiteTetes->setEtatTete(m_numExercice, getAbeExerciceEvaluation(),false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
         setAbeTeteForResult(1,1);
     }
-    AbstractExercise::slotAfficheVerificationQuestionEntered();
-    /** @todo gérer ça à la statemachine */
-//    m_ui->leResultat->setDisabled(true);
-    abe::ABE_EVAL evaluation = abe::evalY;
-    float proposition = m_leResultat->text().toFloat();
-    float reponse = m_resultatEnCours;
-    qDebug()<<"Valeur du ballon : "<<reponse<<", lache sur "<<proposition;
-    QString demande = "";
-    demande = m_baudruche->getMGOperande()+m_baudruche->getMOperation()+m_baudruche->getMDOperande();
-//    m_score =
-
-    if (proposition == reponse) {
-        m_score++;
-        /** @todo Mettre la tête de William très bien dans la boiteTetes */
-//        QPixmap* imgO = new QPixmap(":/calculment/elements/win");
-//        imgO->scaledToHeight(imgO->height()*factY);
-//        m_ui->lblImgMsg->setPixmap(*imgO);
-        evaluation = abe::evalA;
-    }
     else {
-        /** @todo Mettre la tête de William mal dans la boiteTetes */
-        ajouteErreur("Erreur calcul");
-        evaluation = abe::evalD;
+
+        float proposition = m_leResultat->text().toFloat();
+        qDebug()<<"Valeur du ballon : "<<m_resultatEnCours<<", lache sur "<<proposition;
+        QString demande = "";
+        demande = m_baudruche->getMGOperande()+m_baudruche->getMOperation()+m_baudruche->getMDOperande();
+        //    m_score =
+
+        if (proposition == m_resultatEnCours) {
+            m_score++;
+            /** @todo Mettre la tête de William très bien dans la boiteTetes */
+            //        QPixmap* imgO = new QPixmap(":/calculment/elements/win");
+            //        imgO->scaledToHeight(imgO->height()*factY);
+            //        m_ui->lblImgMsg->setPixmap(*imgO);
+            setAbeExerciceEvaluation(abe::evalA);
+        }
+        else {
+            /** @todo Mettre la tête de William mal dans la boiteTetes */
+            ajouteErreur("Erreur calcul");
+            setAbeExerciceEvaluation(abe::evalD);
+        }
     }
     getAbeExerciceTelecommandeV1()->ui->lblCustom2->setText(QString::number(m_score)+ " sur "+QString::number(getAbeNbTotalQuestions()));
 
     //sauvegardeLog* envoieRes = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, m_baudruche->getMLigne(), m_ui->leResultat->text(), reponseAttendueEnString);
-    setAbeLineLog(m_baudruche->getMLigne(),m_leResultat->text().simplified(),m_score, m_total,evaluation,QString::number(reponse));
+    setAbeLineLog(m_baudruche->getMLigne(),m_leResultat->text().simplified(),m_score, m_total,getAbeExerciceEvaluation(),QString::number(m_resultatEnCours));
     qDebug()<<getPluginLogs();
 
     if (m_baudruche) m_baudruche->detruire();// <<<<-------------------------------------- Merdier
@@ -325,15 +310,26 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
 
         config.endGroup();
     }
+    boiteTetes->setEtatTete(m_numExercice, getAbeExerciceEvaluation(),false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
 }
 
 void ExerciceOperation::slotFinVerificationQuestionEntered()
 {
+    AbstractExercise::slotFinVerificationQuestionEntered();
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
         ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+        qDebug()<<" ---------------------------------------------------- ";
+        qDebug()<<" Je sors de "<<__PRETTY_FUNCTION__;
+        qDebug()<<" m_score "<<m_score;
+        qDebug()<<" m_total "<<m_total;
+        qDebug()<<" m_resultatEnCours "<<m_resultatEnCours;
+        qDebug()<<" m_trace "<<m_trace;
+        qDebug()<<" getAbeNumQuestion "<<getAbeNumQuestion();
+        qDebug()<<" getAbeNbTotalQuestions "<<getAbeNbTotalQuestions();
+        qDebug()<<"getAbeExerciceEvaluation" <<getAbeExerciceEvaluation();
+        qDebug()<<" ---------------------------------------------------- ";
     }
-    AbstractExercise::slotFinVerificationQuestionEntered();
 }
 
 void ExerciceOperation::slotAfficheCorrectionQuestionEntered()

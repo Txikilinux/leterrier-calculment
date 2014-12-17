@@ -53,21 +53,34 @@ protected:
       * Dans le cas où l'aire de jeu est une QGraphicsView, il s'agit d'enlever les éléments contenus dans sa scène */
     virtual void clearScene();
 
-    /** QGraphicsProxyWidget de l'aire de jeu
-      * Il permet d'intégrer l'aire de jeu dans l'AbulEduExerciceWidgetAireDeTravailV1 */
-    QGraphicsProxyWidget *m_proxyAireDeJeu;
 
     /** Dimensionne et place les widgets
       * @param ratio le ratio est par défaut celui calculé dans l'AbulEduApplicationV1 */
     virtual void setDimensionsWidgets(float ratio = abeApp->getAbeApplicationDecorRatio());
 
+    ///
+    /// \brief L'objet qui porte l'opération
+    ///
     baudruche* m_baudruche;
 
+    ///
+    /// \brief Le QPoint* duquel part la baudruche
+    ///
     QPoint* m_depart;
 
+    ///
+    /// \brief L'image de fond qu'on met à la scène
+    ///
     QPixmap* m_imageFond;
 
+    ///
+    /// \brief Nombre de réponses correctes
+    ///
     int m_score;
+
+    ///
+    /// \brief Nombre de questions déjà posées (celle en cours incluse)
+    ///
     int m_total;
 
     ///
@@ -75,12 +88,29 @@ protected:
     ///
     int m_resultatEnCours;
 
+    ///
+    /// \brief Un nombre passé en paramètre. Table de ..., compléments à ...
+    ///
     int m_cible;
-    QStringList m_listeEchecs;
 
+    ///
+    /// \brief L'opération proposée sous forme d'une chaine de caractères
+    ///
     QString m_trace;
 
+    ///
+    /// \brief QLineEdit ajouté à la télécommande pour écrire les réponses
+    ///
     QLineEdit* m_leResultat;
+
+    ///
+    /// \brief Opérations dont la réponse est erronée. Leur stockage permet de les reproposer
+    ///
+    QStringList m_listeEchecs;
+
+    /** QGraphicsProxyWidget de l'aire de jeu
+      * Il permet d'intégrer l'aire de jeu dans l'AbulEduExerciceWidgetAireDeTravailV1 */
+    QGraphicsProxyWidget *m_proxyAireDeJeu;
 
 protected slots:
 

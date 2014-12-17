@@ -25,12 +25,21 @@
 AbstractExercise::AbstractExercise(QWidget *parent):
     AbulEduCommonStatesV1(parent),
     m_localDebug(true),
-    m_parent(parent)
+    m_parent(parent),
+    m_AireDeJeu(new QGraphicsView()),
+    m_sceneAireDeJeu(new QGraphicsScene(this)),
+    m_baudruche(0),
+    m_depart(0),
+    m_imageFond(0),
+    m_score(0),
+    m_total(0),
+    m_resultatEnCours(-1),
+    m_cible(-1),
+    m_trace(QString()),
+    m_leResultat(0)
 {
     /* Création de l'aire de jeu et de sa scène */
-    m_AireDeJeu = new QGraphicsView();
 
-    m_sceneAireDeJeu = new QGraphicsScene(this);
     m_AireDeJeu->setScene(m_sceneAireDeJeu);
     m_AireDeJeu->setSceneRect(m_AireDeJeu->rect());
     /* On la place sur l'AbulEduExerciceWidgetAireDeTravailV1 par l'intermédiaire d'un QGraphicsProxyWidget,
@@ -174,7 +183,7 @@ void AbstractExercise::slotBilanSequenceEntered()
 
 bool AbstractExercise::eventFilter(QObject *obj, QEvent *event)
 {
-    return QObject::eventFilter(obj,event);
+    return AbulEduCommonStatesV1::eventFilter(obj,event);
 }
 
 void AbstractExercise::slotAide()
