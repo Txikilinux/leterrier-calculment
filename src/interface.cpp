@@ -76,6 +76,7 @@ interface::interface(QWidget *parent)
     /* Création de la page d'accueil et insertion dans la stackedWidget */
     m_abuleduPageAccueil = new AbulEduPageAccueilV1(ui->mainPage);
     connect(m_abuleduPageAccueil, SIGNAL(boutonPressed(int,QString)), this, SLOT(slotInterfaceLaunchExercise(int,QString)), Qt::UniqueConnection);
+    connect(m_abuleduPageAccueil->abePageAccueilGetMenu(), SIGNAL(btnBoxTriggered()), this, SLOT(slotAskLanceur()),Qt::UniqueConnection);
 
     m_messageAide = trUtf8("Clique sur une des zones de lancement des exercices.");
     m_demoMessageBox = new AbulEduMessageBoxV1(trUtf8("On y va ?"),m_messageAide,false,m_abuleduPageAccueil);
@@ -100,97 +101,6 @@ interface::interface(QWidget *parent)
 //    m_exerciceNames.insert("tableM",tru)
 
     m_editeur = new Editeur();
-
-    //Bouton sur les auto-tamponneuses
-//    boutonsPolygone* btnPoly1 = new boutonsPolygone("addition");
-//    btnPoly1->deplace(0*kw,440*kh);
-//    btnPoly1->retaille(630*kw,235*kh);
-//    //btnPoly1->tourne(-20);
-//    btnPoly1->QGraphicsItem::setToolTip(trUtf8("Faire des additions"));
-//    btnPoly1->setTexte(trUtf8("Additions"));
-//    dessin->addItem(btnPoly1);
-//    connect(btnPoly1, SIGNAL(clicked()), this, SLOT(close()));
-
-//    //Bouton sur le manège
-//    boutonsPolygone* btnPoly2 = new boutonsPolygone("multiplication");
-//    btnPoly2->deplace(635*kw,550*kh);
-//    btnPoly2->retaille(430*kw,410*kh);
-//    btnPoly2->QGraphicsItem::setToolTip(trUtf8("Faire des multiplications"));
-//    btnPoly2->setTexte(trUtf8("Multiplications"));
-//    dessin->addItem(btnPoly2);
-
-//    //Bouton sur la barbapapa
-//    boutonsPolygone* btnPoly3 = new boutonsPolygone("editeur");
-//    btnPoly3->deplace(60*kw,680*kh);
-//    btnPoly3->retaille(190*kw,285*kh);
-//    btnPoly3->QGraphicsItem::setToolTip(trUtf8("Lancer l'éditeur"));
-//    dessin->addItem(btnPoly3);
-
-//    //Bouton sur le panneau sortie
-//    boutonsPolygone* btnPoly4 = new boutonsPolygone("sortie");
-//    btnPoly4->setImage(QPixmap(":/calculment/backgrounds/exitSign_"+m_locale));
-//    btnPoly4->deplace(1340*kw,723*kh);
-//    btnPoly4->retaille(170*kw,40*kh);
-//    btnPoly4->QGraphicsItem::setToolTip(trUtf8("Quitter"));
-//    connect(btnPoly4, SIGNAL(sortie()), this, SLOT(close()));
-//    dessin->addItem(btnPoly4);
-
-//    //Bouton sur la grande roue
-//    boutonsPolygone* btnPoly5 = new boutonsPolygone("1tableM");
-//    btnPoly5->deplace(40*kw,15*kh);
-//    btnPoly5->retaille(340*kw,365*kh);
-//    btnPoly5->QGraphicsItem::setToolTip(trUtf8("Tables de multiplication"));
-//    btnPoly5->setTexte(trUtf8("Tables de multiplication"));
-//    dessin->addItem(btnPoly5);
-
-//    //Bouton sur le train fantôme
-//    boutonsPolygone* btnPoly6 = new boutonsPolygone("2complementA");
-//    btnPoly6->deplace(765*kw,275*kh);
-//    btnPoly6->retaille(395*kw,200*kh);
-//    btnPoly6->tourne(12);
-//    btnPoly6->QGraphicsItem::setToolTip(trUtf8("Compléments additifs"));
-//    btnPoly6->setTexte(trUtf8("Compléments additifs"));
-//    dessin->addItem(btnPoly6);
-
-//    //Bouton sur le stand de tir
-//    boutonsPolygone* btnPoly7 = new boutonsPolygone("3complementM");
-//    btnPoly7->deplace(1135*kw,510*kh);
-//    btnPoly7->retaille(180*kw,120*kh);
-//    btnPoly7->tourne(10);
-//    btnPoly7->QGraphicsItem::setToolTip(trUtf8("Multiples"));
-//    btnPoly7->setTexte(trUtf8("Multiples"));
-//    dessin->addItem(btnPoly7);
-
-//    //Bouton sur la chenille
-//    boutonsPolygone* btnPoly8 = new boutonsPolygone("soustraction");
-//    btnPoly8->deplace(515*kw,220*kh);
-//    btnPoly8->retaille(220*kw,220*kh);
-//    btnPoly8->QGraphicsItem::setToolTip(trUtf8("Faire des soustractions"));
-//    btnPoly8->setTexte(trUtf8("Soustractions"));
-//    dessin->addItem(btnPoly8);
-
-//    //Bouton sur le "rooster"
-//    boutonsPolygone* btnPoly9 = new boutonsPolygone("4tableA");
-//    btnPoly9->deplace(425*kw,185*kh);
-//    btnPoly9->retaille(300*kw,50*kh);
-//    btnPoly9->tourne(-35);
-//    btnPoly9->QGraphicsItem::setToolTip(trUtf8("Tables d'addition"));
-//    btnPoly9->setTexte(trUtf8("Tables d'addition"));
-//    dessin->addItem(btnPoly9);
-
-//    //Bouton sur le palais des glaces
-//    boutonsPolygone* btnPoly10 = new boutonsPolygone("5OdGrandeur",100);
-//    btnPoly10->deplace(1315*kw,560*kh);
-//    btnPoly10->retaille(280*kw,150*kh);
-//    btnPoly10->QGraphicsItem::setToolTip(trUtf8("Ordres de grandeur"));
-//    dessin->addItem(btnPoly10);
-
-//    //Bouton l'avion
-//    boutonsPolygone* btnPoly11 = new boutonsPolygone("lanceur");
-//    btnPoly11->deplace(1470*kw, 70*kh);
-//    btnPoly11->retaille(85*kw,50*kh);
-//    btnPoly11->QGraphicsItem::setToolTip(trUtf8("Choisir son exercice"));
-//    dessin->addItem(btnPoly11);
 
     qApp->setProperty("VerrouNombres",true);
 
@@ -860,4 +770,31 @@ void interface::setTitle(int authStatus)
         }
     }
     setWindowTitle(title);
+}
+
+void interface::slotAskLanceur()
+{
+        if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
+        {
+
+            abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
+            abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
+            abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+        }
+        else
+        {
+            slotMontreLanceur();
+        }
+}
+
+void interface::slotMontreLanceur()
+{
+    AbuleduLanceurV1* lanceur = new AbuleduLanceurV1(abeApp->getAbeIdentite());
+    lanceur->show();
+}
+
+void interface::slotMontreErreurId()
+{
+    AbulEduMessageBoxV1* msgError = new AbulEduMessageBoxV1(trUtf8("Problème !"),trUtf8("Accès impossible au lanceur d'activité sans identification correcte"));
+    msgError->show();
 }

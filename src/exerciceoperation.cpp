@@ -388,14 +388,4 @@ void ExerciceOperation::ajouteErreur(QString msg)
     }
     qDebug()<<getAbeNumQuestion()<<getAbeNbTotalQuestions();
     m_listeEchecs.append(QString::number(m_baudruche->getMGOperande())+";"+m_baudruche->getMOperation()+";"+QString::number(m_baudruche->getMDOperande())+";"+QString::number(m_resultatEnCours)+";"+m_baudruche->m_nomImage);
-//    if (getAbeNumQuestion() == getAbeNbTotalQuestions())
-//    {
-//        sequenceMachine->postDelayedEvent(new StringEvent("Questionsdone"),2000);
-//        qDebug()<<"fini";
-//    }
-//    else
-//    {
-//        sequenceMachine->postDelayedEvent(new StringEvent("Questionsloop"),2000);
-//        qDebug()<<"on boucle ";
-//    }
 }

@@ -196,6 +196,10 @@ private slots:
     void slotInterfaceShowAboutPage();
 
     void setTitle(int authStatus);
+
+    void slotAskLanceur();
+    void slotMontreLanceur();
+    void slotMontreErreurId();
 };
 
 #endif // INTERFACE_H
