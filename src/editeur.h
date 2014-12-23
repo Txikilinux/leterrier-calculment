@@ -37,6 +37,7 @@ private:
     void initialiserApproche(QString operation);
     void initialiserApprocheM(QString operation);
     void initialiserComplement(QString operation);
+    void initialiserDivision();
     QString associeNomIntitule(QString intitule);
     ///
     /// \brief Fonction qui installe les eventFilter sur les objects à surveiller

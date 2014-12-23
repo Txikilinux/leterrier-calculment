@@ -406,6 +406,7 @@ void interface::slotInterfaceInitialStateEntered()
     m_exerciceNames.insert("tableA","Tables d'addition");
     m_exerciceNames.insert("OdGrandeur","Ordres de grandeur");
     m_exerciceNames.insert("lanceur","Lanceur");
+    m_exerciceNames.insert("division", "Divisions");
 
     /* Pas de module dans ce logiciel, les zones sensibles sont activées */
 }

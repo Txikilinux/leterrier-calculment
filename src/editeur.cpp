@@ -285,9 +285,46 @@ void Editeur::initialiserComplement(QString operation)
             {
                 config.setValue("NomPourAffichage", trUtf8("Maison des nombres"));
             }
-    config.endGroup();
+            config.endGroup();
 }
 
+void Editeur::initialiserDivision()
+{
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    config.setIniCodec("UTF-8");
+    config.beginGroup("division");
+            config.beginGroup("Niveau1");
+                config.setValue("MinGauche", 0);
+                config.setValue("MaxGauche", 100);
+                config.setValue("MinDroite", 2);
+                config.setValue("MaxDroite", 2);
+                config.setValue("TempsAccorde",8);
+            config.endGroup();
+            config.beginGroup("Niveau2");
+                config.setValue("MinGauche", 0);
+                config.setValue("MaxGauche", 100);
+                config.setValue("MinDroite", 5);
+                config.setValue("MaxDroite", 5);
+                config.setValue("TempsAccorde",8);
+            config.endGroup();
+            config.beginGroup("Niveau3");
+            config.setValue("MinGauche", 0);
+            config.setValue("MaxGauche", 100);
+            config.setValue("MinDroite", 2);
+            config.setValue("MaxDroite", 5);
+                config.setValue("TempsAccorde",8);
+            config.endGroup();
+            config.beginGroup("Personnel");
+                config.setValue("MinGauche", 0);
+                config.setValue("MaxGauche", 200);
+                config.setValue("MinDroite", 2);
+                config.setValue("MaxDroite", 5);
+                config.setValue("TempsAccorde",8);
+            config.endGroup();
+            config.setValue("NiveauEnCoursDivision", "Niveau1");
+            config.setValue("NomPourAffichage", trUtf8("Division"));
+    config.endGroup();
+}
 
 void Editeur::initialiser()
 {
@@ -301,6 +338,7 @@ void Editeur::initialiser()
     initialiserOperation("addition");
     initialiserOperation("multiplication");
     initialiserOperation("soustraction");
+    initialiserDivision();
     initialiserApproche("OdGrandeurAddition");
     initialiserApproche("OdGrandeurSoustraction");
     initialiserApprocheM("OdGrandeurMultiplication");

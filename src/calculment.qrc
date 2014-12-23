@@ -46,6 +46,7 @@
         <file alias="tableM">data/images/tableM.jpg</file>
         <file alias="maisonDesNombres">data/images/maisonDesNombres.jpg</file>
         <file alias="empty">data/images/empty.png</file>
+        <file alias="division">data/images/division.jpg</file>
     </qresource>
     <qresource prefix="/calculment/elements">
         <file alias="aie1">data/images/aie01.png</file>

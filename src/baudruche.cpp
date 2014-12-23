@@ -58,32 +58,66 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     m_parent = new QGraphicsScene();
     m_parent = parent;
     setParent(parent);
-    if (operation=="addition" || operation=="tableA" || operation=="") m_op = "+";
-    else if (operation=="soustraction") m_op = "-";
-        else if (operation=="multiplication" || operation=="tableM") m_op = "x";
+    if (operation=="addition" || operation=="tableA" || operation==""){
+        m_op = "+";
+    }
+    else if (operation=="soustraction"){
+        m_op = "-";
+    }
+    else if (operation=="multiplication" || operation=="tableM"){
+        m_op = "x";
+    }
+    else if(operation == "division"){
+        m_op = ":";
+    }
     m_position.setX(pos.x());
     m_position.setY(pos.y());
 
-    if (intMinG==intMaxG) g_operande=intMaxG;
-    else g_operande = intMinG + rand()%(intMaxG-intMinG);
-
-    if (intMinD==intMaxD) d_operande=intMaxD;
+/* Je déplace la détermination de l'opérande droit avant celle du gauche parce que ça m'arrange pour la division, vérifier si c'est pas le bordail ailleurs */
+    if (intMinD == intMaxD) d_operande = intMaxD;
     else d_operande = intMinD + rand()%(intMaxD-intMinD);
+    if (intMinG == intMaxG){
+        g_operande = intMaxG;
+    }
+    else{
+        if(operation == "division"){
+            float reste;
+            do {
+            g_operande = intMinG + rand()%(intMaxG-intMinG);
+            reste = g_operande/d_operande - static_cast<int>(g_operande/d_operande);
+            }
+            while(reste != 0);
+        }
+        else {
+            g_operande = intMinG + rand()%(intMaxG-intMinG);
+        }
+    }
     //Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes...
-    if (d_operande>g_operande)
+    if (d_operande > g_operande)
     {
         int tmp=g_operande;
         g_operande=d_operande;
         d_operande=tmp;
     }
 
-    //Calcul du résultat à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*")
-    if (m_op=="x") m_ligne = QString::number(g_operande)+"*"+QString::number(d_operande);
-    else m_ligne = QString::number(g_operande)+m_op+QString::number(d_operande);
-        QScriptEngine calculateur;
-        QScriptValue resultat = calculateur.evaluate(m_ligne);
-        m_resultat = resultat.toNumber();
+    /* Calcul du résultat à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*") */
+    if (m_op=="x"){
+        m_ligne = QString::number(g_operande)+"*"+QString::number(d_operande);
+    }
+    /* Problème aussi si c'est la division : l'utiliteur veut un ":" alors que le calculateur veut un "/") */
+    else if(m_op == ":"){
+        m_ligne = QString::number(g_operande)+"/"+QString::number(d_operande);
+    }
+    else {
+        m_ligne = QString::number(g_operande)+m_op+QString::number(d_operande);
+    }
 
+    QScriptEngine calculateur;
+    QScriptValue resultat = calculateur.evaluate(m_ligne);
+    m_resultat = resultat.toNumber();
+    qDebug()<<" ----------------------------------------------------------------- ";
+    qDebug()<<m_resultat<<m_resultat;
+    qDebug()<<" ----------------------------------------------------------------- ";
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
     construisAffichage();

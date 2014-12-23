@@ -9,6 +9,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
     m_minD(0),
     m_maxD(9)
 {
+    qDebug()<<" ******************************** "<<exerciseName;
     m_localDebug = true;
     m_cible = val;
     if (niveau.isEmpty())
@@ -172,7 +173,7 @@ void ExerciceOperation::chargerParametres()
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     setAbeNbTotalQuestions(config.value("NombreBallons",10).toInt());
     config.beginGroup(m_operationName);
-    if (getAbeLevel().isEmpty()) setAbeLevel(config.value("NiveauEnCours"+m_operationName,1).toString());
+    if (getAbeLevel().isEmpty()) setAbeLevel(config.value("NiveauEnCours"+m_operationName,"Niveau1").toString());
     else qDebug()<<"Dans chargerParametres(), m_level valait déjà "<<getAbeLevel();
     config.beginGroup(getAbeLevel());
     qDebug()<<"Lecture des paramètres dans "<<config.fileName()<<" - "<<m_operationName<<" - "<<getAbeLevel();
@@ -206,7 +207,13 @@ void ExerciceOperation::animeBaudruche()
     QGraphicsItemAnimation *animation = new QGraphicsItemAnimation(m_sceneAireDeJeu);
     animation->setItem(m_baudruche);
     animation->setTimeLine(m_baudruche->m_timer);
-    if (m_operationName == "addition") {
+    if(m_operationName == "division"){
+        qDebug()<<"je suis bien là";
+        for (int i = 0; i < 200; i++){
+            animation->setPosAt(i/200.0, QPoint(-450,0)+QPointF((3.8*i*factX) ,0 ));
+        }
+    }
+    else if (m_operationName == "addition") {
         for (int i = 0; i < 200; i++)
             animation->setPosAt(i/200.0, QPointF((3.8*i*factX) ,0 ));
     }
@@ -222,6 +229,11 @@ void ExerciceOperation::animeBaudruche()
     //animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 )); --> pour la faire aller à droite
 
     m_baudruche->m_timer->start();
+    qDebug()<<m_AireDeJeu->rect();
+    qDebug()<<m_sceneAireDeJeu->sceneRect();
+    qDebug()<<getAbeExerciceAireDeTravailV1()->rect();
+    qDebug()<<getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->rect();
+    qDebug()<<getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->sceneRect();
 }
 
 void ExerciceOperation::slotSequenceEntered()
@@ -264,7 +276,8 @@ void ExerciceOperation::slotInitQuestionEntered()
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,m_sceneAireDeJeu,"auto");
     else if(m_operationName==""
             || m_operationName=="soustraction"
-            || m_operationName=="multiplication")
+            || m_operationName=="multiplication"
+            || m_operationName=="division")
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,m_sceneAireDeJeu);
 
     else if (m_operationName.left(6)=="tableA")
