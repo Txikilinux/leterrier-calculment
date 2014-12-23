@@ -1,8 +1,8 @@
 #ifndef EXERCICEMAISONNOMBRES_H
 #define EXERCICEMAISONNOMBRES_H
-#include "exercice.h"
+#include "exerciceoperation.h"
 
-class ExerciceMaisonNombres : public exercice
+class ExerciceMaisonNombres : public ExerciceOperation
 {
     Q_OBJECT
 public:

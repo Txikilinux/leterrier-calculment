@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include "boutonspolygone.h"
+#include "exerciceoperation.h"
 
 namespace Ui {
     class InterfaceCompetence;
@@ -22,6 +23,7 @@ protected:
 
 private:
     Ui::InterfaceCompetence *m_ui;
+    bool m_localDebug;
     void adapte(QPixmap);
     QGraphicsScene* m_scene;
     QPixmap* m_decor;
@@ -31,6 +33,7 @@ private:
 
 private slots:
     void on_btnFermer_clicked();
+    void slotInterfaceCompetenceGoToExercise(int valeur, QString operation);
 signals:
     void signalInterfaceCompetenceClose();
 };

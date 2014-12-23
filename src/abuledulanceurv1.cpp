@@ -160,12 +160,10 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
     if (m_nomExercice == "maisonDesNombres")
     {
         ExerciceMaisonNombres* exerciceLance = new ExerciceMaisonNombres(m_nomExercice, 0, 0,m_listeNiveaux[ui->cbNiveau->currentIndex()]);
-        exerciceLance->show();
     }
     else
     {
-    exercice* exerciceLance = new exercice(m_nomExercice,0,ui->cbNombre->currentText().toInt(),m_listeNiveaux[ui->cbNiveau->currentIndex()]);
-    exerciceLance->show();
+//        ExerciceOperation* exerciceLance = new ExerciceOperation(m_nomExercice,0,ui->cbNombre->currentText().toInt(),m_listeNiveaux[ui->cbNiveau->currentIndex()]);
     }
     this->close();
 }

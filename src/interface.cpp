@@ -40,7 +40,7 @@
 interface::interface(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::interfaceClass)
 {
-    m_localDebug = true;
+    m_localDebug = false;
     //Langue
     //m_locale = QLocale::system().name().section('_', 0, 0);
     m_locale = qApp->property("langageUtilise").toString();
@@ -329,7 +329,8 @@ void interface::slotInterfaceDemo()
     foreach(AbulEduZoneV1* zone, m_abuleduPageAccueil->abePageAccueilGetZones()){
         zone->abeZoneDrawRect(true,QColor("#dcdcdc"),4);
     }
-    m_demoTimeLine->start();
+    /** @todo réactiver pour le passage en tests et en prod
+    m_demoTimeLine->start(); */
 }
 
 void interface::slotInterfaceEndDemo()
@@ -724,7 +725,6 @@ void interface::on_actionSur_des_multiplications_triggered()
 void interface::on_actionMaison_des_nombres_triggered()
 {
     ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres("maisonDesNombres",0,0);
-    maisonNombres->show();
 }
 
 void interface::on_actionVerrouillage_nombres_changed()

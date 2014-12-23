@@ -32,7 +32,7 @@ class ExerciceOperation : public AbstractExercise
 
 Q_OBJECT
 public:
-    ExerciceOperation(QString exerciseName,QWidget *parent);
+    ExerciceOperation(QString exerciseName, QWidget *parent, int val = 0, QString niveau = QString());
     ~ExerciceOperation();
 
 protected:

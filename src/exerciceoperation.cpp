@@ -1,6 +1,6 @@
 #include "exerciceoperation.h"
 
-ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent) :
+ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int val, QString niveau) :
     AbstractExercise(parent),
     m_operationName(exerciseName),
     m_parent(parent),
@@ -10,6 +10,16 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent) :
     m_maxD(9)
 {
     m_localDebug = true;
+    m_cible = val;
+    if (niveau.isEmpty())
+        setAbeLevel(niveau);
+    else
+    {
+        if (niveau.right(1).toInt() == 0)
+            setAbeLevel("Personnel");
+        else
+            setAbeLevel("Niveau"+niveau.right(1));
+    }
     m_score = 0;
     m_leResultat = new QLineEdit("toto",getAbeExerciceTelecommandeV1());
     m_leResultat->setObjectName("leResultat");
@@ -21,6 +31,91 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent) :
      *  par contre il faut trouver pourquoi il faut appuyer deux fois  */
 //    connect(m_leResultat, SIGNAL(returnPressed()),getAbeExerciceTelecommandeV1()->ui->btnVerifier, SLOT(click()),Qt::UniqueConnection);
     getAbeExerciceTelecommandeV1()->setDimensionsWidget();
+    if (exerciseName.left(11)=="complementA")
+    {
+        exerciseName.truncate(11);
+        setAbeExerciceName(trUtf8("Complément additif à %1").arg(QString::number(val)));
+        //Skill non existant dans les competences Educ Nat
+    }
+
+    if(exerciseName.left(11)=="complementM")
+    {
+        exerciseName.truncate(11);
+        setAbeExerciceName(trUtf8("Multiples de %1").arg(QString::number(val)));
+        setAbeSkill("multiples-"+QString::number(val));
+
+    }
+
+    if (exerciseName.left(6)=="tableM")
+    {
+        exerciseName.truncate(6);
+        setAbeExerciceName(trUtf8("Table de multiplication par %1").arg(QString::number(val)));
+        setAbeSkill("table-multiplication-"+QString::number(val));
+    }
+
+    if (exerciseName.left(6)=="tableA")
+    {
+        exerciseName.truncate(6);
+        setAbeExerciceName(trUtf8("Table d'addition de %1").arg(QString::number(val)));
+        setAbeSkill("table-addition-"+QString::number(val));
+    }
+
+    if (exerciseName=="addition")
+    {
+        setAbeExerciceName(trUtf8("Additions de nombres inférieurs à %1 et %2").arg(QString::number(m_maxG)).arg(QString::number(m_maxD)));
+        if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
+            setAbeSkill("somme-mental-inferieur-"+QString::number(m_maxG));
+        // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
+    }
+
+    if (exerciseName=="soustraction")
+    {
+        setAbeExerciceName(trUtf8("Soustractions de nombres inférieurs à %1 et %2").arg(QString::number(m_maxG)).arg(QString::number(m_maxD)));
+        if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
+            setAbeSkill("difference-mental-inferieur-"+QString::number(m_maxG));
+        // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
+    }
+
+    if (exerciseName=="multiplication")
+    {
+        setAbeExerciceName(trUtf8("Multiplications de nombres inférieurs à %1 et %2").arg(QString::number(m_maxG)).arg(QString::number(m_maxD)));
+        if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
+            setAbeSkill("produit-mental-inferieur-"+QString::number(m_maxG));
+        // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
+    }
+
+    if (exerciseName.left(10)=="OdGrandeur")
+    {
+        /** @todo m_ui->btnAide->show();*/
+        QString nomExercice = trUtf8("Ordres de grandeur sur des ");
+        QString nomCompetence = "ordre-grandeur-";
+        if (exerciseName[10]=='A')
+        {
+            nomExercice.append(trUtf8("additions"));
+            nomCompetence.append("somme");
+        }
+        else if (exerciseName[10]=='S')
+        {
+            nomExercice.append(trUtf8("soustractions"));
+            nomCompetence.append("difference");
+        }
+        else
+        {
+            nomExercice.append(trUtf8("multiplications"));
+            nomCompetence.append("produit");
+        }
+        setAbeExerciceName(nomExercice);
+        setAbeSkill(nomCompetence);
+    }
+
+    if (exerciseName == "maisonDesNombres")
+    {
+        setAbeExerciceName(trUtf8("La maison des nombres"));
+    }
+    QPixmap imageFond;
+    qDebug()<<":/calculment/backgrounds/"+exerciseName;
+    imageFond.load(":/calculment/backgrounds/"+exerciseName);
+    m_imageFond = new QPixmap(imageFond.scaledToHeight(m_parent->height()));
 }
 
 ExerciceOperation::~ExerciceOperation()
@@ -50,9 +145,7 @@ void ExerciceOperation::setDimensionsWidgets(float ratio)
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
     }
-    QPixmap imageFond;
-    imageFond.load(":/calculment/backgrounds/"+m_operationName);
-    m_imageFond = new QPixmap(imageFond.scaledToHeight(m_parent->height()));
+
     QGraphicsPixmapItem* fond = new QGraphicsPixmapItem();
     fond->setPixmap(*m_imageFond);
     m_sceneAireDeJeu->addItem(fond);
@@ -60,7 +153,7 @@ void ExerciceOperation::setDimensionsWidgets(float ratio)
     m_AireDeJeu->setGeometry(0,0,m_imageFond->width(),m_imageFond->height());
     m_AireDeJeu->setSceneRect(0,0,m_imageFond->width(),m_imageFond->height());
     QPixmap backgr(":/calculment/backgrounds/empty");
-    getAbeExerciceAireDeTravailV1()->setImageFond(backgr.scaled(imageFond.width()+75*abeApp->getAbeApplicationDecorRatio(),imageFond.height()+150*abeApp->getAbeApplicationDecorRatio()));
+    getAbeExerciceAireDeTravailV1()->setImageFond(backgr.scaled(m_imageFond->width()+75*abeApp->getAbeApplicationDecorRatio(),m_imageFond->height()+150*abeApp->getAbeApplicationDecorRatio()));
     int ecartAireTelecommande = 0;
     int abscisseAire = (m_parent->width() - (getAbeExerciceAireDeTravailV1()->width() + getAbeExerciceTelecommandeV1()->width() + ecartAireTelecommande))/2;
     int abscisseTelecommande = abscisseAire + getAbeExerciceAireDeTravailV1()->width() + ecartAireTelecommande;

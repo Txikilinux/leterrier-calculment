@@ -72,7 +72,6 @@ void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
 {
     qDebug()<<"boutonsPolygone::mousePressEvent(1) où m_action = "<<*m_action<<" et "<<m_val;
-    emit signalBoutonPolygonePressed(m_val,*m_action);
     QChar initialeAction;
     initialeAction=(QChar)m_action->operator [](0);
 
@@ -103,12 +102,9 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
 
     else if (*m_action == "maisonDesNombres") {
         ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(*m_action,0,m_val);
-        maisonNombres->show();
     }
     else {
-
-//        exercice* ex = new exercice(*m_action,0,m_val);
-//        ex->show();
+        emit signalBoutonPolygonePressed(m_val,*m_action);
     }
     e->accept();
     switch (m_transformable) {

@@ -24,6 +24,7 @@
 
 #include "interfacecompetence.h"
 #include "ui_interfacecompetence.h"
+#include "abuledustackedwidgetv1.h"
 #include "interface.h"
 
 #include <QDebug>
@@ -33,28 +34,43 @@
 
 InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
     QWidget(parent),
-    m_ui(new Ui::InterfaceCompetence)
+    m_ui(new Ui::InterfaceCompetence),
+    m_localDebug(false)
 {
     m_ui->setupUi(this);
     m_scene = new QGraphicsScene(this);
-    qDebug()<<"Appel de l'interface compétence pour "<<competence<<"::"<<parent->size();
+    if(m_localDebug){
+        qDebug()<<"Appel de l'interface compétence pour "<<competence<<"::"<<parent->size();
+    }
     setFixedHeight(parent->height());
     update();
     m_parent = parent;
+
     setAttribute(Qt::WA_DeleteOnClose);
+
+    QWidget* destExercices = 0;
+    if(m_parent){
+        if(m_parent->parentWidget()){
+            destExercices = m_parent->parentWidget()->findChild<QWidget*>("exercicePage");
+        }
+    }
 
     if(competence == "tableM") {
             m_decor = new QPixmap(":/calculment/backgrounds/backgroundInterfaceTablesM");
             this->setWindowTitle(trUtf8("Tables de multiplication"));
             QPoint origine(m_decor->width()/2.4,m_decor->height()/2.3);
-            qDebug()<<"Taille décor : "<<m_decor->width()<<" X "<<m_decor->height();
-            qDebug()<<"Origine : ("<<m_decor->width()/2<<","<<m_decor->height()/2<<")";
-            int R=m_decor->width()/2.5;
-            int nb=8;
-            double angleDepart=3.14/nb;
-            float deformation=1;
+            if(m_localDebug){
+                qDebug()<<"Taille décor : "<<m_decor->width()<<" X "<<m_decor->height();
+                qDebug()<<"Origine : ("<<m_decor->width()/2<<","<<m_decor->height()/2<<")";
+            }
+            int R = m_decor->width()/2.5;
+            int nb = 8;
+            double angleDepart = 3.14/nb;
+            float deformation = 1;
             for (int i=0;i<nb;i++) {
                 boutonsPolygone* btn = new boutonsPolygone("tableM"+QString::number(i+2),i+2);
+                btn->setParent(destExercices);
+                connect(btn, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
                 btn->deplace((origine.x()+R*cos((2*3.14/nb)*i+angleDepart)), (origine.y()+deformation*R*sin((2*3.14/nb)*i+angleDepart)));
                 btn->retaille(100*abeApp->getAbeApplicationDecorRatio(),100*abeApp->getAbeApplicationDecorRatio());
                 btn->QGraphicsItem::setToolTip(trUtf8("Table x%1").arg(QString::number(i+2)));
@@ -70,6 +86,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             QPoint origine((m_decor->width()/4)-80,(m_decor->height()/4)-80);
             QPixmap im(":/calculment/elements/fantomeRose");
             boutonsPolygone* btn1 = new boutonsPolygone("complementA10",10);
+            connect(btn1, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
+            btn1->setParent(destExercices);
                 btn1->QGraphicsItem::setToolTip(trUtf8("Compléments à 10"));
                 btn1->deplace(origine.x(), origine.y());
                 btn1->retaille(im.width()*abeApp->getAbeApplicationDecorRatio(),im.height()*abeApp->getAbeApplicationDecorRatio());
@@ -77,6 +95,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btn1->setMTransformable(2);
                 m_scene->addItem(btn1);
             boutonsPolygone* btn2 = new boutonsPolygone("complementA100",100);
+            connect(btn2, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
+            btn2->setParent(destExercices);
                 btn2->QGraphicsItem::setToolTip(trUtf8("Compléments à 100"));
                 btn2->deplace((origine.x()+ m_decor->width()/2), origine.y());
                 btn2->retaille(im.width()*abeApp->getAbeApplicationDecorRatio(),im.height()*abeApp->getAbeApplicationDecorRatio());
@@ -84,6 +104,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 btn2->setMTransformable(2);
                 m_scene->addItem(btn2);
             boutonsPolygone* btn3 = new boutonsPolygone("complementA1000",1000);
+            connect(btn3, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
+            btn3->setParent(destExercices);
                 btn3->QGraphicsItem::setToolTip(trUtf8("Compléments à 1000"));
                 btn3->deplace(origine.x(), (origine.y()+ m_decor->height()/2));// en attendant l'implémentation de la maison des nombres
 //                btn3->deplace(origine.x() + m_decor->width()/4, (origine.y()+ m_decor->height()/2));
@@ -94,6 +116,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
 
                 //fantome pour la maison des nombres
             boutonsPolygone* btn4 = new boutonsPolygone("maisonDesNombres",0);
+            connect(btn4, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
+            btn4->setParent(destExercices);
                 btn4->QGraphicsItem::setToolTip(trUtf8("La maison des nombres, niveau1"));
                 btn4->deplace((origine.x()+ m_decor->width()/3), (origine.y()+ m_decor->height()/2));
                 btn4->retaille(im.width()*abeApp->getAbeApplicationDecorRatio(),im.height()*abeApp->getAbeApplicationDecorRatio());
@@ -102,6 +126,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 m_scene->addItem(btn4);
 
             boutonsPolygone* btn5 = new boutonsPolygone("maisonDesNombres",10);
+            connect(btn5, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
+            btn5->setParent(destExercices);
                 btn5->QGraphicsItem::setToolTip(trUtf8("La maison des nombres, niveau2"));
                 btn5->deplace((origine.x()+ 2*m_decor->width()/3), (origine.y()+ m_decor->height()/2));
                 btn5->retaille(im.width()*abeApp->getAbeApplicationDecorRatio(),im.height()*abeApp->getAbeApplicationDecorRatio());
@@ -116,6 +142,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             QPoint origine2(m_decor->width()/6, m_decor->height()/2);
             for (int i=0;i<4;i++) {
                 boutonsPolygone* btn = new boutonsPolygone("complementM"+QString::number((i+1)*5),(i+1)*5);
+                btn->setParent(destExercices);
+                connect(btn, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
                 btn->deplace(origine.x()+m_decor->width()/5*i, origine.y()+m_decor->height()/16*i);
                 btn->retaille(60*abeApp->getAbeApplicationDecorRatio(),77*abeApp->getAbeApplicationDecorRatio());
                 btn->QGraphicsItem::setToolTip(trUtf8("Multiples de %1").arg(QString::number((i+1)*5)));
@@ -129,6 +157,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 }
             for (int i=0;i<2;i++) {
                 boutonsPolygone* btn = new boutonsPolygone("complementM"+QString::number((i+1)*25),(i+1)*25);
+                btn->setParent(destExercices);
+                connect(btn, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
                 btn->deplace(origine2.x()+m_decor->width()/5*i, origine2.y()+m_decor->height()/16*i);
                 btn->retaille(60*abeApp->getAbeApplicationDecorRatio(),77*abeApp->getAbeApplicationDecorRatio());
                 btn->QGraphicsItem::setToolTip(trUtf8("Multiples de %1").arg(QString::number((i+1)*25)));
@@ -149,6 +179,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             float deformation=0.5;
             for (int i=0;i<nb;i++) {
                 boutonsPolygone* btn = new boutonsPolygone("tableA"+QString::number(i+2),i+2);
+                btn->setParent(destExercices);
+                connect(btn, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
                 btn->deplace((origine.x()+R*cos((2*3.14/nb)*i)), (origine.y()+deformation*R*sin((2*3.14/nb)*i)));
                 btn->retaille(66*abeApp->getAbeApplicationDecorRatio(),65*abeApp->getAbeApplicationDecorRatio());
                 btn->QGraphicsItem::setToolTip(trUtf8("Table +%1").arg(QString::number(i+2)));
@@ -164,6 +196,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
             this->setWindowTitle(trUtf8("Ordres de grandeur"));
             QPoint origine(m_decor->width()/5.4,m_decor->height()/2.7);
                 boutonsPolygone* btnA = new boutonsPolygone("OdGrandeurAddition",100);
+                btnA->setParent(destExercices);
+                connect(btnA, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
                 btnA->deplace(origine.x(), origine.y());
                 btnA->retaille(103*abeApp->getAbeApplicationDecorRatio(),96*abeApp->getAbeApplicationDecorRatio());
                 btnA->QGraphicsItem::setToolTip(trUtf8("... d'additions"));
@@ -174,6 +208,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 m_scene->addItem(btnA);
 
                 boutonsPolygone* btnS = new boutonsPolygone("OdGrandeurSoustraction",100);
+                btnS->setParent(destExercices);
+                connect(btnS, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
                 btnS->deplace(origine.x()+m_decor->width()/4, origine.y()+m_decor->height()/6);
                 btnS->retaille(103*abeApp->getAbeApplicationDecorRatio(),96*abeApp->getAbeApplicationDecorRatio());
                 btnS->QGraphicsItem::setToolTip(trUtf8("... de soustractions"));
@@ -184,6 +220,8 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
                 m_scene->addItem(btnS);
 
                 boutonsPolygone* btnM = new boutonsPolygone("OdGrandeurMultiplication",100);
+                btnM->setParent(destExercices);
+                connect(btnM, SIGNAL(signalBoutonPolygonePressed(int,QString)),this, SLOT(slotInterfaceCompetenceGoToExercise(int,QString)),Qt::UniqueConnection);
                 btnM->deplace(origine.x()+2*m_decor->width()/4, origine.y()+2*m_decor->height()/6);
                 btnM->retaille(103*abeApp->getAbeApplicationDecorRatio(),96*abeApp->getAbeApplicationDecorRatio());
                 btnM->QGraphicsItem::setToolTip(trUtf8("... de multiplications"));
@@ -229,13 +267,14 @@ InterfaceCompetence::InterfaceCompetence(QString competence,QWidget *parent) :
 
 void InterfaceCompetence::adapte(QPixmap cheminImage)
 {
-    qDebug()<<m_ui->grvFond->size();
     QPixmap imgFond2 = cheminImage.scaledToHeight(m_ui->grvFond->height(), Qt::SmoothTransformation);
-    qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
-
-//    abeApp->getAbeApplicationDecorRatio() = static_cast<double>(imgFond2.width())/static_cast<double>(cheminImage.width());
-    qDebug()<<"Ratio taille = "<<abeApp->getAbeApplicationDecorRatio();
-
+    *m_decor = imgFond2;
+    if(m_localDebug){
+        qDebug()<<m_ui->grvFond->size();
+        qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
+        qDebug()<<"Ratio taille = "<<abeApp->getAbeApplicationDecorRatio();
+        qDebug()<<m_decor->size();
+    }
 //Pour animation d'ouverture, décommenter les lignes marquées "1" et commenter les lignes marquées "2" à la fin
 //1    QPropertyAnimation* animation = new QPropertyAnimation(this, "geometry");
 //1        animation->setDuration(2000);
@@ -244,9 +283,6 @@ void InterfaceCompetence::adapte(QPixmap cheminImage)
 //1       animation->start();
 //    this->setGeometry(10,20, imgFond2.width()+26,imgFond2.height()+60);//2
 //    this->setFixedSize(imgFond2.width()+26,imgFond2.height()+60);//2
-    qDebug()<<m_decor->size();
-    *m_decor = imgFond2;
-    qDebug()<<m_decor->size();
     m_ui->grvFond->setFixedSize(imgFond2.size());
     QBrush* fond = new QBrush(imgFond2);
     m_ui->grvFond->setBackgroundBrush(*fond);
@@ -281,4 +317,23 @@ void InterfaceCompetence::on_btnFermer_clicked()
 {
     this->close();
     emit signalInterfaceCompetenceClose();
+}
+
+void InterfaceCompetence::slotInterfaceCompetenceGoToExercise(int valeur,QString operation)
+{
+    QWidget* destExercices = 0;
+    AbulEduStackedWidgetV1* st = 0;
+    if(m_parent){
+        if(m_parent->parentWidget()){
+            st = (AbulEduStackedWidgetV1*) m_parent->parentWidget();
+            destExercices = st->findChild<QWidget*>("exercicePage");
+            if(destExercices > 0){
+                st->setCurrentWidget(destExercices);
+            }
+        }
+    }
+    qDebug()<<__PRETTY_FUNCTION__<<operation<<valeur;
+    ExerciceOperation* exo = new ExerciceOperation(operation,destExercices,valeur);
+    connect(exo, SIGNAL(signalExerciseExited()),st, SLOT(abeStackedWidgetGoToPrev()),Qt::UniqueConnection);
+    close();
 }

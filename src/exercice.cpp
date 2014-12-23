@@ -527,7 +527,6 @@ void exercice::on_btnRejouer_clicked()
     if (m_operation == "maisonDesNombres")
     {
         ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(m_operation,0,0);
-        maisonNombres->show();
     }
     else
     {

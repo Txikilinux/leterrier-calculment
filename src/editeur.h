@@ -23,6 +23,7 @@ protected:
 
 private:
     Ui::Editeur *m_ui;
+    bool m_localDebug;
     QString *m_niveauEnCours;
     QString *m_operationEnCours;
     QString *m_nomOperationEnCours;

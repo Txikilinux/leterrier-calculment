@@ -34,20 +34,24 @@
 
 Editeur::Editeur(QWidget *parent) :
     QWidget(parent),
-    m_ui(new Ui::Editeur)
+    m_ui(new Ui::Editeur),
+    m_localDebug(false)
 {
     this->setWindowModality(Qt::ApplicationModal);
     m_ui->setupUi(this);
-    qDebug()<<"Editeur::constructeur (1)";
-    qDebug()<<m_ui->cbOperation->currentText();
-    qDebug()<<m_ui->cbNiveau->currentText();
+    if(m_localDebug){
+        qDebug()  << __PRETTY_FUNCTION__;
+    }
     m_settings = new QSettings(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     m_settings->setIniCodec("UTF-8");
 
     QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
          if (!fichierConf->exists()) initialiser();
-         else qDebug()<<trUtf8("Fichier paramètres déjà présent");
-
+         else {
+             if(m_localDebug){
+                 qDebug()  << trUtf8("Fichier paramètres déjà présent");;
+             }
+         }
     QStringList intitulesExercices;
     foreach (QString section,m_settings->childGroups()) {
         m_settings->beginGroup(section);
@@ -110,9 +114,6 @@ Editeur::Editeur(QWidget *parent) :
 
         connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
         connect(m_ui->cbOperation, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerOperation(QString)));
-        qDebug()<<"Editeur::constructeur (2)";
-        qDebug()<<m_ui->cbOperation->currentText();
-        qDebug()<<m_ui->cbNiveau->currentText();
 }
 
 Editeur::~Editeur()
@@ -315,7 +316,9 @@ void Editeur::initialiser()
 
 void Editeur::sauverNiveau(QString niveau)
 {
-    qDebug()<<"Editeur::sauverNiveau(1): "<<niveau<<" dans "<<*m_operationEnCours;
+    if(m_localDebug){
+        qDebug()  << __PRETTY_FUNCTION__<<niveau<<" dans "<<*m_operationEnCours;
+    }
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     config.setIniCodec("UTF-8");
         config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
@@ -342,13 +345,13 @@ void Editeur::sauverNiveau(QString niveau)
         disconnect(m_ui->spbGMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
         disconnect(m_ui->spbDMin, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
         disconnect(m_ui->spbDMax, SIGNAL(valueChanged(int)), this, SLOT(ajusterValeurs(int)));
-
-        qDebug()<<"Editeur::sauverNiveau(2)";
 }
 
 void Editeur::chargerNiveau(QString niveau)
 {
-    qDebug()<<"chargerNiveau(1):"<<niveau<<" dans "<<*m_operationEnCours;
+    if(m_localDebug){
+        qDebug()  << __PRETTY_FUNCTION__<<niveau<<" dans "<<*m_operationEnCours;
+    }
        m_ui->spbDMin->setMaximum(1000);
        m_ui->spbGMin->setMaximum(1000);
        m_ui->spbDMax->setMinimum(0);
@@ -404,7 +407,9 @@ void Editeur::changerNiveau(QString chaine)
 
 void Editeur::sauverOperation(QString operation)
 {
-    qDebug()<<"Editeur::sauverOperation(1):"<<operation<<" pour "<<*m_niveauEnCours;
+    if(m_localDebug){
+        qDebug()  << __PRETTY_FUNCTION__<<operation<<" dans "<<*m_niveauEnCours;
+    }
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     config.setIniCodec("UTF-8");
         config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
@@ -437,7 +442,9 @@ void Editeur::sauverOperation(QString operation)
 
 void Editeur::chargerOperation(QString operation)
 {
-    qDebug()<<"Editeur::chaRgerOperation(1):"<<operation<<" pour "<<*m_niveauEnCours;
+    if(m_localDebug){
+        qDebug()  << __PRETTY_FUNCTION__<<operation<<" dans "<<*m_niveauEnCours;
+    }
      if (operation.left(10)=="OdGrandeur") {
          m_ui->spbGMin->setEnabled(false);
          m_ui->spbDMin->setEnabled(false);
@@ -519,7 +526,9 @@ void Editeur::chargerOperation(QString operation)
 
 void Editeur::changerOperation(QString operation)
 {
-    qDebug()<<"Editeur::chaNgerOperation(1):"<<operation<<" pour "<<*m_niveauEnCours;
+    if(m_localDebug){
+        qDebug()  << __PRETTY_FUNCTION__<<operation<<" dans "<<*m_niveauEnCours;
+    }
     this->sauverOperation(*m_operationEnCours);
     this->chargerOperation(associeNomIntitule(operation));
     *m_operationEnCours = associeNomIntitule(operation);
@@ -554,16 +563,20 @@ void Editeur::on_btnQuitter_clicked()
 void Editeur::ajusterValeurs(int valeurNouvelle)
 {
     valeurNouvelle = 0;
-       qDebug() << "Editeur.cpp : appel de ajusterValeurs";
-       m_ui->spbDMin->setMaximum(m_ui->spbDMax->value());
-       m_ui->spbGMin->setMaximum(m_ui->spbGMax->value());
-       m_ui->spbDMax->setMinimum(m_ui->spbDMin->value());
-       m_ui->spbGMax->setMinimum(m_ui->spbGMin->value());
+    if(m_localDebug){
+        qDebug()  << __PRETTY_FUNCTION__;
+    }
+    m_ui->spbDMin->setMaximum(m_ui->spbDMax->value());
+    m_ui->spbGMin->setMaximum(m_ui->spbGMax->value());
+    m_ui->spbDMax->setMinimum(m_ui->spbDMin->value());
+    m_ui->spbGMax->setMinimum(m_ui->spbGMin->value());
 }
 
 QString Editeur::associeNomIntitule(QString intitule)
 {
-    qDebug()<<"Editeur::associeNomIntitule(1)";
+    if(m_localDebug){
+        qDebug()  << __PRETTY_FUNCTION__;
+    }
     QString nomExerciceCorrespondantIntitule;
     //QString locale = QLocale::system().name().section('_', 0, 0);
     QSettings configExo(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
@@ -574,23 +587,22 @@ QString Editeur::associeNomIntitule(QString intitule)
     while (iterateur.hasNext() && !trouve) {
         QString exercice = iterateur.next();
         configExo.beginGroup(exercice);
-        qDebug()<<"exercice"<<exercice;
-        qDebug()<<"intitule : "<<QString::fromUtf8((configExo.value("NomPourAffichage").toString()).toStdString().c_str());
+        if(m_localDebug){
+            qDebug()<<"exercice"<<exercice;
+            qDebug()<<"intitule : "<<QString::fromUtf8((configExo.value("NomPourAffichage").toString()).toStdString().c_str());
+        }
         if (QString::fromUtf8((configExo.value("NomPourAffichage").toString()).toStdString().c_str())==intitule) {
-            qDebug()<<"Nom : "<<exercice;
-            qDebug()<<"Intitule"<<QString::fromUtf8((configExo.value("NomPourAffichage").toString()).toStdString().c_str());
+            if(m_localDebug){
+                qDebug()<<"Nom : "<<exercice;
+                qDebug()<<"Intitule"<<QString::fromUtf8((configExo.value("NomPourAffichage").toString()).toStdString().c_str());
+                qDebug()<<"............... variable trouve = true..................";
+            }
             trouve = true;
             nomExerciceCorrespondantIntitule = exercice;
-            qDebug()<<"............... variable trouve = true..................";
             //return;
         }
         configExo.endGroup();
         i++;
     }
-    qDebug()<<"Editeur::associeNomIntitule(2)";
-    qDebug()<<"Nom : "<<nomExerciceCorrespondantIntitule;
-    qDebug()<<"Intitule"<<intitule;
-//    emit cbExerciceFini(m_nomExercice);
-//    qDebug()<<"Signal emis avec "<<m_nomExercice;
     return nomExerciceCorrespondantIntitule;
 }
