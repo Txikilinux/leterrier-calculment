@@ -100,7 +100,7 @@ interface::interface(QWidget *parent)
 
 //    m_exerciceNames.insert("tableM",tru)
 
-    m_editeur = new Editeur();
+    m_editeur = ui->widget;
 
     qApp->setProperty("VerrouNombres",true);
 
@@ -185,6 +185,7 @@ void interface::createStateMachine()
     m_homeState->addTransition(m_abuleduPageAccueil->abePageAccueilGetMenu(), SIGNAL(btnBoxTriggered()), m_boxFileManagerState);
     m_homeState->addTransition(m_abuleduPageAccueil->abePageAccueilGetMenu(), SIGNAL(btnQuitterTriggered()), m_finalState);
     m_homeState->addTransition(m_abuleduPageAccueil->abePageAccueilGetBtnRevenirEditeur(), SIGNAL(clicked()), m_editorState);
+    m_editorState->addTransition(m_editeur, SIGNAL(signalEditeurExited()), m_homeState);
 
     /* Les transitions liées à l'éditeur seront installées lors de la création de celui-ci */
 
@@ -245,6 +246,7 @@ void interface::slotSessionAuthenticated(bool enable)
 
 void interface::slotInterfaceLaunchExercise(int number,QString name)
 {
+    qDebug()<<m_leterrierStateMachine.configuration().toList();
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
     }
@@ -260,8 +262,7 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     "Additions" */
 
     if (name == "Editeur") {
-        Editeur* ed = new Editeur;
-        ed->show();
+        ui->actionAfficher_l_diteur->trigger();
     }
 
     /** @todo Gérer les traductions */
@@ -471,18 +472,19 @@ void interface::slotInterfaceExerciseStateExited()
 
 void interface::slotInterfaceEditorStateEntered()
 {
+    ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     if (m_localDebug){
-        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
-
+    ui->stackedWidget->setCurrentWidget(ui->editorPage);
 }
 
 void interface::slotInterfaceEditorStateExited()
 {
-    if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+        if (m_localDebug){
     }
-
+    m_isEditorRunning = false;
+    ui->stackedWidget->setCurrentWidget(ui->mainPage);
 }
 
 void interface::slotInterfaceFinalStateEntered()
@@ -633,7 +635,8 @@ void interface::on_actionX_9_triggered()
 
 void interface::on_actionAfficher_l_diteur_triggered()
 {
-    m_editeur->show();
+    qDebug()<<"je passe là ";
+
 }
 
 void interface::on_btnInitialise_clicked()

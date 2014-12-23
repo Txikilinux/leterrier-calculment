@@ -20,6 +20,7 @@ public:
 protected:
     virtual void changeEvent(QEvent *e);
     void closeEvent(QCloseEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     Ui::Editeur *m_ui;
@@ -37,6 +38,10 @@ private:
     void initialiserApprocheM(QString operation);
     void initialiserComplement(QString operation);
     QString associeNomIntitule(QString intitule);
+    ///
+    /// \brief Fonction qui installe les eventFilter sur les objects à surveiller
+    ///
+    void installEventFilters();
 
 private slots:
     void on_btnQuitter_clicked();
@@ -47,6 +52,9 @@ private slots:
     void chargerOperation(QString);
     void changerOperation(QString);
     void ajusterValeurs(int);
+
+signals:
+    void signalEditeurExited();
 };
 
 #endif // EDITEUR_H

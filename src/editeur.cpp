@@ -114,6 +114,9 @@ Editeur::Editeur(QWidget *parent) :
 
         connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
         connect(m_ui->cbOperation, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerOperation(QString)));
+
+        installEventFilters();
+        m_ui->lblHelp->setFont(QApplication::font());
 }
 
 Editeur::~Editeur()
@@ -543,6 +546,51 @@ void Editeur::closeEvent(QCloseEvent *event)
 
 }
 
+bool Editeur::eventFilter(QObject *obj, QEvent *event)
+{
+    if(event->type() == QEvent::Enter){
+        if(obj == m_ui->cbNiveau){
+            m_ui->lblHelp->setText(trUtf8("Choisissez dans la liste déroulante le niveau de difficulté à paramétrer."));
+        }
+        if(obj == m_ui->cbOperation){
+            m_ui->lblHelp->setText(trUtf8("Choisissez dans la liste déroulante le type d'exercice."));
+        }
+        if(obj == m_ui->cbMaxD){
+            m_ui->lblHelp->setText(trUtf8("Fixez une valeur maximum pour l'opérande droit."));
+        }
+        if(obj == m_ui->cbMaxG){
+            m_ui->lblHelp->setText(trUtf8("Fixez une valeur maximum pour l'opérande gauche."));
+        }
+        if(obj == m_ui->spbDMax){
+            m_ui->lblHelp->setText(trUtf8("Fixez une valeur maximum pour l'opérande droit."));
+        }
+        if(obj == m_ui->spbDMin){
+            m_ui->lblHelp->setText(trUtf8("Fixez une valeur minimum pour l'opérande droit."));
+        }
+        if(obj == m_ui->spbGMax){
+            m_ui->lblHelp->setText(trUtf8("Fixez une valeur maximum pour l'opérande gauche."));
+        }
+        if(obj == m_ui->spbGMin){
+            m_ui->lblHelp->setText(trUtf8("Fixez une valeur minimum pour l'opérande gauche."));
+        }
+        if(obj == m_ui->spbNombreBallons){
+            m_ui->lblHelp->setText(trUtf8("Indiquez le nombre de questions par exercice."));
+        }
+        if(obj == m_ui->sldVitesse){
+            m_ui->lblHelp->setText(trUtf8("Déterminez le temps imparti pour répondre."));
+        }
+        if(obj == m_ui->btnQuitter){
+            m_ui->lblHelp->setText(trUtf8("Enregistrez vos modifications pour retourner à la page d'accueil."));
+        }
+       return true;
+    }
+    else if(event->type() == QEvent::Leave){
+        QString basicHelp = trUtf8("Survolez les zones actives pour être guidé");
+        m_ui->lblHelp->setText(basicHelp);
+    }
+    return QObject::eventFilter(obj,event);
+}
+
 void Editeur::changeEvent(QEvent *e)
 {
     switch (e->type()) {
@@ -556,8 +604,9 @@ void Editeur::changeEvent(QEvent *e)
 
 void Editeur::on_btnQuitter_clicked()
 {
-    this->close();
-    //delete(this);
+    sauverNiveau(*m_niveauEnCours);
+    sauverOperation(*m_operationEnCours);
+    emit signalEditeurExited();
 }
 
 void Editeur::ajusterValeurs(int valeurNouvelle)
@@ -605,4 +654,21 @@ QString Editeur::associeNomIntitule(QString intitule)
         i++;
     }
     return nomExerciceCorrespondantIntitule;
+}
+
+void Editeur::installEventFilters()
+{
+    m_ui->cbNiveau->installEventFilter(this);
+    m_ui->cbOperation->installEventFilter(this);
+    m_ui->cbMaxD->installEventFilter(this);
+    m_ui->cbMaxG->installEventFilter(this);
+    m_ui->spbDMax->installEventFilter(this);
+    m_ui->spbDMin->installEventFilter(this);
+    m_ui->spbGMax->installEventFilter(this);
+    m_ui->spbGMin->installEventFilter(this);
+    m_ui->spbNombreBallons->installEventFilter(this);
+    m_ui->sldVitesse->installEventFilter(this);
+    m_ui->btnQuitter->installEventFilter(this);
+    m_ui->gbNbDroite->installEventFilter(this);
+    m_ui->gbNbGauche->installEventFilter(this);
 }

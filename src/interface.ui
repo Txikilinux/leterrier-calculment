@@ -103,8 +103,15 @@
       </widget>
       <widget class="QWidget" name="editorPage">
        <property name="styleSheet">
-        <string notr="true">background-color:brown;</string>
+        <string notr="true">QWidget#editorPage{
+background-color:transparent;
+}</string>
        </property>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="Editeur" name="widget" native="true"/>
+        </item>
+       </layout>
       </widget>
       <widget class="AbulEduAproposV1" name="aboutPage">
        <property name="styleSheet">
@@ -460,6 +467,12 @@
    <class>AbulEduStackedWidgetV1</class>
    <extends>QStackedWidget</extends>
    <header>abuledustackedwidgetv1.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Editeur</class>
+   <extends>QWidget</extends>
+   <header>editeur.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
