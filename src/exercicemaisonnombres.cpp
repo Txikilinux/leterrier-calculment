@@ -123,7 +123,7 @@ void ExerciceMaisonNombres::slotInitQuestionEntered()
     AbstractExercise::slotInitQuestionEntered();
     bool inferieurA11 = false;
     while (!inferieurA11) {
-        m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_sceneAireDeJeu);
+        m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_sceneAireDeJeu,"fantome");
         m_valeurSurvolee = 0;
         this->m_resultatEnCours=m_baudruche->getMResultat();
 //        qDebug()<<" Ballon créé avec comme résultat "<<m_resultatEnCours<<" et comme parent "<<m_scene<<" euh "<<m_baudruche.data()->parent();
