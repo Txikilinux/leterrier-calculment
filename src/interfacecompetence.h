@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include "boutonspolygone.h"
 #include "exerciceoperation.h"
+#include "exercicemaisonnombres.h"
 
 namespace Ui {
     class InterfaceCompetence;

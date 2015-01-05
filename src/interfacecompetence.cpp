@@ -333,7 +333,14 @@ void InterfaceCompetence::slotInterfaceCompetenceGoToExercise(int valeur,QString
         }
     }
     qDebug()<<__PRETTY_FUNCTION__<<operation<<valeur;
-    ExerciceOperation* exo = new ExerciceOperation(operation,destExercices,valeur);
-    connect(exo, SIGNAL(signalExerciseExited()),st, SLOT(abeStackedWidgetGoToPrev()),Qt::UniqueConnection);
-    close();
+    if(operation == "maisonDesNombres"){
+        ExerciceMaisonNombres* exo = new ExerciceMaisonNombres(operation,destExercices,valeur);
+        connect(exo, SIGNAL(signalExerciseExited()),st, SLOT(abeStackedWidgetGoToPrev()),Qt::UniqueConnection);
+        close();
+    }
+    else {
+        ExerciceOperation* exo = new ExerciceOperation(operation,destExercices,valeur);
+        connect(exo, SIGNAL(signalExerciseExited()),st, SLOT(abeStackedWidgetGoToPrev()),Qt::UniqueConnection);
+        close();
+    }
 }

@@ -10,9 +10,8 @@ public:
 protected:
     int m_valeurSurvolee;
     int m_valeurBase;
-    void on_btnBallon_clicked();
     void on_btn2chance_clicked();
-    void mousePressEvent(QMouseEvent *);
+    virtual void mousePressEvent(QMouseEvent *);
     void ajouteErreur(QString msg);
 
 signals:
@@ -20,7 +19,7 @@ signals:
       * Créé pour avoir un comportement d'un autre objet SI une baudruche est lancée
       */
     void baudrucheLancee();
-    void baudrucheDetruite();
+
 protected slots:
     void affichePosBaudruche(QPoint point);
     void selectionChanged();
@@ -38,6 +37,13 @@ protected slots:
       */
     void zeroMaisonSurvolee();
 
+    /** Entrée dans l'état "initQuestion" de l'AbulEduStateMachineV1
+      * Passage en boucle à chaque nouvelle question
+      * Par contre, on n'y repasse pas si on refait la même question */
+    virtual void slotInitQuestionEntered();
+
+    /** Réimplémentation destinée à corriger l'accessibilité aux objets de la télécommande */
+    virtual void slotSequenceEntered();
 };
 
 #endif // EXERCICEMAISONNOMBRES_H

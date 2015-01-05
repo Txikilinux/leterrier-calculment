@@ -59,36 +59,36 @@ protected:
 protected slots:
     /** Entrée dans l'état "sequence" de l'AbulEduStateMachineV1
       * Passage unique au lancement de la machine à états */
-    void slotSequenceEntered();
+    virtual void slotSequenceEntered();
 
     /** Entrée dans l'état "realisationExercice" de l'AbulEduStateMachineV1
       * Passage une seule fois au début de chaque exercice */
-    void slotRealisationExerciceEntered();
+    virtual void slotRealisationExerciceEntered();
 
     /** Entrée dans l'état "initQuestion" de l'AbulEduStateMachineV1
       * Passage en boucle à chaque nouvelle question
       * Par contre, on n'y repasse pas si on refait la même question */
-    void slotInitQuestionEntered();
+    virtual void slotInitQuestionEntered();
 
     /** Entrée dans l'état "question" de l'AbulEduStateMachineV1
       * Passage une fois au début de chaque question, puis en cas de réponse incorrecte ou clic sur btnRefaire */
-    void slotQuestionEntered();
+    virtual void slotQuestionEntered();
 
     /** Entrée dans l'état "afficheVerificationQuestion" de l'AbulEduStateMachineV1
       * Passage à chaque clic sur btnVerifier */
-    void slotAfficheVerificationQuestionEntered();
+    virtual void slotAfficheVerificationQuestionEntered();
 
     /** Entrée dans l'état "finVerificationQuestion" de l'AbulEduStateMachineV1
       * Passage en sortie de l'état "afficheVerificationQuestion" */
-    void slotFinVerificationQuestionEntered();
+    virtual void slotFinVerificationQuestionEntered();
 
     /** Entrée dans l'état "afficheCorrectionQuestion" de l'AbulEduStateMachineV1
       * Passage à chaque clic sur btnCorriger */
-    void slotAfficheCorrectionQuestionEntered();
+    virtual void slotAfficheCorrectionQuestionEntered();
 
     /** Entrée dans l'état "finCorrectionQuestion" de l'AbulEduStateMachineV1
       * Passage en sortie de l'état "afficheCorrectionQuestion" */
-    void slotFinCorrectionQuestionEntered();
+    virtual void slotFinCorrectionQuestionEntered();
 
     //    /** Entrée dans l'état "bilanExercice" de l'AbulEduStateMachineV1
     //      * Passage pour chaque exercice si la variable onPeutPresenterBilanExercice vaut true */
@@ -96,7 +96,7 @@ protected slots:
 
     /** Entrée dans l'état "bilanSequence" de l'AbulEduStateMachineV1
       * @warning Passage unique en fin de séquence */
-    void slotBilanSequenceEntered();
+    virtual void slotBilanSequenceEntered();
 
     //    /** Connecté au clic sur btnQuitter */
     //    void slotQuitter();

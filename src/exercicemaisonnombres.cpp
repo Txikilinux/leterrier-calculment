@@ -20,7 +20,6 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
     int nombreMaisons = 5;
     for (int i=1;i<=10;i++)
     {
-
         QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(i+m_valeurBase));
         QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         PixmapMaison* maison = new PixmapMaison(dessinBouton2);
@@ -32,9 +31,96 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
     }
 }
 
-void ExerciceMaisonNombres::on_btnBallon_clicked()
+void ExerciceMaisonNombres::on_btn2chance_clicked()
 {
-    qDebug()<<"ExerciceMaisonNombres::on_btnBallon_clicked(1)";
+    qDebug()<<"ExerciceMaisonNombres::on_btn2chance_clicked()";
+    ExerciceRepechageMaisonNombres* essaieEncore = new ExerciceRepechageMaisonNombres(m_listeEchecs, m_temps, m_score, m_total, m_operationName,getAbeExerciceName(), getAbeSkill(),m_cible);
+    this->deleteLater();
+}
+
+void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
+{
+    qDebug()<<"ExerciceMaisonNombres::affichePosBaudruche("<<point<<")";
+
+    if (m_sceneAireDeJeu->itemAt(point,QTransform())!=0)
+    {
+        m_leResultat->setText(QString::number(m_valeurSurvolee));
+        /** Je dois remplacer l'appel de on_btnFeu_clicked();
+         *  pour pouvoir appeler click(), il faut que je rende le bouton Enabled le temps du clic, puis je le remets comme il était */
+        bool isVerifierEnabled = getAbeExerciceTelecommandeV1()->ui->btnVerifier->isEnabled();
+        getAbeExerciceTelecommandeV1()->ui->btnVerifier->setEnabled(true);
+        getAbeExerciceTelecommandeV1()->ui->btnVerifier->click();
+        getAbeExerciceTelecommandeV1()->ui->btnVerifier->setEnabled(isVerifierEnabled);
+        //    qDebug()<<"ExerciceMaisonNombres::affichePosBaudruche : "<<point<<" , Valeur recue : "<<m_scene->itemAt(point)->toolTip()<<" Valeur affichee "<<m_ui->leResultat->text();
+    }
+}
+
+/* sans doute scorie d'un ancien essai, à voir si on peut supprimer */
+void ExerciceMaisonNombres::selectionChanged() {
+    qDebug() << "debug selectionChanged()";
+    // Affiche la position de chaque élément de la sélection
+    foreach(QGraphicsItem * item, m_sceneAireDeJeu->selectedItems()) {
+        qDebug() << item->scenePos();
+    }
+    qDebug() << "fin selectionChanged()";
+}
+
+void ExerciceMaisonNombres::mousePressEvent(QMouseEvent *)
+{
+    /** @todo ce mousePressEvent() n'est jamais appelé... l'événement est-il capté ailleurs ?! Mais est-ce utile qu'il soit appelé ? */
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
+    if (getAbeExerciceTelecommandeV1()->ui->btnSuivant->isEnabled()){
+        sequenceMachine->postEvent(new StringEvent("finAfficheVerification"));
+    }
+}
+
+void ExerciceMaisonNombres::ajouteErreur(QString msg)
+{
+    ExerciceOperation::ajouteErreur(msg);
+}
+
+void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
+{
+    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
+    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+    zeroMaisonSurvolee();
+    foreach(QGraphicsItem * item, m_sceneAireDeJeu->items())
+    {
+        PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
+        if (itemMaison->toolTip() == bulleAide)
+        {
+            QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(itemMaison->property("Valeur").toInt())+"b");
+            QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            itemMaison->setPixmap(dessinBouton2);
+            m_valeurSurvolee = itemMaison->property("Valeur").toInt();
+        }
+    }
+}
+
+void ExerciceMaisonNombres::zeroMaisonSurvolee()
+{
+    qDebug()<<"ExerciceMaisonNombres::zeroMaisonSurvolee(1)";
+    m_valeurSurvolee = 0;
+    foreach(QGraphicsItem * item, m_sceneAireDeJeu->items())
+    {
+        if (item->toolTip().left(6) == "Maison")
+        {
+        PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
+        itemMaison->setPixmap(itemMaison->getMPixmapInitial());
+        }
+    }
+}
+
+void ExerciceMaisonNombres::slotInitQuestionEntered()
+{
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+        ABULEDU_LOG_DEBUG() <<m_total<<getAbeNbTotalQuestions()<<getAbeNumQuestion()<<m_score;
+    }
+    AbstractExercise::slotInitQuestionEntered();
     bool inferieurA11 = false;
     while (!inferieurA11) {
         m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_sceneAireDeJeu);
@@ -89,80 +175,9 @@ void ExerciceMaisonNombres::on_btnBallon_clicked()
     ///if (m_baudruche!=NULL) m_ui->btnBallon->setDisabled(true);
 }
 
-void ExerciceMaisonNombres::on_btn2chance_clicked()
+void ExerciceMaisonNombres::slotSequenceEntered()
 {
-    qDebug()<<"ExerciceMaisonNombres::on_btn2chance_clicked()";
-    ExerciceRepechageMaisonNombres* essaieEncore = new ExerciceRepechageMaisonNombres(m_listeEchecs, m_temps, m_score, m_total, m_operationName,getAbeExerciceName(), getAbeSkill(),m_cible);
-    this->deleteLater();
-}
-
-void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
-{
-    qDebug()<<"ExerciceMaisonNombres::affichePosBaudruche("<<point<<")";
-
-    if (m_sceneAireDeJeu->itemAt(point,QTransform())!=0)
-    {
-        m_leResultat->setText(QString::number(m_valeurSurvolee));
-        ///on_btnFeu_clicked();
-            emit baudrucheDetruite();
-
-        //    qDebug()<<"ExerciceMaisonNombres::affichePosBaudruche : "<<point<<" , Valeur recue : "<<m_scene->itemAt(point)->toolTip()<<" Valeur affichee "<<m_ui->leResultat->text();
-    }
-}
-
-/* sans doute scorie d'un ancien essai, à voir si on peut supprimer */
-void ExerciceMaisonNombres::selectionChanged() {
-    qDebug() << "debug selectionChanged()";
-    // Affiche la position de chaque élément de la sélection
-    foreach(QGraphicsItem * item, m_sceneAireDeJeu->selectedItems()) {
-        qDebug() << item->scenePos();
-    }
-    qDebug() << "fin selectionChanged()";
-}
-
-void ExerciceMaisonNombres::mousePressEvent(QMouseEvent *)
-{
-    if (getAbeExerciceTelecommandeV1()->ui->btnSuivant->isEnabled())
-    {
-        on_btnBallon_clicked();
-    }
-}
-
-void ExerciceMaisonNombres::ajouteErreur(QString msg)
-{
-    ExerciceOperation::ajouteErreur(msg);
-    emit baudrucheDetruite();
-}
-
-void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
-{
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
-    zeroMaisonSurvolee();
-    foreach(QGraphicsItem * item, m_sceneAireDeJeu->items())
-    {
-        PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
-        if (itemMaison->toolTip() == bulleAide)
-        {
-            QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(itemMaison->property("Valeur").toInt())+"b");
-            QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            itemMaison->setPixmap(dessinBouton2);
-            m_valeurSurvolee = itemMaison->property("Valeur").toInt();
-        }
-    }
-
-}
-
-void ExerciceMaisonNombres::zeroMaisonSurvolee()
-{
-    qDebug()<<"ExerciceMaisonNombres::zeroMaisonSurvolee(1)";
-    m_valeurSurvolee = 0;
-    foreach(QGraphicsItem * item, m_sceneAireDeJeu->items())
-    {
-        if (item->toolTip().left(6) == "Maison")
-        {
-        PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
-        itemMaison->setPixmap(itemMaison->getMPixmapInitial());
-        }
-    }
+    ExerciceOperation::slotSequenceEntered();
+    question->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnVerifier, "enabled",false);
+    question->assignProperty(m_leResultat, "enabled", false);
 }

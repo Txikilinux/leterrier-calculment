@@ -210,7 +210,7 @@ void ExerciceOperation::animeBaudruche()
     if(m_operationName == "division"){
         qDebug()<<"je suis bien là";
         for (int i = 0; i < 200; i++){
-            animation->setPosAt(i/200.0, QPoint(-450,0)+QPointF((3.8*i*factX) ,0 ));
+            animation->setPosAt(i/200.0, QPoint(-450,-450)+QPointF((3.8*i*factX) ,(3.8*i*factY)));
         }
     }
     else if (m_operationName == "addition") {
@@ -300,7 +300,7 @@ void ExerciceOperation::slotInitQuestionEntered()
     if (m_operationName=="OdGrandeurAddition"
             || m_operationName=="OdGrandeurSoustraction"
             || m_operationName=="OdGrandeurMultiplication") this->m_resultatEnCours=m_baudruche->getMApproximation();
-    else this->m_resultatEnCours=m_baudruche->getMResultat();
+    else this->m_resultatEnCours = m_baudruche->getMResultat();
     if (m_total < getAbeNbTotalQuestions() - 1) {
         /** @todo vérifier que la machine à états gère correctement ça */
 //        connect(m_baudruche, SIGNAL(destroyed(bool)), getAbeExerciceTelecommandeV1()->ui->btnSuivant, SLOT(setEnabled(bool)));
@@ -391,9 +391,6 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
     qDebug()<<getPluginLogs();
 
     if (m_baudruche) m_baudruche->detruire();// <<<<-------------------------------------- Merdier
-
-/** @todo assignProperty */
-    //    m_ui->btnFeu->setDisabled(true);
 
     if (m_total == getAbeNbTotalQuestions()) {
         //erics 20110209 sinon coredump en cas de "aucune erreur" ou "que des erreurs"
