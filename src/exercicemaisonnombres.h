@@ -36,6 +36,7 @@ protected:
     void on_btn2chance_clicked();
     virtual void mousePressEvent(QMouseEvent *);
     void ajouteErreur(QString msg);
+    void dessinePixmapMaisons();
 
 signals:
     /** Signal destiné à prévenir qu'une baudruche est lancée
@@ -60,13 +61,20 @@ protected slots:
       */
     void zeroMaisonSurvolee();
 
+    /** Réimplémentation destinée à corriger l'accessibilité aux objets de la télécommande */
+    virtual void slotSequenceEntered();
+
+    /** Réimplémentation de l'entrée dans l'état "realisationExercice" de l'AbulEduStateMachineV1
+      * Il faut pouvoir attendre d'avoir la valeur (déterminée dans l'état presentationExercices) pour dessiner les maisons */
+    virtual void slotRealisationExerciceEntered();
+
     /** Entrée dans l'état "initQuestion" de l'AbulEduStateMachineV1
       * Passage en boucle à chaque nouvelle question
       * Par contre, on n'y repasse pas si on refait la même question */
     virtual void slotInitQuestionEntered();
 
-    /** Réimplémentation destinée à corriger l'accessibilité aux objets de la télécommande */
-    virtual void slotSequenceEntered();
+    /** Appelé par un bouton placé sur l'AbulEduExerciceWidgetMessageV1, ce slot permet d'instancier les objets d'exercices à variantes */
+    void slotSetPeculiarity();
 };
 
 #endif // EXERCICEMAISONNOMBRES_H

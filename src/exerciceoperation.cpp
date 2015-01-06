@@ -57,7 +57,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
     if (exerciseName == "complementA")
     {
         setAbeExerciceName(trUtf8("Complément additif à "));
-        //Skill non existant dans les competences Educ Nat
+        /* Skill non existant dans les competences Educ Nat */
     }
 
     if(exerciseName == "complementM")
@@ -83,7 +83,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
         setAbeExerciceName(trUtf8("Additions de nombres inférieurs à %1 et %2").arg(QString::number(m_maxG)).arg(QString::number(m_maxD)));
         if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
             setAbeSkill("somme-mental-inferieur-"+QString::number(m_maxG));
-        // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
+        /* si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000 */
     }
 
     if (exerciseName=="soustraction")
@@ -114,10 +114,11 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
     if (exerciseName == "maisonDesNombres")
     {
         setAbeExerciceName(trUtf8("La maison des nombres"));
+        /** @todo A priori Skill non existant dans les competences Educ Nat mais faut vérifier */
     }
     QPixmap imageFond;
+    qDebug()<<":/calculment/backgrounds/"+exerciseName;
     if(m_localDebug){
-        qDebug()<<":/calculment/backgrounds/"+exerciseName;
     }
     imageFond.load(":/calculment/backgrounds/"+exerciseName);
     m_imageFond = new QPixmap(imageFond.scaledToHeight(m_parent->height()));
@@ -291,6 +292,10 @@ void ExerciceOperation::slotPresenteSequenceEntered()
         m_variations.append(AbulEduLaunchElements(trUtf8("additions"),":/calculment/elements/nausee1","Addition"));
         m_variations.append(AbulEduLaunchElements(trUtf8("soustractions"),":/calculment/elements/nausee2","Soustraction"));
         m_variations.append(AbulEduLaunchElements(trUtf8("multiplications"),":/calculment/elements/nausee3","Multiplication"));
+    }
+    else if(m_operationName == "maisonDesNombres"){
+        m_variations.append(AbulEduLaunchElements(trUtf8("de 1 à 10"),":/calculment/elements/nausee1",0));
+        m_variations.append(AbulEduLaunchElements(trUtf8("de 11 à 20"),":/calculment/elements/nausee2",10));
     }
     else {
         ABULEDU_LOG_DEBUG()  << "Problème : je ne devrais pas pouvoir arriver ici ...";

@@ -30,15 +30,21 @@
 ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val, QString niveau)
     :ExerciceOperation(exo, parent,val,niveau)
 {
+    m_localDebug = true;
     m_AireDeJeu->setInteractive(true);
     m_operationName = exo;
     m_valeurBase = val;
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+    float factY = static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     m_depart = new QPoint(m_imageFond->width()/2-80*factY,500*factY);
     qDebug() <<"Opération : "<<m_operationName<<", valeur passée : "<<m_cible<<" et niveau : "<<getAbeLevel();
     chargerParametres();
     qDebug()<<"Apres chargement des parametres, m_temps vaut "<<m_temps;
+}
+
+void ExerciceMaisonNombres::dessinePixmapMaisons()
+{
+    float factX = static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
+    float factY = static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     int ordonneMaison = 0;
     int nombreMaisons = 5;
     for (int i=1;i<=10;i++)
@@ -136,6 +142,24 @@ void ExerciceMaisonNombres::zeroMaisonSurvolee()
     }
 }
 
+void ExerciceMaisonNombres::slotSequenceEntered()
+{
+    ExerciceOperation::slotSequenceEntered();
+    question->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnVerifier, "enabled",false);
+    question->assignProperty(m_leResultat, "enabled", false);
+}
+
+void ExerciceMaisonNombres::slotRealisationExerciceEntered()
+{
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+        ABULEDU_LOG_DEBUG() << getAbeExerciceName();
+        ABULEDU_LOG_DEBUG() <<getAbeSkill();
+    }
+    dessinePixmapMaisons();
+    ExerciceOperation::slotRealisationExerciceEntered();
+}
+
 void ExerciceMaisonNombres::slotInitQuestionEntered()
 {
     if(m_localDebug){
@@ -198,9 +222,16 @@ void ExerciceMaisonNombres::slotInitQuestionEntered()
     ///if (m_baudruche!=NULL) m_ui->btnBallon->setDisabled(true);
 }
 
-void ExerciceMaisonNombres::slotSequenceEntered()
+void ExerciceMaisonNombres::slotSetPeculiarity()
 {
-    ExerciceOperation::slotSequenceEntered();
-    question->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnVerifier, "enabled",false);
-    question->assignProperty(m_leResultat, "enabled", false);
+    AbulEduFlatBoutonV1* fromBtn = (AbulEduFlatBoutonV1*) sender();
+    if(fromBtn->property("peculiarity").type() == QVariant::Int){
+        m_valeurBase = fromBtn->property("peculiarity").toInt();
+        setAbeExerciceName(getAbeExerciceName()+trUtf8(" de ")+QString::number(m_valeurBase+1)+trUtf8(" à ")+QString::number(m_valeurBase+10));
+    }
+    else{
+        ABULEDU_LOG_DEBUG() << "Problème : le paramètre transmis n'est pas conforme...";
+        return;
+    }
+    getAbeExerciceTelecommandeV1()->ui->btnSuivant->click();
 }

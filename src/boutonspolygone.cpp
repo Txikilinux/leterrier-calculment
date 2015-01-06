@@ -94,7 +94,6 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
             slotMontreLanceur();
         }
     }
-
     else {
         emit signalBoutonPolygonePressed(m_val,*m_action);
     }
@@ -102,7 +101,6 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
     switch (m_transformable) {
     case 1 :bouge(0,300);break;
     }
-
 }
 
 void boutonsPolygone::deplace(int x, int y)

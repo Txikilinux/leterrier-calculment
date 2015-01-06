@@ -247,8 +247,8 @@ void interface::slotSessionAuthenticated(bool enable)
 void interface::slotInterfaceLaunchExercise(int number,QString name)
 {
     qDebug()<<m_leterrierStateMachine.configuration().toList();
+    ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
     if (m_localDebug){
-        ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
     }
     /*" Tables de multiplication"
     " Tables d'addition"
@@ -264,7 +264,12 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     if (name == "Editeur") {
         ui->actionAfficher_l_diteur->trigger();
     }
-
+    else if (name == "Maisons"){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+        ui->stackedWidget->setCurrentWidget(ui->exercicePage);
+        ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),ui->exercicePage,-1);
+        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
+    }
     /** @todo Gérer les traductions */
     else if (name.simplified().left(6) == "Tables" || name.simplified().left(6) == "Ordres" || name.simplified() == "Compléments" || name.simplified() == "Multiples"){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
@@ -405,6 +410,7 @@ void interface::slotInterfaceInitialStateEntered()
     m_exerciceNames.insert("OdGrandeur","Ordres de grandeur");
     m_exerciceNames.insert("lanceur","Lanceur");
     m_exerciceNames.insert("division", "Divisions");
+    m_exerciceNames.insert("maisonDesNombres","Maisons");
 
     /* Pas de module dans ce logiciel, les zones sensibles sont activées */
 }
