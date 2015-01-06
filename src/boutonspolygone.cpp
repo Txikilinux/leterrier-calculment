@@ -24,7 +24,6 @@
 
 #include "boutonspolygone.h"
 #include "exercice.h"
-#include "interfacecompetence.h"
 #include "editeur.h"
 #include "abuledulanceurv1.h"
 #include "exercicemaisonnombres.h"
@@ -82,10 +81,6 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
         ed->show();
     }
     else if (*m_action=="sortie") emit sortie();
-    else if (initialeAction.isNumber()) {
-        InterfaceCompetence* inter = new InterfaceCompetence(*m_action);
-        inter->show();
-    }
 
     else if (*m_action=="lanceur") {
         if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)

@@ -15,7 +15,6 @@ SOURCES += main.cpp \
     boutonspolygone.cpp \
     sauvegardelog.cpp \
     editeur.cpp \
-    interfacecompetence.cpp \
     abuleduexercicev0.cpp \
     abuledulanceurv1.cpp \
     exercicerepechage.cpp \
@@ -35,7 +34,6 @@ HEADERS += interface.h \
     boutonspolygone.h \
     sauvegardelog.h \
     editeur.h \
-    interfacecompetence.h \
     abuleduexercicev0.h \
     abuledulanceurv1.h \
     exercicerepechage.h \
@@ -54,7 +52,6 @@ HEADERS += interface.h \
 FORMS += interface.ui \
     exercice.ui \
     editeur.ui \
-    interfacecompetence.ui \
     abuledulanceurv1.ui
 
 RESOURCES += \
