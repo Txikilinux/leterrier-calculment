@@ -121,6 +121,7 @@ void AbstractExercise::slotSequenceEntered()
     AbulEduCommonStatesV1::slotSequenceEntered();
 
     /* Corrections par rapport au fonctionnement général de la machine à états */
+    presentationSequence->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnSuivant, "enabled",false);
     question->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnAide, "enabled",false);
     question->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnCorriger, "enabled",false);
     question->assignProperty(m_leResultat, "enabled", true);
@@ -245,5 +246,8 @@ void AbstractExercise::slotSetPeculiarity()
         ABULEDU_LOG_DEBUG() << "Problème : le paramètre transmis n'est pas conforme...";
         return;
     }
+    bool isBtnSuivantEnable = getAbeExerciceTelecommandeV1()->ui->btnSuivant->isEnabled();
+    getAbeExerciceTelecommandeV1()->ui->btnSuivant->setEnabled(true);
     getAbeExerciceTelecommandeV1()->ui->btnSuivant->click();
+    getAbeExerciceTelecommandeV1()->ui->btnSuivant->setEnabled(isBtnSuivantEnable);
 }

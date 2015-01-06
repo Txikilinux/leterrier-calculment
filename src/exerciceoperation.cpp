@@ -44,7 +44,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
             setAbeLevel("Niveau"+niveau.right(1));
     }
     m_score = 0;
-    m_leResultat = new QLineEdit("toto",getAbeExerciceTelecommandeV1());
+    m_leResultat = new QLineEdit(QString(),getAbeExerciceTelecommandeV1());
     m_leResultat->setObjectName("leResultat");
     QRegExp expressionReguliere("[0-9][0-9]{0,"+QString::number(3)+"}");
     m_leResultat->setValidator(new QRegExpValidator(expressionReguliere, this));
@@ -450,7 +450,7 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
 
     if (m_baudruche && !m_baudruche->getBaudrucheIsDetructionPlanified()){
             m_baudruche->detruire();
-        }
+    }
 
     if (m_total == getAbeNbTotalQuestions()) {
         //erics 20110209 sinon coredump en cas de "aucune erreur" ou "que des erreurs"
