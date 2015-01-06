@@ -54,6 +54,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     m_approximation=0;
     m_parent = new QGraphicsScene();
     m_parent = parent;
+    m_isDetructionPlanified = false;
     setParent(parent);
     if (operation=="addition" || operation=="tableA" || operation==""){
         m_op = "+";
@@ -89,7 +90,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
             g_operande = intMinG + rand()%(intMaxG-intMinG);
         }
     }
-    //Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes...
+    /* Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes... */
     if (d_operande > g_operande)
     {
         int tmp=g_operande;
@@ -125,7 +126,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     //qDebug()<<"baudruche::constructeur normal (2) avec parent "<<m_parent;
 }
 
-//constructeur spécifique aux valeurs approchées
+/* constructeur spécifique aux valeurs approchées */
 baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QGraphicsScene *parent,QString image)
 {
     qDebug()<<"baudruche::constructeur valeurs approchées (1)";
@@ -135,6 +136,7 @@ baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operatio
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
     m_dropValeur = "";
+    m_isDetructionPlanified = false;
     m_nomOperation = operation;
     m_approximation=0;
         if (operation=="OdGrandeurAddition") m_op = "+";
@@ -146,14 +148,14 @@ baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operatio
     g_operande = rand()%(intMaxG);
     d_operande = rand()%(intMaxD);
 
-    //Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes...
+    /* Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes... */
     if (d_operande>g_operande) {
         int tmp=g_operande;
         g_operande=d_operande;
         d_operande=tmp;
         }
 
-    //Calcul de la valeur approchée à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*")
+    /* Calcul de la valeur approchée à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*") */
     if (m_op=="x") m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+"*"+QString::number(valeurApprochee(d_operande,intMaxD));
     else m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+m_op+QString::number(valeurApprochee(d_operande,intMaxD));
 
@@ -171,7 +173,7 @@ baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operatio
     //qDebug()<<"baudruche::constructeur valeurs approchées (2)";
 }
 
-//constructeur spécifique aux compléments
+/* constructeur spécifique aux compléments */
 baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QGraphicsScene *parent,QString image)
 {
     qDebug()<<"baudruche::constructeur compléments (1)";
@@ -181,6 +183,7 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
     setParent(parent);
     m_nomImage = image;
     m_dropValeur = "";
+    m_isDetructionPlanified = false;
     m_nomOperation = operation;
     if (operation=="complementA") m_op = "+";
     else m_op = "x";
@@ -224,12 +227,13 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
     //qDebug()<<"baudruche::constructeur compléments (2)";
 }
 
-//constructeur spécifique à l'affichage du résultat
+/* constructeur spécifique à l'affichage du résultat */
 baudruche::baudruche(int pts, QPoint pos,QGraphicsScene *parent,QString image)
 {
     //qDebug()<<"baudruche::constructeur affichage (1)";
     m_parent = new QGraphicsScene();
     m_parent = parent;
+    m_isDetructionPlanified = false;
     setParent(parent);
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     //qDebug()<<"Fact X vaut "<< factX;
@@ -278,6 +282,7 @@ baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString
     m_parent = parent;
     setParent(parent);
     m_dropValeur = "";
+    m_isDetructionPlanified = false;
     m_position.setX(pos.x());
     m_position.setY(pos.y());
     m_timer = new QTimeLine(tempsAccorde*1000,this);
@@ -401,19 +406,27 @@ QString baudruche::getMDropValeur()
 
 int baudruche::valeurApprochee(int operande, int maximum)
 {
-    int apeupres=0;
-    if (maximum==10 && m_op=="x")
+    int apeupres = 0;
+    if (maximum == 10 && m_op == "x")
         return operande;
-    if (operande>10 || m_op!="x"){
-        if (maximum==100 || maximum==1000) {
-            if ((operande%(maximum/10))< maximum/20) apeupres=(operande/(maximum/10))*(maximum/10);
-            else apeupres=((operande/(maximum/10))+1)*(maximum/10);
+    if (operande > 10 || m_op != "x"){
+        if (maximum == 100 || maximum == 1000) {
+            if ((operande%(maximum/10))< maximum/20){
+                apeupres=(operande/(maximum/10))*(maximum/10);
             }
-        if (maximum==1000 && operande<100) {
-            if ((operande%(maximum/100))< maximum/200) apeupres=(operande/(maximum/100))*(maximum/100);
-            else apeupres=((operande/(maximum/100))+1)*(maximum/100);
+            else{
+                apeupres = ((operande/(maximum/10))+1)*(maximum/10);
             }
         }
+        if (maximum == 1000 && operande < 100) {
+            if ((operande%(maximum/100))< maximum/200){
+                apeupres=(operande/(maximum/100))*(maximum/100);
+            }
+            else {
+                apeupres = ((operande/(maximum/100))+1)*(maximum/100);
+            }
+        }
+    }
     //qDebug()<<"A ce stade, la valeur approchee vaut "<<apeupres;
     return apeupres;
 }
@@ -421,7 +434,7 @@ int baudruche::valeurApprochee(int operande, int maximum)
 void baudruche::detruire()
 {
     if (this!=NULL) {
-        if (m_approximation==0) {
+        if (m_approximation == 0) {
             emit valueChanged(m_resultat);//ici le problème
             //qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
         }
@@ -431,7 +444,7 @@ void baudruche::detruire()
         emit destroyed(true);
         emit destroyed();
         delete this;
-        }
+    }
 }
 
 void baudruche::detruireTps()
@@ -439,7 +452,7 @@ void baudruche::detruireTps()
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     if (this!=NULL)
     {
-        if (m_approximation==0) {
+        if (m_approximation == 0) {
             emit valueChanged(m_resultat);
             //qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
         }
@@ -461,6 +474,7 @@ void baudruche::detruireTps()
         QTimeLine* tiptip = new QTimeLine(1000,this);
         connect(tiptip, SIGNAL(finished()),this, SLOT(detruire()));
         tiptip->start();
+        m_isDetructionPlanified = true;
    }
 }
 
@@ -487,7 +501,6 @@ void baudruche::changeImage(QString nomNouvelleImage)
 //    qDebug()<<"Taille image après changement : "<<m_image.pixmap().width()<<" X "<<m_image.pixmap().height();
     m_image.setPos(m_position);
 //    qDebug()<<"Position image après changement : "<<m_image.x()<<" X "<<m_image.y();
-
 }
 
 void baudruche::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

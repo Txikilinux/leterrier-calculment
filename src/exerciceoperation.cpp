@@ -448,7 +448,9 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
     setAbeLineLog(m_baudruche->getMLigne(),m_leResultat->text().simplified(),m_score, m_total,getAbeExerciceEvaluation(),QString::number(m_resultatEnCours));
     qDebug()<<getPluginLogs();
 
-    if (m_baudruche) m_baudruche->detruire();// <<<<-------------------------------------- Merdier
+    if (m_baudruche && !m_baudruche->getBaudrucheIsDetructionPlanified()){
+            m_baudruche->detruire();
+        }
 
     if (m_total == getAbeNbTotalQuestions()) {
         //erics 20110209 sinon coredump en cas de "aucune erreur" ou "que des erreurs"

@@ -59,6 +59,7 @@ public:
     QGraphicsPixmapItem m_image;
     QPoint m_position;
     QString m_nomImage;
+    inline bool getBaudrucheIsDetructionPlanified(){return m_isDetructionPlanified;}
 
 public slots:
     void detruire();
@@ -92,6 +93,11 @@ private:
     void dessineMoi(QString,int);
     void construisAffichage();
     bool m_isMaisonSurvolee;
+    ///
+    /// \brief Permet de savoir si une QTimeLine aboutissant à la destruction de l'objet a été lancée
+    /// \value true si la QTimeLine a démarré
+    ///
+    bool m_isDetructionPlanified;
 };
 
 #endif // BAUDRUCHE_H
