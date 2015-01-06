@@ -1,4 +1,5 @@
 /** Classe de base pour les exercices du logiciel Calcul mental
+  * Modification importante par rapport à la première implémentation pour hériter d'AbulEduStateMachineV1
   *
   * @see https://redmine.ryxeo.com/projects/ryxeo/wiki/LeTerrierExercice
   * @author 2014 Philippe Cadaugade <philippe.cadaugade@ryxeo.com>
