@@ -34,7 +34,7 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_score(0),
     m_total(0),
     m_resultatEnCours(-1),
-    m_cible(-1),
+    m_cible(0),
     m_trace(QString()),
     m_leResultat(0)
 {
@@ -104,7 +104,12 @@ void AbstractExercise::slotSequenceEntered()
     getAbeExerciceMessageV1()->setParent(0);
     getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->scene()->addWidget(getAbeExerciceMessageV1());
 
-    abeStateMachineSetOnPeutPresenterSequence(false);
+    if(m_cible >= 0){
+        abeStateMachineSetOnPeutPresenterSequence(false);
+    }
+    else {
+        abeStateMachineSetOnPeutPresenterSequence(true);
+    }
     abeStateMachineSetOnPeutPresenterExercice(false);
     abeStateMachineSetOnPeutPresenterBilanExercice(false);
 
@@ -124,6 +129,38 @@ void AbstractExercise::slotSequenceEntered()
     finVerificationQuestion->addTransition(getAbeExerciceTelecommandeV1()->ui->btnSuivant,SIGNAL(clicked()),initQuestion);
 
     setDimensionsWidgets();
+}
+
+void AbstractExercise::slotPresenteSequenceEntered()
+{
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
+    getAbeExerciceMessageV1()->setVisible(false);
+    getAbeExerciceMessageV1()->abeWidgetMessageShowImageFond(true);
+    getAbeExerciceMessageV1()->abeWidgetMessageSetZoneTexteVisible(true);
+    getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->setDirection(QBoxLayout::TopToBottom);
+    QListIterator<AbulEduLaunchElements> iter(m_variations);
+    if(m_variations.count() > 0){
+        getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
+    }
+    while(iter.hasNext()){
+        AbulEduLaunchElements abeElement = iter.next();
+        AbulEduFlatBoutonV1* btn = new AbulEduFlatBoutonV1();
+        btn->setText(abeElement.abeLaunchElementGetButtonText());
+        btn->setIcon(QIcon(abeElement.abeLaunchElementGetIconPath()));
+        btn->setProperty("peculiarity",abeElement.abeLaunchElementGetPeculiarity());
+        btn->setIconSize(QSize(64*abeApp->getAbeApplicationDecorRatio(),64*abeApp->getAbeApplicationDecorRatio()));
+        connect(btn, SIGNAL(clicked()), this, SLOT(slotSetPeculiarity()), Qt::UniqueConnection);
+        getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addWidget(btn);
+        getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
+        btn->setVisible(true);
+    }
+    getAbeExerciceMessageV1()->repaint();
+    AbulEduCommonStatesV1::slotPresenteSequenceEntered();
+    getAbeExerciceMessageV1()->abeWidgetMessageSetTitre(trUtf8("Choisis : ")+getAbeExerciceName());
+    getAbeExerciceMessageV1()->abeWidgetMessageResize();
+    getAbeExerciceMessageV1()->setVisible(true);
 }
 
 void AbstractExercise::slotRealisationExerciceEntered()
@@ -189,4 +226,24 @@ bool AbstractExercise::eventFilter(QObject *obj, QEvent *event)
 void AbstractExercise::slotAide()
 {
 
+}
+
+void AbstractExercise::slotSetPeculiarity()
+{
+    AbulEduFlatBoutonV1* fromBtn = (AbulEduFlatBoutonV1*) sender();
+    if(fromBtn->property("peculiarity").type() == QVariant::String){
+        m_operationName = m_operationName.append(fromBtn->property("peculiarity").toString());
+        setAbeExerciceName(getAbeExerciceName()+fromBtn->text());
+        setAbeSkill(getAbeSkill()+fromBtn->text());
+    }
+    else if(fromBtn->property("peculiarity").type() == QVariant::Int){
+        m_cible = fromBtn->property("peculiarity").toInt();
+        setAbeExerciceName(getAbeExerciceName()+QString::number(m_cible));
+        setAbeSkill(getAbeSkill()+QString::number(m_cible));
+    }
+    else{
+        ABULEDU_LOG_DEBUG() << "Problème : le paramètre transmis n'est pas conforme...";
+        return;
+    }
+    getAbeExerciceTelecommandeV1()->ui->btnSuivant->click();
 }

@@ -268,10 +268,9 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     /** @todo Gérer les traductions */
     else if (name.simplified().left(6) == "Tables" || name.simplified().left(6) == "Ordres" || name.simplified() == "Compléments" || name.simplified() == "Multiples"){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
-        ui->stackedWidget->setCurrentWidget(ui->transitionalPage);
-        InterfaceCompetence* inter = new InterfaceCompetence(m_exerciceNames.key(name.simplified()),ui->transitionalPage);
-        connect(inter,SIGNAL(signalInterfaceCompetenceClose()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
-        inter->show();
+        ui->stackedWidget->setCurrentWidget(ui->exercicePage);
+        ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage,-1);
+        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
     }
     /* ça c'est la bonne façon de faire */
     else{
@@ -330,8 +329,7 @@ void interface::slotInterfaceDemo()
     foreach(AbulEduZoneV1* zone, m_abuleduPageAccueil->abePageAccueilGetZones()){
         zone->abeZoneDrawRect(true,QColor("#dcdcdc"),4);
     }
-    /** @todo réactiver pour le passage en tests et en prod
-    m_demoTimeLine->start(); */
+    m_demoTimeLine->start();
 }
 
 void interface::slotInterfaceEndDemo()

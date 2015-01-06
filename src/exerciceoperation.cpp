@@ -2,16 +2,15 @@
 
 ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int val, QString niveau) :
     AbstractExercise(parent),
-    m_operationName(exerciseName),
     m_parent(parent),
     m_minG(0),
     m_maxG(9),
     m_minD(0),
     m_maxD(9)
 {
-    qDebug()<<" ******************************** "<<exerciseName;
-    m_localDebug = true;
+    m_localDebug = false;
     m_cible = val;
+    m_operationName = exerciseName;
     if (niveau.isEmpty())
         setAbeLevel(niveau);
     else
@@ -32,33 +31,28 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
      *  par contre il faut trouver pourquoi il faut appuyer deux fois  */
 //    connect(m_leResultat, SIGNAL(returnPressed()),getAbeExerciceTelecommandeV1()->ui->btnVerifier, SLOT(click()),Qt::UniqueConnection);
     getAbeExerciceTelecommandeV1()->setDimensionsWidget();
-    if (exerciseName.left(11)=="complementA")
+    if (exerciseName == "complementA")
     {
-        exerciseName.truncate(11);
-        setAbeExerciceName(trUtf8("Complément additif à %1").arg(QString::number(val)));
+        setAbeExerciceName(trUtf8("Complément additif à "));
         //Skill non existant dans les competences Educ Nat
     }
 
-    if(exerciseName.left(11)=="complementM")
+    if(exerciseName == "complementM")
     {
-        exerciseName.truncate(11);
-        setAbeExerciceName(trUtf8("Multiples de %1").arg(QString::number(val)));
-        setAbeSkill("multiples-"+QString::number(val));
-
+        setAbeExerciceName(trUtf8("Multiples de "));
+        setAbeSkill("multiples-");
     }
 
-    if (exerciseName.left(6)=="tableM")
+    if (exerciseName == "tableM")
     {
-        exerciseName.truncate(6);
-        setAbeExerciceName(trUtf8("Table de multiplication par %1").arg(QString::number(val)));
-        setAbeSkill("table-multiplication-"+QString::number(val));
+        setAbeExerciceName(trUtf8("Table de multiplication par "));
+        setAbeSkill("table-multiplication-");
     }
 
-    if (exerciseName.left(6)=="tableA")
+    if (exerciseName == "tableA")
     {
-        exerciseName.truncate(6);
-        setAbeExerciceName(trUtf8("Table d'addition de %1").arg(QString::number(val)));
-        setAbeSkill("table-addition-"+QString::number(val));
+        setAbeExerciceName(trUtf8("Table d'addition de "));
+        setAbeSkill("table-addition-");
     }
 
     if (exerciseName=="addition")
@@ -85,28 +79,13 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
     }
 
-    if (exerciseName.left(10)=="OdGrandeur")
+    if (exerciseName =="OdGrandeur")
     {
         /** @todo m_ui->btnAide->show();*/
-        QString nomExercice = trUtf8("Ordres de grandeur sur des ");
-        QString nomCompetence = "ordre-grandeur-";
-        if (exerciseName[10]=='A')
-        {
-            nomExercice.append(trUtf8("additions"));
-            nomCompetence.append("somme");
+        if(m_operationName == "OdGrandeur"){
+            setAbeExerciceName(trUtf8("Ordres de grandeur sur des "));
+            setAbeSkill("ordre-grandeur-");
         }
-        else if (exerciseName[10]=='S')
-        {
-            nomExercice.append(trUtf8("soustractions"));
-            nomCompetence.append("difference");
-        }
-        else
-        {
-            nomExercice.append(trUtf8("multiplications"));
-            nomCompetence.append("produit");
-        }
-        setAbeExerciceName(nomExercice);
-        setAbeSkill(nomCompetence);
     }
 
     if (exerciseName == "maisonDesNombres")
@@ -114,7 +93,9 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
         setAbeExerciceName(trUtf8("La maison des nombres"));
     }
     QPixmap imageFond;
-    qDebug()<<":/calculment/backgrounds/"+exerciseName;
+    if(m_localDebug){
+        qDebug()<<":/calculment/backgrounds/"+exerciseName;
+    }
     imageFond.load(":/calculment/backgrounds/"+exerciseName);
     m_imageFond = new QPixmap(imageFond.scaledToHeight(m_parent->height()));
 }
@@ -243,6 +224,55 @@ void ExerciceOperation::slotSequenceEntered()
         ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotSequenceEntered();
+}
+
+void ExerciceOperation::slotPresenteSequenceEntered()
+{
+    if(m_operationName == "tableM"){
+        m_variations.append(AbulEduLaunchElements("2",":/calculment/elements/aie1",2));
+        m_variations.append(AbulEduLaunchElements("3",":/calculment/elements/aie2",3));
+        m_variations.append(AbulEduLaunchElements("4",":/calculment/elements/aie3",4));
+        m_variations.append(AbulEduLaunchElements("5",":/calculment/elements/aie1",5));
+        m_variations.append(AbulEduLaunchElements("6",":/calculment/elements/aie2",6));
+        m_variations.append(AbulEduLaunchElements("7",":/calculment/elements/aie3",7));
+        m_variations.append(AbulEduLaunchElements("8",":/calculment/elements/aie1",8));
+        m_variations.append(AbulEduLaunchElements("9",":/calculment/elements/aie2",9));
+        m_variations.append(AbulEduLaunchElements("tous ces nombres",":/calculment/elements/aie3",-1));
+    }
+    else if(m_operationName == "complementA"){
+        m_variations.append(AbulEduLaunchElements("10",":/calculment/elements/aie1",10));
+        m_variations.append(AbulEduLaunchElements("100",":/calculment/elements/aie2",100));
+        m_variations.append(AbulEduLaunchElements("1000",":/calculment/elements/aie3",1000));
+        /** @todo Ajouter la maison des nombres */
+    }
+    else if(m_operationName == "complementM"){
+        m_variations.append(AbulEduLaunchElements("5",":/calculment/elements/aie1",5));
+        m_variations.append(AbulEduLaunchElements("10",":/calculment/elements/aie2",10));
+        m_variations.append(AbulEduLaunchElements("15",":/calculment/elements/aie3",15));
+        m_variations.append(AbulEduLaunchElements("20",":/calculment/elements/aie1",20));
+        m_variations.append(AbulEduLaunchElements("25",":/calculment/elements/aie2",25));
+        m_variations.append(AbulEduLaunchElements("50",":/calculment/elements/aie3",50));
+    }
+    else if(m_operationName == "tableA"){
+        m_variations.append(AbulEduLaunchElements("2",":/calculment/elements/aie1",2));
+        m_variations.append(AbulEduLaunchElements("3",":/calculment/elements/aie2",3));
+        m_variations.append(AbulEduLaunchElements("4",":/calculment/elements/aie3",4));
+        m_variations.append(AbulEduLaunchElements("5",":/calculment/elements/aie1",5));
+        m_variations.append(AbulEduLaunchElements("6",":/calculment/elements/aie2",6));
+        m_variations.append(AbulEduLaunchElements("7",":/calculment/elements/aie3",7));
+        m_variations.append(AbulEduLaunchElements("8",":/calculment/elements/aie1",8));
+        m_variations.append(AbulEduLaunchElements("9",":/calculment/elements/aie2",9));
+        m_variations.append(AbulEduLaunchElements("tous ces nombres",":/calculment/elements/aie3",-1));
+    }
+    else if(m_operationName == "OdGrandeur"){
+        m_variations.append(AbulEduLaunchElements(trUtf8("additions"),":/calculment/elements/nausee1","Addition"));
+        m_variations.append(AbulEduLaunchElements(trUtf8("soustractions"),":/calculment/elements/nausee2","Soustraction"));
+        m_variations.append(AbulEduLaunchElements(trUtf8("multiplications"),":/calculment/elements/nausee3","Multiplication"));
+    }
+    else {
+        ABULEDU_LOG_DEBUG()  << "Problème : je ne devrais pas pouvoir arriver ici ...";
+    }
+    AbstractExercise::slotPresenteSequenceEntered();
 }
 
 void ExerciceOperation::slotRealisationExerciceEntered()

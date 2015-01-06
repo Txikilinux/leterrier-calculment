@@ -36,7 +36,6 @@ public:
     ~ExerciceOperation();
 
 protected:
-    QString m_operationName;
     QWidget* m_parent;
 
     int verifieReponse();
@@ -60,6 +59,10 @@ protected slots:
     /** Entrée dans l'état "sequence" de l'AbulEduStateMachineV1
       * Passage unique au lancement de la machine à états */
     virtual void slotSequenceEntered();
+
+    /** Entrée dans l'état "PresentationSequence" de l'AbulEduStateMachineV1
+      * Passage unique au lancement de la machine à états */
+    virtual void slotPresenteSequenceEntered();
 
     /** Entrée dans l'état "realisationExercice" de l'AbulEduStateMachineV1
       * Passage une seule fois au début de chaque exercice */

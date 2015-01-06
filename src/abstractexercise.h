@@ -26,6 +26,28 @@
 #include "abuleducommonstatesv1.h"
 #include "baudruche.h"
 
+///
+/// \brief La classe AbulEduLaunchElements stocke les paramètres nécessaires pour jouer un média
+///
+class AbulEduLaunchElements {
+
+public:
+    /** Construit un AbulEduLaunchElements, qui va permettre de créer un bouton */
+    AbulEduLaunchElements(const QString &ButtonText, const QString &iconPath, const QVariant &peculiarity) :
+        AbulEduLaunchButtonText(ButtonText), AbulEduLaunchIconPath(iconPath), AbulEduLaunchPeculiarity(peculiarity) { }
+    ~AbulEduLaunchElements() {}
+    inline QString abeLaunchElementGetButtonText() {return AbulEduLaunchButtonText;}
+    inline QString abeLaunchElementGetIconPath() {return AbulEduLaunchIconPath;}
+    inline QVariant abeLaunchElementGetPeculiarity() {return AbulEduLaunchPeculiarity;}
+
+    friend class AbstractExercise;
+
+protected:
+    QString AbulEduLaunchButtonText;
+    QString AbulEduLaunchIconPath;
+    QVariant AbulEduLaunchPeculiarity;
+};
+
 class AbstractExercise : public AbulEduCommonStatesV1
 {
     Q_OBJECT
@@ -33,6 +55,9 @@ class AbstractExercise : public AbulEduCommonStatesV1
 public:
     AbstractExercise(QWidget *parent);
     virtual ~AbstractExercise();
+
+    inline int cible() const {return m_cible;}
+    inline void setCible(int cible) {m_cible = cible;}
 
 protected:
     /** Contrôle la possibilité d'affichage des debugs
@@ -90,6 +115,7 @@ protected:
 
     ///
     /// \brief Un nombre passé en paramètre. Table de ..., compléments à ...
+    /// \value Ce nombre est initialisé à 0; On passera la valeur -1 pour provoquer un choix
     ///
     int m_cible;
 
@@ -112,11 +138,19 @@ protected:
       * Il permet d'intégrer l'aire de jeu dans l'AbulEduExerciceWidgetAireDeTravailV1 */
     QGraphicsProxyWidget *m_proxyAireDeJeu;
 
+    QList<AbulEduLaunchElements> m_variations;
+
+    QString m_operationName;
+
 protected slots:
 
     /** Entrée dans l'état "sequence" de l'AbulEduStateMachineV1
       * Passage unique au lancement de la machine à états */
     virtual void slotSequenceEntered();
+
+    /** Entrée dans l'état "PresentationSequence" de l'AbulEduStateMachineV1
+      * Passage unique au lancement de la machine à états */
+    virtual void slotPresenteSequenceEntered();
 
     /** Entrée dans l'état "realisationExercice" de l'AbulEduStateMachineV1
       * Passage une seule fois au début de chaque exercice */
@@ -165,6 +199,8 @@ protected slots:
 
     /** Slot destiné à fournir une aide à l'utilisateur lors de la réalisation des exercices */
     virtual void slotAide();
+
+    void slotSetPeculiarity();
 
 signals:
     /** Émis dans le destructeur pour signaler que l'exercice est terminé. Connecté au slot "abeBackFromExercice" de la LeTerrierMainWindow */
