@@ -39,7 +39,6 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_leResultat(0)
 {
     /* Création de l'aire de jeu et de sa scène */
-
     m_AireDeJeu->setScene(m_sceneAireDeJeu);
     m_AireDeJeu->setSceneRect(m_AireDeJeu->rect());
     /* On la place sur l'AbulEduExerciceWidgetAireDeTravailV1 par l'intermédiaire d'un QGraphicsProxyWidget,
@@ -185,38 +184,90 @@ void AbstractExercise::slotInitQuestionEntered()
 
 void AbstractExercise::slotQuestionEntered()
 {
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
     AbulEduCommonStatesV1::slotQuestionEntered();
 }
 
 void AbstractExercise::slotAfficheVerificationQuestionEntered()
 {
-    AbulEduCommonStatesV1::slotAfficheVerificationQuestionEntered();
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
+    /* Je commente l'appel à la fonction de la classe mère afin d'empêcher le passage automatique à la question suivante */
+//    AbulEduCommonStatesV1::slotAfficheVerificationQuestionEntered();
     m_leResultat->clearFocus();
 }
 
 void AbstractExercise::slotFinVerificationQuestionEntered()
 {
-//    if(getAbeNumQuestion() == getAbeNbTotalQuestions()) {
-//        sequenceMachine->postDelayedEvent(new StringEvent("Questionsdone"),7000);
-//    }
-//    else {
-//        sequenceMachine->postDelayedEvent(new StringEvent("Questionsloop"),7000);
-//    }
+    ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<getAbeNumQuestion()<<getAbeNbTotalQuestions();
+    if(m_localDebug){
+    }
+    if(getAbeNumQuestion() == getAbeNbTotalQuestions()) {
+        sequenceMachine->postEvent(new StringEvent("Questionsdone"));
+    }
+    else {
+        sequenceMachine->postEvent(new StringEvent("Questionsloop"));
+    }
+    /* Je commente l'appel à la fonction de la classe mère afin d'empêcher le passage automatique à la question suivante */
+//    AbulEduCommonStatesV1::slotFinVerificationQuestionEntered();
 }
 
 void AbstractExercise::slotAfficheCorrectionQuestionEntered()
 {
-
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
 }
 
 void AbstractExercise::slotFinCorrectionQuestionEntered()
 {
-
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
 }
 
 void AbstractExercise::slotBilanSequenceEntered()
 {
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
 
+    /* On affiche la bonne tete en fonction du nombre de bonnes réponses */
+    QString imagetete = ":/bilan/";
+    setAbeTeteForResult(getAbeNbTotalQuestions()-m_score,getAbeNbTotalQuestions());
+    boiteTetes->setEtatTete(abeStateMachineGetNumExercice(), getAbeExerciceEvaluation());
+    imagetete.append(boiteTetes->suffixe->value(getAbeExerciceEvaluation()));
+    AbulEduCommonStatesV1::slotBilanExerciceEntered();
+    QString motReponse;
+    QString motQuestion;
+    if(m_score > 1){
+        motReponse = trUtf8("réponses correctes");
+    }
+    else{
+        motReponse = trUtf8(("réponse correcte"));
+    }
+    if(getAbeNbTotalQuestions() > 1){
+        motQuestion = trUtf8("questions");
+    }
+    else {
+        motQuestion = trUtf8("question");
+    }
+    QString message = trUtf8("%1 %2 sur %3 %4.").arg(QString::number(m_score)).arg(motReponse).arg(QString::number(getAbeNbTotalQuestions())).arg(motQuestion);
+    getAbeExerciceMessageV1()->abeWidgetMessageSetTitre(trUtf8("Bilan de l'exercice"));
+
+    //    En attendant d'avoir trouvé le souci sur get ou setEtatTete, je construis imagetete plus haut
+    //    QString imagetete = QString(":/"+m_prefixeTetes+"/"+boiteTetes->suffixe->value(boiteTetes->getEtatTete(abeStateMachineGetNumExercice())));
+    getAbeExerciceMessageV1()->abeWidgetMessageSetConsigne(QString("<center><img src=")+imagetete+QString("/><br>")
+                                                           + message + QString("</center>"));
+    getAbeExerciceMessageV1()->abeWidgetMessageResize();
+    getAbeExerciceMessageV1()->abeWidgetMessageSetZoneTexteVisible(false);
+
+    getAbeExerciceMessageV1()->move((getAbeExerciceAireDeTravailV1()->width() - getAbeExerciceMessageV1()->width())/2,
+                                    ((getAbeExerciceAireDeTravailV1()->height() - getAbeExerciceMessageV1()->height())/2) - 200*abeApp->getAbeApplicationDecorRatio());
+    getAbeExerciceMessageV1()->setVisible(true);
 }
 
 bool AbstractExercise::eventFilter(QObject *obj, QEvent *event)
@@ -226,11 +277,16 @@ bool AbstractExercise::eventFilter(QObject *obj, QEvent *event)
 
 void AbstractExercise::slotAide()
 {
-
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
 }
 
 void AbstractExercise::slotSetPeculiarity()
 {
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
     AbulEduFlatBoutonV1* fromBtn = (AbulEduFlatBoutonV1*) sender();
     if(fromBtn->property("peculiarity").type() == QVariant::String){
         m_operationName = m_operationName.append(fromBtn->property("peculiarity").toString());

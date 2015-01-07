@@ -117,8 +117,9 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
         /** @todo A priori Skill non existant dans les competences Educ Nat mais faut vérifier */
     }
     QPixmap imageFond;
-    qDebug()<<":/calculment/backgrounds/"+exerciseName;
+
     if(m_localDebug){
+        ABULEDU_LOG_DEBUG()<<":/calculment/backgrounds/"+exerciseName;
     }
     imageFond.load(":/calculment/backgrounds/"+exerciseName);
     m_imageFond = new QPixmap(imageFond.scaledToHeight(m_parent->height()));
@@ -172,22 +173,22 @@ void ExerciceOperation::setDimensionsWidgets(float ratio)
 
 void ExerciceOperation::chargerParametres()
 {
-    if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-    }
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     setAbeNbTotalQuestions(config.value("NombreBallons",10).toInt());
     config.beginGroup(m_operationName);
     if (getAbeLevel().isEmpty()) setAbeLevel(config.value("NiveauEnCours"+m_operationName,"Niveau1").toString());
     else qDebug()<<"Dans chargerParametres(), m_level valait déjà "<<getAbeLevel();
     config.beginGroup(getAbeLevel());
-    qDebug()<<"Lecture des paramètres dans "<<config.fileName()<<" - "<<m_operationName<<" - "<<getAbeLevel();
     m_maxG = config.value("MaxGauche",100).toInt();
     m_minG = config.value("MinGauche",0).toInt();
     m_maxD = config.value("MaxDroite",100).toInt();
     m_minD = config.value("MinDroite",0).toInt();
     m_temps = config.value("TempsAccorde",10).toInt();
-    qDebug() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<getAbeLevel()<<"Tps : "<<m_temps;
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+        ABULEDU_LOG_DEBUG()<<"Lecture des paramètres dans "<<config.fileName()<<" - "<<m_operationName<<" - "<<getAbeLevel();
+        ABULEDU_LOG_DEBUG() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<getAbeLevel()<<"Tps : "<<m_temps;
+    }
     config.endGroup();
     config.endGroup();
 
@@ -234,11 +235,6 @@ void ExerciceOperation::animeBaudruche()
     //animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 )); --> pour la faire aller à droite
 
     m_baudruche->m_timer->start();
-    qDebug()<<m_AireDeJeu->rect();
-    qDebug()<<m_sceneAireDeJeu->sceneRect();
-    qDebug()<<getAbeExerciceAireDeTravailV1()->rect();
-    qDebug()<<getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->rect();
-    qDebug()<<getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->sceneRect();
 }
 
 void ExerciceOperation::slotSequenceEntered()
@@ -329,7 +325,6 @@ void ExerciceOperation::slotInitQuestionEntered()
     else m_depart = new QPoint(m_imageFond->width()/2-80*factY,500*factY);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
-    qDebug()<<"Creation de baudruche avec temps "<<m_temps;
     if (m_operationName=="addition")
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,m_sceneAireDeJeu,"auto");
     else if(m_operationName==""
@@ -385,7 +380,9 @@ void ExerciceOperation::slotInitQuestionEntered()
     }
 
     m_trace = m_baudruche->getMAffichage();
-    qDebug()<<"Calcul propose : "<<m_trace;
+    if(m_localDebug){
+        qDebug()<<"Calcul propose : "<<m_trace;
+    }
 
     //affichage du nombre de ballons déjà instanciés
     /** @todo voir ça, dessous */
@@ -423,7 +420,9 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
     else {
 
         float proposition = m_leResultat->text().toFloat();
-        qDebug()<<"Valeur du ballon : "<<m_resultatEnCours<<", lache sur "<<proposition;
+        if(m_localDebug){
+            qDebug()<<"Valeur du ballon : "<<m_resultatEnCours<<", lache sur "<<proposition;
+        }
         QString demande = "";
         demande = m_baudruche->getMGOperande()+m_baudruche->getMOperation()+m_baudruche->getMDOperande();
         //    m_score =
@@ -446,7 +445,8 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
 
     //sauvegardeLog* envoieRes = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, m_baudruche->getMLigne(), m_ui->leResultat->text(), reponseAttendueEnString);
     setAbeLineLog(m_baudruche->getMLigne(),m_leResultat->text().simplified(),m_score, m_total,getAbeExerciceEvaluation(),QString::number(m_resultatEnCours));
-    qDebug()<<getPluginLogs();
+    /* Décommenter la ligne ci-dessous pour voir ce qui est envoyé comme logs */
+//    qDebug()<<getPluginLogs();
 
     if (m_baudruche && !m_baudruche->getBaudrucheIsDetructionPlanified()){
             m_baudruche->detruire();
@@ -537,18 +537,13 @@ void ExerciceOperation::slotAide()
 
 void ExerciceOperation::ajouteErreur(QString msg)
 {
+    Q_UNUSED(msg)
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
         ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     if(m_leResultat->text().simplified().isEmpty()){
         sequenceMachine->postEvent(new StringEvent("QuestionVerifieEmpty"));
-        qDebug()<<" post que questionverifieempty";
     }
-    else{
-        qDebug()<<" pas de post que questionverifieempty";
-
-    }
-    qDebug()<<getAbeNumQuestion()<<getAbeNbTotalQuestions();
     m_listeEchecs.append(QString::number(m_baudruche->getMGOperande())+";"+m_baudruche->getMOperation()+";"+QString::number(m_baudruche->getMDOperande())+";"+QString::number(m_resultatEnCours)+";"+m_baudruche->m_nomImage);
 }

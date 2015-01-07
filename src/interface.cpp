@@ -123,6 +123,9 @@ void interface::resizeEvent(QResizeEvent *)
 
 void interface::creeMenuLangue()
 {
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()<<__FUNCTION__;
+    }
     QString nomFichierConf = "./conf/abuledulangselector.conf";
     if (!QFile(nomFichierConf).exists())
     {
@@ -147,8 +150,10 @@ void interface::creeMenuLangue()
 
 void interface::createStateMachine()
 {
-    if (m_localDebug) qDebug()<< __FUNCTION__;
-    // Les états
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()<<__FUNCTION__;
+    }
+    /* Les états */
     m_initialState      = new QState();
     m_initialState      ->setObjectName("initialState");
     m_globalState       = new QState();
@@ -175,7 +180,7 @@ void interface::createStateMachine()
 
     m_globalState->setInitialState(m_homeState);
 
-    // Les transitions
+    /* Les transitions */
     m_initialState->addTransition(m_initialState, SIGNAL(entered()), m_globalState);
 
     m_globalState->addTransition(ui->actionQuitter, SIGNAL(triggered()), m_finalState);
@@ -190,7 +195,7 @@ void interface::createStateMachine()
     /* Les transitions liées à l'éditeur seront installées lors de la création de celui-ci */
 
     m_exerciseState->addTransition(this, SIGNAL(signalAbeLTMWSMexerciseClosed()), m_homeState);
-    // Transitions gardées
+    /* Transitions gardées */
     LeterrierStringTransition *toExerciseState = new LeterrierStringTransition("launchExercise");
     toExerciseState->setTargetState(m_exerciseState);
     m_homeState->addTransition(toExerciseState);
@@ -198,7 +203,7 @@ void interface::createStateMachine()
     toAbeBoxFileManager->setTargetState(m_boxFileManagerState);
     m_homeState->addTransition(toAbeBoxFileManager);
 
-    // Les connexions
+    /* Les connexions */
     connect(m_initialState,     SIGNAL(entered()),  this, SLOT(slotInterfaceInitialStateEntered()),  Qt::UniqueConnection);
     connect(m_initialState,     SIGNAL(exited()),   this, SLOT(slotInterfaceInitialStateExited()),   Qt::UniqueConnection);
     connect(m_globalState,      SIGNAL(entered()),  this, SLOT(slotInterfaceGlobalStateEntered()),   Qt::UniqueConnection);
@@ -212,32 +217,34 @@ void interface::createStateMachine()
     connect(m_finalState,       SIGNAL(entered()),  this, SLOT(slotInterfaceFinalStateEntered()),    Qt::UniqueConnection);
     connect(m_finalState,       SIGNAL(exited()),   this, SLOT(slotInterfaceFinalStateExited()),     Qt::UniqueConnection);
 
-    //! Les assignProperty
+    /* Les assignProperty */
 
-    // globalState
+    /*     pour globalState */
 
-    // homeState
+    /*     pour homeState */
     m_homeState->assignProperty(ui->menuExercices,                  "enabled", true);
     m_homeState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetMenu(), "visible", true);
 
-    // editorState
+    /*     pour editorState */
     m_editorState->assignProperty(ui->menuExercices,                "enabled", false);
     m_editorState->assignProperty(ui->actionAfficher_l_diteur,    "enabled", false);
 
-    // exerciseState
+    /*     pour exerciseState */
     m_exerciseState->assignProperty(ui->actionAfficher_l_diteur,  "enabled", false);
     m_exerciseState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetMenu(), "visible", false);
     m_exerciseState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetBtnRevenirEditeur(), "visible", false);
     m_exerciseState->assignProperty(ui->menuExercices,              "enabled", false);
 
-    // waitForAbeState
+    /*     pour waitForAbeState */
 
-    // FinalState
+    /*     pour FinalState */
 }
 
 void interface::slotSessionAuthenticated(bool enable)
 {
-    if(m_localDebug) qDebug()<<__FUNCTION__<<enable;
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()<<__FUNCTION__<<enable;
+    }
     if(enable)
         abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
 
@@ -246,9 +253,8 @@ void interface::slotSessionAuthenticated(bool enable)
 
 void interface::slotInterfaceLaunchExercise(int number,QString name)
 {
-    qDebug()<<m_leterrierStateMachine.configuration().toList();
-    ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
     if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
     }
     /*" Tables de multiplication"
     " Tables d'addition"
@@ -265,21 +271,18 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
         ui->actionAfficher_l_diteur->trigger();
     }
     else if (name == "Maisons"){
-        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
         ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),ui->exercicePage,-1);
         connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
     }
     /** @todo Gérer les traductions */
     else if (name.simplified().left(6) == "Tables" || name.simplified().left(6) == "Ordres" || name.simplified() == "Compléments" || name.simplified() == "Multiples"){
-        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
         ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage,-1);
         connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
     }
     /* ça c'est la bonne façon de faire */
     else{
-        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
         ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage);
         connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
@@ -420,7 +423,6 @@ void interface::slotInterfaceInitialStateExited()
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
-
 }
 
 void interface::slotInterfaceGlobalStateEntered()
@@ -428,7 +430,6 @@ void interface::slotInterfaceGlobalStateEntered()
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
-
 }
 
 void interface::slotInterfaceGlobalStateExited()
@@ -436,7 +437,6 @@ void interface::slotInterfaceGlobalStateExited()
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
-
 }
 
 void interface::slotInterfaceHomeStateEntered()
@@ -464,7 +464,6 @@ void interface::slotInterfaceExerciseStateEntered()
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
-
 }
 
 void interface::slotInterfaceExerciseStateExited()
@@ -472,21 +471,20 @@ void interface::slotInterfaceExerciseStateExited()
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
-
 }
 
 void interface::slotInterfaceEditorStateEntered()
 {
-    ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
     ui->stackedWidget->setCurrentWidget(ui->editorPage);
 }
 
 void interface::slotInterfaceEditorStateExited()
 {
+    if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
-        if (m_localDebug){
     }
     m_isEditorRunning = false;
     ui->stackedWidget->setCurrentWidget(ui->mainPage);
@@ -509,7 +507,9 @@ void interface::slotInterfaceFinalStateExited()
 
 void interface::changelangue(QString langue)
 {
-    if(m_localDebug) qDebug()<<"interface::changelangue(1)";
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
     qApp->setProperty("langageUtilise",langue);
     myappTranslator.load("leterrier-calculment_"+langue, "lang");
 
@@ -640,7 +640,6 @@ void interface::on_actionX_9_triggered()
 
 void interface::on_actionAfficher_l_diteur_triggered()
 {
-    qDebug()<<"je passe là ";
 
 }
 
@@ -737,6 +736,9 @@ void interface::on_actionMaison_des_nombres_triggered()
 
 void interface::on_actionVerrouillage_nombres_changed()
 {
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
     if (ui->actionVerrouillage_nombres->isChecked())
         qApp->setProperty("VerrouNombres",true);
     else
@@ -766,7 +768,9 @@ void interface::slotInterfaceShowAboutPage()
 
 void interface::setTitle(int authStatus)
 {
-    if(m_localDebug) qDebug()<<__FUNCTION__<<authStatus;
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__<<authStatus;
+    }
     QString title = abeApp->getAbeApplicationLongName();
     if (authStatus == 1)
     {
@@ -782,27 +786,35 @@ void interface::setTitle(int authStatus)
 
 void interface::slotAskLanceur()
 {
-        if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
-        {
-
-            abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
-            abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
-            abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
-        }
-        else
-        {
-            slotMontreLanceur();
-        }
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
+    {
+        abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
+        abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
+        abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+    }
+    else
+    {
+        slotMontreLanceur();
+    }
 }
 
 void interface::slotMontreLanceur()
 {
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
     AbuleduLanceurV1* lanceur = new AbuleduLanceurV1(abeApp->getAbeIdentite());
     lanceur->show();
 }
 
 void interface::slotMontreErreurId()
 {
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
     AbulEduMessageBoxV1* msgError = new AbulEduMessageBoxV1(trUtf8("Problème !"),trUtf8("Accès impossible au lanceur d'activité sans identification correcte"));
     msgError->show();
 }

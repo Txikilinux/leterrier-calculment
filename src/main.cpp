@@ -91,10 +91,12 @@ int main(int argc, char *argv[])
 
 
     //Attention Usine à gaz : si on a un nombre j'ai besoin de l'ajouter ici pour avoir un truc du style tableM7 pour lire les valeurs dans le fichier de configuration
+    /*  -> pour lancement en ligne de commande
     QString exo1 = exo;
     if (nombre != 0) exo1 = exo+QString::number(nombre);
     qDebug()<<"exo : "<<exo1;
     //exercice e(exo,&a,nombre,nivo);
+
     exercice e(exo1,0,nombre,nivo);
 //    qDebug()<<"Exercice lance avec comme parametres :";
 //    qDebug()<<"exo1 = "<<exo1;
@@ -111,7 +113,7 @@ int main(int argc, char *argv[])
         //QObject* appliCastee = qobject_cast<QApplication*>(&appli);
         e.setObjectName("exercoce");
         //e.setParent(&w);//c'est ça qui mettait le bazar et créait la fenêtre blanche... je le commente, j'espère que ce n'était indispensable pour autre chose...
-        e.setWindowTitle("exercice");
+        e.setWindowTitle("exercice");*/
     if (argc==1)
     {
         // ================== splashscreen
@@ -121,7 +123,7 @@ int main(int argc, char *argv[])
         splash->setMainWindow(w);
         splash->launch(1000);
     }
-    else e.show();
+//    else e.show(); -> pour lancement en ligne de commande
     return a.exec();
 }
 

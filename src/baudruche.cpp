@@ -113,9 +113,6 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     QScriptEngine calculateur;
     QScriptValue resultat = calculateur.evaluate(m_ligne);
     m_resultat = resultat.toNumber();
-    qDebug()<<" ----------------------------------------------------------------- ";
-    qDebug()<<m_resultat<<m_resultat;
-    qDebug()<<" ----------------------------------------------------------------- ";
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
     construisAffichage();
