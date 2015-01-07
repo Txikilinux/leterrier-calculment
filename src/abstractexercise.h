@@ -197,9 +197,6 @@ protected slots:
      */
     bool eventFilter(QObject *obj, QEvent *event);
 
-    /** Slot destiné à fournir une aide à l'utilisateur lors de la réalisation des exercices */
-    virtual void slotAide();
-
     /** Appelé par un bouton placé sur l'AbulEduExerciceWidgetMessageV1, ce slot permet d'instancier les objets d'exercices à variantes */
     void slotSetPeculiarity();
 

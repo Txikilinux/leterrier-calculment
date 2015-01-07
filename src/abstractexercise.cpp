@@ -275,13 +275,6 @@ bool AbstractExercise::eventFilter(QObject *obj, QEvent *event)
     return AbulEduCommonStatesV1::eventFilter(obj,event);
 }
 
-void AbstractExercise::slotAide()
-{
-    if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-    }
-}
-
 void AbstractExercise::slotSetPeculiarity()
 {
     if(m_localDebug){

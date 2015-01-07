@@ -104,7 +104,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
 
     if (exerciseName =="OdGrandeur")
     {
-        /** @todo m_ui->btnAide->show();*/
+        setHelpText("Tu dois trouver l'ordre de grandeur du résultat du calcul proposé.<br/>Pour cela, tu vas arrondir les nombres en ne gardant qu'un seul chiffre significatif, puis faire l'opération sur les nombres arrondis.<br/>Exemple : 372 - 198 -> 400 - 200 = 200<br/>Attention : n'arrondis pas les nombres à 1 seul chiffre");
         if(m_operationName == "OdGrandeur"){
             setAbeExerciceName(trUtf8("Ordres de grandeur sur des "));
             setAbeSkill("ordre-grandeur-");
@@ -244,6 +244,10 @@ void ExerciceOperation::slotSequenceEntered()
         ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotSequenceEntered();
+    if(m_operationName == "OdGrandeur"){
+        presentationSequence->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnAide, "enabled",true);
+        afficheVerificationQuestion->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnAide, "enabled",true);
+    }
 }
 
 void ExerciceOperation::slotPresenteSequenceEntered()
@@ -525,14 +529,6 @@ void ExerciceOperation::slotBilanSequenceEntered()
 bool ExerciceOperation::eventFilter(QObject *obj, QEvent *event)
 {
     return AbstractExercise::eventFilter(obj,event);
-}
-
-void ExerciceOperation::slotAide()
-{
-    if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-    }
-    AbstractExercise::slotAide();
 }
 
 void ExerciceOperation::ajouteErreur(QString msg)

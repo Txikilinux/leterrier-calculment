@@ -110,9 +110,6 @@ protected slots:
      */
     bool eventFilter(QObject *obj, QEvent *event);
 
-    /** Slot destiné à fournir une aide à l'utilisateur lors de la réalisation des exercices */
-    void slotAide();
-
     void ajouteErreur(QString msg);
 };
 
