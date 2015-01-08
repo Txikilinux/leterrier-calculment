@@ -233,5 +233,8 @@ void ExerciceMaisonNombres::slotSetPeculiarity()
         ABULEDU_LOG_DEBUG() << "Problème : le paramètre transmis n'est pas conforme...";
         return;
     }
+    bool isBtnSuivantEnable = getAbeExerciceTelecommandeV1()->ui->btnSuivant->isEnabled();
+    getAbeExerciceTelecommandeV1()->ui->btnSuivant->setEnabled(true);
     getAbeExerciceTelecommandeV1()->ui->btnSuivant->click();
+    getAbeExerciceTelecommandeV1()->ui->btnSuivant->setEnabled(isBtnSuivantEnable);
 }
