@@ -129,8 +129,7 @@ void interface::creeMenuLangue()
     QString nomFichierConf = "./conf/abuledulangselector.conf";
     if (!QFile(nomFichierConf).exists())
     {
-        QMessageBox *alertBox=new QMessageBox(QMessageBox::Warning,trUtf8("Problème !!"),trUtf8("Fichier de configuration des langues non trouvé"));
-        alertBox->show();
+        qDebug()<<trUtf8("Fichier de configuration des langues non trouvé");
         return;
     }
     QSettings configLang(nomFichierConf, QSettings::IniFormat);
