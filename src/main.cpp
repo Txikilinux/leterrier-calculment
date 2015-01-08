@@ -45,9 +45,9 @@ int main(int argc, char *argv[])
     abeApp->setProperty("afficheBilanExercice",false);
 
     /** @todo corriger le commentaire ci-dessous */
-    /* On peut désormais lancer Aller avec des arguments
-     * par exemple, le lancement en console de "leterrier-aller --exercice=ttr --module=~/leterrier/abebox/leterrier-aller/Heureux_ulysse_ce1.abe --fond=~/leterrier/abebox/leterrier-aller/fondecran.jpg"
-     * lancera closure sur le module ulysse en utilisant comme fond d'écran le fichier fondecran.jpg  */
+    /* On peut désormais lancer Calcul Mental avec des arguments
+     * par exemple, le lancement en console de "leterrier-calculment --exercice=tableM --option=7 --fond=~/leterrier/abebox/leterrier-calculment/fondecran.jpg"
+     * lancera des calculs sur la table de multiplication par 7 en utilisant comme fond d'écran le fichier fondecran.jpg  */
 
     QList<AbulEduLogLevelV1> bannishedLogs;
     bannishedLogs << WarnLevel << InfoLevel << TraceLevel;
@@ -87,15 +87,11 @@ int main(int argc, char *argv[])
                 option = current.split("=").last();
             }
             else if(current.contains("--help")) {
-                QMessageBox::information(new QWidget(),"Aide","Vous pourrez lancer ce logiciel avec les options suivantes:\n\
-                                         \n\
-                                         --help -> cette aide\n\
-                                         \n\
-                                         --exercice=type exercice -> lance directement un exercice, choisissez parmi ExerciceClosure, ExerciceOrdreAlpha1, ExerciceMotsMelanges, ExercicePhrasesMelangees, ExerciceParagraphesMelanges, ExercicePhraseSansEspaces ou ExerciceRapido\n\
-//  --> le jour où on gèrera le travail en modules                                       \n\
-//  --> le jour où on gèrera le travail en modules                                        --module=nom module -> indiquez son chemin absolu\n\
-                        \n\
-                        --fond=image de fond -> indiquez son chemin absolu\n\
+                QMessageBox::information(new QWidget(),"Aide","Vous pourrez lancer ce logiciel avec les arguments suivants:\
+                         \n\--help : cette aide\
+                         \n\--exercice=type exercice : lance directement un exercice, choisissez parmi addition, soustraction, multiplication, division, maisonDesNombres, OdGrandeur, tableA, tableM, complementA ou complementM\
+                         \n\--option= un nombre de 2 à 9 pour les tables, un nombre parmi 5, 10, 15, 20, 25 et 50 pour complementM (multiples), un nombre parmi 10, 100 ou 1000 pour complementA, un nombre parmi 0 (nombres de 1 à 10) et 10 (nombres de 11 à 20) pour maisonDesNombres, un mot parmi Addition, Soustraction et Multiplication pour les ordres de grandeur \
+                         \n\--fond=image de fond : indiquez son chemin absolu\n\
                         ");
                         return 0;
             }
