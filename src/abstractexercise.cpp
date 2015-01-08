@@ -24,7 +24,7 @@
 
 AbstractExercise::AbstractExercise(QWidget *parent):
     AbulEduCommonStatesV1(parent),
-    m_localDebug(true),
+    m_localDebug(false),
     m_parent(parent),
     m_AireDeJeu(new QGraphicsView()),
     m_sceneAireDeJeu(new QGraphicsScene(this)),

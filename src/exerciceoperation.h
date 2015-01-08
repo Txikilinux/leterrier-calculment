@@ -36,6 +36,10 @@ public:
     ExerciceOperation(QString exerciseName, QWidget *parent, int val = 0, QString niveau = QString());
     ~ExerciceOperation();
 
+    QList<int> getNumberUsed() const;
+    void setNumberUsed(const QList<int> &numberUsed);
+    void addNumberUsed(int number);
+
 protected:
     QWidget* m_parent;
 
@@ -51,6 +55,7 @@ protected:
     int m_minD;
     int m_maxD;
     int m_temps;
+    QList<int> m_numberUsed;
 
     void chargerParametres();
 

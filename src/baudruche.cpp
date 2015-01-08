@@ -22,6 +22,7 @@
   */
 
 #include "baudruche.h"
+#include "exerciceoperation.h"
 #include <QApplication>
  #include <QDesktopWidget>
  #include <QFontMetrics>
@@ -43,19 +44,17 @@ const int MULTIPLE_MAX=11;
     * @param image -initialisé à 0- est le nom (sans chemin, sans extension) de l'image. Tant qu'image vaut 0, c'est un ballon de baudruche
     */
 
-baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation,QPoint pos,QGraphicsScene *parent,QString image)
+baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation, QPoint pos, QObject *parent, QString image)
 {
-    //qDebug()<<"baudruche::constructeur normal (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
 
     m_nomOperation = operation;
     m_nomImage = image;
     m_dropValeur = "";
     m_approximation=0;
-    m_parent = new QGraphicsScene();
     m_parent = parent;
+    ExerciceOperation* exoParent = (ExerciceOperation*) parent;
     m_isDetructionPlanified = false;
-    setParent(parent);
     if (operation=="addition" || operation=="tableA" || operation==""){
         m_op = "+";
     }
@@ -72,8 +71,13 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     m_position.setY(pos.y());
 
 /* Je déplace la détermination de l'opérande droit avant celle du gauche parce que ça m'arrange pour la division, vérifier si c'est pas le bordail ailleurs */
-    if (intMinD == intMaxD) d_operande = intMaxD;
-    else d_operande = intMinD + rand()%(intMaxD-intMinD);
+    if (intMinD == intMaxD){
+        d_operande = intMaxD;
+    }
+    else{
+        d_operande = intMinD + rand()%(intMaxD-intMinD);
+    }
+
     if (intMinG == intMaxG){
         g_operande = intMaxG;
     }
@@ -87,11 +91,19 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
             while(reste != 0);
         }
         else {
-            g_operande = intMinG + rand()%(intMaxG-intMinG);
+            bool foundNew = false;
+            do {
+                g_operande = intMinG + rand()%(intMaxG-intMinG+1);
+                if(exoParent->getNumberUsed().count(g_operande) < 1 || exoParent->getNumberUsed().size() >= 10){
+                    exoParent->addNumberUsed(g_operande);
+                    foundNew = true;
+                }
+            }
+            while(!foundNew);
         }
     }
     /* Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes... */
-    if (d_operande > g_operande)
+    if (d_operande > g_operande && operation.left(5) != "table")
     {
         int tmp=g_operande;
         g_operande=d_operande;
@@ -124,12 +136,10 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
 }
 
 /* constructeur spécifique aux valeurs approchées */
-baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operation,QPoint pos,QGraphicsScene *parent,QString image)
+baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operation, QPoint pos, QObject *parent, QString image)
 {
     qDebug()<<"baudruche::constructeur valeurs approchées (1)";
-    m_parent = new QGraphicsScene();
     m_parent = parent;
-    setParent(parent);
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
     m_dropValeur = "";
@@ -171,13 +181,11 @@ baudruche::baudruche(int intMaxG, int intMaxD,int tempsAccorde, QString operatio
 }
 
 /* constructeur spécifique aux compléments */
-baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint pos,QGraphicsScene *parent,QString image)
+baudruche::baudruche(int valeurCible, int tempsAccorde, QString operation, QPoint pos, QObject *parent, QString image)
 {
     qDebug()<<"baudruche::constructeur compléments (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    m_parent = new QGraphicsScene();
     m_parent = parent;
-    setParent(parent);
     m_nomImage = image;
     m_dropValeur = "";
     m_isDetructionPlanified = false;
@@ -225,13 +233,11 @@ baudruche::baudruche(int valeurCible, int tempsAccorde,QString operation,QPoint 
 }
 
 /* constructeur spécifique à l'affichage du résultat */
-baudruche::baudruche(int pts, QPoint pos,QGraphicsScene *parent,QString image)
+baudruche::baudruche(int pts, QPoint pos, QObject *parent, QString image)
 {
     //qDebug()<<"baudruche::constructeur affichage (1)";
-    m_parent = new QGraphicsScene();
     m_parent = parent;
     m_isDetructionPlanified = false;
-    setParent(parent);
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     //qDebug()<<"Fact X vaut "<< factX;
     m_nomImage = image;
@@ -268,16 +274,14 @@ baudruche::baudruche(int pts, QPoint pos,QGraphicsScene *parent,QString image)
 }
 
 //constructeur specifique à la remédiation
-baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString operation, QPoint pos,QGraphicsScene* parent,QString image)
+baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString operation, QPoint pos, QObject *parent, QString image)
 {
     //qDebug()<<"Opération en paramètre : "<<operation;
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     if (operation=="addition" || operation.left(6)=="tableA" || operation=="OdGrandeurAddition" || operation.left(11)=="complementA" || operation=="") m_op = "+";
     else if (operation=="soustraction" || operation=="OdGrandeurSoustraction") m_op = "-";
         else if (operation=="multiplication" || operation.left(6)=="tableM" || operation=="OdGrandeurMultiplication" || operation.left(11)=="complementM") m_op = "x";
-    m_parent = new QGraphicsScene();
     m_parent = parent;
-    setParent(parent);
     m_dropValeur = "";
     m_isDetructionPlanified = false;
     m_position.setX(pos.x());

@@ -32,6 +32,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
     m_maxD(9)
 {
     m_localDebug = false;
+    m_numberUsed.clear();
     m_cible = val;
     m_operationName = exerciseName;
     if (niveau.isEmpty())
@@ -169,7 +170,24 @@ void ExerciceOperation::setDimensionsWidgets(float ratio)
     getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->move(abscisseTelecommande - getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->width()+30*abeApp->getAbeApplicationDecorRatio(),
                                                                 getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->y());
     boiteTetes->setPos((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - boiteTetes->geometry().width())/2,
-                       getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - boiteTetes->geometry().height());}
+                       getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - boiteTetes->geometry().height());
+}
+
+QList<int> ExerciceOperation::getNumberUsed() const
+{
+    return m_numberUsed;
+}
+
+void ExerciceOperation::setNumberUsed(const QList<int> &numberUsed)
+{
+    m_numberUsed = numberUsed;
+}
+
+void ExerciceOperation::addNumberUsed(int number)
+{
+    m_numberUsed << number;
+}
+
 
 void ExerciceOperation::chargerParametres()
 {
@@ -329,27 +347,28 @@ void ExerciceOperation::slotInitQuestionEntered()
     else m_depart = new QPoint(m_imageFond->width()/2-80*factY,500*factY);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
+
     if (m_operationName=="addition")
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,m_sceneAireDeJeu,"auto");
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"auto");
     else if(m_operationName==""
             || m_operationName=="soustraction"
             || m_operationName=="multiplication"
             || m_operationName=="division")
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,m_sceneAireDeJeu);
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this);
 
     else if (m_operationName.left(6)=="tableA")
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName.left(6),*m_depart,m_sceneAireDeJeu,"nacelle");
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName.left(6),*m_depart,this,"nacelle");
     else if(m_operationName.left(6)=="tableM")
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName.left(6),*m_depart,m_sceneAireDeJeu,"cabine");
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName.left(6),*m_depart,this,"cabine");
     else if (m_operationName.left(11)=="complementA")
-        m_baudruche = new baudruche(m_minG,m_temps,m_operationName.left(11), *m_depart,m_sceneAireDeJeu,"fantome");
+        m_baudruche = new baudruche(m_minG,m_temps,m_operationName.left(11), *m_depart,this,"fantome");
     else if (m_operationName.left(11)=="complementM")
-        m_baudruche = new baudruche(m_minG,m_temps,m_operationName.left(11), *m_depart,m_sceneAireDeJeu);
+        m_baudruche = new baudruche(m_minG,m_temps,m_operationName.left(11), *m_depart,this);
 
     else if (m_operationName=="OdGrandeurAddition"
              || m_operationName=="OdGrandeurSoustraction"
              || m_operationName=="OdGrandeurMultiplication")
-        m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operationName, *m_depart,m_sceneAireDeJeu);
+        m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operationName, *m_depart,this);
 
 //    else  QMessageBox::critical(this, trUtf8("Opération inexistante"), m_operationName.append(trUtf8(", ça n'existe pas comme opération...")));
 
