@@ -91,15 +91,21 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
             while(reste != 0);
         }
         else {
-            bool foundNew = false;
-            do {
-                g_operande = intMinG + rand()%(intMaxG-intMinG+1);
-                if(exoParent->getNumberUsed().count(g_operande) < 1 || exoParent->getNumberUsed().size() >= 10){
-                    exoParent->addNumberUsed(g_operande);
-                    foundNew = true;
+            QString classe(parent->metaObject()->className());
+            if(classe == "ExerciceOperation"){
+                bool foundNew = false;
+                do {
+                    g_operande = intMinG + rand()%(intMaxG-intMinG+1);
+                    if(exoParent->getNumberUsed().count(g_operande) < 1 || exoParent->getNumberUsed().size() >= 10){
+                        exoParent->addNumberUsed(g_operande);
+                        foundNew = true;
+                    }
                 }
+                while(!foundNew);
             }
-            while(!foundNew);
+            else {
+                g_operande = intMinG + rand()%(intMaxG-intMinG+1);
+            }
         }
     }
     /* Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes... */

@@ -149,68 +149,6 @@ background-color:transparent;
     <property name="title">
      <string>Exercices</string>
     </property>
-    <widget class="QMenu" name="menuTables_d_addition">
-     <property name="title">
-      <string>Tables d'addition</string>
-     </property>
-     <addaction name="actionp2"/>
-     <addaction name="actionp3"/>
-     <addaction name="actionp4"/>
-     <addaction name="actionp5"/>
-     <addaction name="actionp6"/>
-     <addaction name="actionp7"/>
-     <addaction name="actionp8"/>
-     <addaction name="actionp9"/>
-    </widget>
-    <widget class="QMenu" name="menuTables_de_multiplication">
-     <property name="title">
-      <string>Tables de multiplication</string>
-     </property>
-     <addaction name="actionX_2"/>
-     <addaction name="actionX_3"/>
-     <addaction name="actionX_4"/>
-     <addaction name="actionX_5"/>
-     <addaction name="actionX_6"/>
-     <addaction name="actionX_7"/>
-     <addaction name="actionX_8"/>
-     <addaction name="actionX_9"/>
-    </widget>
-    <widget class="QMenu" name="menuMultiples">
-     <property name="title">
-      <string>Multiples</string>
-     </property>
-     <addaction name="actionDe_5"/>
-     <addaction name="actionDe_10"/>
-     <addaction name="actionDe_15"/>
-     <addaction name="actionDe_20"/>
-     <addaction name="actionDe_25"/>
-     <addaction name="actionDe_50"/>
-    </widget>
-    <widget class="QMenu" name="menuCompl_ments">
-     <property name="title">
-      <string>Compléments</string>
-     </property>
-     <addaction name="action_10"/>
-     <addaction name="action_100"/>
-     <addaction name="action_20"/>
-     <addaction name="actionMaison_des_nombres"/>
-    </widget>
-    <widget class="QMenu" name="menuOrdres_de_grandeur">
-     <property name="title">
-      <string>Ordres de grandeur</string>
-     </property>
-     <addaction name="actionSur_des_additions"/>
-     <addaction name="actionSur_des_soustractions"/>
-     <addaction name="actionSur_des_multiplications"/>
-    </widget>
-    <addaction name="actionAdditions"/>
-    <addaction name="actionMultiplications"/>
-    <addaction name="actionSoustractions"/>
-    <addaction name="menuTables_d_addition"/>
-    <addaction name="menuTables_de_multiplication"/>
-    <addaction name="menuMultiples"/>
-    <addaction name="menuCompl_ments"/>
-    <addaction name="menuOrdres_de_grandeur"/>
    </widget>
    <widget class="QMenu" name="menuLangues">
     <property name="title">

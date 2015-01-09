@@ -40,7 +40,8 @@
 interface::interface(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::interfaceClass)
 {
-    m_localDebug = false;
+    m_localDebug = true;
+    m_isEditorRunning = false;
     //Langue
     //m_locale = QLocale::system().name().section('_', 0, 0);
     m_locale = qApp->property("langageUtilise").toString();
@@ -64,7 +65,10 @@ interface::interface(QWidget *parent)
 
     m_signalMapper = new QSignalMapper(this);
     connect(m_signalMapper, SIGNAL(mapped(QString)), this, SLOT(changelangue(QString)) );
-    creeMenuLangue();
+    /* il faut gérer les traductions par rapport au fait que c'est lu dans le settings.conf de la page d'accueil */
+    ui->menuLangues->setEnabled(false);
+
+//    creeMenuLangue();
 
     m_activityFilter = new ActivityFilter(abeApp);
     m_activityFilter->setInterval(6000);
@@ -145,6 +149,9 @@ void interface::creeMenuLangue()
             connect(actionLangue, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
             ui->menuLangues->addAction(actionLangue);
      }
+     if(configLang.allKeys().size() > 0){
+         ui->menuLangues->setEnabled(true);
+     }
 }
 
 void interface::createStateMachine()
@@ -221,18 +228,20 @@ void interface::createStateMachine()
     /*     pour globalState */
 
     /*     pour homeState */
-    m_homeState->assignProperty(ui->menuExercices,                  "enabled", true);
+    m_homeState->assignProperty(ui->menuBar,                  "enabled", true);
     m_homeState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetMenu(), "visible", true);
+    /* Je ne me tracasse pas pour la gestion intelligente des apparitions de ce bouton tant qu'il n'y a pas de bouton Essayer dans l'éditeur */
+    m_homeState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetBtnRevenirEditeur(), "visible", false);
 
     /*     pour editorState */
-    m_editorState->assignProperty(ui->menuExercices,                "enabled", false);
+    m_editorState->assignProperty(ui->menuBar,                "enabled", false);
     m_editorState->assignProperty(ui->actionAfficher_l_diteur,    "enabled", false);
 
     /*     pour exerciseState */
     m_exerciseState->assignProperty(ui->actionAfficher_l_diteur,  "enabled", false);
     m_exerciseState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetMenu(), "visible", false);
     m_exerciseState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetBtnRevenirEditeur(), "visible", false);
-    m_exerciseState->assignProperty(ui->menuExercices,              "enabled", false);
+    m_exerciseState->assignProperty(ui->menuBar,              "enabled", false);
 
     /*     pour waitForAbeState */
 
@@ -252,6 +261,9 @@ void interface::slotSessionAuthenticated(bool enable)
 
 void interface::slotInterfaceLaunchExercise(int number,QString name)
 {
+    if(sender()->inherits("QAction")){
+        name = sender()->objectName();
+    }
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
     }
@@ -270,21 +282,24 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
         ui->actionAfficher_l_diteur->trigger();
     }
     else if (name == "Maisons"){
+        m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
         ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),ui->exercicePage,-1);
-        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
+        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
     }
     /** @todo Gérer les traductions */
     else if (name.simplified().left(6) == "Tables" || name.simplified().left(6) == "Ordres" || name.simplified() == "Compléments" || name.simplified() == "Multiples"){
+        m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
         ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage,-1);
-        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
+        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
     }
     /* ça c'est la bonne façon de faire */
     else{
+        m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
         ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage);
-        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
+        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
     }
 
     //    else if (*m_action=="lanceur") {
@@ -318,6 +333,8 @@ void interface::slotInterfaceBackFromExercise()
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
+    slotInterfaceShowMainPage();
+    emit signalAbeLTMWSMexerciseClosed();
 }
 
 void interface::slotInterfaceDemo()
@@ -385,34 +402,51 @@ void interface::slotInterfaceInitialStateEntered()
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
-    m_isDemoAvailable = true;
-    // On va mettre à jour les textes dans les bulles car ils sont initialisés après la page d'accueil
-    QList<AbulEduZoneV1 *> listeZone = m_abuleduPageAccueil->abePageAccueilGetZones();
-
-    // On crée les entrées du menu exercices
-    for(int i = 0; i < listeZone.count(); i++)
-    {
-        QAction *actionExercice = new QAction(listeZone[i]->abeZoneGetBulle()->abeBulleGetText(), this);
-        actionExercice->setObjectName(QString::number(i));
-        /* J'ai utilisé le debug ci-dessous et l'ancien code d'appel des boutonsPolygones pour peupler ma QMap */
-//        qDebug()<<i<<" ---> "<<listeZone[i]->abeZoneGetBulle()->abeBulleGetText();
-        actionExercice->setShortcut(QKeySequence("Ctrl+"+QString::number(i+1)));
-        actionExercice->setEnabled(false);
-        connect(actionExercice, SIGNAL(triggered()), this, SLOT(slotInterfaceLaunchExercise()), Qt::UniqueConnection);
-        ui->menuExercices->addAction(actionExercice);
-    }
     m_exerciceNames.insert("tableM","Tables de multiplication");
     m_exerciceNames.insert("addition","Additions");
     m_exerciceNames.insert("multiplication","Multiplications");
-    m_exerciceNames.insert("editeur","Editeur");
     m_exerciceNames.insert("complementA","Compléments");
     m_exerciceNames.insert("complementM","Multiples");
     m_exerciceNames.insert("soustraction","Soustractions");
     m_exerciceNames.insert("tableA","Tables d'addition");
     m_exerciceNames.insert("OdGrandeur","Ordres de grandeur");
-    m_exerciceNames.insert("lanceur","Lanceur");
     m_exerciceNames.insert("division", "Divisions");
     m_exerciceNames.insert("maisonDesNombres","Maisons");
+
+    m_isDemoAvailable = true;
+    // On va mettre à jour les textes dans les bulles car ils sont initialisés après la page d'accueil
+    QList<AbulEduZoneV1 *> listeZone = m_abuleduPageAccueil->abePageAccueilGetZones();
+    QStringList operationsSimples;
+    operationsSimples << m_exerciceNames.value("addition").simplified() << m_exerciceNames.value("soustraction").simplified() << m_exerciceNames.value("multiplication").simplified() << m_exerciceNames.value("division").simplified();
+
+    // On crée les entrées du menu exercices
+    int ctrl = 0;
+    for(int i = 0; i < listeZone.count(); i++)
+    {
+        if(operationsSimples.contains(listeZone[i]->abeZoneGetBulle()->abeBulleGetText().simplified())){
+            QAction *actionExercice = new QAction(listeZone[i]->abeZoneGetBulle()->abeBulleGetText().simplified(), this);
+            actionExercice->setObjectName(listeZone[i]->abeZoneGetBulle()->abeBulleGetText().simplified());
+            /* J'ai utilisé le debug ci-dessous et l'ancien code d'appel des boutonsPolygones pour peupler ma QMap */
+    //        qDebug()<<i<<" ---> "<<listeZone[i]->abeZoneGetBulle()->abeBulleGetText();
+            actionExercice->setShortcut(QKeySequence("Ctrl+"+QString::number(ctrl)));
+            connect(actionExercice, SIGNAL(triggered()), this, SLOT(slotInterfaceLaunchExercise()), Qt::UniqueConnection);
+            ui->menuExercices->addAction(actionExercice);
+            ctrl++;
+        }
+    }
+    for(int i = 0; i < listeZone.count(); i++)
+    {
+        if(!operationsSimples.contains(listeZone[i]->abeZoneGetBulle()->abeBulleGetText().simplified())){
+            QAction *actionExercice = new QAction(listeZone[i]->abeZoneGetBulle()->abeBulleGetText().simplified(), this);
+            actionExercice->setObjectName(listeZone[i]->abeZoneGetBulle()->abeBulleGetText().simplified());
+            /* J'ai utilisé le debug ci-dessous et l'ancien code d'appel des boutonsPolygones pour peupler ma QMap */
+    //        qDebug()<<i<<" ---> "<<listeZone[i]->abeZoneGetBulle()->abeBulleGetText();
+            actionExercice->setShortcut(QKeySequence("Ctrl+"+QString::number(ctrl)));
+            connect(actionExercice, SIGNAL(triggered()), this, SLOT(slotInterfaceLaunchExercise()), Qt::UniqueConnection);
+            ui->menuExercices->addAction(actionExercice);
+            ctrl++;
+        }
+    }
 
     /* Pas de module dans ce logiciel, les zones sensibles sont activées */
 }
@@ -478,6 +512,7 @@ void interface::slotInterfaceEditorStateEntered()
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
     ui->stackedWidget->setCurrentWidget(ui->editorPage);
+    m_isEditorRunning = true;
 }
 
 void interface::slotInterfaceEditorStateExited()
@@ -529,114 +564,6 @@ void interface::on_actionQuitter_triggered()
     this->close();
 }
 
-void interface::on_actionAdditions_triggered()
-{
-    m_exercice = new exercice("addition",this,0,"");
-    m_exercice->show();
-}
-
-void interface::on_actionMultiplications_triggered()
-{
-    m_exercice = new exercice("multiplication",this,0,"");
-    m_exercice->show();
-}
-
-void interface::on_actionp2_triggered()
-{
-    m_exercice = new exercice("tableA",this,2,"");
-    m_exercice->show();
-}
-
-void interface::on_actionp3_triggered()
-{
-    m_exercice = new exercice("tableA",this,3,"");
-    m_exercice->show();
-}
-
-void interface::on_actionp4_triggered()
-{
-    m_exercice = new exercice("tableA",this,4,"");
-    m_exercice->show();
-}
-
-void interface::on_actionp5_triggered()
-{
-    m_exercice = new exercice("tableA",this,5,"");
-    m_exercice->show();
-}
-
-void interface::on_actionp6_triggered()
-{
-    m_exercice = new exercice("tableA",this,6,"");
-    m_exercice->show();
-}
-
-void interface::on_actionp7_triggered()
-{
-    m_exercice = new exercice("tableA",this,7,"");
-    m_exercice->show();
-}
-
-void interface::on_actionp8_triggered()
-{
-    m_exercice = new exercice("tableA",this,8,"");
-    m_exercice->show();
-}
-
-void interface::on_actionp9_triggered()
-{
-    m_exercice = new exercice("tableA",this,9,"");
-    m_exercice->show();
-}
-
-void interface::on_actionX_2_triggered()
-{
-    m_exercice = new exercice("tableM",this,2,"");
-    m_exercice->show();
-}
-
-void interface::on_actionX_3_triggered()
-{
-    m_exercice = new exercice("tableM",this,3,"");
-    m_exercice->show();
-}
-
-void interface::on_actionX_4_triggered()
-{
-    m_exercice = new exercice("tableM",this,4,"");
-    m_exercice->show();
-}
-
-void interface::on_actionX_5_triggered()
-{
-    m_exercice = new exercice("tableM",this,5,"");
-    m_exercice->show();
-}
-
-void interface::on_actionX_6_triggered()
-{
-    m_exercice = new exercice("tableM",this,6,"");
-    m_exercice->show();
-}
-
-void interface::on_actionX_7_triggered()
-{
-    m_exercice = new exercice("tableM",this,7,"");
-    m_exercice->show();
-}
-
-void interface::on_actionX_8_triggered()
-{
-    m_exercice = new exercice("tableM",this,8,"");
-    m_exercice->show();
-}
-
-void interface::on_actionX_9_triggered()
-{
-    m_exercice = new exercice("tableM",this,9,"");
-    m_exercice->show();
-}
-
 void interface::on_actionAfficher_l_diteur_triggered()
 {
 
@@ -647,90 +574,6 @@ void interface::on_btnInitialise_clicked()
     QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
     fichierConf->remove();
     m_editeur->initialiser();
-}
-
-void interface::on_actionDe_5_triggered()
-{
-    m_exercice = new exercice("complementM5",this, 5,"");
-    m_exercice->show();
-}
-
-void interface::on_actionDe_10_triggered()
-{
-    m_exercice = new exercice("complementM10",this, 10,"");
-    m_exercice->show();
-}
-void interface::on_actionDe_15_triggered()
-{
-    m_exercice = new exercice("complementM15",this, 15,"");
-    m_exercice->show();
-}
-void interface::on_actionDe_20_triggered()
-{
-    m_exercice = new exercice("complementM20",this, 20,"");
-    m_exercice->show();
-}
-void interface::on_actionDe_25_triggered()
-{
-    m_exercice = new exercice("complementM25",this, 25,"");
-    m_exercice->show();
-}
-void interface::on_actionDe_50_triggered()
-{
-    m_exercice = new exercice("complementM50",this, 50,"");
-    m_exercice->show();
-}
-
-void interface::on_actionSoustractions_triggered()
-{
-    m_exercice = new exercice("soustraction",this,0,"");
-    m_exercice->show();
-}
-
-void interface::on_action_10_triggered()
-{
-    m_exercice = new exercice("complementA10",this, 10,"");
-    m_exercice->show();
-}
-
-void interface::on_action_20_triggered()
-{
-    m_exercice = new exercice("complementA1000",this, 1000,"");
-    m_exercice->show();
-}
-
-void interface::on_action_100_triggered()
-{
-    m_exercice = new exercice("complementA100",this, 100,"");
-    m_exercice->show();
-}
-
-void interface::on_action_un_nombre_al_atoire_triggered()
-{
-
-}
-
-void interface::on_actionSur_des_additions_triggered()
-{
-    m_exercice = new exercice("OdGrandeurAddition",this,100,"");
-    m_exercice->show();
-}
-
-void interface::on_actionSur_des_soustractions_triggered()
-{
-    m_exercice = new exercice("OdGrandeurSoustraction",this,100,"");
-    m_exercice->show();
-}
-
-void interface::on_actionSur_des_multiplications_triggered()
-{
-    m_exercice = new exercice("OdGrandeurMultiplication",this,100,"");
-    m_exercice->show();
-}
-
-void interface::on_actionMaison_des_nombres_triggered()
-{
-    ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres("maisonDesNombres",0,0);
 }
 
 void interface::on_actionVerrouillage_nombres_changed()
