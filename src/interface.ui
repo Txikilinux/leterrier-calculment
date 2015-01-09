@@ -127,7 +127,7 @@
          </spacer>
         </item>
         <item row="1" column="1">
-         <widget class="QWidget" name="widgetContainerLauncher" native="true"/>
+         <widget class="AbuleduLanceurV1" name="abeLauncher" native="true"/>
         </item>
         <item row="2" column="1">
          <spacer name="verticalSpacer">
@@ -473,6 +473,12 @@ background-color:transparent;
    <class>Editeur</class>
    <extends>QWidget</extends>
    <header>editeur.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AbuleduLanceurV1</class>
+   <extends>QWidget</extends>
+   <header>abuledulanceurv1.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -630,8 +630,8 @@ void interface::slotMontreLanceur()
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
-    AbuleduLanceurV1* lanceur = new AbuleduLanceurV1();
-    lanceur->show();
+    ui->abeLauncher->abeLanceurSetIdentite(abeApp->getAbeIdentite());
+    ui->stackedWidget->setCurrentWidget(ui->launcherPage);
 }
 
 void interface::slotMontreErreurId()
