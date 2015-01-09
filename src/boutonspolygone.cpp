@@ -160,8 +160,8 @@ void boutonsPolygone::bouge(int dx, int dy)
 
 void boutonsPolygone::slotMontreLanceur()
 {
-        AbuleduLanceurV1* lanceur = new AbuleduLanceurV1(abeApp->getAbeIdentite());
-        lanceur->show();
+    AbuleduLanceurV1* lanceur = new AbuleduLanceurV1();
+    lanceur->show();
 }
 
 void boutonsPolygone::slotMontreErreurId()

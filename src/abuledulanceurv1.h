@@ -42,8 +42,9 @@ class AbuleduLanceurV1 : public QWidget
     Q_OBJECT
 
 public:
-    explicit AbuleduLanceurV1(AbulEduIdentitesV1* identite, QWidget *parent = 0);
+    explicit AbuleduLanceurV1(QWidget *parent = 0);
     ~AbuleduLanceurV1();
+    void abeLanceurSetIdentite(AbulEduIdentitesV1* identite);
 
 private:
     Ui::AbuleduLanceurV1 *ui;

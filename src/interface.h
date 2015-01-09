@@ -187,9 +187,10 @@ private slots:
 
     void setTitle(int authStatus);
 
-    void slotAskLanceur();
     void slotMontreLanceur();
     void slotMontreErreurId();
+
+    void on_actionAfficher_le_lanceur_d_exercice_triggered();
 
 signals:
     void signalAbeLTMWSMexerciseClosed();

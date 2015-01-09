@@ -80,7 +80,6 @@ interface::interface(QWidget *parent)
     /* Création de la page d'accueil et insertion dans la stackedWidget */
     m_abuleduPageAccueil = new AbulEduPageAccueilV1(ui->mainPage);
     connect(m_abuleduPageAccueil, SIGNAL(boutonPressed(int,QString)), this, SLOT(slotInterfaceLaunchExercise(int,QString)), Qt::UniqueConnection);
-    connect(m_abuleduPageAccueil->abePageAccueilGetMenu(), SIGNAL(btnBoxTriggered()), this, SLOT(slotAskLanceur()),Qt::UniqueConnection);
 
     m_messageAide = trUtf8("Clique sur une des zones de lancement des exercices.");
     m_demoMessageBox = new AbulEduMessageBoxV1(trUtf8("On y va ?"),m_messageAide,false,m_abuleduPageAccueil);
@@ -626,7 +625,25 @@ void interface::setTitle(int authStatus)
     setWindowTitle(title);
 }
 
-void interface::slotAskLanceur()
+void interface::slotMontreLanceur()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    AbuleduLanceurV1* lanceur = new AbuleduLanceurV1();
+    lanceur->show();
+}
+
+void interface::slotMontreErreurId()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    AbulEduMessageBoxV1* msgError = new AbulEduMessageBoxV1(trUtf8("Problème !"),trUtf8("Accès impossible au lanceur d'activité sans identification correcte"));
+    msgError->show();
+}
+
+void interface::on_actionAfficher_le_lanceur_d_exercice_triggered()
 {
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
@@ -641,22 +658,4 @@ void interface::slotAskLanceur()
     {
         slotMontreLanceur();
     }
-}
-
-void interface::slotMontreLanceur()
-{
-    if (m_localDebug){
-        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
-    }
-    AbuleduLanceurV1* lanceur = new AbuleduLanceurV1(abeApp->getAbeIdentite());
-    lanceur->show();
-}
-
-void interface::slotMontreErreurId()
-{
-    if (m_localDebug){
-        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
-    }
-    AbulEduMessageBoxV1* msgError = new AbulEduMessageBoxV1(trUtf8("Problème !"),trUtf8("Accès impossible au lanceur d'activité sans identification correcte"));
-    msgError->show();
 }

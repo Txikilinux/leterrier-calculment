@@ -95,11 +95,67 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="transitionalPage">
+      <widget class="QWidget" name="launcherPage">
        <property name="styleSheet">
-        <string notr="true">background-color:green;</string>
+        <string notr="true"/>
        </property>
-       <layout class="QGridLayout" name="gridLayout_3"/>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="1" column="0">
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="2">
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="1">
+         <widget class="QWidget" name="widgetContainerLauncher" native="true"/>
+        </item>
+        <item row="2" column="1">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="1">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="editorPage">
        <property name="styleSheet">
@@ -143,6 +199,7 @@ background-color:transparent;
      <string>&amp;Fichier</string>
     </property>
     <addaction name="actionAfficher_l_diteur"/>
+    <addaction name="actionAfficher_le_lanceur_d_exercice"/>
     <addaction name="actionQuitter"/>
    </widget>
    <widget class="QMenu" name="menuExercices">
@@ -384,6 +441,11 @@ background-color:transparent;
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionAfficher_le_lanceur_d_exercice">
+   <property name="text">
+    <string>Afficher le lanceur d'exercice</string>
    </property>
   </action>
  </widget>

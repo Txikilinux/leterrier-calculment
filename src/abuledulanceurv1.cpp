@@ -24,7 +24,7 @@
 #include "abuledulanceurv1.h"
 #include "ui_abuledulanceurv1.h"
 
-AbuleduLanceurV1::AbuleduLanceurV1(AbulEduIdentitesV1* identite, QWidget *parent) :
+AbuleduLanceurV1::AbuleduLanceurV1(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AbuleduLanceurV1)
 {
@@ -32,14 +32,14 @@ AbuleduLanceurV1::AbuleduLanceurV1(AbulEduIdentitesV1* identite, QWidget *parent
     setWindowTitle(trUtf8("Lanceur"));
     fillCbExercice();
     associeNomIntitule(ui->cbExercice->currentText());
-    ui->leNom->setText(identite->abeGetNom());
+    ui->leNom->setText(abeApp->getAbeIdentite()->abeGetNom());
     if (ui->leNom->text().isEmpty())
     {
-        ui->leNom->setText(identite->abeGetLogin());
+        ui->leNom->setText(abeApp->getAbeIdentite()->abeGetLogin());
     }
-    else if(!identite->abeGetPreNom().isEmpty())
+    else if(!abeApp->getAbeIdentite()->abeGetPreNom().isEmpty())
     {
-        ui->leNom->setText(ui->leNom->text().prepend(identite->abeGetPreNom()+" "));
+        ui->leNom->setText(ui->leNom->text().prepend(abeApp->getAbeIdentite()->abeGetPreNom()+" "));
     }
     ui->leNom->setReadOnly(true);
     fillCbNiveau("sertARien");
@@ -54,6 +54,19 @@ AbuleduLanceurV1::AbuleduLanceurV1(AbulEduIdentitesV1* identite, QWidget *parent
 AbuleduLanceurV1::~AbuleduLanceurV1()
 {
     delete ui;
+}
+
+void AbuleduLanceurV1::abeLanceurSetIdentite(AbulEduIdentitesV1 *identite)
+{
+    ui->leNom->setText(identite->abeGetNom());
+    if (ui->leNom->text().isEmpty())
+    {
+        ui->leNom->setText(identite->abeGetLogin());
+    }
+    else if(!identite->abeGetPreNom().isEmpty())
+    {
+        ui->leNom->setText(ui->leNom->text().prepend(identite->abeGetPreNom()+" "));
+    }
 }
 
 void AbuleduLanceurV1::fillCbExercice()
