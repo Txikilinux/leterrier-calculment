@@ -45,9 +45,11 @@ public:
     explicit AbuleduLanceurV1(QWidget *parent = 0);
     ~AbuleduLanceurV1();
     void abeLanceurSetIdentite(AbulEduIdentitesV1* identite);
+    void abeLanceurSetInterface(QObject *interface);
 
 private:
     Ui::AbuleduLanceurV1 *ui;
+    QObject* m_interface;
     QString m_nomFichierConfExercices;
     QString m_nomExercice;
     QString m_intituleExercice;
@@ -56,6 +58,7 @@ private:
     void adapte();
 
 private slots:
+    bool eventFilter(QObject *obj, QEvent *event);
     void fillCbNombre(QString);
     void fillCbExercice();
     void fillCbNiveau(QString);

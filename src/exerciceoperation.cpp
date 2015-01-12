@@ -103,12 +103,26 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
     }
 
-    if (exerciseName =="OdGrandeur")
-    {
+    if(exerciseName.left(10) =="OdGrandeur"){
         setHelpText("Tu dois trouver l'ordre de grandeur du résultat du calcul proposé.<br/>Pour cela, tu vas arrondir les nombres en ne gardant qu'un seul chiffre significatif, puis faire l'opération sur les nombres arrondis.<br/>Exemple : 372 - 198 -> 400 - 200 = 200<br/>Attention : n'arrondis pas les nombres à 1 seul chiffre");
         if(m_operationName == "OdGrandeur"){
             setAbeExerciceName(trUtf8("Ordres de grandeur sur des "));
             setAbeSkill("ordre-grandeur-");
+        }
+        else if(m_operationName == "OdGrandeurAddition"){
+            setAbeExerciceName(trUtf8("Ordres de grandeur sur des additions"));
+            setAbeSkill("ordre-grandeur-addition");
+            exerciseName ="OdGrandeur"; /* Pour appel de l'image de fond */
+        }
+        else if(m_operationName == "OdGrandeurSoustraction"){
+            setAbeExerciceName(trUtf8("Ordres de grandeur sur des soustractions"));
+            setAbeSkill("ordre-grandeur-soustraction");
+            exerciseName ="OdGrandeur";
+        }
+        else if(m_operationName == "OdGrandeurMultiplication"){
+            setAbeExerciceName(trUtf8("Ordres de grandeur sur des multiplications"));
+            setAbeSkill("ordre-grandeur-multiplication");
+            exerciseName ="OdGrandeur";
         }
     }
 

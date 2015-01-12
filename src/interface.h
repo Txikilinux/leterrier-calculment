@@ -52,6 +52,8 @@ public:
     /** Appelle la fonction setDimensionsWidget de la page d'accueil */
     void resizeEvent(QResizeEvent *);
 
+    QMap<QString, QString> abeInterfaceGetExerciceNames() const;
+
 protected:
     void paintEvent(QPaintEvent* e );
 

@@ -57,6 +57,7 @@ interface::interface(QWidget *parent)
     qApp->installTranslator(&myappTranslator);
 
     ui->setupUi(this);
+    ui->abeLauncher->abeLanceurSetInterface(this);
 #ifndef __ABULEDUTABLETTEV1__MODE__
     ui->aboutPage->abeAproposSetMainWindow(this);
 #endif
@@ -151,6 +152,10 @@ void interface::creeMenuLangue()
      if(configLang.allKeys().size() > 0){
          ui->menuLangues->setEnabled(true);
      }
+}
+QMap<QString, QString> interface::abeInterfaceGetExerciceNames() const
+{
+    return m_exerciceNames;
 }
 
 void interface::createStateMachine()
@@ -260,11 +265,18 @@ void interface::slotSessionAuthenticated(bool enable)
 
 void interface::slotInterfaceLaunchExercise(int number,QString name)
 {
-    if(sender()->inherits("QAction")){
-        name = sender()->objectName();
+    /* Dans le cas d'un appel par le menuExercice ou une zone de l'interface, je mets la valeur number à -1 */
+    if(sender()){
+        if(sender()->inherits("QAction")){
+            name = sender()->objectName();
+            number = -1;
+        }
+        if(sender()->inherits("AbulEduPageAccueilV1")){
+            number = -1;
+        }
     }
+    ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
     if (m_localDebug){
-        ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
     }
     /*" Tables de multiplication"
     " Tables d'addition"
@@ -283,22 +295,47 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     else if (name == "Maisons"){
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
-        ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),ui->exercicePage,-1);
+        ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),ui->exercicePage,number);
         connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
     }
     /** @todo Gérer les traductions */
     else if (name.simplified().left(6) == "Tables" || name.simplified().left(6) == "Ordres" || name.simplified() == "Compléments" || name.simplified() == "Multiples"){
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
-        ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage,-1);
-        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
+        if(m_exerciceNames.values().contains(name.simplified())){
+            ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage,number);
+            connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
+        }
+        else if(m_exerciceNames.keys().contains(name.simplified())){
+            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),ui->exercicePage,number);
+            connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
+        }
+        else {
+            qDebug()<<" Incohérence au lancement";
+        }
     }
+
     /* ça c'est la bonne façon de faire */
     else{
+        qDebug()<<name;
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
-        ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage);
-        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
+        if(m_exerciceNames.values().contains(name.simplified())){
+            ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage);
+            connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
+        }
+        else if(m_exerciceNames.keys().contains(name.simplified())){
+            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),ui->exercicePage);
+            connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
+        }
+        /* Gros cas particulier mais je n'ai pas trouvé pour l'instant de façon de faire élégante : c'est pour le cas de l'appel des ordres de grandeur par AbuleduLanceurV1 */
+        else if(name.left(3) == "OdG"){
+            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),ui->exercicePage);
+            connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
+        }
+        else {
+            qDebug()<<" Incohérence au lancement";
+        }
     }
 
     //    else if (*m_action=="lanceur") {

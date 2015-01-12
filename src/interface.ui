@@ -447,6 +447,9 @@ background-color:transparent;
    <property name="text">
     <string>Afficher le lanceur d'exercice</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

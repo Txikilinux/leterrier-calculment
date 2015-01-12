@@ -38,9 +38,7 @@
         <file alias="complementA">data/images/complementA.jpg</file>
         <file alias="complementM">data/images/complementM.jpg</file>
         <file alias="multiplication">data/images/multiplication.jpg</file>
-        <file alias="OdGrandeurAddition">data/images/OdGrandeurAddition.jpg</file>
-        <file alias="OdGrandeurMultiplication">data/images/OdGrandeurMultiplication.jpg</file>
-        <file alias="OdGrandeur">data/images/OdGrandeurSoustraction.jpg</file>
+        <file alias="OdGrandeur">data/images/OdGrandeur.jpg</file>
         <file alias="soustraction">data/images/soustraction.jpg</file>
         <file alias="tableA">data/images/tableA.jpg</file>
         <file alias="tableM">data/images/tableM.jpg</file>

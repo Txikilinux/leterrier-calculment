@@ -33,6 +33,13 @@ class ExerciceOperation : public AbstractExercise
 
 Q_OBJECT
 public:
+    ///
+    /// \brief Classe des exercices standards pour Calcul Mental 2.0
+    /// \param exerciseName est le nom de code passé à l'appel de l'exercice. Une QMap dans la classe Interface fait la correspondance entre le nom attendu ici et un nom plus "userfriendly"
+    /// \param parent est le widget dans lequel l'exercice doit être affiché
+    /// \param val est une valeur complémentaire passée à l'exercice. Initialisée à zéro, la mise de cette valeur à -1 affiche la présentation de séquence, utilisée pour faire un choix pour ce paramètre
+    /// \param niveau permet de choisir le niveau de difficulté parmi Niveau1, Niveau2, Niveau3 et Personnel. S'il n'est pas renseigné, le niveau est lu dans la configuration perso
+    ///
     ExerciceOperation(QString exerciseName, QWidget *parent, int val = 0, QString niveau = QString());
     ~ExerciceOperation();
 

@@ -23,12 +23,20 @@
 
 #include "abuledulanceurv1.h"
 #include "ui_abuledulanceurv1.h"
+#include "interface.h"
 
 AbuleduLanceurV1::AbuleduLanceurV1(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::AbuleduLanceurV1)
+    ui(new Ui::AbuleduLanceurV1),
+    m_interface(0),
+    m_nomFichierConfExercices(QString()),
+    m_nomExercice(QString()),
+    m_intituleExercice(QString()),
+    m_listeExercices(QStringList()),
+    m_listeNiveaux(QStringList())
 {
     ui->setupUi(this);
+    installEventFilter(this);
     setWindowTitle(trUtf8("Lanceur"));
     fillCbExercice();
     associeNomIntitule(ui->cbExercice->currentText());
@@ -68,6 +76,12 @@ void AbuleduLanceurV1::abeLanceurSetIdentite(AbulEduIdentitesV1 *identite)
         ui->leNom->setText(ui->leNom->text().prepend(identite->abeGetPreNom()+" "));
     }
 }
+
+void AbuleduLanceurV1::abeLanceurSetInterface(QObject *interface)
+{
+    m_interface = interface;
+}
+
 
 void AbuleduLanceurV1::fillCbExercice()
 {
@@ -183,25 +197,52 @@ void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
 
 void AbuleduLanceurV1::on_btnAnnuler_clicked()
 {
-    this->close();
+    interface* i = (interface*) m_interface;
+    i->slotInterfaceBackFromExercise();
 }
 
 void AbuleduLanceurV1::on_btnLancer_clicked()
 {
-    if (!ui->cbNombre->currentText().isNull())
-        m_nomExercice.append(ui->cbNombre->currentText());
+//    qDebug()<<parent()->parent()->parent()->parent()->objectName();
+    interface* i = (interface*) m_interface;
+    QString nom;
     qApp->setProperty("utilisateur",ui->leNom->text());
+    int val = 0;
+    if(ui->cbNombre->isVisible()){
+        val = ui->cbNombre->currentText().toInt();
+    }
     /*  Attention à changer ligne 203 de exercice.cpp si on change le caractère de concaténation dans la ligne au dessus */
 //    qApp->setProperty("utilisateur",qApp->property("utilisateur").toString().replace(";"," "));
+//    qDebug()<<m_nomExercice<<" -> "<<i->abeInterfaceGetExerciceNames().value(m_nomExercice)<< ":: "<<val;
     if (m_nomExercice == "maisonDesNombres")
     {
-        ExerciceMaisonNombres* exerciceLance = new ExerciceMaisonNombres(m_nomExercice, 0, 0,m_listeNiveaux[ui->cbNiveau->currentIndex()]);
+        if(ui->cbNombre->currentText().contains("20")){
+            val = 10;
+        }
+        else if(ui->cbNombre->currentText().contains("10")){
+            val = 0;
+        }
+        i->slotInterfaceLaunchExercise(val,"Maisons");
+    }
+    else if(m_nomExercice == "OdGrandeur"){
+        if(ui->cbNombre->currentText() == "+"){
+            nom = "OdGrandeurAddition";
+        }
+        else if(ui->cbNombre->currentText() == "-"){
+            nom = "OdGrandeurSoustraction";
+        }
+        else if(ui->cbNombre->currentText() == "x"){
+            nom = "OdGrandeurMultiplication";
+        }
+        else{
+            qDebug()<<"Incohérence dans le lanceur";
+        }
+        i->slotInterfaceLaunchExercise(val,nom);
     }
     else
     {
-//        ExerciceOperation* exerciceLance = new ExerciceOperation(m_nomExercice,0,ui->cbNombre->currentText().toInt(),m_listeNiveaux[ui->cbNiveau->currentIndex()]);
+        i->slotInterfaceLaunchExercise(val,i->abeInterfaceGetExerciceNames().value(m_nomExercice));
     }
-    this->close();
 }
 
 void AbuleduLanceurV1::associeNomIntitule(QString intitule)
@@ -242,6 +283,40 @@ void AbuleduLanceurV1::adapte()
     setGeometry(750*factX,150*factY,imageIllustration2.width(),imageIllustration2.height());
     setFixedSize(imageIllustration2.width(),imageIllustration2.height());
     setWindowModality(Qt::ApplicationModal);
+}
+
+bool AbuleduLanceurV1::eventFilter(QObject *obj, QEvent *event)
+{
+    /* Pas localDebug car il y a trop de message */
+    if (event->type() == QEvent::KeyRelease)
+    {
+        qDebug()<<"qd";
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+
+        /* Protection contre les clics frénétiques */
+        if(!keyEvent->isAutoRepeat())
+        {
+            /* Navigation avec la touche Entrée : l'appui sur la touche Entrée provoque : */
+            switch(keyEvent->key())
+            {
+            case Qt::Key_Enter:
+            case Qt::Key_Return:
+                ui->btnLancer->click();
+                break;
+            case Qt::Key_Escape:
+                ui->btnAnnuler->click();
+                break;
+            default:
+                break;
+            }
+        }
+        return true;
+    }
+    else
+    {
+        /* On fait suivre l'évènement, sinon tout est bloqué */
+        return QObject::eventFilter(obj, event);
+    }
 }
 
 void AbuleduLanceurV1::on_chbBilan_clicked()
