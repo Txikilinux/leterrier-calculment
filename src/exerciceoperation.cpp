@@ -23,7 +23,7 @@
 
 #include "exerciceoperation.h"
 
-ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int val, QString niveau) :
+ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int val, int niveau) :
     AbstractExercise(parent),
     m_parent(parent),
     m_minG(0),
@@ -31,19 +31,15 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
     m_minD(0),
     m_maxD(9)
 {
-    m_localDebug = false;
+    m_localDebug = true;
     m_numberUsed.clear();
     m_cible = val;
     m_operationName = exerciseName;
-    if (niveau.isEmpty())
-        setAbeLevel(niveau);
-    else
-    {
-        if (niveau.right(1).toInt() == 0)
-            setAbeLevel("Personnel");
-        else
-            setAbeLevel("Niveau"+niveau.right(1));
+    m_niveau = niveau;
+    if(m_niveau > -1){
+        setAbeLevel(QString::number(m_niveau-1));
     }
+    chargerParametres();
     m_score = 0;
     m_leResultat = new QLineEdit(QString(),getAbeExerciceTelecommandeV1());
     m_leResultat->setObjectName("leResultat");
@@ -208,9 +204,15 @@ void ExerciceOperation::chargerParametres()
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     setAbeNbTotalQuestions(config.value("NombreBallons",10).toInt());
     config.beginGroup(m_operationName);
-    if (getAbeLevel().isEmpty()) setAbeLevel(config.value("NiveauEnCours"+m_operationName,"Niveau1").toString());
+    qDebug()<<"NiveauEnCours"+m_operationName;
+    qDebug()<<config.value("NiveauEnCours"+m_operationName,"1").toString();
+    if (m_niveau == -1) {
+        m_niveau = config.value("NiveauEnCours"+m_operationName,"1").toInt();
+        setAbeLevel(QString::number(m_niveau-1));
+    }
     else qDebug()<<"Dans chargerParametres(), m_level valait déjà "<<getAbeLevel();
-    config.beginGroup(getAbeLevel());
+    config.beginGroup(QString::number(m_niveau));
+    qDebug()<<"Je rentre dans "<<m_niveau;
     m_maxG = config.value("MaxGauche",100).toInt();
     m_minG = config.value("MinGauche",0).toInt();
     m_maxD = config.value("MaxDroite",100).toInt();
@@ -233,6 +235,9 @@ void ExerciceOperation::chargerParametres()
             || m_operationName.left(11)=="complementM"){
         m_minG=m_maxG=m_minD=m_maxD=m_cible;
     }
+    setAbeNbTotalQuestions(config.value("NombreBallons").toInt());
+    getAbeExerciceTelecommandeV1()->ui->lblCustom2->setText(QString::number(m_score)+ " sur "+QString::number(getAbeNbTotalQuestions()));
+    qDebug()<<getAbeExerciceTelecommandeV1()->ui->lblCustom2->text();
 }
 
 void ExerciceOperation::animeBaudruche()

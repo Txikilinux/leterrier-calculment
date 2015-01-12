@@ -142,6 +142,11 @@ protected:
 
     QString m_operationName;
 
+    ///
+    /// \brief Le niveau de difficulté de l'exercice, qui peut valoir 1, 2, 3 ou 4 (pour le niveau Personnel)
+    ///
+    int m_niveau;
+
 protected slots:
 
     /** Entrée dans l'état "sequence" de l'AbulEduStateMachineV1

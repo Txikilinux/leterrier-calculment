@@ -19,6 +19,6 @@
 #define VER_COMPANYDOMAIN_STR       "abuledu.org"
 
 /** 20130624 : Ajout du numéro de version du module actuellement généré par l'application */
-#define VER_UNITVERSION_STR         "1.0"
+#define VER_UNITVERSION_STR         "2.0"
 
 #endif // VERSION_H

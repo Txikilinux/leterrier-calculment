@@ -27,7 +27,7 @@
 #include "pixmapmaison.h"
 #include <QDesktopWidget>
 
-ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val, QString niveau)
+ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val, int niveau)
     :ExerciceOperation(exo, parent,val,niveau)
 {
     m_localDebug = true;

@@ -67,6 +67,7 @@ int main(int argc, char *argv[])
 //        QString unitName; --> le jour où on gèrera le travail en modules
         QString background;
         QString option = "-1";
+        QString niveau;
         QStringListIterator iter(arguments);
         while(iter.hasNext()){
             QString current = iter.next();
@@ -85,6 +86,9 @@ int main(int argc, char *argv[])
             }
             else if(current.contains("--option=")){
                 option = current.split("=").last();
+            }
+            else if(current.contains("--niveau=")){
+                niveau = current.split("=").last();
             }
             else if(current.contains("--help")) {
                 QMessageBox::information(new QWidget(),"Aide","Vous pourrez lancer ce logiciel avec les arguments suivants:\
@@ -115,7 +119,7 @@ int main(int argc, char *argv[])
                 || QString::compare(exerciseType, "division", Qt::CaseInsensitive) == 0
                 || QString::compare(exerciseType, "addition", Qt::CaseInsensitive) == 0
                 || QString::compare(exerciseType, "soustraction", Qt::CaseInsensitive) == 0){
-            ExerciceOperation *ex = new ExerciceOperation(exerciseType, g);
+            ExerciceOperation *ex = new ExerciceOperation(exerciseType, g,0,niveau.toInt());
             QObject::connect(ex, SIGNAL(signalExerciseExited()),g,SLOT(close()),Qt::UniqueConnection);
         }
         else if(QString::compare(exerciseType, "OdGrandeur", Qt::CaseInsensitive) == 0){
@@ -126,14 +130,14 @@ int main(int argc, char *argv[])
                 option = QString();
                 number = -1;
             }
-            ExerciceOperation *ex = new ExerciceOperation(exerciseType.append(option), g,number);
+            ExerciceOperation *ex = new ExerciceOperation(exerciseType.append(option), g,number,niveau.toInt());
             QObject::connect(ex, SIGNAL(signalExerciseExited()),g,SLOT(close()),Qt::UniqueConnection);
         }
         else if(QString::compare(exerciseType, "tableM", Qt::CaseInsensitive) == 0
                 || QString::compare(exerciseType, "tableA", Qt::CaseInsensitive) == 0
                 || QString::compare(exerciseType, "complementA", Qt::CaseInsensitive) == 0
                 || QString::compare(exerciseType, "complementM", Qt::CaseInsensitive) == 0){
-            ExerciceOperation *ex = new ExerciceOperation(exerciseType, g,option.toInt());
+            ExerciceOperation *ex = new ExerciceOperation(exerciseType, g,option.toInt(),niveau.toInt());
             ex->connect(ex, SIGNAL(signalExerciseExited()),g,SLOT(close()),Qt::UniqueConnection);
         }
         else if(QString::compare(exerciseType, "maisonDesNombres", Qt::CaseInsensitive) == 0){
@@ -142,7 +146,7 @@ int main(int argc, char *argv[])
             if(optionInt == 0 || optionInt == 10){
                 number = optionInt;
             }
-            ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(exerciseType,g,number);
+            ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(exerciseType,g,number,niveau.toInt());
             QObject::connect(ex, SIGNAL(signalExerciseExited()),g,SLOT(close()),Qt::UniqueConnection);
         }
         else {

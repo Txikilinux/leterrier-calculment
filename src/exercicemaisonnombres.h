@@ -29,7 +29,7 @@ class ExerciceMaisonNombres : public ExerciceOperation
 {
     Q_OBJECT
 public:
-    ExerciceMaisonNombres(QString exo,QWidget *parent = 0,int val = 0, QString niveau = "");
+    ExerciceMaisonNombres(QString exo, QWidget *parent = 0, int val = 0, int niveau = -1);
 protected:
     int m_valeurSurvolee;
     int m_valeurBase;

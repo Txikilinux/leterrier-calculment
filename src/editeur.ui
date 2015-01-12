@@ -29,18 +29,27 @@
    <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="0" column="6">
-    <widget class="QComboBox" name="cbNiveau">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+   <item row="0" column="0" rowspan="2" colspan="6">
+    <widget class="QLabel" name="lblHelp">
+     <property name="styleSheet">
+      <string notr="true">border: 1px black solid;
+padding: 10 10 10 80px;
+border-radius: 10px;
+background: #ddf url(&quot;:/calculmental/editor/lapin&quot;) no-repeat;</string>
+     </property>
+     <property name="text">
+      <string>Survolez les zones actives pour être guidé</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::NoTextInteraction</set>
      </property>
     </widget>
    </item>
-   <item row="3" column="6">
-    <spacer name="horizontalSpacer_4">
+   <item row="3" column="0">
+    <spacer name="horizontalSpacer_3">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -51,90 +60,6 @@
       </size>
      </property>
     </spacer>
-   </item>
-   <item row="3" column="3" colspan="2">
-    <spacer name="horizontalSpacer_5">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="6">
-    <widget class="QComboBox" name="cbOperation">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QFrame" name="frmNombreQuestions">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="0" colspan="3">
-       <widget class="QLabel" name="lblNombreBallons">
-        <property name="text">
-         <string>Nombre Questions</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>18</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="1">
-       <widget class="QSpinBox" name="spbNombreBallons">
-        <property name="wrapping">
-         <bool>true</bool>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>20</number>
-        </property>
-        <property name="value">
-         <number>10</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>18</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
    </item>
    <item row="3" column="5">
     <widget class="QFrame" name="frmTemps">
@@ -184,102 +109,22 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="3">
-    <spacer name="horizontalSpacer_6">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="4" column="3">
+    <widget class="QPushButton" name="btnQuitter">
+     <property name="text">
+      <string>&amp;Enregistrer et quitter</string>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
+    </widget>
    </item>
-   <item row="2" column="4" colspan="3">
-    <widget class="QGroupBox" name="gbNbDroite">
+   <item row="0" column="7">
+    <widget class="QComboBox" name="cbNiveau">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="styleSheet">
-      <string notr="true"> QGroupBox {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
-     border: 2px solid gray;
-     border-radius: 5px;
-     margin-top: 1ex; /* leave space at the top for the title */
- }
-
- QGroupBox::title {
-     subcontrol-origin: margin;
-     padding: 0 3px;
-   
- }</string>
-     </property>
-     <property name="title">
-      <string>Opérande Droit</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QLabel" name="lblDMin">
-        <property name="text">
-         <string>Minimum</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QSpinBox" name="spbDMin">
-        <property name="maximum">
-         <number>99</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="lblDMax">
-        <property name="text">
-         <string>Maximum</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QSpinBox" name="spbDMax">
-        <property name="maximum">
-         <number>99</number>
-        </property>
-        <property name="value">
-         <number>9</number>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="lblDMax_2">
-        <property name="text">
-         <string>Maximum</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="cbMaxD"/>
-      </item>
-     </layout>
     </widget>
-   </item>
-   <item row="3" column="0">
-    <spacer name="horizontalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item row="2" column="0" colspan="3">
     <widget class="QGroupBox" name="gbNbGauche">
@@ -352,34 +197,199 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="3">
-    <widget class="QPushButton" name="btnQuitter">
+   <item row="2" column="3">
+    <spacer name="horizontalSpacer_6">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="7">
+    <spacer name="horizontalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="4" colspan="4">
+    <widget class="QGroupBox" name="gbNbDroite">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"> QGroupBox {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
+     border: 2px solid gray;
+     border-radius: 5px;
+     margin-top: 1ex; /* leave space at the top for the title */
+ }
+
+ QGroupBox::title {
+     subcontrol-origin: margin;
+     padding: 0 3px;
+   
+ }</string>
+     </property>
+     <property name="title">
+      <string>Opérande Droit</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblDMin">
+        <property name="text">
+         <string>Minimum</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="spbDMin">
+        <property name="maximum">
+         <number>99</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lblDMax">
+        <property name="text">
+         <string>Maximum</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="spbDMax">
+        <property name="maximum">
+         <number>99</number>
+        </property>
+        <property name="value">
+         <number>9</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="lblDMax_2">
+        <property name="text">
+         <string>Maximum</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="cbMaxD"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QFrame" name="frmNombreQuestions">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0" colspan="3">
+       <widget class="QLabel" name="lblNombreBallons">
+        <property name="text">
+         <string>Nombre Questions</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>18</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="spbNombreBallons">
+        <property name="wrapping">
+         <bool>true</bool>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>20</number>
+        </property>
+        <property name="value">
+         <number>10</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>18</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="3" colspan="2">
+    <spacer name="horizontalSpacer_5">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="6">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>&amp;Enregistrer et quitter</string>
+      <string>Niveau : </string>
      </property>
     </widget>
    </item>
-   <item row="0" column="0" rowspan="2" colspan="6">
-    <widget class="QLabel" name="lblHelp">
-     <property name="styleSheet">
-      <string notr="true">border: 1px black solid;
-padding: 10 10 10 80px;
-border-radius: 10px;
-background: #ddf url(&quot;:/calculmental/editor/lapin&quot;) no-repeat;</string>
-     </property>
-     <property name="text">
-      <string>Survolez les zones actives pour être guidé</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-     <property name="textInteractionFlags">
-      <set>Qt::NoTextInteraction</set>
+   <item row="1" column="6" colspan="2">
+    <widget class="QComboBox" name="cbOperation">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
     </widget>
    </item>
   </layout>
-  <zorder>sldVitesse</zorder>
+  <zorder>frmNombreQuestions</zorder>
+  <zorder>frmTemps</zorder>
+  <zorder>gbNbDroite</zorder>
+  <zorder>gbNbGauche</zorder>
   <zorder>lblHelp</zorder>
   <zorder>horizontalSpacer_4</zorder>
   <zorder>cbNiveau</zorder>
@@ -388,6 +398,7 @@ background: #ddf url(&quot;:/calculmental/editor/lapin&quot;) no-repeat;</string
   <zorder>horizontalSpacer_3</zorder>
   <zorder>horizontalSpacer_6</zorder>
   <zorder>btnQuitter</zorder>
+  <zorder>label</zorder>
  </widget>
  <tabstops>
   <tabstop>spbGMin</tabstop>

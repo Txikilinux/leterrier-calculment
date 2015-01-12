@@ -36,7 +36,8 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_resultatEnCours(-1),
     m_cible(0),
     m_trace(QString()),
-    m_leResultat(0)
+    m_leResultat(0),
+    m_niveau(-1)
 {
     /* Création de l'aire de jeu et de sa scène */
     m_AireDeJeu->setScene(m_sceneAireDeJeu);
@@ -268,6 +269,18 @@ void AbstractExercise::slotBilanSequenceEntered()
     getAbeExerciceMessageV1()->move((getAbeExerciceAireDeTravailV1()->width() - getAbeExerciceMessageV1()->width())/2,
                                     ((getAbeExerciceAireDeTravailV1()->height() - getAbeExerciceMessageV1()->height())/2) - 200*abeApp->getAbeApplicationDecorRatio());
     getAbeExerciceMessageV1()->setVisible(true);
+
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    config.beginGroup(m_operationName);
+    if (m_score == m_total) {
+        m_niveau++;
+        config.setValue("NiveauEnCours"+m_operationName,m_niveau);
+    }
+
+
+    //m_level = config.value("NiveauEnCours"+opCourante).toString();
+
+    config.endGroup();
 }
 
 bool AbstractExercise::eventFilter(QObject *obj, QEvent *event)
@@ -280,6 +293,7 @@ void AbstractExercise::slotSetPeculiarity()
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
     }
+    m_niveau = -1;
     AbulEduFlatBoutonV1* fromBtn = (AbulEduFlatBoutonV1*) sender();
     if(fromBtn->property("peculiarity").type() == QVariant::String){
         m_operationName = m_operationName.append(fromBtn->property("peculiarity").toString());
@@ -288,6 +302,7 @@ void AbstractExercise::slotSetPeculiarity()
     }
     else if(fromBtn->property("peculiarity").type() == QVariant::Int){
         m_cible = fromBtn->property("peculiarity").toInt();
+        m_operationName = m_operationName.append(fromBtn->property("peculiarity").toString());
         setAbeExerciceName(getAbeExerciceName()+QString::number(m_cible));
         setAbeSkill(getAbeSkill()+QString::number(m_cible));
     }

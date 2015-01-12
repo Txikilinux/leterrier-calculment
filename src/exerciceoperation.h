@@ -40,7 +40,7 @@ public:
     /// \param val est une valeur complémentaire passée à l'exercice. Initialisée à zéro, la mise de cette valeur à -1 affiche la présentation de séquence, utilisée pour faire un choix pour ce paramètre
     /// \param niveau permet de choisir le niveau de difficulté parmi Niveau1, Niveau2, Niveau3 et Personnel. S'il n'est pas renseigné, le niveau est lu dans la configuration perso
     ///
-    ExerciceOperation(QString exerciseName, QWidget *parent, int val = 0, QString niveau = QString());
+    ExerciceOperation(QString exerciseName, QWidget *parent, int val = 0, int niveau = -1);
     ~ExerciceOperation();
 
     QList<int> getNumberUsed() const;
