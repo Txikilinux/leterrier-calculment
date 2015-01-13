@@ -138,6 +138,7 @@
         <file alias="nausee1">data/images/nausee01.png</file>
         <file alias="nausee2">data/images/nausee02.png</file>
         <file alias="nausee3">data/images/nausee03.png</file>
+        <file alias="prof">data/images/prof.png</file>
     </qresource>
     <qresource prefix="/calculmental/editor">
         <file alias="lapin">data/images/lapin.png</file>

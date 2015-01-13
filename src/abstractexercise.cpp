@@ -127,6 +127,7 @@ void AbstractExercise::slotSequenceEntered()
     question->assignProperty(m_leResultat, "enabled", true);
     question->assignProperty(m_leResultat, "focus", true);
     afficheVerificationQuestion->assignProperty(m_leResultat, "enabled", false);
+//    afficheVerificationQuestion->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnCorriger, "enabled", true);
     finVerificationQuestion->addTransition(getAbeExerciceTelecommandeV1()->ui->btnSuivant,SIGNAL(clicked()),initQuestion);
 
     setDimensionsWidgets();
@@ -181,6 +182,7 @@ void AbstractExercise::slotInitQuestionEntered()
     AbulEduCommonStatesV1::slotInitQuestionEntered();
     setAbeExerciceEvaluation(abe::evalY);
     boiteTetes->setEtatTete(m_numExercice, abe::evalY,false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
+    m_sceneAireDeJeu->clear();
 }
 
 void AbstractExercise::slotQuestionEntered()
@@ -193,8 +195,8 @@ void AbstractExercise::slotQuestionEntered()
 
 void AbstractExercise::slotAfficheVerificationQuestionEntered()
 {
+    ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<sequenceMachine->configuration();
     if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
     }
     /* Je commente l'appel à la fonction de la classe mère afin d'empêcher le passage automatique à la question suivante */
 //    AbulEduCommonStatesV1::slotAfficheVerificationQuestionEntered();
@@ -203,7 +205,7 @@ void AbstractExercise::slotAfficheVerificationQuestionEntered()
 
 void AbstractExercise::slotFinVerificationQuestionEntered()
 {
-    ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<getAbeNumQuestion()<<getAbeNbTotalQuestions();
+    ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<getAbeNumQuestion()<<getAbeNbTotalQuestions()<<sequenceMachine->configuration();
     if(m_localDebug){
     }
     if(getAbeNumQuestion() == getAbeNbTotalQuestions()) {
@@ -221,12 +223,43 @@ void AbstractExercise::slotAfficheCorrectionQuestionEntered()
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
     }
+
+    m_groupeResultat = new QGraphicsItemGroup();
+    QGraphicsPixmapItem* p = new QGraphicsPixmapItem(QPixmap(":/calculment/elements/prof"));
+    m_groupeResultat->addToGroup(p);
+    QString affichage;
+    if(m_trace.contains("?")){
+        affichage = m_trace.replace("?","<b>"+QString::number(m_resultatEnCours)+"</b>");
+    }
+    else if(m_trace.contains(QString::fromUtf8("≈"))) {
+        affichage = m_trace+" "+"<b>"+QString::number(m_resultatEnCours)+"</b>";
+    }
+    else {
+        affichage = m_trace+" = "+"<b>"+QString::number(m_resultatEnCours)+"</b>";
+    }
+    QGraphicsTextItem* resultat = new QGraphicsTextItem();
+    QFont f = resultat->font();
+    f.setPointSizeF(20*abeApp->getAbeApplicationDecorRatio());
+    resultat->setFont(f);
+    resultat->setHtml(affichage);
+    resultat->setPos(50,30);
+    resultat->setZValue(10);
+    m_groupeResultat->addToGroup(resultat);
+    qDebug()<<m_resultatEnCours;
+
+    m_sceneAireDeJeu->addItem(m_groupeResultat);
 }
 
 void AbstractExercise::slotFinCorrectionQuestionEntered()
 {
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+    }
+    if(getAbeNumQuestion() == getAbeNbTotalQuestions()) {
+        sequenceMachine->postEvent(new StringEvent("QuestionsDoneCorrect"));
+    }
+    else {
+        sequenceMachine->postEvent(new StringEvent("QuestionsLoopCorrect"));
     }
 }
 
@@ -285,7 +318,58 @@ void AbstractExercise::slotBilanSequenceEntered()
 
 bool AbstractExercise::eventFilter(QObject *obj, QEvent *event)
 {
-    return AbulEduCommonStatesV1::eventFilter(obj,event);
+    /* Pas localDebug car il y a trop de message */
+    if (event->type() == QEvent::KeyRelease && !m_isAdjourned)
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+
+        /* Protection contre les clics frénétiques */
+        if(!keyEvent->isAutoRepeat())
+        {
+            /* Navigation avec la touche Entrée : l'appui sur la touche Entrée provoque : */
+            switch(keyEvent->key())
+            {
+            case Qt::Key_Enter:
+            case Qt::Key_Return:
+                /* Dans les états question et continueQuestion la Vérification ou la Solution si Ctrl est appuyé conjointement */
+                if(sequenceMachine->configuration().contains(question))
+                {
+                        getAbeExerciceTelecommandeV1()->ui->btnVerifier->click();
+                }
+                /* La sortie en deux temps dans l'état bilanSequence */
+                else if(sequenceMachine->configuration().contains(bilanSequence))
+                        {
+                            if(getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->isVisible())
+                                getAbeExerciceTelecommandeV1()->ui->btnQuitterRetourMenuPrincipal->click();
+                            else
+                                getAbeExerciceTelecommandeV1()->ui->btnQuitter->click();
+                        }
+                else if(sequenceMachine->configuration().contains(afficheVerificationQuestion))
+                {
+                    if(keyEvent->modifiers() & Qt::ControlModifier ){
+                        getAbeExerciceTelecommandeV1()->ui->btnCorriger->click();
+                    }
+                    else{
+                        getAbeExerciceTelecommandeV1()->ui->btnSuivant->click();
+                    }
+                }
+                else
+                /* Le passage à la Suite dans les autres états */
+                {
+                    getAbeExerciceTelecommandeV1()->ui->btnSuivant->click();
+                }
+                break;
+            default:
+                break;
+            }
+        }
+        return true;
+    }
+    else
+    {
+        /* On fait suivre l'évènement, sinon tout est bloqué */
+        return QObject::eventFilter(obj, event);
+    }
 }
 
 void AbstractExercise::slotSetPeculiarity()

@@ -171,7 +171,7 @@ background-color:transparent;
       </widget>
       <widget class="AbulEduAproposV1" name="aboutPage">
        <property name="styleSheet">
-        <string notr="true">background-color:blue;</string>
+        <string notr="true"/>
        </property>
       </widget>
      </widget>

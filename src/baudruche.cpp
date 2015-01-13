@@ -151,7 +151,7 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
     m_dropValeur = "";
     m_isDetructionPlanified = false;
     m_nomOperation = operation;
-    m_approximation=0;
+    m_approximation = 0;
         if (operation=="OdGrandeurAddition") m_op = "+";
         else if (operation=="OdGrandeurSoustraction") m_op = "-";
              else if (operation=="OdGrandeurMultiplication") m_op = "x";

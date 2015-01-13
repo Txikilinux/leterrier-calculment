@@ -147,6 +147,11 @@ protected:
     ///
     int m_niveau;
 
+    ///
+    /// \brief Permet d'afficher le bon résultat. Instancié puis détruit à chaque utilisation.
+    ///
+    QGraphicsItemGroup* m_groupeResultat;
+
 protected slots:
 
     /** Entrée dans l'état "sequence" de l'AbulEduStateMachineV1

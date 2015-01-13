@@ -458,9 +458,9 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
         setAbeExerciceEvaluation(abe::evalZ);
         boiteTetes->setEtatTete(m_numExercice, getAbeExerciceEvaluation(),false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
         setAbeTeteForResult(1,1);
+        getAbeExerciceTelecommandeV1()->ui->btnCorriger->setEnabled(true);
     }
     else {
-
         float proposition = m_leResultat->text().toFloat();
         if(m_localDebug){
             qDebug()<<"Valeur du ballon : "<<m_resultatEnCours<<", lache sur "<<proposition;
@@ -481,6 +481,7 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
             /** @todo Mettre la tête de William mal dans la boiteTetes */
             ajouteErreur("Erreur calcul");
             setAbeExerciceEvaluation(abe::evalD);
+            getAbeExerciceTelecommandeV1()->ui->btnCorriger->setEnabled(true);
         }
     }
     getAbeExerciceTelecommandeV1()->ui->lblCustom2->setText(QString::number(m_score)+ " sur "+QString::number(getAbeNbTotalQuestions()));
