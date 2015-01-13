@@ -81,6 +81,7 @@ interface::interface(QWidget *parent)
     /* Création de la page d'accueil et insertion dans la stackedWidget */
     m_abuleduPageAccueil = new AbulEduPageAccueilV1(ui->mainPage);
     connect(m_abuleduPageAccueil, SIGNAL(boutonPressed(int,QString)), this, SLOT(slotInterfaceLaunchExercise(int,QString)), Qt::UniqueConnection);
+    connect(m_abuleduPageAccueil->abePageAccueilGetMenu(),SIGNAL(btnAideTriggered()),this, SLOT(slotInterfaceShowAboutPage()), Qt::UniqueConnection);
 
     m_messageAide = trUtf8("Clique sur une des zones de lancement des exercices.");
     m_demoMessageBox = new AbulEduMessageBoxV1(trUtf8("On y va ?"),m_messageAide,false,m_abuleduPageAccueil);
