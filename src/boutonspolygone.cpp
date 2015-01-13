@@ -23,7 +23,6 @@
 
 
 #include "boutonspolygone.h"
-#include "exercice.h"
 #include "editeur.h"
 #include "abuledulanceurv1.h"
 #include "exercicemaisonnombres.h"

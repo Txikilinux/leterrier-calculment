@@ -24,7 +24,6 @@
 
 #include "interface.h"
 #include "ui_interface.h"
-#include "exercice.h"
 #include "exercicemaisonnombres.h"
 #include "ui_exercice.h"
 #include "editeur.h"
@@ -549,6 +548,8 @@ void interface::slotInterfaceEditorStateEntered()
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
     ui->stackedWidget->setCurrentWidget(ui->editorPage);
+    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
+    fichierConf->copy(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/copieModule.conf");
     m_isEditorRunning = true;
 }
 
@@ -558,6 +559,10 @@ void interface::slotInterfaceEditorStateExited()
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
     m_isEditorRunning = false;
+    QFile* copieConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/copieModule.conf");
+    if (copieConf->exists()){
+        QFile::remove(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/copieModule.conf");
+    }
     ui->stackedWidget->setCurrentWidget(ui->mainPage);
 }
 

@@ -27,7 +27,6 @@
 
 #include <QMainWindow>
 #include "editeur.h"
-#include "exercice.h"
 #include "abuleduapplicationv1.h"
 #include "abuledupageaccueilv1.h"
 #include "leterrierstringtransition.h"
@@ -47,7 +46,6 @@ public:
     interface(QWidget *parent = 0);
     ~interface();
     Editeur* m_editeur;
-    exercice* m_exercice;
     int m_hauteurMax;
     /** Appelle la fonction setDimensionsWidget de la page d'accueil */
     void resizeEvent(QResizeEvent *);

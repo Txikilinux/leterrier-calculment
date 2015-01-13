@@ -628,8 +628,11 @@ bool Editeur::eventFilter(QObject *obj, QEvent *event)
         if(obj == m_ui->sldVitesse){
             m_ui->lblHelp->setText(trUtf8("Déterminez le temps imparti pour répondre."));
         }
-        if(obj == m_ui->btnQuitter){
+        if(obj == m_ui->btnEditeurOK){
             m_ui->lblHelp->setText(trUtf8("Enregistrez vos modifications pour retourner à la page d'accueil."));
+        }
+        if(obj == m_ui->btnEditeurAnnuler){
+            m_ui->lblHelp->setText(trUtf8("Abandonnez vos modifications pour retourner à la page d'accueil."));
         }
         return true;
     }
@@ -649,13 +652,6 @@ void Editeur::changeEvent(QEvent *e)
     default:
         break;
     }
-}
-
-void Editeur::on_btnQuitter_clicked()
-{
-    sauverNiveau(QString::number(m_niveauEnCours));
-    sauverOperation(*m_operationEnCours);
-    emit signalEditeurExited();
 }
 
 void Editeur::ajusterValeurs(int valeurNouvelle)
@@ -717,7 +713,21 @@ void Editeur::installEventFilters()
     m_ui->spbGMin->installEventFilter(this);
     m_ui->spbNombreBallons->installEventFilter(this);
     m_ui->sldVitesse->installEventFilter(this);
-    m_ui->btnQuitter->installEventFilter(this);
+    m_ui->btnEditeurAnnuler->installEventFilter(this);
+    m_ui->btnEditeurOK->installEventFilter(this);
     m_ui->gbNbDroite->installEventFilter(this);
     m_ui->gbNbGauche->installEventFilter(this);
+}
+
+void Editeur::on_btnEditeurOK_clicked()
+{
+    sauverNiveau(QString::number(m_niveauEnCours));
+    sauverOperation(*m_operationEnCours);
+    emit signalEditeurExited();
+}
+
+void Editeur::on_btnEditeurAnnuler_clicked()
+{
+    QFile::rename(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/copieModule.conf",QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
+    emit signalEditeurExited();
 }

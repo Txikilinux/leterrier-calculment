@@ -68,7 +68,6 @@ private:
     void installEventFilters();
 
 private slots:
-    void on_btnQuitter_clicked();
     void sauverNiveau(QString);
     void chargerNiveau(QString);
     void changerNiveau(QString);
@@ -76,6 +75,16 @@ private slots:
     void chargerOperation(QString);
     void changerOperation(QString);
     void ajusterValeurs(int);
+
+    ///
+    /// \brief Enregistre les modifications dans l'éditeur et affiche la page d'accueil
+    ///
+    void on_btnEditeurOK_clicked();
+
+    ///
+    /// \brief Annule les modifications dans l'éditeur et affiche la page d'accueil
+    ///
+    void on_btnEditeurAnnuler_clicked();
 
 signals:
     void signalEditeurExited();
