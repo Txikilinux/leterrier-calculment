@@ -10,17 +10,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     interface.cpp \
-    exercice.cpp \
     baudruche.cpp \
     boutonspolygone.cpp \
     sauvegardelog.cpp \
     editeur.cpp \
-    abuleduexercicev0.cpp \
     abuledulanceurv1.cpp \
-    exercicerepechage.cpp \
     exercicemaisonnombres.cpp \
     pixmapmaison.cpp \
-    exercicerepechagemaisonnombres.cpp \
     abuledulineeditv0.cpp \
     futurelib/abuleduexportpdfv1/abuleduexportpdfv1.cpp \
     calculmentgraphicsview.cpp \
@@ -29,18 +25,14 @@ SOURCES += main.cpp \
     abuleduwidgetv1.cpp
 
 HEADERS += interface.h \
-    exercice.h \
     baudruche.h \
     boutonspolygone.h \
     sauvegardelog.h \
     editeur.h \
-    abuleduexercicev0.h \
     abuledulanceurv1.h \
-    exercicerepechage.h \
     exercicemaisonnombres.h \
     pixmapmaison.h \
     version.h \
-    exercicerepechagemaisonnombres.h \
     abuledulineeditv0.h \
     futurelib/abuleduexportpdfv1/abuleduexportpdfv1.h \
     calculmentgraphicsview.h \
@@ -50,7 +42,6 @@ HEADERS += interface.h \
     abuleduwidgetv1.h
 
 FORMS += interface.ui \
-    exercice.ui \
     editeur.ui \
     abuledulanceurv1.ui
 
