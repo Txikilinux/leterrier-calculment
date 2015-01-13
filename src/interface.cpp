@@ -39,7 +39,7 @@
 interface::interface(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::interfaceClass)
 {
-    m_localDebug = true;
+    m_localDebug = false;
     m_isEditorRunning = false;
     //Langue
     //m_locale = QLocale::system().name().section('_', 0, 0);
@@ -571,6 +571,8 @@ void interface::slotInterfaceFinalStateEntered()
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
+    /* OKAZOU */
+    QFile::remove(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/copieModule.conf");
     close();
 }
 

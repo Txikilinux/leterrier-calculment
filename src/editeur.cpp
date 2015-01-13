@@ -304,28 +304,28 @@ void Editeur::initialiserDivision()
     config.setIniCodec("UTF-8");
     config.beginGroup("division");
     config.beginGroup("1");
-    config.setValue("MinGauche", 0);
+    config.setValue("MinGauche", 2);
     config.setValue("MaxGauche", 100);
     config.setValue("MinDroite", 2);
     config.setValue("MaxDroite", 2);
     config.setValue("TempsAccorde",8);
     config.endGroup();
     config.beginGroup("2");
-    config.setValue("MinGauche", 0);
+    config.setValue("MinGauche", 5);
     config.setValue("MaxGauche", 100);
     config.setValue("MinDroite", 5);
     config.setValue("MaxDroite", 5);
     config.setValue("TempsAccorde",8);
     config.endGroup();
     config.beginGroup("3");
-    config.setValue("MinGauche", 0);
+    config.setValue("MinGauche", 2);
     config.setValue("MaxGauche", 100);
     config.setValue("MinDroite", 2);
     config.setValue("MaxDroite", 5);
     config.setValue("TempsAccorde",8);
     config.endGroup();
     config.beginGroup("4");
-    config.setValue("MinGauche", 0);
+    config.setValue("MinGauche", 2);
     config.setValue("MaxGauche", 200);
     config.setValue("MinDroite", 2);
     config.setValue("MaxDroite", 5);
@@ -447,11 +447,6 @@ void Editeur::chargerNiveau(QString niveau)
 
 void Editeur::changerNiveau(QString chaine)
 {
-    QString chaineEnParametre = chaine;
-    if (chaineEnParametre.right(1).toInt() == 0) {
-        chaine = "";
-    }
-    else chaine = "Niveau"+chaineEnParametre.right(1);
     this->sauverNiveau(QString::number(m_niveauEnCours));
     this->chargerNiveau(chaine);
     m_niveauEnCours = chaine.toInt();
@@ -511,7 +506,7 @@ void Editeur::chargerOperation(QString operation)
         m_ui->lblGMax_2->show();
         m_ui->lblDMax_2->show();
     }
-    else if (operation.right(4)=="tion"){
+    else if (operation.right(4)=="tion" || operation == "division"){
         m_ui->spbGMin->show();
         m_ui->spbDMin->show();
         m_ui->spbGMin->setEnabled(true);
@@ -656,7 +651,7 @@ void Editeur::changeEvent(QEvent *e)
 
 void Editeur::ajusterValeurs(int valeurNouvelle)
 {
-    valeurNouvelle = 0;
+    Q_UNUSED(valeurNouvelle)
     if(m_localDebug){
         qDebug()  << __PRETTY_FUNCTION__;
     }
