@@ -75,7 +75,15 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
         d_operande = intMaxD;
     }
     else{
-        d_operande = intMinD + rand()%(intMaxD-intMinD);
+        if(operation == "division"){
+            do {
+                d_operande = intMinD + rand()%(intMaxD-intMinD);
+            }
+            while(d_operande == 0);
+        }
+        else {
+                d_operande = intMinD + rand()%(intMaxD-intMinD);
+        }
     }
 
     if (intMinG == intMaxG){
