@@ -223,10 +223,6 @@ void AbstractExercise::slotAfficheCorrectionQuestionEntered()
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
     }
-
-    m_groupeResultat = new QGraphicsItemGroup();
-    QGraphicsPixmapItem* p = new QGraphicsPixmapItem(QPixmap(":/calculment/elements/prof"));
-    m_groupeResultat->addToGroup(p);
     QString affichage;
     if(m_trace.contains("?")){
         affichage = m_trace.replace("?","<b>"+QString::number(m_resultatEnCours)+"</b>");
@@ -237,17 +233,14 @@ void AbstractExercise::slotAfficheCorrectionQuestionEntered()
     else {
         affichage = m_trace+" = "+"<b>"+QString::number(m_resultatEnCours)+"</b>";
     }
-    QGraphicsTextItem* resultat = new QGraphicsTextItem();
-    QFont f = resultat->font();
-    f.setPointSizeF(20*abeApp->getAbeApplicationDecorRatio());
-    resultat->setFont(f);
-    resultat->setHtml(affichage);
-    resultat->setPos(50,30);
-    resultat->setZValue(10);
-    m_groupeResultat->addToGroup(resultat);
-    qDebug()<<m_resultatEnCours;
 
-    m_sceneAireDeJeu->addItem(m_groupeResultat);
+    AbulEduMessageBoxV1* msgCorrection = new AbulEduMessageBoxV1(trUtf8("Correction"),affichage,true,m_AireDeJeu);
+    QFont f = msgCorrection->font();
+    f.setPointSizeF(20*abeApp->getAbeApplicationDecorRatio());
+    msgCorrection->abeMessageBoxSetTextFont(f);
+    msgCorrection->abeMessageBoxSetTextAlignment(Qt::AlignCenter);
+    msgCorrection->setTextColor(QColor(255,128,128));
+    msgCorrection->show();
 }
 
 void AbstractExercise::slotFinCorrectionQuestionEntered()
