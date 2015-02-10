@@ -107,6 +107,7 @@ interface::interface(QWidget *parent)
     m_editeur = ui->widget;
 
     qApp->setProperty("VerrouNombres",true);
+    qApp->setProperty("numericPad",false);
 
     setTitle(abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus());
     // On est prêt à démarrer
@@ -703,4 +704,12 @@ void interface::on_actionAfficher_le_lanceur_d_exercice_triggered()
     {
         slotMontreLanceur();
     }
+}
+
+void interface::on_actionPav_num_rique_lin_aire_toggled(bool checked)
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__<<checked;
+    }
+    qApp->setProperty("numericPad",checked);
 }

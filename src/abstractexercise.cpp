@@ -142,10 +142,18 @@ void AbstractExercise::slotSequenceEntered()
     question->assignProperty(m_leResultat, "enabled", true);
     question->assignProperty(m_leResultat, "focus", true);
     question->assignProperty(boiteTetes, "visible", false);
-    question->assignProperty(m_numericPad, "visible", true);
-    afficheVerificationQuestion->assignProperty(boiteTetes, "visible", true);
+    if(qApp->property("numericPad").toBool()){
+        question->assignProperty(m_numericPad, "visible", true);
+        question->assignProperty(boiteTetes, "visible", false);
+    }
+    else {
+        question->assignProperty(m_numericPad, "visible", false);
+        question->assignProperty(boiteTetes, "visible", true);
+    }
     afficheVerificationQuestion->assignProperty(m_numericPad, "visible", false);
+    afficheVerificationQuestion->assignProperty(boiteTetes, "visible", true);
     afficheVerificationQuestion->assignProperty(m_leResultat, "enabled", false);
+
 //    afficheVerificationQuestion->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnCorriger, "enabled", true);
     finVerificationQuestion->addTransition(getAbeExerciceTelecommandeV1()->ui->btnSuivant,SIGNAL(clicked()),initQuestion);
 

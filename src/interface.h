@@ -192,6 +192,8 @@ private slots:
 
     void on_actionAfficher_le_lanceur_d_exercice_triggered();
 
+    void on_actionPav_num_rique_lin_aire_toggled(bool checked);
+
 signals:
     void signalAbeLTMWSMexerciseClosed();
 };

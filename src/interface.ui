@@ -217,6 +217,7 @@ background-color:transparent;
      <string>Options</string>
     </property>
     <addaction name="actionVerrouillage_nombres"/>
+    <addaction name="actionPav_num_rique_lin_aire"/>
    </widget>
    <widget class="QMenu" name="menu_Utilisateur">
     <property name="title">
@@ -449,6 +450,14 @@ background-color:transparent;
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionPav_num_rique_lin_aire">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Pavé numérique linéaire</string>
    </property>
   </action>
  </widget>
