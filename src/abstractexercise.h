@@ -23,6 +23,7 @@
 #ifndef ABSTRACTEXERCISE_H
 #define ABSTRACTEXERCISE_H
 
+#include "abuledunumericlinearpadv1.h"
 #include "abuleducommonstatesv1.h"
 #include "baudruche.h"
 
@@ -64,6 +65,8 @@ protected:
      * Pour avoir des debugs en sortie, il faut les activer dans le fichier localdebug.pri, faire un qmake et recompiler
      */
     bool m_localDebug;
+
+    AbulEduNumericLinearPadv1 *m_numericPad;
 
     /** Parent de l'exercice, écrit dans une variable membre pour être accessible de tous les slots */
     QWidget *m_parent;
@@ -153,6 +156,8 @@ protected:
     QGraphicsItemGroup* m_groupeResultat;
 
 protected slots:
+
+    void slotNumericPadKeyPressed(Qt::Key key);
 
     /** Entrée dans l'état "sequence" de l'AbulEduStateMachineV1
       * Passage unique au lancement de la machine à états */

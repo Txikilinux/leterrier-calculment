@@ -39,6 +39,16 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_leResultat(0),
     m_niveau(-1)
 {
+    m_leResultat = new QLineEdit(QString(),getAbeExerciceTelecommandeV1());
+    m_leResultat->setObjectName("leResultat");
+    QRegExp expressionReguliere("[0-9][0-9]{0,"+QString::number(3)+"}");
+    m_leResultat->setValidator(new QRegExpValidator(expressionReguliere, this));
+    /** @todo gratter un peu : la ligne ci-dessous n'est plus utile parce que l'eventFilter fait que le clic sur Entrée équivaut à BtnVerification
+     *  du coup si on la laisse la vérification déclenche aussitôt l'envoi d'un autre ballon
+     *  si on la laissait il faudrait réimplémenter l'eventFilter
+     *  par contre il faut trouver pourquoi il faut appuyer deux fois  */
+//    connect(m_leResultat, SIGNAL(returnPressed()),getAbeExerciceTelecommandeV1()->ui->btnVerifier, SLOT(click()),Qt::UniqueConnection);
+    getAbeExerciceTelecommandeV1()->setDimensionsWidget();
     /* Création de l'aire de jeu et de sa scène */
     m_AireDeJeu->setScene(m_sceneAireDeJeu);
     m_AireDeJeu->setSceneRect(m_AireDeJeu->rect());
@@ -55,6 +65,11 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     getAbeExerciceAireDeTravailV1()->setStyleSheet("border:8px solid orange;border-radius:18px;");
 
     connect(getAbeExerciceTelecommandeV1(), SIGNAL(btnTelecommandeAideClicked()), this, SLOT(slotAide()), Qt::UniqueConnection);
+
+    m_numericPad = new AbulEduNumericLinearPadv1(90* abeApp->getAbeApplicationDecorRatio(),true);
+    connect(m_numericPad, SIGNAL(signalNumericLinearPadV1Clicked(Qt::Key)), this, SLOT(slotNumericPadKeyPressed(Qt::Key)),Qt::UniqueConnection);
+    getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->scene()->addWidget(m_numericPad)->setZValue(1000);
+    m_numericPad->setVisible(false);
     sequenceMachine->start();
 }
 
@@ -126,6 +141,10 @@ void AbstractExercise::slotSequenceEntered()
     question->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnCorriger, "enabled",false);
     question->assignProperty(m_leResultat, "enabled", true);
     question->assignProperty(m_leResultat, "focus", true);
+    question->assignProperty(boiteTetes, "visible", false);
+    question->assignProperty(m_numericPad, "visible", true);
+    afficheVerificationQuestion->assignProperty(boiteTetes, "visible", true);
+    afficheVerificationQuestion->assignProperty(m_numericPad, "visible", false);
     afficheVerificationQuestion->assignProperty(m_leResultat, "enabled", false);
 //    afficheVerificationQuestion->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnCorriger, "enabled", true);
     finVerificationQuestion->addTransition(getAbeExerciceTelecommandeV1()->ui->btnSuivant,SIGNAL(clicked()),initQuestion);
@@ -190,6 +209,8 @@ void AbstractExercise::slotQuestionEntered()
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
     }
+    m_leResultat->clear();
+    m_leResultat->setFocus();
     AbulEduCommonStatesV1::slotQuestionEntered();
 }
 
@@ -201,6 +222,7 @@ void AbstractExercise::slotAfficheVerificationQuestionEntered()
     /* Je commente l'appel à la fonction de la classe mère afin d'empêcher le passage automatique à la question suivante */
 //    AbulEduCommonStatesV1::slotAfficheVerificationQuestionEntered();
     m_leResultat->clearFocus();
+    m_numericPad->setVisible(false);
 }
 
 void AbstractExercise::slotFinVerificationQuestionEntered()
@@ -303,7 +325,6 @@ void AbstractExercise::slotBilanSequenceEntered()
         config.setValue("NiveauEnCours"+m_operationName,m_niveau);
     }
 
-
     //m_level = config.value("NiveauEnCours"+opCourante).toString();
 
     config.endGroup();
@@ -391,4 +412,28 @@ void AbstractExercise::slotSetPeculiarity()
     getAbeExerciceTelecommandeV1()->ui->btnSuivant->setEnabled(true);
     getAbeExerciceTelecommandeV1()->ui->btnSuivant->click();
     getAbeExerciceTelecommandeV1()->ui->btnSuivant->setEnabled(isBtnSuivantEnable);
+}
+
+void AbstractExercise::slotNumericPadKeyPressed(Qt::Key key)
+{
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<key;
+    }
+    /* Astuce : X-48 donne la valeur du nombre envoyé par Qt::Key_X */
+    QString num = QString::number(key-48);
+    /* J'aurais bien aimé simplement poster un événement avec la key mais ça ne marche pas, je pense parce que le QLineEdit perd le focus */
+    //    abeApp->postEvent(abeApp,new QKeyEvent(QEvent::KeyRelease,key,Qt::NoModifier));
+    QString value = m_leResultat->text().simplified();
+    if(key == Qt::Key_Enter){
+        abeApp->postEvent(abeApp,new QKeyEvent(QEvent::KeyRelease,key,Qt::NoModifier));
+    }
+    else if(key == Qt::Key_Backspace){
+        if(!value.isEmpty()){
+            value.chop(1);
+        }
+        m_leResultat->setText(value);
+    }
+    else{
+        m_leResultat->setText(value+num);
+    }
 }

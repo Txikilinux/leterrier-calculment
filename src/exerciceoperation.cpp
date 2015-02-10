@@ -41,16 +41,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
     }
     chargerParametres();
     m_score = 0;
-    m_leResultat = new QLineEdit(QString(),getAbeExerciceTelecommandeV1());
-    m_leResultat->setObjectName("leResultat");
-    QRegExp expressionReguliere("[0-9][0-9]{0,"+QString::number(3)+"}");
-    m_leResultat->setValidator(new QRegExpValidator(expressionReguliere, this));
-    /** @todo gratter un peu : la ligne ci-dessous n'est plus utile parce que l'eventFilter fait que le clic sur Entrée équivaut à BtnVerification
-     *  du coup si on la laisse la vérification déclenche aussitôt l'envoi d'un autre ballon
-     *  si on la laissait il faudrait réimplémenter l'eventFilter
-     *  par contre il faut trouver pourquoi il faut appuyer deux fois  */
-//    connect(m_leResultat, SIGNAL(returnPressed()),getAbeExerciceTelecommandeV1()->ui->btnVerifier, SLOT(click()),Qt::UniqueConnection);
-    getAbeExerciceTelecommandeV1()->setDimensionsWidget();
+
     if (exerciseName == "complementA")
     {
         setAbeExerciceName(trUtf8("Complément additif à "));
@@ -134,6 +125,8 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
     }
     imageFond.load(":/calculment/backgrounds/"+exerciseName);
     m_imageFond = new QPixmap(imageFond.scaledToHeight(m_parent->height()));
+
+
 }
 
 ExerciceOperation::~ExerciceOperation()
@@ -171,7 +164,7 @@ void ExerciceOperation::setDimensionsWidgets(float ratio)
     m_AireDeJeu->setGeometry(0,0,m_imageFond->width(),m_imageFond->height());
     m_AireDeJeu->setSceneRect(0,0,m_imageFond->width(),m_imageFond->height());
     QPixmap backgr(":/calculment/backgrounds/empty");
-    getAbeExerciceAireDeTravailV1()->setImageFond(backgr.scaled(m_imageFond->width()+75*abeApp->getAbeApplicationDecorRatio(),m_imageFond->height()+150*abeApp->getAbeApplicationDecorRatio()));
+    getAbeExerciceAireDeTravailV1()->setImageFond(backgr.scaled(m_imageFond->width()+600*abeApp->getAbeApplicationDecorRatio(),m_imageFond->height()+150*abeApp->getAbeApplicationDecorRatio()));
     int ecartAireTelecommande = 0;
     int abscisseAire = (m_parent->width() - (getAbeExerciceAireDeTravailV1()->width() + getAbeExerciceTelecommandeV1()->width() + ecartAireTelecommande))/2;
     int abscisseTelecommande = abscisseAire + getAbeExerciceAireDeTravailV1()->width() + ecartAireTelecommande;
@@ -181,6 +174,8 @@ void ExerciceOperation::setDimensionsWidgets(float ratio)
                                                                 getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->y());
     boiteTetes->setPos((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - boiteTetes->geometry().width())/2,
                        getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - boiteTetes->geometry().height());
+    m_numericPad->move((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - m_numericPad->width())/2,
+                       getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - m_numericPad->height() -60*ratio);
 }
 
 QList<int> ExerciceOperation::getNumberUsed() const
@@ -443,8 +438,6 @@ void ExerciceOperation::slotQuestionEntered()
         ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotQuestionEntered();
-    m_leResultat->clear();
-    m_leResultat->setFocus();
 }
 
 void ExerciceOperation::slotAfficheVerificationQuestionEntered()
