@@ -114,9 +114,10 @@ int main(int argc, char *argv[])
         // ================== splashscreen
     AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
         splash->show();
-        interface* w = new interface();
-        splash->setMainWindow(w);
         splash->launch(1000);
+	interface* w = new interface();
+        splash->setMainWindow(w);
+        
     }
     else e.show();
     return a.exec();
