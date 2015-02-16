@@ -97,11 +97,6 @@ protected:
     QPoint* m_depart;
 
     ///
-    /// \brief L'image de fond qu'on met à la scène
-    ///
-    QPixmap* m_imageFond;
-
-    ///
     /// \brief Nombre de réponses correctes
     ///
     int m_score;

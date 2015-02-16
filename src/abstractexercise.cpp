@@ -30,7 +30,6 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_sceneAireDeJeu(new QGraphicsScene(this)),
     m_baudruche(0),
     m_depart(0),
-    m_imageFond(0),
     m_score(0),
     m_total(0),
     m_resultatEnCours(-1),
@@ -60,9 +59,9 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_AireDeJeu->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     /* On lui donne un fond transparent et pas de bordure */
     m_AireDeJeu->setFrameShape(QFrame::NoFrame);
-    m_AireDeJeu->setStyleSheet("background-color: rgba(0,0,0,0)");
+    m_AireDeJeu->setStyleSheet("background-color: rgba(0,0,0,0);border:1px solid blue");
+    getAbeExerciceAireDeTravailV1()->setStyleSheet("background-color: rgba(0,0,0,0);border:1px solid red");
     m_AireDeJeu->setVisible(true);
-    getAbeExerciceAireDeTravailV1()->setStyleSheet("border:8px solid orange;border-radius:18px;");
 
     connect(getAbeExerciceTelecommandeV1(), SIGNAL(btnTelecommandeAideClicked()), this, SLOT(slotAide()), Qt::UniqueConnection);
 
@@ -108,6 +107,8 @@ void AbstractExercise::setDimensionsWidgets(float ratio)
     /* Placement des têtes */
     boiteTetes->setPos((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - boiteTetes->geometry().width())/2,
                        getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - boiteTetes->geometry().height() -60*ratio);
+    m_numericPad->move((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - m_numericPad->width())/2,
+                       getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - m_numericPad->height() -60*ratio);
 }
 
 void AbstractExercise::slotSequenceEntered()

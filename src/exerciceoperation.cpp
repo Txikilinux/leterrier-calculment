@@ -118,13 +118,13 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
         setAbeExerciceName(trUtf8("La maison des nombres"));
         /** @todo A priori Skill non existant dans les competences Educ Nat mais faut vérifier */
     }
-    QPixmap imageFond;
+//    QPixmap imageFond;
 
-    if(m_localDebug){
-        ABULEDU_LOG_DEBUG()<<":/calculment/backgrounds/"+exerciseName;
-    }
-    imageFond.load(":/calculment/backgrounds/"+exerciseName);
-    m_imageFond = new QPixmap(imageFond.scaledToHeight(m_parent->height()));
+//    if(m_localDebug){
+//        ABULEDU_LOG_DEBUG()<<":/calculment/backgrounds/"+exerciseName;
+//    }
+//    imageFond.load(":/calculment/backgrounds/"+exerciseName);
+//    m_imageFond = new QPixmap(imageFond.scaledToHeight(m_parent->height()));
 
 
 }
@@ -152,30 +152,7 @@ int ExerciceOperation::donneReponse()
 
 void ExerciceOperation::setDimensionsWidgets(float ratio)
 {
-    Q_UNUSED(ratio)
-    if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-    }
-
-    QGraphicsPixmapItem* fond = new QGraphicsPixmapItem();
-    fond->setPixmap(*m_imageFond);
-    m_sceneAireDeJeu->addItem(fond);
-    fond->setZValue(-10);
-    m_AireDeJeu->setGeometry(0,0,m_imageFond->width(),m_imageFond->height());
-    m_AireDeJeu->setSceneRect(0,0,m_imageFond->width(),m_imageFond->height());
-    QPixmap backgr(":/calculment/backgrounds/empty");
-    getAbeExerciceAireDeTravailV1()->setImageFond(backgr.scaled(m_imageFond->width()+600*abeApp->getAbeApplicationDecorRatio(),m_imageFond->height()+150*abeApp->getAbeApplicationDecorRatio()));
-    int ecartAireTelecommande = 0;
-    int abscisseAire = (m_parent->width() - (getAbeExerciceAireDeTravailV1()->width() + getAbeExerciceTelecommandeV1()->width() + ecartAireTelecommande))/2;
-    int abscisseTelecommande = abscisseAire + getAbeExerciceAireDeTravailV1()->width() + ecartAireTelecommande;
-    getAbeExerciceAireDeTravailV1()->move(abscisseAire,0);
-    getAbeExerciceTelecommandeV1()->move(abscisseTelecommande,-25*abeApp->getAbeApplicationDecorRatio());
-    getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->move(abscisseTelecommande - getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->width()+30*abeApp->getAbeApplicationDecorRatio(),
-                                                                getAbeExerciceTelecommandeV1()->ui->framePopupQuitter->y());
-    boiteTetes->setPos((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - boiteTetes->geometry().width())/2,
-                       getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - boiteTetes->geometry().height());
-    m_numericPad->move((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - m_numericPad->width())/2,
-                       getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - m_numericPad->height() -60*ratio);
+    AbstractExercise::setDimensionsWidgets(ratio);
 }
 
 QList<int> ExerciceOperation::getNumberUsed() const
@@ -357,8 +334,8 @@ void ExerciceOperation::slotInitQuestionEntered()
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     //instanciation d'une baudruche et connexion aux autres objets
     if (m_operationName=="addition") m_depart = new QPoint(0*factX,boiteTetes->y());
-    else if(m_operationName.left(6)=="tableA"|| m_operationName.left(6)=="tableM") m_depart = new QPoint(m_imageFond->width()/2-80*factY,0*factY);
-    else m_depart = new QPoint(m_imageFond->width()/2-80*factY,500*factY);
+    else if(m_operationName.left(6)=="tableA"|| m_operationName.left(6)=="tableM") m_depart = new QPoint(m_AireDeJeu->width()/2-80*factY,0*factY);
+    else m_depart = new QPoint(m_AireDeJeu->width()/2-80*factY,500*factY);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
 
