@@ -46,8 +46,6 @@ const int MULTIPLE_MAX=11;
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation, QPoint pos, QObject *parent, QString image)
 {
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-
     m_nomOperation = operation;
     m_nomImage = image;
     m_dropValeur = QString();
@@ -142,7 +140,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
     construisAffichage();
-    dessineMoi(image,16*factX);
+    dessineMoi(image);
         
     this->emetRes();
     //qDebug()<<"res emis instanciation "<<m_resultat;
@@ -188,7 +186,7 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
     construisAffichage();
-    dessineMoi(image,16*factX);
+    dessineMoi(image);
 
     this->emetApprox();
     //qDebug()<<"baudruche::constructeur valeurs approchées (2)";
@@ -240,84 +238,16 @@ baudruche::baudruche(int valeurCible, int tempsAccorde, QString operation, QPoin
             ecran=QApplication::desktop()->screenGeometry();
 
     construisAffichage();
-    dessineMoi(image,12*factX);
+    dessineMoi(image);
 
     this->emetRes();
     //qDebug()<<"baudruche::constructeur compléments (2)";
 }
 
-/* constructeur spécifique à l'affichage du résultat */
-baudruche::baudruche(int pts, QPoint pos, QObject *parent, QString image)
+void baudruche::dessineMoi(QString image)
 {
-    //qDebug()<<"baudruche::constructeur affichage (1)";
-    m_parent = parent;
-    m_isDetructionPlanified = false;
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    //qDebug()<<"Fact X vaut "<< factX;
-    m_nomImage = image;
-    m_dropValeur = "";
-    const int k=100;
-    g_operande = 0;
-    d_operande = 0;
-    m_op = "";
-    m_resultat=0;
-    m_position.setX(pos.x());
-    m_position.setY(pos.y());
-    QString resultStr;
-    resultStr = resultStr.setNum(pts);
-    QString* msg = new QString(tr("Ton score est de "));
-    msg->append(resultStr);
-    if (pts==0 || pts==1) msg->append(tr(" point."));
-    else msg->append(tr(" points."));
-    QGraphicsPixmapItem* pixmap = new QGraphicsPixmapItem(this);
-        QString illustration;
-        QString imageBase="ballon";
-        if (image!=0) imageBase=image;
-        illustration = ":/calculment/elements/"+image+"Rose";
-        pixmap->setPixmap(illustration);
-        pixmap->setZValue(k);
-        pixmap->setPos(pos);
-        this->addToGroup(pixmap);
-    QGraphicsTextItem* affichage = new QGraphicsTextItem("",pixmap);
-        affichage->setFont( QFont( "dejaVuSans",16*factX ) );
-        affichage->setHtml(*msg);
-        affichage->setZValue(k+2);
-        affichage->setPos(40/factX,100/factX);
-        this->addToGroup(affichage);
-    //qDebug()<<"baudruche::constructeur affichage (2)";
-}
-
-//constructeur specifique à la remédiation
-baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString operation, QPoint pos, QObject *parent, QString image)
-{
-    //qDebug()<<"Opération en paramètre : "<<operation;
     float ratio = abeApp->getAbeApplicationDecorRatio();
-    if (operation=="addition" || operation.left(6)=="tableA" || operation=="OdGrandeurAddition" || operation.left(11)=="complementA" || operation=="") m_op = "+";
-    else if (operation=="soustraction" || operation=="OdGrandeurSoustraction") m_op = "-";
-        else if (operation=="multiplication" || operation.left(6)=="tableM" || operation=="OdGrandeurMultiplication" || operation.left(11)=="complementM") m_op = "x";
-    m_parent = parent;
-    m_dropValeur = "";
-    m_isDetructionPlanified = false;
-    m_position.setX(pos.x());
-    m_position.setY(pos.y());
-    m_timer = new QTimeLine(tempsAccorde*1000,this);
-    m_nomOperation = operation;
-    g_operande = operandeG;
-    d_operande = operandeD;
-    m_approximation=0;
-
-    construisAffichage();
-    dessineMoi(image,16*ratio);
-}
-
-
-void baudruche::dessineMoi(QString image, int taillePolice)
-{
-    //qDebug()<<"baudruche::dessineMoi(1) appelée avec comme image "<<image;
-    float ratio = abeApp->getAbeApplicationDecorRatio();
-    //qDebug()<<"FactX = "<<factX;
-    //qDebug()<<"FactY = "<<factY;
-    const int k=100;
+    const int k = 100;
         int coulAlea = rand()%(5);
         QString illustration;
         QString imageBase="ballon";
@@ -342,21 +272,27 @@ void baudruche::dessineMoi(QString image, int taillePolice)
             m_image.setPos(m_position);
             this->addToGroup(&m_image);
 
-        QGraphicsTextItem* affichage = new QGraphicsTextItem("",&m_image);
-        affichage->setFont( QFont( "dejaVuSans",taillePolice*ratio,QFont::Bold ) );
-        QFontMetrics mesureur(QFont("dejaVuSans",taillePolice*ratio));
+        m_texteAffiche = new QGraphicsTextItem(m_affichage,&m_image);
+        QFont fonteUtilisee = abeApp->font();
+        fonteUtilisee.setBold(true);
+        fonteUtilisee.setPointSize(28*ratio);
+        qDebug()<<"&&"<<fonteUtilisee.pointSize();
+        QFontMetrics mesureur(fonteUtilisee);
+        while(mesureur.boundingRect(m_affichage).width() > imageIllustration2.width()*0.8){
+            fonteUtilisee.setPointSize(fonteUtilisee.pointSize()-1);
+            mesureur = QFontMetrics(fonteUtilisee);
+        }
+        qDebug()<<imageIllustration2.width();
+        qDebug()<<mesureur.boundingRect(m_affichage).width();
+        m_texteAffiche->setFont(fonteUtilisee);
         int longueurAffichage,largeurIllustration,decalageCentrage;
         longueurAffichage=mesureur.width(m_affichage);
         largeurIllustration=imageIllustration2.width();
         decalageCentrage=(largeurIllustration-longueurAffichage)/2;
-        affichage->setHtml(m_affichage);
-        if (image=="auto") affichage->setPos(50*ratio,190*ratio);
-        else affichage->setPos(decalageCentrage,75*ratio);
-        affichage->setZValue(k+1);
-        this->addToGroup(affichage);
-        m_texteAffiche = new QGraphicsTextItem();
-        m_texteAffiche = affichage;
-        //qDebug()<<"baudruche::dessineMoi(2)";
+        if (image=="auto") m_texteAffiche->setPos(50*ratio,170*ratio);
+        else m_texteAffiche->setPos(decalageCentrage,75*ratio);
+        m_texteAffiche->setZValue(k+1);
+        this->addToGroup(m_texteAffiche);
         m_isMaisonSurvolee = false;
 }
 

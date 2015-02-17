@@ -37,8 +37,6 @@ public:
     baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString op,QPoint pos, QObject* parent = 0,QString image = QString());
     baudruche(int intMaxG, int intMaxD, int tempsAccorde,QString op,QPoint pos,QObject* parent = 0,QString image = QString());
     baudruche(int intDroite, int tempsAccorde,QString op,QPoint pos, QObject* parent = 0,QString image = QString());
-    baudruche(int pts, QPoint pos, QObject* parent=0,QString image="");
-    baudruche(float operandeG, float operandeD, int tempsAccorde, QString op,QPoint pos,QObject* parent = 0,QString image = QString());
     QPoint getMPosition();
     float getMResultat();
     float getMApproximation();
@@ -90,7 +88,7 @@ private:
     QString m_affichage;
     QString m_dropValeur;
     QObject* m_parent;
-    void dessineMoi(QString,int);
+    void dessineMoi(QString);
     void construisAffichage();
     bool m_isMaisonSurvolee;
     ///

@@ -64,7 +64,7 @@ void ExerciceMaisonNombres::dessinePixmapMaisons()
 
 void ExerciceMaisonNombres::on_btn2chance_clicked()
 {
-    qDebug()<<"ExerciceMaisonNombres::on_btn2chance_clicked()";
+    /** @deprecated */
 }
 
 void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
