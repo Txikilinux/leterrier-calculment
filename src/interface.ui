@@ -13,7 +13,15 @@
   <property name="windowTitle">
    <string>interface</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+#interfaceClassbackground-color:transparent;
+}</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">background-color:transparent;</string>
+   </property>
    <layout class="QGridLayout" name="gridLayout">
     <property name="leftMargin">
      <number>0</number>
@@ -32,15 +40,18 @@
     </property>
     <item row="0" column="0">
      <widget class="AbulEduStackedWidgetV1" name="stackedWidget">
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
       <widget class="QWidget" name="mainPage">
-       <layout class="QGridLayout" name="gridLayout_2"/>
-      </widget>
-      <widget class="AbulEduWidgetV1" name="exercicePage">
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
        <property name="styleSheet">
         <string notr="true"/>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2"/>
+      </widget>
+      <widget class="AbulEduPixmapWidgetV1" name="exercicePage">
+       <property name="autoFillBackground">
+        <bool>false</bool>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <property name="spacing">
@@ -75,7 +86,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="AbulEduWidgetV1" name="widgetContainer" native="true"/>
+         <widget class="QWidget" name="widgetContainer" native="true"/>
         </item>
         <item>
          <spacer name="horizontalSpacer_2">
@@ -464,12 +475,6 @@ background-color:transparent;
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>AbulEduWidgetV1</class>
-   <extends>QWidget</extends>
-   <header>abuleduwidgetv1.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>AbulEduAproposV1</class>
    <extends>QWidget</extends>
    <header>abuleduaproposv1.h</header>
@@ -491,6 +496,12 @@ background-color:transparent;
    <class>AbuleduLanceurV1</class>
    <extends>QWidget</extends>
    <header>abuledulanceurv1.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AbulEduPixmapWidgetV1</class>
+   <extends>QWidget</extends>
+   <header>abuledupixmapwidgetv1.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

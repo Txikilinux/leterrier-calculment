@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/:/abuledupixmapwidgetv1/backgrounds/empty">
+        <file alias="empty">abePixmapWidgetEmpty.png</file>
+    </qresource>
+</RCC>

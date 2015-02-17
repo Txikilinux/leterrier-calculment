@@ -22,7 +22,7 @@ SOURCES += main.cpp \
     calculmentgraphicsview.cpp \
     abstractexercise.cpp \
     exerciceoperation.cpp \
-    abuleduwidgetv1.cpp
+    abuledupixmapwidgetv1.cpp
 
 HEADERS += interface.h \
     baudruche.h \
@@ -39,14 +39,15 @@ HEADERS += interface.h \
     leterrierstringtransition.h \
     abstractexercise.h \
     exerciceoperation.h \
-    abuleduwidgetv1.h
+    abuledupixmapwidgetv1.h
 
 FORMS += interface.ui \
     editeur.ui \
     abuledulanceurv1.ui
 
 RESOURCES += \
-    calculment.qrc
+    calculment.qrc \
+    abuledupixmapwidgetv1.qrc
 
 win32{
   OTHER_FILES += ../windows/windows.rc

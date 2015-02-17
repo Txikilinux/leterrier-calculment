@@ -1,7 +1,7 @@
 /** Réimplémentation de la classe QWidget afin de lui donner une image de fond
   *
   * @see https://redmine.ryxeo.com/projects/ryxeo/wiki/LeTerrierExercice
-  * @author 2014 Philippe Cadaugade <philippe.cadaugade@ryxeo.com>
+  * @author 2014-2015 Philippe Cadaugade <philippe.cadaugade@ryxeo.com>
   *
   * @see The GNU Public License (GPL)
   *
@@ -20,8 +20,8 @@
   * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
   */
 
-#ifndef ABULEDUWIDGETV1_H
-#define ABULEDUWIDGETV1_H
+#ifndef ABULEDUPIXMAPWIDGETV1_H
+#define ABULEDUPIXMAPWIDGETV1_H
 
 #include <QWidget>
 #include <QFile>
@@ -29,22 +29,27 @@
 #include <QDebug>
 #include <QPaintEvent>
 
-class AbulEduWidgetV1 : public QWidget
+class AbulEduPixmapWidgetV1 : public QWidget
 {
-    Q_OBJECT
+    Q_ENUMS(enumRatioMode)
+    ///
+    /// \brief enumRatioMode enum reprend les AspectRatioMode tel que Qt les définit, et permet ainsi de les utiliser en tant que type de paramètre ou de retour
+    ///
+    enum enumRatioMode{IgnoreRatio, KeepRatio, KeepByExpanding};
+
 public:
     ///
     /// \brief Constructeur sans chemin d'image. Appelé par les constructions par promotion dans les interfaces graphiques.
     /// \param parent
     ///
-    explicit AbulEduWidgetV1(QWidget *parent = 0);
+    explicit AbulEduPixmapWidgetV1(QWidget *parent = 0);
 
     ///
     /// \brief Constructeur permettant de construire directement un widget avec son image de fond.
     /// \param picturePath
     /// \param parent
     ///
-    explicit AbulEduWidgetV1(QString picturePath,QWidget *parent = 0);
+    explicit AbulEduPixmapWidgetV1(QString picturePath,QWidget *parent = 0);
 
     ///
     /// \brief Donne le chemin d'une image de fond au widget
@@ -52,7 +57,19 @@ public:
     /// est différent de celui de l'image
     /// \return true si l'image existe
     ///
-    bool abeWidgetSetBackgroundPixmap(const QString& picturePath);
+    bool abePixmapWidgetSetPixmap(const QString& picturePath);
+
+    ///
+    /// \brief Permet de connaitre l'AspectRatioMode tel que Qt les définit
+    /// \return le type actuel
+    ///
+    inline enumRatioMode abePixmapWidgetGetRatioMode(){return m_ratioMode;}
+
+    ///
+    /// \brief Permet de changer l'AspectRatioMode tel que Qt les définit
+    /// \param mode le mode souhaité (le mode par défaut est KeepByExpanding
+    ///
+    inline void abePixmapWidgetSetRatioMode(enumRatioMode mode){m_ratioMode = mode;}
 
 private:
     ///
@@ -60,15 +77,13 @@ private:
     ///
     QString m_picturePath;
 
+    enumRatioMode m_ratioMode;
+
     ///
     /// \brief Réimplémentation de paintEvent qui dessine l'image de fond
     /// \param e l'événement
     ///
     void paintEvent(QPaintEvent *e);
-signals:
-
-public slots:
-
 };
 
-#endif // ABULEDUWIDGETV1_H
+#endif // ABULEDUPIXMAPWIDGETV1_H
