@@ -297,20 +297,18 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     }
     else if (m_exerciceNames.key(name.simplified()) == "maisonDesNombres"){
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
-        ui->stackedWidget->setCurrentWidget(ui->exercicePage);
-        ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),ui->exercicePage,number);
+        ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil,number);
         connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
     }
     /** @todo Gérer les traductions */
     else if (name.simplified().left(6) == "Tables" || name.simplified().left(6) == "Ordres" || name.simplified() == "Compléments" || name.simplified() == "Multiples"){
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
-        ui->stackedWidget->setCurrentWidget(ui->exercicePage);
         if(m_exerciceNames.values().contains(name.simplified())){
-            ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage,number);
+            ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil,number);
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else if(m_exerciceNames.keys().contains(name.simplified())){
-            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),ui->exercicePage,number);
+            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil,number);
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else {
@@ -322,18 +320,17 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     else{
         qDebug()<<name;
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
-        ui->stackedWidget->setCurrentWidget(ui->exercicePage);
         if(m_exerciceNames.values().contains(name.simplified())){
-            ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage);
+            ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil);
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else if(m_exerciceNames.keys().contains(name.simplified())){
-            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),ui->exercicePage);
+            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil);
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         /* Gros cas particulier mais je n'ai pas trouvé pour l'instant de façon de faire élégante : c'est pour le cas de l'appel des ordres de grandeur par AbuleduLanceurV1 */
         else if(name.left(3) == "OdG"){
-            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),ui->exercicePage);
+            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil);
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else {
@@ -354,17 +351,6 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     //            slotMontreLanceur();
     //        }
     //    }
-
-    //    else if (*m_action == "maisonDesNombres") {
-    //        ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(*m_action,0,m_val);
-    //        maisonNombres->show();
-    //    }
-//    else {
-//        ui->stackedWidget->setCurrentWidget(ui->exercicePage);
-//        exercice* ex = new exercice(m_exerciceNames.key(name.simplified()),ui->widgetContainer,0);
-//        ex->show();
-//    }
-
 }
 
 void interface::slotInterfaceBackFromExercise()

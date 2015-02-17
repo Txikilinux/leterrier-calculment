@@ -56,7 +56,7 @@ protected:
     void paintEvent(QPaintEvent* e );
 
     /** Installation d'un activity filter qui émet le signal userInactive */
-    ActivityFilter *m_activityFilter;
+    ActivityFilter          *m_activityFilter;
 
     /** Page d'accueil dont le fichier de paramètres, settings.conf, doit être créé grâce au logiciel AbulEduEditeurPageAccueil */
     AbulEduPageAccueilV1    *m_abuleduPageAccueil;
@@ -64,7 +64,7 @@ protected:
     /** La stateMachine gère le passage d'une page à l'autre dans le stackedWidget
      *  elle gère aussi la visibilité des éléments d'interface
      */
-    QStateMachine                   m_leterrierStateMachine;
+    QStateMachine            m_leterrierStateMachine;
 
     /** Stocke l'envie de l'utilisateur de voir les bulles s'afficher toutes les 7 secondes
       * Initialisé à true dans le constructeur et mis à jour par la case à cocher du menu Option/Mode Démo */
@@ -76,7 +76,6 @@ protected:
 
     /** Permet de savoir si on est en cours d'édition */
     bool m_isEditorRunning;
-
 
 private:
     Ui::interfaceClass *ui;
