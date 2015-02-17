@@ -34,39 +34,66 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
     m_localDebug = true;
     m_numberUsed.clear();
     m_cible = val;
+    m_multipleCible = QList<int>();
     m_operationName = exerciseName;
     m_niveau = niveau;
     if(m_niveau > -1){
         setAbeLevel(QString::number(m_niveau-1));
     }
-    chargerParametres();
     m_score = 0;
+    chargerParametres();
+    setNameAndSkill();
+}
 
-    if (exerciseName == "complementA")
+ExerciceOperation::ExerciceOperation(QString exerciseName, QWidget *parent, QList<int> values, int niveau) :
+    AbstractExercise(parent),
+    m_parent(parent),
+    m_minG(0),
+    m_maxG(9),
+    m_minD(0),
+    m_maxD(9)
+{
+    m_localDebug = true;
+    m_numberUsed.clear();
+    m_cible = -1;
+    m_multipleCible = values;
+    m_operationName = exerciseName;
+    m_niveau = niveau;
+    if(m_niveau > -1){
+        setAbeLevel(QString::number(m_niveau-1));
+    }
+    m_score = 0;
+    chargerParametres();
+    setNameAndSkill();
+}
+
+void ExerciceOperation::setNameAndSkill()
+{
+    if (m_operationName == "complementA")
     {
         setAbeExerciceName(trUtf8("Complément additif à "));
         /* Skill non existant dans les competences Educ Nat */
     }
 
-    if(exerciseName == "complementM")
+    if(m_operationName == "complementM")
     {
         setAbeExerciceName(trUtf8("Multiples de "));
         setAbeSkill("multiples-");
     }
 
-    if (exerciseName == "tableM")
+    if (m_operationName == "tableM")
     {
         setAbeExerciceName(trUtf8("Table de multiplication par "));
         setAbeSkill("table-multiplication-");
     }
 
-    if (exerciseName == "tableA")
+    if (m_operationName == "tableA")
     {
         setAbeExerciceName(trUtf8("Table d'addition de "));
         setAbeSkill("table-addition-");
     }
 
-    if (exerciseName=="addition")
+    if (m_operationName=="addition")
     {
         setAbeExerciceName(trUtf8("Additions de nombres inférieurs à %1 et %2").arg(QString::number(m_maxG)).arg(QString::number(m_maxD)));
         if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
@@ -74,7 +101,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
         /* si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000 */
     }
 
-    if (exerciseName=="soustraction")
+    if (m_operationName=="soustraction")
     {
         setAbeExerciceName(trUtf8("Soustractions de nombres inférieurs à %1 et %2").arg(QString::number(m_maxG)).arg(QString::number(m_maxD)));
         if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
@@ -82,7 +109,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
     }
 
-    if (exerciseName=="multiplication")
+    if (m_operationName=="multiplication")
     {
         setAbeExerciceName(trUtf8("Multiplications de nombres inférieurs à %1 et %2").arg(QString::number(m_maxG)).arg(QString::number(m_maxD)));
         if (((m_maxD == 100) && (m_maxG == 100)) || ((m_maxD == 1000) && (m_maxG == 1000)))
@@ -90,7 +117,9 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
         // si je veux que la compétence soit validée, je dois mettre dans l'éditeur la valeur des deux max à 100 ou 1000
     }
 
-    if(exerciseName.left(10) =="OdGrandeur"){
+    /** @deprecated : servait quand on mettait un fond personnalisé */
+    QString exerciseName;
+    if(m_operationName.left(10) =="OdGrandeur"){
         setHelpText("Tu dois trouver l'ordre de grandeur du résultat du calcul proposé.<br/>Pour cela, tu vas arrondir les nombres en ne gardant qu'un seul chiffre significatif, puis faire l'opération sur les nombres arrondis.<br/>Exemple : 372 - 198 -> 400 - 200 = 200<br/>Attention : n'arrondis pas les nombres à 1 seul chiffre");
         if(m_operationName == "OdGrandeur"){
             setAbeExerciceName(trUtf8("Ordres de grandeur sur des "));
@@ -113,7 +142,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
         }
     }
 
-    if (exerciseName == "maisonDesNombres")
+    if (m_operationName == "maisonDesNombres")
     {
         setAbeExerciceName(trUtf8("La maison des nombres"));
         /** @todo A priori Skill non existant dans les competences Educ Nat mais faut vérifier */
@@ -126,8 +155,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
 //    imageFond.load(":/calculment/backgrounds/"+exerciseName);
 //    m_imageFond = new QPixmap(imageFond.scaledToHeight(m_parent->height()));
 
-
-}
+    }
 
 ExerciceOperation::~ExerciceOperation()
 {
@@ -199,7 +227,7 @@ void ExerciceOperation::chargerParametres()
     config.endGroup();
 
     if (m_operationName.left(6)=="tableA" || m_operationName.left(6)=="tableM") {
-        m_minD=m_maxD=m_cible;
+        m_minD = m_maxD = m_cible;
         m_minG=0;
         m_maxG=9;
     }
@@ -270,7 +298,9 @@ void ExerciceOperation::slotPresenteSequenceEntered()
         m_variations.append(AbulEduLaunchElements("7",":/calculment/elements/aie3",7));
         m_variations.append(AbulEduLaunchElements("8",":/calculment/elements/aie1",8));
         m_variations.append(AbulEduLaunchElements("9",":/calculment/elements/aie2",9));
-        m_variations.append(AbulEduLaunchElements("tous ces nombres",":/calculment/elements/aie3",-1));
+        QList<QVariant> toto;
+        toto <<2<<3<<4<<5<<6<<7<<8<<9;
+        m_variations.append(AbulEduLaunchElements("tous ces nombres",":/calculment/elements/aie3",toto));
     }
     else if(m_operationName == "complementA"){
         m_variations.append(AbulEduLaunchElements("10",":/calculment/elements/aie1",10));
@@ -347,10 +377,20 @@ void ExerciceOperation::slotInitQuestionEntered()
             || m_operationName=="division")
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this);
 
-    else if (m_operationName.left(6)=="tableA")
+    else if (m_operationName.left(6)=="tableA"){
+        if(!m_multipleCible.isEmpty()){
+            /** L'idée est de piocher dans la liste des nombres attendus */
+            m_minD = m_maxD = m_multipleCible.at(rand()%m_multipleCible.size());
+        }
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName.left(6),*m_depart,this,"nacelle");
-    else if(m_operationName.left(6)=="tableM")
+    }
+    else if(m_operationName.left(6)=="tableM"){
+        if(!m_multipleCible.isEmpty()){
+            /** L'idée est de piocher dans la liste des nombres attendus */
+            m_minD = m_maxD = m_multipleCible.at(rand()%m_multipleCible.size());
+        }
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName.left(6),*m_depart,this,"cabine");
+    }
     else if (m_operationName.left(11)=="complementA")
         m_baudruche = new baudruche(m_minG,m_temps,m_operationName.left(11), *m_depart,this,"fantome");
     else if (m_operationName.left(11)=="complementM")

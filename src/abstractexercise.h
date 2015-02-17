@@ -117,6 +117,8 @@ protected:
     ///
     int m_cible;
 
+    QList<int> m_multipleCible;
+
     ///
     /// \brief L'opération proposée sous forme d'une chaine de caractères
     ///

@@ -416,6 +416,16 @@ void AbstractExercise::slotSetPeculiarity()
         setAbeExerciceName(getAbeExerciceName()+QString::number(m_cible));
         setAbeSkill(getAbeSkill()+QString::number(m_cible));
     }
+    else if(fromBtn->property("peculiarity").type() == QVariant::List){
+        QVariantList vList = fromBtn->property("peculiarity").toList();
+        foreach(QVariant v,vList){
+            m_multipleCible << v.toInt();
+        }
+        qDebug()<<m_multipleCible;
+//        m_operationName = m_operationName.append(fromBtn->property("peculiarity").toString());
+//        setAbeExerciceName(getAbeExerciceName()+QString::number(m_cible));
+//        setAbeSkill(getAbeSkill()+QString::number(m_cible));
+    }
     else{
         ABULEDU_LOG_DEBUG() << "Problème : le paramètre transmis n'est pas conforme...";
         return;

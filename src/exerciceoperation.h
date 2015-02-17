@@ -31,7 +31,7 @@
 class ExerciceOperation : public AbstractExercise
 {
 
-Q_OBJECT
+    Q_OBJECT
 public:
     ///
     /// \brief Classe des exercices standards pour Calcul Mental 2.0
@@ -41,6 +41,7 @@ public:
     /// \param niveau permet de choisir le niveau de difficulté parmi Niveau1, Niveau2, Niveau3 et Personnel. S'il n'est pas renseigné, le niveau est lu dans la configuration perso
     ///
     ExerciceOperation(QString exerciseName, QWidget *parent, int val = 0, int niveau = -1);
+    ExerciceOperation(QString exerciseName, QWidget *parent, QList<int> values, int niveau = -1);
     ~ExerciceOperation();
 
     QList<int> getNumberUsed() const;
@@ -64,6 +65,7 @@ protected:
     int m_temps;
     QList<int> m_numberUsed;
 
+    void setNameAndSkill();
     void chargerParametres();
 
     void animeBaudruche();
