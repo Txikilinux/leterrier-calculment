@@ -30,26 +30,29 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
     :ExerciceOperation(exo, parent,val,niveau)
 {
     m_localDebug = true;
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
     m_AireDeJeu->setInteractive(true);
     m_operationName = exo;
     m_valeurBase = val;
-    float factY = static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
-    m_depart = new QPoint(m_AireDeJeu->width()/2-80*factY,500*factY);
-    qDebug() <<"Opération : "<<m_operationName<<", valeur passée : "<<m_cible<<" et niveau : "<<getAbeLevel();
+    float ratio = abeApp->getAbeApplicationDecorRatio();
+    m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,500*ratio);
     chargerParametres();
-    qDebug()<<"Apres chargement des parametres, m_temps vaut "<<m_temps;
 }
 
 void ExerciceMaisonNombres::dessinePixmapMaisons()
 {
-    float factX = static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    float factY = static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    float ratio = abeApp->getAbeApplicationDecorRatio();
     int ordonneMaison = 0;
     int nombreMaisons = 5;
     for (int i=1;i<=10;i++)
     {
         QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(i+m_valeurBase));
-        QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*ratio, dessinBouton.height()*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         PixmapMaison* maison = new PixmapMaison(dessinBouton2);
         maison->setToolTip("Maison du "+QString::number(i+m_valeurBase));
         maison->setProperty("Valeur",i+m_valeurBase);
@@ -66,7 +69,9 @@ void ExerciceMaisonNombres::on_btn2chance_clicked()
 
 void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
 {
-    qDebug()<<"ExerciceMaisonNombres::affichePosBaudruche("<<point<<")";
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__<<point;
+    }
 
     if (m_sceneAireDeJeu->itemAt(point,QTransform())!=0)
     {
@@ -83,12 +88,15 @@ void ExerciceMaisonNombres::affichePosBaudruche(QPoint point)
 
 /* sans doute scorie d'un ancien essai, à voir si on peut supprimer */
 void ExerciceMaisonNombres::selectionChanged() {
-    qDebug() << "debug selectionChanged()";
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
     // Affiche la position de chaque élément de la sélection
     foreach(QGraphicsItem * item, m_sceneAireDeJeu->selectedItems()) {
-        qDebug() << item->scenePos();
+        if (m_localDebug){
+            qDebug() << item->scenePos();
+        }
     }
-    qDebug() << "fin selectionChanged()";
 }
 
 void ExerciceMaisonNombres::mousePressEvent(QMouseEvent *)
@@ -104,13 +112,18 @@ void ExerciceMaisonNombres::mousePressEvent(QMouseEvent *)
 
 void ExerciceMaisonNombres::ajouteErreur(QString msg)
 {
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
     ExerciceOperation::ajouteErreur(msg);
 }
 
 void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
 {
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    float ratio = abeApp->getAbeApplicationDecorRatio();
     zeroMaisonSurvolee();
     foreach(QGraphicsItem * item, m_sceneAireDeJeu->items())
     {
@@ -118,7 +131,7 @@ void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
         if (itemMaison->toolTip() == bulleAide)
         {
             QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(itemMaison->property("Valeur").toInt())+"b");
-            QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*factX, dessinBouton.height()*factY, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*ratio, dessinBouton.height()*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             itemMaison->setPixmap(dessinBouton2);
             m_valeurSurvolee = itemMaison->property("Valeur").toInt();
         }
@@ -127,20 +140,26 @@ void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
 
 void ExerciceMaisonNombres::zeroMaisonSurvolee()
 {
-    qDebug()<<"ExerciceMaisonNombres::zeroMaisonSurvolee(1)";
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__<<m_sceneAireDeJeu->items().size();
+    }
     m_valeurSurvolee = 0;
     foreach(QGraphicsItem * item, m_sceneAireDeJeu->items())
     {
-        if (item->toolTip().left(6) == "Maison")
-        {
-        PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
-        itemMaison->setPixmap(itemMaison->getMPixmapInitial());
+        qDebug()<<item->toolTip();
+        if (item->toolTip().left(6) == "Maison"){
+            PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
+            itemMaison->setPixmap(itemMaison->getMPixmapInitial());
+            qDebug()<<"redessin de "<<item->toolTip();
         }
     }
 }
 
 void ExerciceMaisonNombres::slotSequenceEntered()
 {
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
     ExerciceOperation::slotSequenceEntered();
     question->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnVerifier, "enabled",false);
     question->assignProperty(m_leResultat, "enabled", false);
@@ -164,7 +183,11 @@ void ExerciceMaisonNombres::slotInitQuestionEntered()
         ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
         ABULEDU_LOG_DEBUG() <<m_total<<getAbeNbTotalQuestions()<<getAbeNumQuestion()<<m_score;
     }
-    AbstractExercise::slotInitQuestionEntered();
+    /* Attention, ici je shunte AbstractExercise::slotInitQuestionEntered() qui me fait un clearScene() et supprime les maisons. Je copie donc son contenu moins le clearScene() */
+    AbulEduCommonStatesV1::slotInitQuestionEntered();
+    setAbeExerciceEvaluation(abe::evalY);
+    boiteTetes->setEtatTete(m_numExercice, abe::evalY,false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
+
     bool inferieurA11 = false;
     while (!inferieurA11) {
         m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_sceneAireDeJeu,"fantome");

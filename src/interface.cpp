@@ -113,7 +113,9 @@ interface::interface(QWidget *parent)
     // On est prêt à démarrer
     createStateMachine();
     m_leterrierStateMachine.start();
-    ui->exercicePage->abeWidgetSetBackgroundPixmap(":/calculment/backgrounds/backgroundInterface");
+//    ui->exercicePage->abePixmapWidgetSetPixmap(":/calculment/backgrounds/backgroundInterface");
+//    ui->exercicePage->abePixmapWidgetSetPixmap(QString());
+
 }
 
 interface::~interface()
@@ -293,7 +295,7 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     if (name == "Editeur") {
         ui->actionAfficher_l_diteur->trigger();
     }
-    else if (name == "Maisons"){
+    else if (m_exerciceNames.key(name.simplified()) == "maisonDesNombres"){
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         ui->stackedWidget->setCurrentWidget(ui->exercicePage);
         ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),ui->exercicePage,number);
@@ -448,7 +450,7 @@ void interface::slotInterfaceInitialStateEntered()
     m_exerciceNames.insert("tableA","Tables d'addition");
     m_exerciceNames.insert("OdGrandeur","Ordres de grandeur");
     m_exerciceNames.insert("division", "Divisions");
-    m_exerciceNames.insert("maisonDesNombres","Maisons");
+    m_exerciceNames.insert("maisonDesNombres","Maison des nombres");
 
     m_isDemoAvailable = true;
     // On va mettre à jour les textes dans les bulles car ils sont initialisés après la page d'accueil
