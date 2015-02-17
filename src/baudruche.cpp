@@ -50,8 +50,8 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
 
     m_nomOperation = operation;
     m_nomImage = image;
-    m_dropValeur = "";
-    m_approximation=0;
+    m_dropValeur = QString();
+    m_approximation = 0;
     m_parent = parent;
     ExerciceOperation* exoParent = (ExerciceOperation*) parent;
     m_isDetructionPlanified = false;
@@ -291,7 +291,7 @@ baudruche::baudruche(int pts, QPoint pos, QObject *parent, QString image)
 baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString operation, QPoint pos, QObject *parent, QString image)
 {
     //qDebug()<<"Opération en paramètre : "<<operation;
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
+    float ratio = abeApp->getAbeApplicationDecorRatio();
     if (operation=="addition" || operation.left(6)=="tableA" || operation=="OdGrandeurAddition" || operation.left(11)=="complementA" || operation=="") m_op = "+";
     else if (operation=="soustraction" || operation=="OdGrandeurSoustraction") m_op = "-";
         else if (operation=="multiplication" || operation.left(6)=="tableM" || operation=="OdGrandeurMultiplication" || operation.left(11)=="complementM") m_op = "x";
@@ -307,16 +307,15 @@ baudruche::baudruche(float operandeG, float operandeD, int tempsAccorde, QString
     m_approximation=0;
 
     construisAffichage();
-    dessineMoi(image,16*factX);
+    dessineMoi(image,16*ratio);
 }
 
 
 void baudruche::dessineMoi(QString image, int taillePolice)
 {
     //qDebug()<<"baudruche::dessineMoi(1) appelée avec comme image "<<image;
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
+    float ratio = abeApp->getAbeApplicationDecorRatio();
     //qDebug()<<"FactX = "<<factX;
-    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     //qDebug()<<"FactY = "<<factY;
     const int k=100;
         int coulAlea = rand()%(5);
@@ -336,23 +335,23 @@ void baudruche::dessineMoi(QString image, int taillePolice)
                 }
         else illustration=":/calculment/elements/"+imageBase;
         QPixmap imageIllustration(illustration);
-        QPixmap imageIllustration2 = imageIllustration.scaledToHeight(imageIllustration.height()*factY, Qt::SmoothTransformation);
-        //qDebug()<<"Taille baudruche : "<<imageIllustration2.width()<<" X "<<imageIllustration2.height();
+        QPixmap imageIllustration2 = imageIllustration.scaledToHeight(imageIllustration.height()*ratio, Qt::SmoothTransformation);
+//        qDebug()<<"Taille baudruche : "<<imageIllustration2.width()<<" X "<<imageIllustration2.height();
             m_image.setPixmap(imageIllustration2);
             m_image.setZValue(k);
             m_image.setPos(m_position);
             this->addToGroup(&m_image);
 
         QGraphicsTextItem* affichage = new QGraphicsTextItem("",&m_image);
-        affichage->setFont( QFont( "dejaVuSans",taillePolice,QFont::Bold ) );
-        QFontMetrics mesureur(QFont("dejaVuSans",taillePolice));
+        affichage->setFont( QFont( "dejaVuSans",taillePolice*ratio,QFont::Bold ) );
+        QFontMetrics mesureur(QFont("dejaVuSans",taillePolice*ratio));
         int longueurAffichage,largeurIllustration,decalageCentrage;
         longueurAffichage=mesureur.width(m_affichage);
         largeurIllustration=imageIllustration2.width();
         decalageCentrage=(largeurIllustration-longueurAffichage)/2;
         affichage->setHtml(m_affichage);
-        if (image=="auto") affichage->setPos(50*factX,190*factY);
-        else affichage->setPos(decalageCentrage,75*factY);
+        if (image=="auto") affichage->setPos(50*ratio,190*ratio);
+        else affichage->setPos(decalageCentrage,75*ratio);
         affichage->setZValue(k+1);
         this->addToGroup(affichage);
         m_texteAffiche = new QGraphicsTextItem();

@@ -330,12 +330,12 @@ void ExerciceOperation::slotInitQuestionEntered()
         ABULEDU_LOG_DEBUG() <<m_total<<getAbeNbTotalQuestions()<<getAbeNumQuestion()<<m_score;
     }
     AbstractExercise::slotInitQuestionEntered();
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+
+    float ratio = abeApp->getAbeApplicationDecorRatio();
     //instanciation d'une baudruche et connexion aux autres objets
-    if (m_operationName=="addition") m_depart = new QPoint(0*factX,boiteTetes->y());
-    else if(m_operationName.left(6)=="tableA"|| m_operationName.left(6)=="tableM") m_depart = new QPoint(m_AireDeJeu->width()/2-80*factY,0*factY);
-    else m_depart = new QPoint(m_AireDeJeu->width()/2-80*factY,500*factY);
+    if (m_operationName == "addition") m_depart = new QPoint(0,boiteTetes->y()-400*ratio);
+    else if(m_operationName.left(6)=="tableA"|| m_operationName.left(6)=="tableM") m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,0*ratio);
+    else m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,500*ratio);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
 
