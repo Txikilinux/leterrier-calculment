@@ -32,7 +32,6 @@
 #include "abuledulanceurv1.h"
 #include "exerciceoperation.h"
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDesktopServices>
 
 

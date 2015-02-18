@@ -31,18 +31,9 @@ ExerciceOperation::ExerciceOperation(QString exerciseName,QWidget *parent,int va
     m_minD(0),
     m_maxD(9)
 {
-    m_localDebug = true;
-    m_numberUsed.clear();
     m_cible = val;
     m_multipleCible = QList<int>();
-    m_operationName = exerciseName;
-    m_niveau = niveau;
-    if(m_niveau > -1){
-        setAbeLevel(QString::number(m_niveau-1));
-    }
-    m_score = 0;
-    chargerParametres();
-    setNameAndSkill();
+    factorisation(exerciseName,niveau);
 }
 
 ExerciceOperation::ExerciceOperation(QString exerciseName, QWidget *parent, QList<int> values, int niveau) :
@@ -53,10 +44,15 @@ ExerciceOperation::ExerciceOperation(QString exerciseName, QWidget *parent, QLis
     m_minD(0),
     m_maxD(9)
 {
-    m_localDebug = true;
-    m_numberUsed.clear();
     m_cible = -1;
     m_multipleCible = values;
+    factorisation(exerciseName,niveau);
+}
+
+void ExerciceOperation::factorisation(QString exerciseName, int niveau)
+{
+    m_localDebug = true;
+    m_numberUsed.clear();
     m_operationName = exerciseName;
     m_niveau = niveau;
     if(m_niveau > -1){
@@ -66,6 +62,7 @@ ExerciceOperation::ExerciceOperation(QString exerciseName, QWidget *parent, QLis
     chargerParametres();
     setNameAndSkill();
 }
+
 
 void ExerciceOperation::setNameAndSkill()
 {
@@ -298,9 +295,10 @@ void ExerciceOperation::slotPresenteSequenceEntered()
         m_variations.append(AbulEduLaunchElements("7",":/calculment/elements/aie3",7));
         m_variations.append(AbulEduLaunchElements("8",":/calculment/elements/aie1",8));
         m_variations.append(AbulEduLaunchElements("9",":/calculment/elements/aie2",9));
-        QList<QVariant> toto;
-        toto <<2<<3<<4<<5<<6<<7<<8<<9;
-        m_variations.append(AbulEduLaunchElements("tous ces nombres",":/calculment/elements/aie3",toto));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Choix multiple"),":/calculment/elements/aie2",-1));
+        QList<QVariant> chiffres;
+        chiffres <<2<<3<<4<<5<<6<<7<<8<<9;
+        m_variations.append(AbulEduLaunchElements(trUtf8("Tous ces nombres"),":/calculment/elements/aie3",chiffres));
     }
     else if(m_operationName == "complementA"){
         m_variations.append(AbulEduLaunchElements("10",":/calculment/elements/aie1",10));
@@ -325,12 +323,15 @@ void ExerciceOperation::slotPresenteSequenceEntered()
         m_variations.append(AbulEduLaunchElements("7",":/calculment/elements/aie3",7));
         m_variations.append(AbulEduLaunchElements("8",":/calculment/elements/aie1",8));
         m_variations.append(AbulEduLaunchElements("9",":/calculment/elements/aie2",9));
-        m_variations.append(AbulEduLaunchElements("tous ces nombres",":/calculment/elements/aie3",-1));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Choix multiple"),":/calculment/elements/aie2",-1));
+        QList<QVariant> chiffres;
+        chiffres <<2<<3<<4<<5<<6<<7<<8<<9;
+        m_variations.append(AbulEduLaunchElements(trUtf8("Tous ces nombres"),":/calculment/elements/aie3",chiffres));
     }
     else if(m_operationName == "OdGrandeur"){
-        m_variations.append(AbulEduLaunchElements(trUtf8("additions"),":/calculment/elements/nausee1","Addition"));
-        m_variations.append(AbulEduLaunchElements(trUtf8("soustractions"),":/calculment/elements/nausee2","Soustraction"));
-        m_variations.append(AbulEduLaunchElements(trUtf8("multiplications"),":/calculment/elements/nausee3","Multiplication"));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Additions"),":/calculment/elements/nausee1","Addition"));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Soustractions"),":/calculment/elements/nausee2","Soustraction"));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Multiplications"),":/calculment/elements/nausee3","Multiplication"));
     }
     else if(m_operationName == "maisonDesNombres"){
         m_variations.append(AbulEduLaunchElements(trUtf8("de 1 à 10"),":/calculment/elements/nausee1",0));
@@ -450,11 +451,13 @@ void ExerciceOperation::slotInitQuestionEntered()
 
 void ExerciceOperation::slotQuestionEntered()
 {
+    qDebug()<<__PRETTY_FUNCTION__<<" D ";
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
         ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotQuestionEntered();
+    qDebug()<<__PRETTY_FUNCTION__<<" F ";
 }
 
 void ExerciceOperation::slotAfficheVerificationQuestionEntered()

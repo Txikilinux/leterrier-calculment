@@ -125,6 +125,9 @@ protected slots:
     bool eventFilter(QObject *obj, QEvent *event);
 
     void ajouteErreur(QString msg);
+
+private:
+    void factorisation(QString exerciseName, int niveau);
 };
 
 #endif // EXERCICEOPERATION_H

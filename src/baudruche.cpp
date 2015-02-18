@@ -24,7 +24,6 @@
 #include "baudruche.h"
 #include "exerciceoperation.h"
 #include <QApplication>
- #include <QDesktopWidget>
  #include <QFontMetrics>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsScene>

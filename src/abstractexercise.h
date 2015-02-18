@@ -25,7 +25,9 @@
 
 #include "abuledunumericlinearpadv1.h"
 #include "abuleducommonstatesv1.h"
+#include "abuledumessageboxv1.h"
 #include "baudruche.h"
+#include <QCheckBox>
 
 ///
 /// \brief La classe AbulEduLaunchElements stocke les paramètres nécessaires pour jouer un média
@@ -152,6 +154,11 @@ protected:
     ///
     QGraphicsItemGroup* m_groupeResultat;
 
+    ///
+    /// \brief Liste maintenue des boutons de choix proposés pour pouvoir les détruire sûrement
+    ///
+    QList<AbulEduFlatBoutonV1*> m_boutonsChoix;
+
 protected slots:
 
     void slotNumericPadKeyPressed(Qt::Key key);
@@ -163,6 +170,8 @@ protected slots:
     /** Entrée dans l'état "PresentationSequence" de l'AbulEduStateMachineV1
       * Passage unique au lancement de la machine à états */
     virtual void slotPresenteSequenceEntered();
+
+    virtual void slotPresenteSequenceExited();
 
     /** Entrée dans l'état "realisationExercice" de l'AbulEduStateMachineV1
       * Passage une seule fois au début de chaque exercice */
@@ -211,6 +220,18 @@ protected slots:
 
     /** Appelé par un bouton placé sur l'AbulEduExerciceWidgetMessageV1, ce slot permet d'instancier les objets d'exercices à variantes */
     void slotSetPeculiarity();
+
+    /** Au clic sur les boutons Choix multiple des tables d'addition et de multiplication */
+    void slotOnBtnMultipleChoiceClicked();
+
+    /** Récupère les valeurs attachées aux case à cocher pour le choix multiple des tables d'addition et de multiplication */
+    void slotStackTablesNumbers(bool checked);
+
+    /** Code exécuté au clic sur le bouton OK de l'AbulEduMessageBoxV1 de choix de nombres pour les tables d'addition et de multiplication */
+    void slotAcceptMultipleChoice();
+
+    /** Code exécuté au clic sur le bouton Annuler de l'AbulEduMessageBoxV1 de choix de nombres pour les tables d'addition et de multiplication */
+    void slotCancelMultipleChoice();
 
 signals:
     /** Émis dans le destructeur pour signaler que l'exercice est terminé. Connecté au slot "abeBackFromExercice" de la LeTerrierMainWindow */

@@ -174,26 +174,103 @@ void AbstractExercise::slotPresenteSequenceEntered()
     getAbeExerciceMessageV1()->abeWidgetMessageSetZoneTexteVisible(true);
     getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->setDirection(QBoxLayout::TopToBottom);
     QListIterator<AbulEduLaunchElements> iter(m_variations);
+    m_boutonsChoix.clear();
     if(m_variations.count() > 0){
         getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
     }
     while(iter.hasNext()){
         AbulEduLaunchElements abeElement = iter.next();
-        AbulEduFlatBoutonV1* btn = new AbulEduFlatBoutonV1();
+        AbulEduFlatBoutonV1* btn = new AbulEduFlatBoutonV1(getAbeExerciceMessageV1());
+        m_boutonsChoix << btn;
         btn->setText(abeElement.abeLaunchElementGetButtonText());
         btn->setIcon(QIcon(abeElement.abeLaunchElementGetIconPath()));
         btn->setProperty("peculiarity",abeElement.abeLaunchElementGetPeculiarity());
         btn->setIconSize(QSize(64*abeApp->getAbeApplicationDecorRatio(),64*abeApp->getAbeApplicationDecorRatio()));
-        connect(btn, SIGNAL(clicked()), this, SLOT(slotSetPeculiarity()), Qt::UniqueConnection);
-        getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addWidget(btn);
-        getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
+        if(abeElement.abeLaunchElementGetPeculiarity().toInt() == -1){
+            /* Je m'appuie pour savoir si on est dans le cas du choix multiple sur cette condition : c'est dans ce seul cas que ça vaut -1 et s'appuyer sur le texte risquerait de poser des problèmes lors de traductions */
+
+            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addWidget(btn);
+            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
+            connect(btn, SIGNAL(clicked()), this, SLOT(slotOnBtnMultipleChoiceClicked()), Qt::UniqueConnection);
+        }
+        else{
+            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addWidget(btn);
+            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
+            connect(btn, SIGNAL(clicked()), this, SLOT(slotSetPeculiarity()), Qt::UniqueConnection);
+        }
         btn->setVisible(true);
     }
+    getAbeExerciceMessageV1()->ui->gvPrincipale->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    getAbeExerciceMessageV1()->ui->gvPrincipale->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     getAbeExerciceMessageV1()->repaint();
     AbulEduCommonStatesV1::slotPresenteSequenceEntered();
     getAbeExerciceMessageV1()->abeWidgetMessageSetTitre(trUtf8("Choisis : ")+getAbeExerciceName());
     getAbeExerciceMessageV1()->abeWidgetMessageResize();
     getAbeExerciceMessageV1()->setVisible(true);
+}
+
+void AbstractExercise::slotPresenteSequenceExited()
+{
+    foreach(AbulEduFlatBoutonV1* bouton,m_boutonsChoix){
+        bouton->deleteLater();
+    }
+    getAbeExerciceMessageV1()->abeWidgetMessageShowImageFond(true);
+    getAbeExerciceMessageV1()->abeWidgetMessageSetZoneTexteVisible(false);
+    /* On peut bien lui fixer une hauteur fixe : comme on n'a qu'un seul exercice et une seule question on ne s'en ressert pas pour autre chose que le bilan */
+    getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->parentWidget()->setFixedHeight(10);
+    getAbeExerciceMessageV1()->abeWidgetMessageResize();
+}
+
+void AbstractExercise::slotOnBtnMultipleChoiceClicked()
+{
+    AbulEduMessageBoxV1* choice = new AbulEduMessageBoxV1(trUtf8("Choisir les nombres"),trUtf8("Coche les cases des nombres sur lesquels doivent porter les questions."),false,getAbeExerciceAireDeTravailV1());
+    choice->abeSetModeEnum(AbulEduMessageBoxV1::abeAcceptCancelButton);
+    choice->setWink(true);
+    for(int i = 2;i <= 9;i++){
+        QCheckBox* chk = new QCheckBox(QString::number(i),getAbeExerciceMessageV1());
+        chk->setProperty("value",i);
+        chk->setMinimumHeight(40);
+        connect(chk, SIGNAL(toggled(bool)),this, SLOT(slotStackTablesNumbers(bool)),Qt::UniqueConnection);
+        QGridLayout* lay = (QGridLayout*) choice->abeMessageBoxGetCustomFrame()->layout();
+        lay->addWidget(chk,(i-2)/4,(i-2)%4);
+    }
+    choice->updateGeometry();
+    connect(choice, SIGNAL(signalAbeMessageBoxOK()), SLOT(slotAcceptMultipleChoice()),Qt::UniqueConnection);
+    connect(choice, SIGNAL(signalAbeMessageBoxCancel()), SLOT(slotCancelMultipleChoice()),Qt::UniqueConnection);
+    choice->show();
+    getAbeExerciceMessageV1()->setEnabled(false);
+    getAbeExerciceTelecommandeV1()->setEnabled(false);
+}
+
+void AbstractExercise::slotStackTablesNumbers(bool checked)
+{
+    if(checked){
+        m_multipleCible.append(sender()->property("value").toInt());
+    }
+    else {
+        m_multipleCible.removeOne(sender()->property("value").toInt());
+    }
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<m_multipleCible;
+    }
+}
+
+void AbstractExercise::slotAcceptMultipleChoice()
+{
+        getAbeExerciceMessageV1()->setEnabled(true);
+        getAbeExerciceTelecommandeV1()->setEnabled(true);
+    if(m_multipleCible.size() > 0){
+        bool isBtnSuivantEnable = getAbeExerciceTelecommandeV1()->ui->btnSuivant->isEnabled();
+        getAbeExerciceTelecommandeV1()->ui->btnSuivant->setEnabled(true);
+        getAbeExerciceTelecommandeV1()->ui->btnSuivant->click();
+        getAbeExerciceTelecommandeV1()->ui->btnSuivant->setEnabled(isBtnSuivantEnable);
+    }
+}
+
+void AbstractExercise::slotCancelMultipleChoice()
+{
+    getAbeExerciceMessageV1()->setEnabled(true);
+    getAbeExerciceTelecommandeV1()->setEnabled(true);
 }
 
 void AbstractExercise::slotRealisationExerciceEntered()
@@ -418,10 +495,11 @@ void AbstractExercise::slotSetPeculiarity()
     }
     else if(fromBtn->property("peculiarity").type() == QVariant::List){
         QVariantList vList = fromBtn->property("peculiarity").toList();
+        m_multipleCible.clear();
         foreach(QVariant v,vList){
             m_multipleCible << v.toInt();
         }
-        qDebug()<<m_multipleCible;
+        /** @todo voir là dessous */
 //        m_operationName = m_operationName.append(fromBtn->property("peculiarity").toString());
 //        setAbeExerciceName(getAbeExerciceName()+QString::number(m_cible));
 //        setAbeSkill(getAbeSkill()+QString::number(m_cible));

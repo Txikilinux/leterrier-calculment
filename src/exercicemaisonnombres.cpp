@@ -24,7 +24,6 @@
 #include "exercicemaisonnombres.h"
 #include "ui_exercice.h"
 #include "pixmapmaison.h"
-#include <QDesktopWidget>
 
 ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val, int niveau)
     :ExerciceOperation(exo, parent,val,niveau)
