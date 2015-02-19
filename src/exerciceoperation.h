@@ -26,7 +26,7 @@
 
 #include "abstractexercise.h"
 #include <QGraphicsItemAnimation>
-
+#include "futurelib/abuleduexportpdfv1/abuleduexportpdfv1.h"
 
 class ExerciceOperation : public AbstractExercise
 {
@@ -64,6 +64,7 @@ protected:
     int m_maxD;
     int m_temps;
     QList<int> m_numberUsed;
+    AbulEduExportPDFV1* m_pdfExport;
 
     void setNameAndSkill();
     void chargerParametres();

@@ -67,8 +67,8 @@ void ExerciceOperation::factorisation(QString exerciseName, int niveau)
     m_score = 0;
     chargerParametres();
     setNameAndSkill();
+    m_pdfExport = new AbulEduExportPDFV1();
 }
-
 
 void ExerciceOperation::setNameAndSkill()
 {
@@ -519,7 +519,15 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
         //erics 20110209 sinon coredump en cas de "aucune erreur" ou "que des erreurs"
         //if (m_baudruche) delete m_baudruche;
         /** @todo remplacer la ligne en dessous par le bilan d'exercice */
-//        afficheResultat("peutImporteCeQuiEstEcritIci");
+        if(qApp->property("afficheBilanExercice").toBool())
+        {
+            qDebug()<<qApp->property("utilisateur").toString();
+            m_pdfExport->abeExportPDFSetLogin(qApp->property("utilisateur").toString());
+            m_pdfExport->abeExportPDFSetSoftware("Calcul Mental");
+            m_pdfExport->abeExportPDFSetLogs(getPluginLogs());
+            m_pdfExport->abeExportPDFFile();
+        }
+        qApp->setProperty("afficheBilanExercice",false);
 
         /** @todo discuter de la pertinence de l'augmentation automatique de niveau */
         //mise à jour ou pas du niveau

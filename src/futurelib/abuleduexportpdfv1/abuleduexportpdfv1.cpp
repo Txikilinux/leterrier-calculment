@@ -23,7 +23,10 @@
 #include "abuleduexportpdfv1.h"
 
 AbulEduExportPDFV1::AbulEduExportPDFV1(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    m_arrayLogs(QHash<int, QHash<QString, QString> >()),
+    m_login(QString()),
+    m_software(QString())
 {
 }
 
@@ -46,7 +49,6 @@ void AbulEduExportPDFV1::abeExportPDFSetSoftware(QString software)
 {
     m_software = software;
 }
-
 
 void AbulEduExportPDFV1::abeExportPDFFile()
 {
