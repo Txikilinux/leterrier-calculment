@@ -331,7 +331,7 @@ void Editeur::initialiserDivision()
     config.setValue("MaxDroite", 5);
     config.setValue("TempsAccorde",8);
     config.endGroup();
-    config.setValue("NiveauEnCoursDivision", "1");
+    config.setValue("NiveauEnCoursdivision", "1");
     config.setValue("NomPourAffichage", trUtf8("Division"));
     config.endGroup();
 }

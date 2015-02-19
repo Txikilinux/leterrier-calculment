@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 //        QString unitName; --> le jour où on gèrera le travail en modules
         QString background;
         QString option = "-1";
-        QString niveau;
+        QString niveau = "-1";
         QStringListIterator iter(arguments);
         while(iter.hasNext()){
             QString current = iter.next();

@@ -25,6 +25,7 @@
 #define EXERCICEOPERATION_H
 
 #include "abstractexercise.h"
+#include "editeur.h"
 #include <QGraphicsItemAnimation>
 #include "futurelib/abuleduexportpdfv1/abuleduexportpdfv1.h"
 

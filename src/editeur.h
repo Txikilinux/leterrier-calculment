@@ -38,7 +38,7 @@ public:
     explicit Editeur(QWidget *parent = 0);
     virtual ~Editeur();
     int getNiveauEnCours();
-    void initialiser();
+    static void initialiser();
 
 protected:
     virtual void changeEvent(QEvent *e);
@@ -56,11 +56,11 @@ private:
     int m_maxG;
     int m_minD;
     int m_maxD;
-    void initialiserOperation(QString);
-    void initialiserApproche(QString operation);
-    void initialiserApprocheM(QString operation);
-    void initialiserComplement(QString operation);
-    void initialiserDivision();
+    static void initialiserOperation(QString);
+    static void initialiserApproche(QString operation);
+    static void initialiserApprocheM(QString operation);
+    static void initialiserComplement(QString operation);
+    static void initialiserDivision();
     QString associeNomIntitule(QString intitule);
     ///
     /// \brief Fonction qui installe les eventFilter sur les objects à surveiller

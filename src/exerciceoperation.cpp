@@ -52,12 +52,6 @@ ExerciceOperation::ExerciceOperation(QString exerciseName, QWidget *parent, QLis
 void ExerciceOperation::factorisation(QString exerciseName, int niveau)
 {
     m_localDebug = true;
-    if(m_localDebug){
-        qDebug()<<exerciseName;
-        qDebug()<<niveau;
-        qDebug()<<m_cible;
-        qDebug()<<m_multipleCible;
-    }
     m_numberUsed.clear();
     m_operationName = exerciseName;
     m_niveau = niveau;
@@ -68,6 +62,12 @@ void ExerciceOperation::factorisation(QString exerciseName, int niveau)
     chargerParametres();
     setNameAndSkill();
     m_pdfExport = new AbulEduExportPDFV1();
+    if(m_localDebug){
+        qDebug()<<exerciseName;
+        qDebug()<<niveau;
+        qDebug()<<m_cible;
+        qDebug()<<m_multipleCible;
+    }
 }
 
 void ExerciceOperation::setNameAndSkill()
@@ -204,18 +204,28 @@ void ExerciceOperation::addNumberUsed(int number)
 
 void ExerciceOperation::chargerParametres()
 {
+    if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<":: niveau "<<m_niveau;
+    }
+    if(!QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf").exists()){
+        Editeur::initialiser();
+        if(m_localDebug){
+            ABULEDU_LOG_DEBUG()  << "Le fichier de conf n'existait pas : je le crée à la volée ";
+        }
+    }
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     setAbeNbTotalQuestions(config.value("NombreBallons",10).toInt());
     config.beginGroup(m_operationName);
-    qDebug()<<"NiveauEnCours"+m_operationName;
-    qDebug()<<config.value("NiveauEnCours"+m_operationName,"1").toString();
     if (m_niveau == -1) {
         m_niveau = config.value("NiveauEnCours"+m_operationName,"1").toInt();
         setAbeLevel(QString::number(m_niveau-1));
     }
-    else qDebug()<<"Dans chargerParametres(), m_level valait déjà "<<getAbeLevel();
+    else{
+        if(m_localDebug){
+            ABULEDU_LOG_DEBUG()  << "Dans chargerParametres(), m_level valait déjà "<<m_niveau;
+        }
+    }
     config.beginGroup(QString::number(m_niveau));
-    qDebug()<<"Je rentre dans "<<m_niveau;
     m_maxG = config.value("MaxGauche",100).toInt();
     m_minG = config.value("MinGauche",0).toInt();
     m_maxD = config.value("MaxDroite",100).toInt();
@@ -240,7 +250,6 @@ void ExerciceOperation::chargerParametres()
     }
     setAbeNbTotalQuestions(config.value("NombreBallons").toInt());
     getAbeExerciceTelecommandeV1()->ui->lblCustom2->setText(QString::number(m_score)+ " sur "+QString::number(getAbeNbTotalQuestions()));
-    qDebug()<<getAbeExerciceTelecommandeV1()->ui->lblCustom2->text();
 }
 
 void ExerciceOperation::animeBaudruche()
@@ -253,8 +262,6 @@ void ExerciceOperation::animeBaudruche()
     animation->setItem(m_baudruche);
     animation->setTimeLine(m_baudruche->m_timer);
     if(m_operationName == "division"){
-        qDebug()<<"je suis bien là";
-        m_baudruche->moveBy(200,0);
 //        m_AireDeJeu->setStyleSheet("border:2px solid blue");
 //        m_AireDeJeu->move(m_AireDeJeu->x()+200,m_AireDeJeu->y());
         for (int i = 1; i < 200; i++){
@@ -534,9 +541,9 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
         QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
         config.beginGroup(m_operationName);
         if (m_score == m_total) {
-            if (getAbeLevel() == "Niveau1") config.setValue("NiveauEnCours"+m_operationName, "Niveau2");
-            else if (getAbeLevel() == "Niveau2") config.setValue("NiveauEnCours"+m_operationName, "Niveau3");
-            else if (getAbeLevel() == "Niveau3") config.setValue("NiveauEnCours"+m_operationName, "Personnel");
+            if (getAbeLevel() == "1") config.setValue("NiveauEnCours"+m_operationName, "2");
+            else if (getAbeLevel() == "2") config.setValue("NiveauEnCours"+m_operationName, "3");
+            else if (getAbeLevel() == "3") config.setValue("NiveauEnCours"+m_operationName, "Personnel");
         }
 
 
