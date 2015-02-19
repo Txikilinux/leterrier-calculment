@@ -117,7 +117,7 @@ private:
 public slots:
 
     void slotSessionAuthenticated(bool enable);
-    virtual void slotInterfaceLaunchExercise(int number = 0, QString name = QString());
+    virtual void slotInterfaceLaunchExercise(int number = 0, QString name = QString(), int level = -1);
 
     /** Destiné à être connecté à un signal exited() des exercices */
     virtual void slotInterfaceBackFromExercise();

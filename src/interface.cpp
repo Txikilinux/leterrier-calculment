@@ -265,8 +265,9 @@ void interface::slotSessionAuthenticated(bool enable)
     connect(abeApp->getAbeNetworkAccessManager(), SIGNAL(ssoAuthStatus(int)), this,SLOT(setTitle(int)));
 }
 
-void interface::slotInterfaceLaunchExercise(int number,QString name)
+void interface::slotInterfaceLaunchExercise(int number, QString name, int level)
 {
+    slotInterfaceShowMainPage();
     /* Dans le cas d'un appel par le menuExercice ou une zone de l'interface, je mets la valeur number à -1 */
     if(sender()){
         if(sender()->inherits("QAction")){
@@ -296,18 +297,18 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
     }
     else if (m_exerciceNames.key(name.simplified()) == "maisonDesNombres" && !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
-        ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil,number);
+        ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil,number,level);
         connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
     }
     /** @todo Gérer les traductions */
     else if (name.simplified().left(6) == "Tables" || name.simplified().left(6) == "Ordres" || name.simplified() == "Compléments" || name.simplified() == "Multiples"){
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         if(m_exerciceNames.values().contains(name.simplified())&& !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
-            ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil,number);
+            ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil,number,level);
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else if(m_exerciceNames.keys().contains(name.simplified())&& !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
-            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil,number);
+            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil,number,level);
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else {
@@ -320,36 +321,22 @@ void interface::slotInterfaceLaunchExercise(int number,QString name)
         qDebug()<<name;
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         if(m_exerciceNames.values().contains(name.simplified()) && !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
-            ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil);
+            ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil,0,level);
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else if(m_exerciceNames.keys().contains(name.simplified())&& !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
-            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil);
+            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil,0,level);
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         /* Gros cas particulier mais je n'ai pas trouvé pour l'instant de façon de faire élégante : c'est pour le cas de l'appel des ordres de grandeur par AbuleduLanceurV1 */
         else if(name.left(3) == "OdG" && !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
-            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil);
+            ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil,0,level);
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else {
             qDebug()<<" Incohérence au lancement";
         }
     }
-
-    //    else if (*m_action=="lanceur") {
-    //        if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
-    //        {
-
-    //            abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
-    //            abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
-    //            abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
-    //        }
-    //        else
-    //        {
-    //            slotMontreLanceur();
-    //        }
-    //    }
 }
 
 void interface::slotInterfaceBackFromExercise()

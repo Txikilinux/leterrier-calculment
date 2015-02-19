@@ -52,6 +52,12 @@ ExerciceOperation::ExerciceOperation(QString exerciseName, QWidget *parent, QLis
 void ExerciceOperation::factorisation(QString exerciseName, int niveau)
 {
     m_localDebug = true;
+    if(m_localDebug){
+        qDebug()<<exerciseName;
+        qDebug()<<niveau;
+        qDebug()<<m_cible;
+        qDebug()<<m_multipleCible;
+    }
     m_numberUsed.clear();
     m_operationName = exerciseName;
     m_niveau = niveau;
@@ -242,28 +248,30 @@ void ExerciceOperation::animeBaudruche()
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
     }
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
+    float ratio = abeApp->getAbeApplicationDecorRatio();
     QGraphicsItemAnimation *animation = new QGraphicsItemAnimation(m_sceneAireDeJeu);
     animation->setItem(m_baudruche);
     animation->setTimeLine(m_baudruche->m_timer);
     if(m_operationName == "division"){
         qDebug()<<"je suis bien là";
-        for (int i = 0; i < 200; i++){
-            animation->setPosAt(i/200.0, QPoint(-450,-450)+QPointF((3.8*i*factX) ,(3.8*i*factY)));
+        m_baudruche->moveBy(200,0);
+//        m_AireDeJeu->setStyleSheet("border:2px solid blue");
+//        m_AireDeJeu->move(m_AireDeJeu->x()+200,m_AireDeJeu->y());
+        for (int i = 1; i < 200; i++){
+            animation->setPosAt(i/200.0, /*QPointF(m_depart->x(),m_depart->y())+*/QPointF((4*i*ratio) ,(log(i)*100*ratio)));
         }
     }
     else if (m_operationName == "addition") {
         for (int i = 0; i < 200; i++)
-            animation->setPosAt(i/200.0, QPointF((3.8*i*factX) ,0 ));
+            animation->setPosAt(i/200.0, QPointF((3.8*i*ratio) ,0 ));
     }
     else if(m_operationName.left(6) == "tableA"|| m_operationName.left(6) == "tableM") {
         for (int i = 0; i < 200; i++)
-            animation->setPosAt(i/200.0, QPointF(0 , 3.3*i*factY));
+            animation->setPosAt(i/200.0, QPointF(0 , 3.3*i*ratio));
     }
     else for (int i = 0; i < 200; i++)
         //animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
-        animation->setPosAt(i/200.0, QPointF(0 , (-2.5*i*factY)));
+        animation->setPosAt(i/200.0, QPointF(0 , (-2.5*i*ratio)));
     // animation->setPosAt(i/200.0, QPointF(0 , (3*i)+(i*0.8))); --> pour la faire tomber
     //animation->setPosAt(i/200.0, QPointF((-3*i)-(i*0.8) ,0 )); --> pour la faire aller à gauche
     //animation->setPosAt(i/200.0, QPointF((3*i)+(i*0.8) ,0 )); --> pour la faire aller à droite
@@ -366,6 +374,7 @@ void ExerciceOperation::slotInitQuestionEntered()
     //instanciation d'une baudruche et connexion aux autres objets
     if (m_operationName == "addition") m_depart = new QPoint(0,boiteTetes->y()-400*ratio);
     else if(m_operationName.left(6)=="tableA"|| m_operationName.left(6)=="tableM") m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,0*ratio);
+    else if(m_operationName == "division") m_depart = new QPoint(m_AireDeJeu->pos());
     else m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,500*ratio);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
@@ -451,13 +460,11 @@ void ExerciceOperation::slotInitQuestionEntered()
 
 void ExerciceOperation::slotQuestionEntered()
 {
-    qDebug()<<__PRETTY_FUNCTION__<<" D ";
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
         ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotQuestionEntered();
-    qDebug()<<__PRETTY_FUNCTION__<<" F ";
 }
 
 void ExerciceOperation::slotAfficheVerificationQuestionEntered()

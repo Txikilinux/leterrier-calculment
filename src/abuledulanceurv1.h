@@ -54,22 +54,19 @@ private:
     QString m_intituleExercice;
     QStringList m_listeExercices;
     QStringList m_listeNiveaux;
-    void adapte();
 
 private slots:
     bool eventFilter(QObject *obj, QEvent *event);
     void fillCbNombre(QString);
     void fillCbExercice();
     void fillCbNiveau(QString);
-//    void parcoursRecursif(QString);
     void associeNomIntitule(QString);
     void on_btnAnnuler_clicked();
     void on_btnLancer_clicked();
-
     void on_chbBilan_clicked();
 
 signals:
-    void cbExerciceFini(QString exercice);
+    void signalCbExerciceFilled(QString exercice);
 };
 
 #endif // ABULEDULANCEURV1_H

@@ -53,10 +53,10 @@ AbuleduLanceurV1::AbuleduLanceurV1(QWidget *parent) :
     fillCbNiveau("sertARien");
     fillCbNombre("sertARien");
     connect(ui->cbExercice, SIGNAL(currentIndexChanged(QString)), this, SLOT(associeNomIntitule(QString)));
-    connect(this,SIGNAL(cbExerciceFini(QString)),this, SLOT(fillCbNombre(QString)));
-    connect(this,SIGNAL(cbExerciceFini(QString)),this, SLOT(fillCbNiveau(QString)));
-    connect(ui->cbExercice, SIGNAL(currentIndexChanged(QString)), this, SLOT(associeNomIntitule(QString)));
-    adapte();
+    connect(this,SIGNAL(signalCbExerciceFilled(QString)),this, SLOT(fillCbNombre(QString)));
+    connect(this,SIGNAL(signalCbExerciceFilled(QString)),this, SLOT(fillCbNiveau(QString)));
+    setMaximumSize(800*abeApp->getAbeApplicationDecorRatio(),400*abeApp->getAbeApplicationDecorRatio());
+    setWindowModality(Qt::ApplicationModal);
 }
 
 AbuleduLanceurV1::~AbuleduLanceurV1()
@@ -187,7 +187,7 @@ void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
                 ui->cbNombre->setSizeAdjustPolicy(QComboBox::AdjustToContents);
                 ui->cbNombre->show();
                 ui->lblNombre->show();
-                adapte();
+//                adapte();
             }
             return;
         }
@@ -203,6 +203,7 @@ void AbuleduLanceurV1::on_btnAnnuler_clicked()
 
 void AbuleduLanceurV1::on_btnLancer_clicked()
 {
+    /** et le niveau ? */
 //    qDebug()<<parent()->parent()->parent()->parent()->objectName();
     interface* i = (interface*) m_interface;
     QString nom;
@@ -211,6 +212,11 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
     if(ui->cbNombre->isVisible()){
         val = ui->cbNombre->currentText().toInt();
     }
+    int niveau = -1;
+    if(ui->cbNiveau->isVisible()){
+        niveau = ui->cbNiveau->currentIndex()+1;
+    }
+
     /*  Attention à changer ligne 203 de exercice.cpp si on change le caractère de concaténation dans la ligne au dessus */
 //    qApp->setProperty("utilisateur",qApp->property("utilisateur").toString().replace(";"," "));
 //    qDebug()<<m_nomExercice<<" -> "<<i->abeInterfaceGetExerciceNames().value(m_nomExercice)<< ":: "<<val;
@@ -222,7 +228,7 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
         else if(ui->cbNombre->currentText().contains("10")){
             val = 0;
         }
-        i->slotInterfaceLaunchExercise(val,"Maisons");
+        i->slotInterfaceLaunchExercise(val,"Maisons",niveau);
     }
     else if(m_nomExercice == "OdGrandeur"){
         if(ui->cbNombre->currentText() == "+"){
@@ -237,11 +243,11 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
         else{
             qDebug()<<"Incohérence dans le lanceur";
         }
-        i->slotInterfaceLaunchExercise(val,nom);
+        i->slotInterfaceLaunchExercise(val,nom,niveau);
     }
     else
     {
-        i->slotInterfaceLaunchExercise(val,i->abeInterfaceGetExerciceNames().value(m_nomExercice));
+        i->slotInterfaceLaunchExercise(val,i->abeInterfaceGetExerciceNames().value(m_nomExercice), niveau);
     }
 }
 
@@ -252,7 +258,7 @@ void AbuleduLanceurV1::associeNomIntitule(QString intitule)
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
     configExo.setIniCodec("UTF-8");
     configExo.beginGroup("Exercices");
-    int i=1;
+//    int i = 1;
     bool trouve = false;
     QStringListIterator iterateur(m_listeExercices);
     while (iterateur.hasNext() && !trouve) {
@@ -264,25 +270,15 @@ void AbuleduLanceurV1::associeNomIntitule(QString intitule)
             trouve = true;
         }
         configExo.endGroup();
-        i++;
+//        i++;
     }
-    emit cbExerciceFini(m_nomExercice);
-}
-
-void AbuleduLanceurV1::adapte()
-{
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
-    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
-    QPixmap imageIllustration(":/calculment/backgrounds/backgroundLauncher");
-    int larg = qRound((imageIllustration.width())*factX);
-    QPixmap imageIllustration2 = imageIllustration.scaledToWidth(larg, Qt::SmoothTransformation);
-    QBrush* fond = new QBrush(imageIllustration2);
-    QPalette palette;
-    palette.setBrush(this->backgroundRole(),*fond);
-    setPalette(palette);
-    setGeometry(750*factX,150*factY,imageIllustration2.width(),imageIllustration2.height());
-    setFixedSize(imageIllustration2.width(),imageIllustration2.height());
-    setWindowModality(Qt::ApplicationModal);
+    if(m_nomExercice == "OdGrandeur"){
+        ui->lblNombre->setText(trUtf8("Opération"));
+    }
+    else{
+        ui->lblNombre->setText(trUtf8("Nombre"));
+    }
+    emit signalCbExerciceFilled(m_nomExercice);
 }
 
 bool AbuleduLanceurV1::eventFilter(QObject *obj, QEvent *event)
