@@ -49,7 +49,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     m_nomOperation = operation;
     m_nomImage = image;
     m_dropValeur = QString();
-    m_approximation = 0;
+    m_approximation = QList<int>();
     m_parent = parent;
     ExerciceOperation* exoParent = (ExerciceOperation*) parent;
     m_isDetructionPlanified = false;
@@ -156,7 +156,7 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
     m_dropValeur = "";
     m_isDetructionPlanified = false;
     m_nomOperation = operation;
-    m_approximation = 0;
+    m_approximation = QList<int>();
         if (operation=="OdGrandeurAddition") m_op = "+";
         else if (operation=="OdGrandeurSoustraction") m_op = "-";
              else if (operation=="OdGrandeurMultiplication") m_op = "x";
@@ -184,17 +184,23 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
     /* Calcul de la valeur approchée à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*") */
 
     if(m_op == ":"){
-        int gauche = arrondis(g_operande);
-        m_approximation = gauche/d_operande;
-        if(m_localDebug) qDebug()<<gauche<<" : "<<d_operande<<" = "<<m_approximation;
+        int gauche = arrondis(g_operande,false);
+        int droite = arrondis(d_operande,false);
+        m_approximation <<gauche/d_operande<<gauche<<droite;
+        if(m_localDebug) qDebug()<<gauche<<" : "<<droite<<" = "<<m_approximation;
+    }
+
+    else if (m_op=="x"){
+        int gauche = arrondis(g_operande,false);
+        int droite = arrondis(d_operande,false);
+        m_approximation <<gauche*droite<<gauche<<droite;
+        if(m_localDebug) qDebug()<<gauche<<" x "<<droite<<" = "<<m_approximation;
     }
     else{
-    if (m_op=="x") m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+"*"+QString::number(valeurApprochee(d_operande,intMaxD));
-    else m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+m_op+QString::number(valeurApprochee(d_operande,intMaxD));
-
+        m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+m_op+QString::number(valeurApprochee(d_operande,intMaxD));
         QScriptEngine calculateur;
         QScriptValue resultat = calculateur.evaluate(m_ligne);
-        m_approximation = resultat.toNumber();
+        m_approximation << resultat.toNumber();
     }
     if(m_localDebug) qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeurApprochee(d_operande, intMaxD)<<" valeurAppro : "<<m_approximation;
 
@@ -222,7 +228,7 @@ baudruche::baudruche(int valeurCible, int tempsAccorde, QString operation, QPoin
     else m_op = "x";
     m_position.setX(pos.x());
     m_position.setY(pos.y());
-    m_approximation=0;
+    m_approximation = QList<int>();
 
     int nombreVise;
     if (valeurCible!=0)
@@ -292,14 +298,14 @@ void baudruche::dessineMoi(QString image)
         QFont fonteUtilisee = abeApp->font();
         fonteUtilisee.setBold(true);
         fonteUtilisee.setPointSize(28*ratio);
-        if(m_localDebug) qDebug()<<"&&"<<fonteUtilisee.pointSize();
+//        if(m_localDebug) qDebug()<<"&&"<<fonteUtilisee.pointSize();
         QFontMetrics mesureur(fonteUtilisee);
         while(mesureur.boundingRect(m_affichage).width() > imageIllustration2.width()*0.8){
             fonteUtilisee.setPointSize(fonteUtilisee.pointSize()-1);
             mesureur = QFontMetrics(fonteUtilisee);
         }
-        if(m_localDebug) qDebug()<<imageIllustration2.width();
-        if(m_localDebug) qDebug()<<mesureur.boundingRect(m_affichage).width();
+//        if(m_localDebug) qDebug()<<imageIllustration2.width();
+//        if(m_localDebug) qDebug()<<mesureur.boundingRect(m_affichage).width();
         m_texteAffiche->setFont(fonteUtilisee);
         int longueurAffichage,largeurIllustration,decalageCentrage;
         longueurAffichage=mesureur.width(m_affichage);
@@ -400,7 +406,7 @@ float baudruche::getMResultat()
     return this->m_resultat;
 }
 
-float baudruche::getMApproximation()
+QList<int> baudruche::getMApproximation()
 {
     return this->m_approximation;
 }
@@ -465,11 +471,11 @@ int baudruche::valeurApprochee(int operande, int maximum)
 void baudruche::detruire()
 {
     if (this!=NULL) {
-        if (m_approximation == 0) {
+        if (m_approximation.first() == 0) {
             emit valueChanged(m_resultat);//ici le problème
             //qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
         }
-        else {emit valueChanged(m_approximation);
+        else {emit valueChanged(m_approximation.first());
             //qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
         }
         emit destroyed(true);
@@ -483,11 +489,11 @@ void baudruche::detruireTps()
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     if (this!=NULL)
     {
-        if (m_approximation == 0) {
+        if (m_approximation.first() == 0) {
             emit valueChanged(m_resultat);
             //qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
         }
-        else {emit valueChanged(m_approximation);
+        else {emit valueChanged(m_approximation.first());
             //qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
         }
 
@@ -516,7 +522,7 @@ void baudruche::emetRes()
 
 void baudruche::emetApprox()
 {
-    emit valueChanged(m_approximation);
+    emit valueChanged(m_approximation.first());
 }
 
 void baudruche::changeImage(QString nomNouvelleImage)

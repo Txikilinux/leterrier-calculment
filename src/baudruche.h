@@ -39,7 +39,7 @@ public:
     baudruche(int intDroite, int tempsAccorde,QString op,QPoint pos, QObject* parent = 0,QString image = QString());
     QPoint getMPosition();
     float getMResultat();
-    float getMApproximation();
+    QList<int> getMApproximation();
     float getMGOperande();
     float getMDOperande();
     QString getMLigne();
@@ -84,7 +84,7 @@ private:
     float g_operande;
     float d_operande;
     float m_resultat;
-    float m_approximation;
+    QList<int> m_approximation;
     QString m_ligne;
     QString m_affichage;
     QString m_dropValeur;

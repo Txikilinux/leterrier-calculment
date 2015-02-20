@@ -385,7 +385,7 @@ void ExerciceOperation::slotInitQuestionEntered()
 {
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+//        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
         ABULEDU_LOG_DEBUG() <<m_total<<getAbeNbTotalQuestions()<<getAbeNumQuestion()<<m_score;
     }
     AbstractExercise::slotInitQuestionEntered();
@@ -430,15 +430,17 @@ void ExerciceOperation::slotInitQuestionEntered()
              || m_operationName=="OdGrandeurSoustraction"
              || m_operationName=="OdGrandeurMultiplication"
              || m_operationName == "OdGrandeurDivision")
+    {
         m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operationName, *m_depart,this);
+    }
 
 //    else  QMessageBox::critical(this, trUtf8("Opération inexistante"), m_operationName.append(trUtf8(", ça n'existe pas comme opération...")));
 
     //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operationName;}//Pourquoi quand même erreur de segmentation
-    if (m_operationName=="OdGrandeurAddition"
-            || m_operationName=="OdGrandeurSoustraction"
-            || m_operationName=="OdGrandeurMultiplication"
-            || m_operationName == "OdGrandeurDivision") this->m_resultatEnCours = m_baudruche->getMApproximation();
+    if (QString::compare(m_operationName, "OdGrandeurAddition", Qt::CaseInsensitive) == 0
+            || QString::compare(m_operationName, "OdGrandeurSoustraction", Qt::CaseInsensitive) == 0
+            || QString::compare(m_operationName, "OdGrandeurMultiplication", Qt::CaseInsensitive) == 0
+            || QString::compare(m_operationName, "OdGrandeurSoustraction", Qt::CaseInsensitive) == 0) this->m_resultatEnCours = m_baudruche->getMApproximation().first();
     else this->m_resultatEnCours = m_baudruche->getMResultat();
     if (m_total < getAbeNbTotalQuestions() - 1) {
         /** @todo vérifier que la machine à états gère correctement ça */
@@ -466,6 +468,10 @@ void ExerciceOperation::slotInitQuestionEntered()
     }
 
     m_trace = m_baudruche->getMAffichage();
+    if(m_baudruche->getMApproximation().size() == 3){
+        m_roundedOperands = QPair<int,int>(m_baudruche->getMApproximation().at(1),m_baudruche->getMApproximation().at(2));
+    }
+    m_operands = QPair<float,float>(m_baudruche->getMGOperande(),m_baudruche->getMDOperande());
     if(m_localDebug){
         qDebug()<<"Calcul propose : "<<m_trace;
     }
@@ -484,7 +490,7 @@ void ExerciceOperation::slotQuestionEntered()
 {
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+//        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotQuestionEntered();
 }
@@ -493,7 +499,7 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
 {
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+//        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotAfficheVerificationQuestionEntered();
     if(m_leResultat->text().simplified().isEmpty()){
@@ -574,7 +580,7 @@ void ExerciceOperation::slotFinVerificationQuestionEntered()
     AbstractExercise::slotFinVerificationQuestionEntered();
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+//        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
         qDebug()<<" ---------------------------------------------------- ";
         qDebug()<<" Je sors de "<<__PRETTY_FUNCTION__;
         qDebug()<<" m_score "<<m_score;
@@ -592,7 +598,7 @@ void ExerciceOperation::slotAfficheCorrectionQuestionEntered()
 {
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+//        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotAfficheCorrectionQuestionEntered();
 }
@@ -601,7 +607,7 @@ void ExerciceOperation::slotFinCorrectionQuestionEntered()
 {
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+//        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotFinCorrectionQuestionEntered();
 }
@@ -610,7 +616,7 @@ void ExerciceOperation::slotBilanSequenceEntered()
 {
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+//        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotBilanSequenceEntered();
 }
@@ -625,7 +631,7 @@ void ExerciceOperation::ajouteErreur(QString msg)
     Q_UNUSED(msg)
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
+//        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     if(m_leResultat->text().simplified().isEmpty()){
         sequenceMachine->postEvent(new StringEvent("QuestionVerifieEmpty"));

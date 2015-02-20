@@ -113,6 +113,9 @@ protected:
     ///
     int m_resultatEnCours;
 
+    QPair<int,int> m_roundedOperands;
+    QPair<float,float> m_operands;
+
     ///
     /// \brief Un nombre passé en paramètre. Table de ..., compléments à ...
     /// \value Ce nombre est initialisé à 0; On passera la valeur -1 pour provoquer un choix

@@ -31,7 +31,6 @@
 
 class ExerciceOperation : public AbstractExercise
 {
-
     Q_OBJECT
 public:
     ///

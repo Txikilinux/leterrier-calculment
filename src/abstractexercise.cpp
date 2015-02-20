@@ -33,6 +33,7 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_score(0),
     m_total(0),
     m_resultatEnCours(-1),
+    m_roundedOperands(QPair<int,int>(-1,-1)),
     m_cible(0),
     m_trace(QString()),
     m_leResultat(0),
@@ -305,8 +306,8 @@ void AbstractExercise::slotQuestionEntered()
 
 void AbstractExercise::slotAfficheVerificationQuestionEntered()
 {
-    ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<sequenceMachine->configuration();
     if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
     }
     /* Je commente l'appel à la fonction de la classe mère afin d'empêcher le passage automatique à la question suivante */
 //    AbulEduCommonStatesV1::slotAfficheVerificationQuestionEntered();
@@ -316,8 +317,8 @@ void AbstractExercise::slotAfficheVerificationQuestionEntered()
 
 void AbstractExercise::slotFinVerificationQuestionEntered()
 {
-    ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<getAbeNumQuestion()<<getAbeNbTotalQuestions()<<sequenceMachine->configuration();
     if(m_localDebug){
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<getAbeNumQuestion()<<getAbeNbTotalQuestions();
     }
     if(getAbeNumQuestion() == getAbeNbTotalQuestions()) {
         sequenceMachine->postEvent(new StringEvent("Questionsdone"));
@@ -332,17 +333,27 @@ void AbstractExercise::slotFinVerificationQuestionEntered()
 void AbstractExercise::slotAfficheCorrectionQuestionEntered()
 {
     if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<m_roundedOperands;
     }
     QString affichage;
+    if(m_roundedOperands.first != -1){
+        if(m_operands.first != m_roundedOperands.first){
+            affichage.append(QString::number(m_operands.first)+" "+QString::fromUtf8("≈")+" "+QString::number(m_roundedOperands.first));
+            affichage.append("<br/>");
+        }
+        if(m_operands.second != m_roundedOperands.second){
+            affichage.append(QString::number(m_operands.second)+" "+QString::fromUtf8("≈")+" "+QString::number(m_roundedOperands.second));
+            affichage.append("<br/>");
+        }
+    }
     if(m_trace.contains("?")){
-        affichage = m_trace.replace("?","<b>"+QString::number(m_resultatEnCours)+"</b>");
+        affichage.append(m_trace.replace("?","<b>"+QString::number(m_resultatEnCours)+"</b>"));
     }
     else if(m_trace.contains(QString::fromUtf8("≈"))) {
-        affichage = m_trace+" "+"<b>"+QString::number(m_resultatEnCours)+"</b>";
+        affichage.append(m_trace+" "+"<b>"+QString::number(m_resultatEnCours)+"</b>");
     }
     else {
-        affichage = m_trace+" = "+"<b>"+QString::number(m_resultatEnCours)+"</b>";
+        affichage.append(m_trace+" = "+"<b>"+QString::number(m_resultatEnCours)+"</b>");
     }
 
     AbulEduMessageBoxV1* msgCorrection = new AbulEduMessageBoxV1(trUtf8("Correction"),affichage,true,m_AireDeJeu);
