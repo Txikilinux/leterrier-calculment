@@ -355,6 +355,9 @@ void AbstractExercise::slotAfficheCorrectionQuestionEntered()
             affichage.append("<br/>");
         }
     }
+    if(!affichage.isEmpty()){
+        affichage.append(trUtf8("donc "));
+    }
     if(m_trace.contains("?")){
         affichage.append(m_trace.replace("?","<b>"+QString::number(m_resultatEnCours)+"</b>"));
     }
