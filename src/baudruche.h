@@ -78,6 +78,7 @@ signals:
      void baudrucheSurvoleRien();
 
 private:
+     bool m_localDebug;
     QString m_op;
     QString m_nomOperation;
     float g_operande;
@@ -88,14 +89,14 @@ private:
     QString m_affichage;
     QString m_dropValeur;
     QObject* m_parent;
-    void dessineMoi(QString);
-    void construisAffichage();
     bool m_isMaisonSurvolee;
     ///
     /// \brief Permet de savoir si une QTimeLine aboutissant à la destruction de l'objet a été lancée
     /// \value true si la QTimeLine a démarré
     ///
     bool m_isDetructionPlanified;
+    void dessineMoi(QString);
+    void construisAffichage();
 };
 
 #endif // BAUDRUCHE_H

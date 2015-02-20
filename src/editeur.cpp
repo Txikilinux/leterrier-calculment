@@ -245,6 +245,40 @@ void Editeur::initialiserApprocheM(QString operation)
     config.endGroup();
 }
 
+void Editeur::initialiserApprocheD(QString operation)
+{
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    config.setIniCodec("UTF-8");
+    config.beginGroup(operation);
+    config.beginGroup("1");
+    config.setValue("MaxGauche", 10000);
+    config.setValue("MinGauche", 1000);
+    config.setValue("MaxDroite", "10;100;100");
+    config.setValue("TempsAccorde",8);
+    config.endGroup();
+    config.beginGroup("2");
+    config.setValue("MaxGauche", 10000);
+    config.setValue("MinGauche", 1000);
+    config.setValue("MaxDroite", "20;200;50;500");
+    config.setValue("TempsAccorde",8);
+    config.endGroup();
+    config.beginGroup("3");
+    config.setValue("MaxGauche", 10000);
+    config.setValue("MinGauche", 1000);
+    config.setValue("MaxDroite", "20;30;40;50");
+    config.setValue("TempsAccorde",8);
+    config.endGroup();
+    config.beginGroup("4");
+    config.setValue("MaxGauche", 10000);
+    config.setValue("MinGauche", 1000);
+    config.setValue("MaxDroite", "20;200;30;300;40;400;50;500");
+    config.setValue("TempsAccorde",8);
+    config.endGroup();
+    config.setValue("NiveauEnCours"+operation, "1");
+    config.setValue("NomPourAffichage", trUtf8("OdG Multiplications"));
+    config.endGroup();
+}
+
 void Editeur::initialiserComplement(QString operation)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
@@ -353,6 +387,7 @@ void Editeur::initialiser()
     initialiserApproche("OdGrandeurAddition");
     initialiserApproche("OdGrandeurSoustraction");
     initialiserApprocheM("OdGrandeurMultiplication");
+    initialiserApprocheD("OdGrandeurDivision");
     initialiserComplement("complementA10");
     initialiserComplement("complementA100");
     initialiserComplement("complementA1000");

@@ -126,6 +126,7 @@ int main(int argc, char *argv[])
             int number = 0;
             if(QString::compare(option, "Addition", Qt::CaseInsensitive) != 0
                     && QString::compare(option, "Soustraction", Qt::CaseInsensitive) != 0
+                    && QString::compare(option, "Division", Qt::CaseInsensitive) != 0
                     && QString::compare(option, "Multiplication", Qt::CaseInsensitive) != 0){
                 option = QString();
                 number = -1;

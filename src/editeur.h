@@ -59,6 +59,7 @@ private:
     static void initialiserOperation(QString);
     static void initialiserApproche(QString operation);
     static void initialiserApprocheM(QString operation);
+    static void initialiserApprocheD(QString operation);
     static void initialiserComplement(QString operation);
     static void initialiserDivision();
     QString associeNomIntitule(QString intitule);

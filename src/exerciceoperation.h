@@ -48,6 +48,8 @@ public:
     QList<int> getNumberUsed() const;
     void setNumberUsed(const QList<int> &numberUsed);
     void addNumberUsed(int number);
+    inline QList<int> getMultipleCible() const {return m_multipleCible;}
+
 
 protected:
     QWidget* m_parent;

@@ -143,6 +143,11 @@ void ExerciceOperation::setNameAndSkill()
             setAbeSkill("ordre-grandeur-multiplication");
             exerciseName ="OdGrandeur";
         }
+        else if(m_operationName == "OdGrandeurDivision"){
+            setAbeExerciceName(trUtf8("Ordres de grandeur sur des divisions"));
+            setAbeSkill("ordre-grandeur-division");
+            exerciseName ="OdGrandeur";
+        }
     }
 
     if (m_operationName == "maisonDesNombres")
@@ -228,6 +233,13 @@ void ExerciceOperation::chargerParametres()
     config.beginGroup(QString::number(m_niveau));
     m_maxG = config.value("MaxGauche",100).toInt();
     m_minG = config.value("MinGauche",0).toInt();
+    if(m_operationName == "OdGrandeurDivision"){
+        QStringList vL = config.value("MaxDroite").toString().split(";",QString::SkipEmptyParts);
+        foreach(QString v,vL){
+            m_multipleCible << v.toInt();
+        }
+        qDebug()<<m_multipleCible;
+    }
     m_maxD = config.value("MaxDroite",100).toInt();
     m_minD = config.value("MinDroite",0).toInt();
     m_temps = config.value("TempsAccorde",10).toInt();
@@ -347,6 +359,7 @@ void ExerciceOperation::slotPresenteSequenceEntered()
         m_variations.append(AbulEduLaunchElements(trUtf8("Additions"),":/calculment/elements/nausee1","Addition"));
         m_variations.append(AbulEduLaunchElements(trUtf8("Soustractions"),":/calculment/elements/nausee2","Soustraction"));
         m_variations.append(AbulEduLaunchElements(trUtf8("Multiplications"),":/calculment/elements/nausee3","Multiplication"));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Divisions"),":/calculment/elements/nausee1","Division"));
     }
     else if(m_operationName == "maisonDesNombres"){
         m_variations.append(AbulEduLaunchElements(trUtf8("de 1 à 10"),":/calculment/elements/nausee1",0));
@@ -415,7 +428,8 @@ void ExerciceOperation::slotInitQuestionEntered()
 
     else if (m_operationName=="OdGrandeurAddition"
              || m_operationName=="OdGrandeurSoustraction"
-             || m_operationName=="OdGrandeurMultiplication")
+             || m_operationName=="OdGrandeurMultiplication"
+             || m_operationName == "OdGrandeurDivision")
         m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operationName, *m_depart,this);
 
 //    else  QMessageBox::critical(this, trUtf8("Opération inexistante"), m_operationName.append(trUtf8(", ça n'existe pas comme opération...")));
@@ -423,7 +437,8 @@ void ExerciceOperation::slotInitQuestionEntered()
     //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operationName;}//Pourquoi quand même erreur de segmentation
     if (m_operationName=="OdGrandeurAddition"
             || m_operationName=="OdGrandeurSoustraction"
-            || m_operationName=="OdGrandeurMultiplication") this->m_resultatEnCours=m_baudruche->getMApproximation();
+            || m_operationName=="OdGrandeurMultiplication"
+            || m_operationName == "OdGrandeurDivision") this->m_resultatEnCours = m_baudruche->getMApproximation();
     else this->m_resultatEnCours = m_baudruche->getMResultat();
     if (m_total < getAbeNbTotalQuestions() - 1) {
         /** @todo vérifier que la machine à états gère correctement ça */
@@ -543,7 +558,7 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
         if (m_score == m_total) {
             if (getAbeLevel() == "1") config.setValue("NiveauEnCours"+m_operationName, "2");
             else if (getAbeLevel() == "2") config.setValue("NiveauEnCours"+m_operationName, "3");
-            else if (getAbeLevel() == "3") config.setValue("NiveauEnCours"+m_operationName, "Personnel");
+            else if (getAbeLevel() == "3") config.setValue("NiveauEnCours"+m_operationName, "4");
         }
 
 

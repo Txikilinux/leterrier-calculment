@@ -45,6 +45,7 @@ const int MULTIPLE_MAX=11;
 
 baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tempsAccorde, QString operation, QPoint pos, QObject *parent, QString image)
 {
+    m_localDebug = false;
     m_nomOperation = operation;
     m_nomImage = image;
     m_dropValeur = QString();
@@ -149,9 +150,8 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
 /* constructeur spécifique aux valeurs approchées */
 baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operation, QPoint pos, QObject *parent, QString image)
 {
-    qDebug()<<"baudruche::constructeur valeurs approchées (1)";
+    m_localDebug = true;
     m_parent = parent;
-    float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_nomImage = image;
     m_dropValeur = "";
     m_isDetructionPlanified = false;
@@ -160,11 +160,19 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
         if (operation=="OdGrandeurAddition") m_op = "+";
         else if (operation=="OdGrandeurSoustraction") m_op = "-";
              else if (operation=="OdGrandeurMultiplication") m_op = "x";
+                else if (operation=="OdGrandeurDivision") m_op = ":";
     m_position.setX(pos.x());
     m_position.setY(pos.y());
 
     g_operande = rand()%(intMaxG);
-    d_operande = rand()%(intMaxD);
+    if(m_op == ":"){
+        ExerciceOperation* ex = (ExerciceOperation*) parent;
+        int alea = rand()%3;
+        d_operande = ex->getMultipleCible().at(alea);
+    }
+    else {
+        d_operande = rand()%(intMaxD);
+    }
 
     /* Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes... */
     if (d_operande>g_operande) {
@@ -174,13 +182,65 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
         }
 
     /* Calcul de la valeur approchée à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*") */
+
+    if(m_op == ":"){
+        float calculExact = g_operande/d_operande;
+        if(m_localDebug) qDebug()<<g_operande<<" / "<<d_operande<<" = "<<calculExact;
+        int dessous = qFloor(calculExact);
+        int dessus = qCeil(calculExact);
+        int apeupres;
+        if(qAbs(calculExact - dessus) > qAbs(calculExact - dessous)){
+            apeupres = dessous;
+        }
+        else {
+            apeupres = dessus;
+        }
+        if(m_localDebug) qDebug()<<"je retiens "<<apeupres;
+        if(apeupres / 1000 > 0){
+            int apeupresHaut = ((apeupres/1000)+1)*1000;
+            int apeupresBas = (apeupres/1000)*1000;
+            if(m_localDebug) qDebug()<<"j'ai un apeupres plus grand que 1000"<<apeupresBas<<" - "<<apeupresHaut;
+            if(qAbs(apeupres - apeupresHaut) > qAbs(apeupres - apeupresBas)){
+                apeupres = apeupresBas;
+            }
+            else {
+                apeupres = apeupresHaut;
+            }
+        }
+        else if(dessous / 100 > 0){
+            int apeupresHaut = ((apeupres/100)+1)*100;
+            int apeupresBas = (apeupres/100)*100;
+            if(m_localDebug) qDebug()<<"j'ai un apeupres plus grand que 100"<<apeupresBas<<" - "<<apeupresHaut;
+            if(qAbs(apeupres - apeupresHaut) > qAbs(apeupres - apeupresBas)){
+                apeupres = apeupresBas;
+            }
+            else {
+                apeupres = apeupresHaut;
+            }
+        }
+        else if(dessous / 10 > 0){
+            int apeupresHaut = ((apeupres/10)+1)*10;
+            int apeupresBas = (apeupres/10)*10;
+            if(m_localDebug) qDebug()<<"j'ai un apeupres plus grand que 10"<<apeupresBas<<" - "<<apeupresHaut;
+            if(qAbs(apeupres - apeupresHaut) > qAbs(apeupres - apeupresBas)){
+                apeupres = apeupresBas;
+            }
+            else {
+                apeupres = apeupresHaut;
+            }
+        }
+        if(m_localDebug) qDebug()<<apeupres;
+        m_approximation = apeupres;
+    }
+    else{
     if (m_op=="x") m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+"*"+QString::number(valeurApprochee(d_operande,intMaxD));
     else m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+m_op+QString::number(valeurApprochee(d_operande,intMaxD));
 
         QScriptEngine calculateur;
         QScriptValue resultat = calculateur.evaluate(m_ligne);
         m_approximation = resultat.toNumber();
-    qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeurApprochee(d_operande, intMaxD)<<" valeurAppro : "<<m_approximation;
+    }
+    if(m_localDebug) qDebug()<<" gauche : "<<valeurApprochee(g_operande,intMaxG)<<" droite : "<<valeurApprochee(d_operande, intMaxD)<<" valeurAppro : "<<m_approximation;
 
     m_timer = new QTimeLine(tempsAccorde*1000,this);
 
@@ -194,7 +254,8 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
 /* constructeur spécifique aux compléments */
 baudruche::baudruche(int valeurCible, int tempsAccorde, QString operation, QPoint pos, QObject *parent, QString image)
 {
-    qDebug()<<"baudruche::constructeur compléments (1)";
+    m_localDebug = false;
+    if(m_localDebug) qDebug()<<"baudruche::constructeur compléments (1)";
     float factX= static_cast<float> (QApplication::desktop()->screenGeometry().width())/1680;
     m_parent = parent;
     m_nomImage = image;
@@ -275,14 +336,14 @@ void baudruche::dessineMoi(QString image)
         QFont fonteUtilisee = abeApp->font();
         fonteUtilisee.setBold(true);
         fonteUtilisee.setPointSize(28*ratio);
-        qDebug()<<"&&"<<fonteUtilisee.pointSize();
+        if(m_localDebug) qDebug()<<"&&"<<fonteUtilisee.pointSize();
         QFontMetrics mesureur(fonteUtilisee);
         while(mesureur.boundingRect(m_affichage).width() > imageIllustration2.width()*0.8){
             fonteUtilisee.setPointSize(fonteUtilisee.pointSize()-1);
             mesureur = QFontMetrics(fonteUtilisee);
         }
-        qDebug()<<imageIllustration2.width();
-        qDebug()<<mesureur.boundingRect(m_affichage).width();
+        if(m_localDebug) qDebug()<<imageIllustration2.width();
+        if(m_localDebug) qDebug()<<mesureur.boundingRect(m_affichage).width();
         m_texteAffiche->setFont(fonteUtilisee);
         int longueurAffichage,largeurIllustration,decalageCentrage;
         longueurAffichage=mesureur.width(m_affichage);
