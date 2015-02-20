@@ -49,8 +49,8 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
     m_nomOperation = operation;
     m_nomImage = image;
     m_dropValeur = QString();
-    m_approximation = QList<int>();
-    m_parent = parent;
+    m_approximation.clear();
+     m_approximation << 0;    m_parent = parent;
     ExerciceOperation* exoParent = (ExerciceOperation*) parent;
     m_isDetructionPlanified = false;
     if (operation=="addition" || operation=="tableA" || operation==""){
@@ -156,8 +156,8 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
     m_dropValeur = "";
     m_isDetructionPlanified = false;
     m_nomOperation = operation;
-    m_approximation = QList<int>();
-        if (operation=="OdGrandeurAddition") m_op = "+";
+    m_approximation.clear();
+    if (operation=="OdGrandeurAddition") m_op = "+";
         else if (operation=="OdGrandeurSoustraction") m_op = "-";
              else if (operation=="OdGrandeurMultiplication") m_op = "x";
                 else if (operation=="OdGrandeurDivision") m_op = ":";
@@ -228,7 +228,8 @@ baudruche::baudruche(int valeurCible, int tempsAccorde, QString operation, QPoin
     else m_op = "x";
     m_position.setX(pos.x());
     m_position.setY(pos.y());
-    m_approximation = QList<int>();
+    m_approximation.clear();
+    m_approximation << 0;
 
     int nombreVise;
     if (valeurCible!=0)
@@ -471,12 +472,13 @@ int baudruche::valeurApprochee(int operande, int maximum)
 void baudruche::detruire()
 {
     if (this!=NULL) {
-        if (m_approximation.first() == 0) {
+        if (m_nomOperation.left(10) == "OdGrandeur") {
+            emit valueChanged(m_approximation.first());
+            //qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
+        }
+        else {
             emit valueChanged(m_resultat);//ici le problème
             //qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
-        }
-        else {emit valueChanged(m_approximation.first());
-            //qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
         }
         emit destroyed(true);
         emit destroyed();
@@ -489,12 +491,13 @@ void baudruche::detruireTps()
     float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     if (this!=NULL)
     {
-        if (m_approximation.first() == 0) {
-            emit valueChanged(m_resultat);
-            //qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
-        }
-        else {emit valueChanged(m_approximation.first());
+        if (m_nomOperation.left(10) == "OdGrandeur") {
+            emit valueChanged(m_approximation.first());
             //qDebug()<<"A la destruction l'approximation vaut "<<m_approximation;
+        }
+        else {
+            emit valueChanged(m_resultat);//ici le problème
+            //qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
         }
 
         emit tempsFini(tr("TROP TARD..."));

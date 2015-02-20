@@ -440,7 +440,7 @@ void ExerciceOperation::slotInitQuestionEntered()
     if (QString::compare(m_operationName, "OdGrandeurAddition", Qt::CaseInsensitive) == 0
             || QString::compare(m_operationName, "OdGrandeurSoustraction", Qt::CaseInsensitive) == 0
             || QString::compare(m_operationName, "OdGrandeurMultiplication", Qt::CaseInsensitive) == 0
-            || QString::compare(m_operationName, "OdGrandeurSoustraction", Qt::CaseInsensitive) == 0) this->m_resultatEnCours = m_baudruche->getMApproximation().first();
+            || QString::compare(m_operationName, "OdGrandeurDivision", Qt::CaseInsensitive) == 0) this->m_resultatEnCours = m_baudruche->getMApproximation().first();
     else this->m_resultatEnCours = m_baudruche->getMResultat();
     if (m_total < getAbeNbTotalQuestions() - 1) {
         /** @todo vérifier que la machine à états gère correctement ça */
