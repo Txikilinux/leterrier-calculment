@@ -131,6 +131,8 @@ int main(int argc, char *argv[])
                 option = QString();
                 number = -1;
             }
+            option = option.toLower();
+            option = option.replace(option.at(0), option.at(0).toUpper());
             ExerciceOperation *ex = new ExerciceOperation(exerciseType.append(option), g,number,niveau.toInt());
             QObject::connect(ex, SIGNAL(signalExerciseExited()),g,SLOT(close()),Qt::UniqueConnection);
         }
