@@ -184,53 +184,9 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
     /* Calcul de la valeur approchée à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*") */
 
     if(m_op == ":"){
-        float calculExact = g_operande/d_operande;
-        if(m_localDebug) qDebug()<<g_operande<<" / "<<d_operande<<" = "<<calculExact;
-        int dessous = qFloor(calculExact);
-        int dessus = qCeil(calculExact);
-        int apeupres;
-        if(qAbs(calculExact - dessus) > qAbs(calculExact - dessous)){
-            apeupres = dessous;
-        }
-        else {
-            apeupres = dessus;
-        }
-        if(m_localDebug) qDebug()<<"je retiens "<<apeupres;
-        if(apeupres / 1000 > 0){
-            int apeupresHaut = ((apeupres/1000)+1)*1000;
-            int apeupresBas = (apeupres/1000)*1000;
-            if(m_localDebug) qDebug()<<"j'ai un apeupres plus grand que 1000"<<apeupresBas<<" - "<<apeupresHaut;
-            if(qAbs(apeupres - apeupresHaut) > qAbs(apeupres - apeupresBas)){
-                apeupres = apeupresBas;
-            }
-            else {
-                apeupres = apeupresHaut;
-            }
-        }
-        else if(dessous / 100 > 0){
-            int apeupresHaut = ((apeupres/100)+1)*100;
-            int apeupresBas = (apeupres/100)*100;
-            if(m_localDebug) qDebug()<<"j'ai un apeupres plus grand que 100"<<apeupresBas<<" - "<<apeupresHaut;
-            if(qAbs(apeupres - apeupresHaut) > qAbs(apeupres - apeupresBas)){
-                apeupres = apeupresBas;
-            }
-            else {
-                apeupres = apeupresHaut;
-            }
-        }
-        else if(dessous / 10 > 0){
-            int apeupresHaut = ((apeupres/10)+1)*10;
-            int apeupresBas = (apeupres/10)*10;
-            if(m_localDebug) qDebug()<<"j'ai un apeupres plus grand que 10"<<apeupresBas<<" - "<<apeupresHaut;
-            if(qAbs(apeupres - apeupresHaut) > qAbs(apeupres - apeupresBas)){
-                apeupres = apeupresBas;
-            }
-            else {
-                apeupres = apeupresHaut;
-            }
-        }
-        if(m_localDebug) qDebug()<<apeupres;
-        m_approximation = apeupres;
+        int gauche = arrondis(g_operande);
+        m_approximation = gauche/d_operande;
+        if(m_localDebug) qDebug()<<gauche<<" : "<<d_operande<<" = "<<m_approximation;
     }
     else{
     if (m_op=="x") m_ligne = QString::number(valeurApprochee(g_operande,intMaxG))+"*"+QString::number(valeurApprochee(d_operande,intMaxD));
@@ -367,6 +323,71 @@ void baudruche::construisAffichage()
         else m_affichage.append(" ");
         m_affichage.append(QString::number(d_operande));
         if (m_nomOperation.left(3) == "OdG") m_affichage.append(QString::fromUtf8(" ≈"));
+}
+
+int baudruche::arrondis(float nombre,bool yComprisInfDix)
+{
+    int arrondi;
+    qDebug()<<nombre;
+    /* on va limiter l'utilisation au million */
+    if((nombre / 1000000) > 1){
+        qDebug()<<nombre / 1000000;
+//        qDebug()<<"cas 1 000 000";
+        arrondi = arrondisToMax(nombre,1000000);
+    }
+    else if((nombre / 100000) > 1){
+        qDebug()<<nombre / 100000;
+//        qDebug()<<"cas 100 000";
+        arrondi = arrondisToMax(nombre,100000);
+    }
+    else if((nombre / 10000) > 1){
+        qDebug()<<nombre / 10000;
+//        qDebug()<<"cas 10 000";
+        arrondi = arrondisToMax(nombre,10000);
+    }
+    else if((nombre / 1000) > 1){
+        qDebug()<<nombre / 1000;
+//        qDebug()<<"cas 1 000";
+        arrondi = arrondisToMax(nombre,1000);
+    }
+    else if((nombre / 100) > 1){
+        qDebug()<<nombre / 100;
+//        qDebug()<<"cas 100";
+        arrondi = arrondisToMax(nombre,100);
+    }
+    else {
+        if(yComprisInfDix){
+            arrondi = arrondisToMax(nombre,10);
+        }
+        else{
+            if((nombre / 10) > 1){
+                qDebug()<<nombre / 10;
+                //        qDebug()<<"cas 10";
+                arrondi = arrondisToMax(nombre,10);
+            }
+            else{
+                arrondi = arrondisToMax(nombre,1);
+            }
+        }
+    }
+    return arrondi;
+}
+
+int baudruche::arrondisToMax(float nombre,int max)
+{
+    int arrondiTo;
+    int down;
+    int up;
+    down = round(nombre / max);
+    qDebug()<<down;
+    up = down + 1;
+    if(qAbs((nombre / max)-up) > qAbs((nombre / max)-down)){
+        arrondiTo = down*max;
+    }
+    else {
+        arrondiTo = up*max;
+    }
+    return arrondiTo;
 }
 
 QPoint baudruche::getMPosition()

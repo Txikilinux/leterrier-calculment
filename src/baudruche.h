@@ -97,6 +97,9 @@ private:
     bool m_isDetructionPlanified;
     void dessineMoi(QString);
     void construisAffichage();
+
+    int arrondis(float nombre, bool yComprisInfDix = true);
+    int arrondisToMax(float nombre, int max);
 };
 
 #endif // BAUDRUCHE_H
