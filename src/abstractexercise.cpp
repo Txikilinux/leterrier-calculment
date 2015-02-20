@@ -274,6 +274,15 @@ void AbstractExercise::slotCancelMultipleChoice()
     getAbeExerciceTelecommandeV1()->setEnabled(true);
 }
 
+void AbstractExercise::slotDecreaseLevel()
+{
+    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    m_niveau--;
+    config.beginGroup(m_operationName);
+    config.setValue("NiveauEnCours"+m_operationName,m_niveau);
+    config.endGroup();
+}
+
 void AbstractExercise::slotRealisationExerciceEntered()
 {
     if(m_localDebug){
@@ -423,6 +432,12 @@ void AbstractExercise::slotBilanSequenceEntered()
     if (m_score == m_total) {
         m_niveau++;
         config.setValue("NiveauEnCours"+m_operationName,m_niveau);
+    }
+    else if(m_score < m_total*0.2 && m_niveau > 1){
+        AbulEduMessageBoxV1* goDown = new AbulEduMessageBoxV1(trUtf8("Trop difficile ?"),trUtf8("Tu as fait beaucoup d'erreurs. Veux-tu redescendre au niveau en dessous ?"),true,getAbeExerciceAireDeTravailV1());
+        goDown->abeSetModeEnum(AbulEduMessageBoxV1::abeYesNoButton);
+        connect(goDown, SIGNAL(signalAbeMessageBoxYES()), SLOT(slotDecreaseLevel()),Qt::UniqueConnection);
+        goDown->show();
     }
 
     //m_level = config.value("NiveauEnCours"+opCourante).toString();

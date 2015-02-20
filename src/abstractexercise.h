@@ -236,6 +236,8 @@ protected slots:
     /** Code exécuté au clic sur le bouton Annuler de l'AbulEduMessageBoxV1 de choix de nombres pour les tables d'addition et de multiplication */
     void slotCancelMultipleChoice();
 
+    void slotDecreaseLevel();
+
 signals:
     /** Émis dans le destructeur pour signaler que l'exercice est terminé. Connecté au slot "abeBackFromExercice" de la LeTerrierMainWindow */
     void signalExerciseExited();
