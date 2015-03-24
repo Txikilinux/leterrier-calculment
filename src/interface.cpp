@@ -24,15 +24,7 @@
 
 #include "interface.h"
 #include "ui_interface.h"
-#include "exercicemaisonnombres.h"
-#include "ui_exercice.h"
-#include "editeur.h"
-#include "boutonspolygone.h"
-#include "abuleduaproposv1.h"
-#include "abuledulanceurv1.h"
-#include "exerciceoperation.h"
-#include <QApplication>
-#include <QDesktopServices>
+
 
 
 interface::interface(QWidget *parent)

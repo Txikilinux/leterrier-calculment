@@ -27,11 +27,17 @@
 
 #include <QMainWindow>
 #include "editeur.h"
-#include "abuleduapplicationv1.h"
 #include "abuledupageaccueilv1.h"
 #include "leterrierstringtransition.h"
 #include "activityfilter.h"
-
+#include "exercicemaisonnombres.h"
+//#include "ui_exercice.h"
+#include "editeur.h"
+#include "boutonspolygone.h"
+#include "abuledulanceurv1.h"
+#include "exerciceoperation.h"
+#include <QApplication>
+#include <QDesktopServices>
 
 namespace Ui
 {

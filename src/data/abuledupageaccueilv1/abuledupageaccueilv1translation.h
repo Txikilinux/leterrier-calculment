@@ -15,6 +15,6 @@ class AbulEduPageAccueilV1Translation : public QObject
    QString a0005 = AbulEduPageAccueilV1::trUtf8("Tables de multiplication");
    QString a0006 = AbulEduPageAccueilV1::trUtf8("Tables d'addition");
    QString a0007 = AbulEduPageAccueilV1::trUtf8("Multiples");
-   QString a0008 = AbulEduPageAccueilV1::trUtf8("Compléments");
+   QString a0008 = AbulEduPageAccueilV1::trUtf8("Compléments additifs");
    QString a0009 = AbulEduPageAccueilV1::trUtf8("Divisions");
 }

@@ -110,9 +110,9 @@ void AbstractExercise::setDimensionsWidgets(float ratio)
 
     /* Placement des têtes */
     boiteTetes->setPos((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - boiteTetes->geometry().width())/2,
-                       getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - boiteTetes->geometry().height() -60*ratio);
+                       getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - boiteTetes->geometry().height() -30*ratio);
     m_numericPad->move((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - m_numericPad->width())/2,
-                       getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - m_numericPad->height() -60*ratio);
+                       getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - m_numericPad->height() -30*ratio);
 }
 
 void AbstractExercise::slotSequenceEntered()

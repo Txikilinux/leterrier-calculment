@@ -49,9 +49,6 @@ int main(int argc, char *argv[])
      * par exemple, le lancement en console de "leterrier-calculment --exercice=tableM --option=7 --fond=~/leterrier/abebox/leterrier-calculment/fondecran.jpg"
      * lancera des calculs sur la table de multiplication par 7 en utilisant comme fond d'écran le fichier fondecran.jpg  */
 
-    QList<AbulEduLogLevelV1> bannishedLogs;
-    bannishedLogs << WarnLevel << InfoLevel << TraceLevel;
-    a.setAbeApplicationBannishedLogLevel(bannishedLogs);
     QStringList arguments = a.arguments();
     qDebug()<<arguments;
     if (arguments.size() == 1)
