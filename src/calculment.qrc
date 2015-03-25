@@ -43,8 +43,8 @@
         <file alias="tableM">data/images/tableM.jpg</file>
         <file alias="maisonDesNombres">data/images/maisonDesNombres.jpg</file>
         <file alias="empty">data/images/empty.png</file>
-        <file alias="division">data/images/division.jpg</file>
-        <file alias="multiplication">data/images/fondSpace.png</file>
+        <file alias="multiplication">data/images/fondSpace.jpg</file>
+        <file alias="division">data/images/fondGrandHuit.jpg</file>
     </qresource>
     <qresource prefix="/calculment/elements">
         <file alias="aie1">data/images/aie01.png</file>
@@ -145,6 +145,12 @@
         <file alias="ovniJaune">data/images/ovniJaune.png</file>
         <file alias="ovniOrange">data/images/ovniOrange.png</file>
         <file alias="ovniBleu">data/images/ovniBleu.png</file>
+        <file alias="voitureRose">data/images/voitureRose.png</file>
+        <file alias="voitureBleu">data/images/voitureBleu.png</file>
+        <file alias="voitureRouge">data/images/voitureRouge.png</file>
+        <file alias="voitureOrange">data/images/voitureOrange.png</file>
+        <file alias="voitureVert">data/images/voitureVerte.png</file>
+        <file alias="voitureJaune">data/images/voitureJaune.png</file>
     </qresource>
     <qresource prefix="/calculmental/editor">
         <file alias="lapin">data/images/lapin.png</file>

@@ -279,7 +279,9 @@ void ExerciceOperation::animeBaudruche()
 //        m_AireDeJeu->setStyleSheet("border:2px solid blue");
 //        m_AireDeJeu->move(m_AireDeJeu->x()+200,m_AireDeJeu->y());
         for (int i = 1; i < 200; i++){
-            animation->setPosAt(i/200.0, /*QPointF(m_depart->x(),m_depart->y())+*/QPointF((4*i*ratio) ,(log(i)*100*ratio)));
+            /* Code utilisé dans des tests pour faire tomber la voiture comme sur une rampe de grand huit */
+//            animation->setPosAt(i/200.0, /*QPointF(m_depart->x(),m_depart->y())+*/QPointF((4*i*ratio) ,(log(i)*100*ratio)));
+            animation->setPosAt(i/200.0, QPointF((5.2*i*ratio) ,0 ));
         }
     }
     else if (m_operationName == "addition") {
@@ -401,7 +403,7 @@ void ExerciceOperation::slotInitQuestionEntered()
     if (m_operationName == "addition") m_depart = new QPoint(0,boiteTetes->y()-400*ratio);
     else if(m_operationName.left(6)=="tableA"|| m_operationName.left(6)=="tableM") m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,0*ratio);
     else if(m_operationName == "division"){
-        m_depart = new QPoint(m_AireDeJeu->pos());
+        m_depart = new QPoint(50*ratio,220*ratio);
     }
     else if(m_operationName == "multiplication"){
         m_depart = new QPoint(m_AireDeJeu->width()/2 - 160*ratio,460*ratio);
@@ -412,11 +414,12 @@ void ExerciceOperation::slotInitQuestionEntered()
     if (m_operationName=="addition")
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"auto");
     else if(m_operationName==""
-            || m_operationName=="soustraction"
-            || m_operationName=="division")
+            || m_operationName=="soustraction")
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this);
     else if(m_operationName == "multiplication")
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"ovni");
+    else if(m_operationName == "division")
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"voiture");
     else if (m_operationName.left(6)=="tableA"){
         if(!m_multipleCible.isEmpty()){
             /** L'idée est de piocher dans la liste des nombres attendus */

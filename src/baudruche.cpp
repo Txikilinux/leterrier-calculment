@@ -63,7 +63,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
         m_op = "x";
     }
     else if(operation == "division"){
-        m_op = ":";
+        m_op = QString::fromUtf8("÷");
     }
     m_position.setX(pos.x());
     m_position.setY(pos.y());
@@ -127,7 +127,7 @@ baudruche::baudruche(int intMinG, int intMaxG, int intMinD, int intMaxD, int tem
         m_ligne = QString::number(g_operande)+"*"+QString::number(d_operande);
     }
     /* Problème aussi si c'est la division : l'utiliteur veut un ":" alors que le calculateur veut un "/") */
-    else if(m_op == ":"){
+    else if(m_op == QString::fromUtf8("÷")){
         m_ligne = QString::number(g_operande)+"/"+QString::number(d_operande);
     }
     else {
@@ -301,7 +301,7 @@ void baudruche::dessineMoi(QString image)
         fonteUtilisee.setPointSize(28*ratio);
 //        if(m_localDebug) qDebug()<<"&&"<<fonteUtilisee.pointSize();
         QFontMetrics mesureur(fonteUtilisee);
-        while(mesureur.boundingRect(m_affichage).width() > imageIllustration2.width()*0.8){
+        while((mesureur.boundingRect(m_affichage).width() > imageIllustration2.width()*0.8) && (fonteUtilisee.pointSize() > 8)){
             fonteUtilisee.setPointSize(fonteUtilisee.pointSize()-1);
             mesureur = QFontMetrics(fonteUtilisee);
         }
@@ -318,7 +318,9 @@ void baudruche::dessineMoi(QString image)
         else if(image == "ovni"){
             m_texteAffiche->setPos(decalageCentrage,15*ratio);
         }
-
+        else if(image == "voiture"){
+            m_texteAffiche->setPos(decalageCentrage - 10*ratio,10*ratio);
+        }
         else m_texteAffiche->setPos(decalageCentrage,75*ratio);
         m_texteAffiche->setZValue(k+1);
         this->addToGroup(m_texteAffiche);
