@@ -189,6 +189,8 @@ int ExerciceOperation::donneReponse()
 void ExerciceOperation::setDimensionsWidgets(float ratio)
 {
     AbstractExercise::setDimensionsWidgets(ratio);
+    m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/"+m_operationName).scaledToWidth(m_AireDeJeu->width())));
+
 }
 
 QList<int> ExerciceOperation::getNumberUsed() const
@@ -283,6 +285,10 @@ void ExerciceOperation::animeBaudruche()
     else if (m_operationName == "addition") {
         for (int i = 0; i < 200; i++)
             animation->setPosAt(i/200.0, QPointF((3.8*i*ratio) ,0 ));
+    }
+    else if (m_operationName == "multiplication") {
+        for (int i = 0; i < 200; i++)
+            animation->setPosAt(i/200.0, QPointF(0 , (-2.4*i*ratio)));
     }
     else if(m_operationName.left(6) == "tableA"|| m_operationName.left(6) == "tableM") {
         for (int i = 0; i < 200; i++)
@@ -394,19 +400,23 @@ void ExerciceOperation::slotInitQuestionEntered()
     //instanciation d'une baudruche et connexion aux autres objets
     if (m_operationName == "addition") m_depart = new QPoint(0,boiteTetes->y()-400*ratio);
     else if(m_operationName.left(6)=="tableA"|| m_operationName.left(6)=="tableM") m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,0*ratio);
-    else if(m_operationName == "division") m_depart = new QPoint(m_AireDeJeu->pos());
+    else if(m_operationName == "division"){
+        m_depart = new QPoint(m_AireDeJeu->pos());
+    }
+    else if(m_operationName == "multiplication"){
+        m_depart = new QPoint(m_AireDeJeu->width()/2 - 160*ratio,460*ratio);
+    }
     else m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,500*ratio);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
-
     if (m_operationName=="addition")
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"auto");
     else if(m_operationName==""
             || m_operationName=="soustraction"
-            || m_operationName=="multiplication"
             || m_operationName=="division")
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this);
-
+    else if(m_operationName == "multiplication")
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"ovni");
     else if (m_operationName.left(6)=="tableA"){
         if(!m_multipleCible.isEmpty()){
             /** L'idée est de piocher dans la liste des nombres attendus */

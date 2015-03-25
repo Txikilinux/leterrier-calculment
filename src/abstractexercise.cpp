@@ -60,8 +60,6 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_AireDeJeu->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     /* On lui donne un fond transparent et pas de bordure */
     m_AireDeJeu->setFrameShape(QFrame::NoFrame);
-    m_AireDeJeu->setStyleSheet("background-color: rgba(0,0,0,0);/*border:1px solid blue*/");
-//    getAbeExerciceAireDeTravailV1()->setStyleSheet("background-color: rgba(0,0,0,0);border:1px solid red");
     m_AireDeJeu->setVisible(true);
 
     connect(getAbeExerciceTelecommandeV1(), SIGNAL(btnTelecommandeAideClicked()), this, SLOT(slotAide()), Qt::UniqueConnection);
@@ -103,9 +101,9 @@ void AbstractExercise::setDimensionsWidgets(float ratio)
     if (m_localDebug){
         ABULEDU_LOG_DEBUG()<<"largeur"<<large<<"hauteur"<<haut;
     }
-    m_AireDeJeu->setFixedSize(QSize(large - 50*ratio, haut - 50 * ratio));
+    m_AireDeJeu->setFixedSize(QSize(large - 200*ratio, haut - 110 * ratio));
     m_AireDeJeu->setSceneRect(m_AireDeJeu->rect());
-    m_AireDeJeu->move((100 * ratio) / 2, 50 * ratio);
+    m_AireDeJeu->move(100 * ratio, 140 * ratio);
     m_AireDeJeu->scene()->setSceneRect(m_AireDeJeu->rect());
 
     /* Placement des têtes */

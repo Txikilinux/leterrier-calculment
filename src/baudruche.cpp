@@ -271,7 +271,7 @@ void baudruche::dessineMoi(QString image)
 {
     float ratio = abeApp->getAbeApplicationDecorRatio();
     const int k = 100;
-        int coulAlea = rand()%(5);
+        int coulAlea = rand()%(6);
         QString illustration;
         QString imageBase="ballon";
         if (image!=0) imageBase=image;
@@ -311,8 +311,14 @@ void baudruche::dessineMoi(QString image)
         int longueurAffichage,largeurIllustration,decalageCentrage;
         longueurAffichage=mesureur.width(m_affichage);
         largeurIllustration=imageIllustration2.width();
-        decalageCentrage=(largeurIllustration-longueurAffichage)/2;
-        if (image=="auto") m_texteAffiche->setPos(50*ratio,170*ratio);
+        decalageCentrage = (largeurIllustration-longueurAffichage)/2;
+        if (image=="auto"){
+            m_texteAffiche->setPos(50*ratio,170*ratio);
+        }
+        else if(image == "ovni"){
+            m_texteAffiche->setPos(decalageCentrage,15*ratio);
+        }
+
         else m_texteAffiche->setPos(decalageCentrage,75*ratio);
         m_texteAffiche->setZValue(k+1);
         this->addToGroup(m_texteAffiche);
@@ -504,7 +510,7 @@ void baudruche::detruireTps()
         QPixmap image(":/calculment/elements/let");
         QPixmap imageRetaillee = image.scaledToHeight(image.height()*factY);
         emit tempsFini(imageRetaillee);
-        if (m_nomImage == "auto")
+        if (m_nomImage == "auto" || m_nomImage == "ovni")
             changeImage(":/calculment/elements/boum");
         else if (m_nomImage == "fantome")
             changeImage(":/calculment/elements/pop");
