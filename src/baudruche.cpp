@@ -321,6 +321,9 @@ void baudruche::dessineMoi(QString image)
         else if(image == "voiture"){
             m_texteAffiche->setPos(decalageCentrage - 10*ratio,10*ratio);
         }
+        else if(image == "fantome"){
+            m_texteAffiche->setPos(decalageCentrage,30*ratio);
+        }
         else m_texteAffiche->setPos(decalageCentrage,75*ratio);
         m_texteAffiche->setZValue(k+1);
         this->addToGroup(m_texteAffiche);

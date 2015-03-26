@@ -296,6 +296,10 @@ void ExerciceOperation::animeBaudruche()
         for (int i = 0; i < 200; i++)
             animation->setPosAt(i/200.0, QPointF(0 , 3.3*i*ratio));
     }
+    else if (m_operationName.left(11) == "complementA") {
+        for (int i = 0; i < 200; i++)
+            animation->setPosAt(i/200.0, QPointF(0 , (-2.6*i*ratio)));
+    }
     else for (int i = 0; i < 200; i++)
         //animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
         animation->setPosAt(i/200.0, QPointF(0 , (-2.5*i*ratio)));
@@ -392,7 +396,7 @@ void ExerciceOperation::slotRealisationExerciceEntered()
 void ExerciceOperation::slotInitQuestionEntered()
 {
     if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<m_operationName;
 //        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
         ABULEDU_LOG_DEBUG() <<m_total<<getAbeNbTotalQuestions()<<getAbeNumQuestion()<<m_score;
     }
@@ -407,6 +411,9 @@ void ExerciceOperation::slotInitQuestionEntered()
     }
     else if(m_operationName == "multiplication"){
         m_depart = new QPoint(m_AireDeJeu->width()/2 - 160*ratio,460*ratio);
+    }
+    else if(m_operationName.left(11) == "complementA"){
+        m_depart = new QPoint(m_AireDeJeu->width()/2 + 80*ratio,500*ratio);
     }
     else m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,500*ratio);
 

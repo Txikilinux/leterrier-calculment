@@ -271,6 +271,10 @@ void interface::slotInterfaceLaunchExercise(int number, QString name, int level)
         }
     }
     ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
+    /* Prise en compte d'un changement du nom de l'exercice entre les versions */
+    if(name == "Compléments additifs"){
+        name = "Compléments";
+    }
     if (m_localDebug){
     }
     /*" Tables de multiplication"
