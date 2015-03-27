@@ -269,12 +269,13 @@ baudruche::baudruche(int valeurCible, int tempsAccorde, QString operation, QPoin
 
 void baudruche::dessineMoi(QString image)
 {
+    ABULEDU_LOG_DEBUG()<<__PRETTY_FUNCTION__<<image;
     float ratio = abeApp->getAbeApplicationDecorRatio();
     const int k = 100;
         int coulAlea = rand()%(6);
         QString illustration;
-        QString imageBase="ballon";
-        if (image!=0) imageBase=image;
+        QString imageBase = "ballon";
+        if (image!=0) imageBase = image;
         QFile* fichierImage = new QFile(":/calculment/elements/"+imageBase+"Vert");
         if (fichierImage->exists()) {
                 switch (coulAlea) {
@@ -312,20 +313,23 @@ void baudruche::dessineMoi(QString image)
         longueurAffichage=mesureur.width(m_affichage);
         largeurIllustration=imageIllustration2.width();
         decalageCentrage = (largeurIllustration-longueurAffichage)/2;
-        if (image=="auto"){
+        if (imageBase == "auto"){
             m_texteAffiche->setPos(50*ratio,170*ratio);
         }
-        else if(image == "ovni"){
+        else if(imageBase == "ovni"){
             m_texteAffiche->setPos(decalageCentrage,15*ratio);
         }
-        else if(image == "voiture"){
+        else if(imageBase == "voiture"){
             m_texteAffiche->setPos(decalageCentrage - 10*ratio,10*ratio);
         }
-        else if(image == "fantome"){
+        else if(imageBase == "fantome"){
             m_texteAffiche->setPos(decalageCentrage,30*ratio);
         }
-        else if(image == "cabine"){
+        else if(imageBase == "cabine"){
             m_texteAffiche->setPos(decalageCentrage,125*ratio);
+        }
+        else if(imageBase == "ballon"){
+            m_texteAffiche->setPos(decalageCentrage,15*ratio);
         }
         else m_texteAffiche->setPos(decalageCentrage,75*ratio);
         m_texteAffiche->setZValue(k+1);

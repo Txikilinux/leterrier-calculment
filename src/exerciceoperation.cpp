@@ -300,6 +300,10 @@ void ExerciceOperation::animeBaudruche()
         for (int i = 0; i < 200; i++)
             animation->setPosAt(i/200.0, QPointF(0 , (-2.6*i*ratio)));
     }
+    else if (m_operationName.left(11) == "complementM") {
+        for (int i = 0; i < 200; i++)
+            animation->setPosAt(i/200.0, QPointF(0 , (-2.9*i*ratio)));
+    }
     else for (int i = 0; i < 200; i++)
         //animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
         animation->setPosAt(i/200.0, QPointF(0 , (-2.5*i*ratio)));
@@ -418,6 +422,9 @@ void ExerciceOperation::slotInitQuestionEntered()
     }
     else if(m_operationName.left(11) == "complementA"){
         m_depart = new QPoint(m_AireDeJeu->width()/2 + 80*ratio,500*ratio);
+    }
+    else if(m_operationName.left(11) == "complementM"){
+        m_depart = new QPoint(m_AireDeJeu->width()/2 -250*ratio,550*ratio);
     }
     else m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,500*ratio);
 
@@ -594,8 +601,8 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
                       getAbeExerciceEvaluation(),
                       m_answers.last().second.toString());
     }
-//    if (m_localDebug)
-//    {
+    if (m_localDebug)
+    {
         if (m_answers.count() > 0)
         {
             ABULEDU_LOG_DEBUG() <<__PRETTY_FUNCTION__<<" --> Correction : Envoi ligne de resultats ---------- par setAbeLineLog  ------------------";
@@ -608,7 +615,7 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
         }
         else
             ABULEDU_LOG_DEBUG()<<"Pas de log à envoyer..."<<abe::ABE_DONNEEVAL().value(getAbeExerciceEvaluation());
-//    }
+    }
 }
 
 void ExerciceOperation::slotFinVerificationQuestionEntered()
