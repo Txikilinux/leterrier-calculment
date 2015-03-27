@@ -427,7 +427,7 @@ void ExerciceOperation::slotInitQuestionEntered()
         m_depart = new QPoint(100*ratio,5*ratio);
     }
     else if(m_operationName == "division"){
-        m_depart = new QPoint(50*ratio,5*ratio);
+        m_depart = new QPoint(50*ratio,220*ratio);
     }
     else if(m_operationName == "multiplication"){
         m_depart = new QPoint(m_AireDeJeu->width()/2 - 160*ratio,460*ratio);
