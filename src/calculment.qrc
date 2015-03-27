@@ -37,7 +37,6 @@
         <file alias="cache">data/images/cache.png</file>
         <file alias="OdGrandeur">data/images/OdGrandeur.jpg</file>
         <file alias="soustraction">data/images/soustraction.jpg</file>
-        <file alias="tableA">data/images/tableA.jpg</file>
         <file alias="maisonDesNombres">data/images/maisonDesNombres.jpg</file>
         <file alias="empty">data/images/empty.png</file>
         <file alias="multiplication">data/images/fondSpace.jpg</file>

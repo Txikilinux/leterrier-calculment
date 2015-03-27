@@ -190,7 +190,12 @@ int ExerciceOperation::donneReponse()
 void ExerciceOperation::setDimensionsWidgets(float ratio)
 {
     AbstractExercise::setDimensionsWidgets(ratio);
-    m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/"+m_operationName).scaledToWidth(m_AireDeJeu->width())));
+    if(m_operationName == "tableA"){
+        m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/multiplication").scaledToWidth(m_AireDeJeu->width())));
+    }
+    else {
+        m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/"+m_operationName).scaledToWidth(m_AireDeJeu->width())));
+    }
 
 }
 
@@ -258,9 +263,9 @@ void ExerciceOperation::chargerParametres()
         m_minG=0;
         m_maxG=9;
     }
-    else if(m_operationName.left(11)=="complementA"
-            || m_operationName.left(11)=="complementM"){
-        m_minG=m_maxG=m_minD=m_maxD=m_cible;
+    else if(m_operationName.left(11) == "complementA"
+            || m_operationName.left(11) == "complementM"){
+        m_minG = m_maxG = m_minD = m_maxD = m_cible;
     }
     setAbeNbTotalQuestions(config.value("NombreBallons").toInt());
     getAbeExerciceTelecommandeV1()->ui->lblCustom2->setText(QString::number(m_score)+ " sur "+QString::number(getAbeNbTotalQuestions()));
@@ -292,7 +297,11 @@ void ExerciceOperation::animeBaudruche()
         for (int i = 0; i < 200; i++)
             animation->setPosAt(i/200.0, QPointF(0 , (-2.4*i*ratio)));
     }
-    else if(m_operationName.left(6) == "tableA"|| m_operationName.left(6) == "tableM") {
+    else if(m_operationName.left(6) == "tableA") {
+        for (int i = 0; i < 200; i++)
+            animation->setPosAt(i/200.0, QPointF(3.8*i*ratio, 2.5*i*ratio));
+    }
+    else if(m_operationName.left(6) == "tableM") {
         for (int i = 0; i < 200; i++)
             animation->setPosAt(i/200.0, QPointF(0 , 2.8*i*ratio));
     }
@@ -411,11 +420,14 @@ void ExerciceOperation::slotInitQuestionEntered()
     if (m_operationName == "addition"){
         m_depart = new QPoint(0,boiteTetes->y()-400*ratio);
     }
-    else if(m_operationName.left(6)=="tableA"|| m_operationName.left(6)=="tableM"){
+    else if(m_operationName.left(6)=="tableM"){
         m_depart = new QPoint(m_AireDeJeu->width()/2-120*ratio,-70*ratio);
     }
+    else if(m_operationName.left(6) == "tableA"){
+        m_depart = new QPoint(100*ratio,5*ratio);
+    }
     else if(m_operationName == "division"){
-        m_depart = new QPoint(50*ratio,220*ratio);
+        m_depart = new QPoint(50*ratio,5*ratio);
     }
     else if(m_operationName == "multiplication"){
         m_depart = new QPoint(m_AireDeJeu->width()/2 - 160*ratio,460*ratio);
@@ -429,21 +441,25 @@ void ExerciceOperation::slotInitQuestionEntered()
     else m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,500*ratio);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
-    if (m_operationName=="addition")
+    if (m_operationName=="addition"){
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"auto");
+    }
     else if(m_operationName==""
-            || m_operationName=="soustraction")
+            || m_operationName=="soustraction"){
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this);
-    else if(m_operationName == "multiplication")
+    }
+    else if(m_operationName == "multiplication"){
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"ovni");
-    else if(m_operationName == "division")
+    }
+    else if(m_operationName == "division"){
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"voiture");
+    }
     else if (m_operationName.left(6)=="tableA"){
         if(!m_multipleCible.isEmpty()){
             /** L'idée est de piocher dans la liste des nombres attendus */
             m_minD = m_maxD = m_multipleCible.at(rand()%m_multipleCible.size());
         }
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName.left(6),*m_depart,this,"nacelle");
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName.left(6),*m_depart,this,"ovni");
     }
     else if(m_operationName.left(6)=="tableM"){
         if(!m_multipleCible.isEmpty()){
