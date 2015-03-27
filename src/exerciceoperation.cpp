@@ -63,10 +63,10 @@ void ExerciceOperation::factorisation(QString exerciseName, int niveau)
     setNameAndSkill();
     m_pdfExport = new AbulEduExportPDFV1();
     if(m_localDebug){
-        qDebug()<<exerciseName;
-        qDebug()<<niveau;
-        qDebug()<<m_cible;
-        qDebug()<<m_multipleCible;
+        ABULEDU_LOG_DEBUG()<<exerciseName;
+        ABULEDU_LOG_DEBUG()<<niveau;
+        ABULEDU_LOG_DEBUG()<<m_cible;
+        ABULEDU_LOG_DEBUG()<<m_multipleCible;
     }
 }
 
@@ -167,6 +167,7 @@ void ExerciceOperation::setNameAndSkill()
 
 ExerciceOperation::~ExerciceOperation()
 {
+    pushAbulEduLogs(getAbeExerciceName());
     emit signalExerciseExited();
 }
 
@@ -208,7 +209,6 @@ void ExerciceOperation::addNumberUsed(int number)
     m_numberUsed << number;
 }
 
-
 void ExerciceOperation::chargerParametres()
 {
     if(m_localDebug){
@@ -240,7 +240,7 @@ void ExerciceOperation::chargerParametres()
         foreach(QString v,vL){
             m_multipleCible << v.toInt();
         }
-        qDebug()<<m_multipleCible;
+        ABULEDU_LOG_DEBUG()<<m_multipleCible;
     }
     m_maxD = config.value("MaxDroite",100).toInt();
     m_minD = config.value("MinDroite",0).toInt();
@@ -294,7 +294,7 @@ void ExerciceOperation::animeBaudruche()
     }
     else if(m_operationName.left(6) == "tableA"|| m_operationName.left(6) == "tableM") {
         for (int i = 0; i < 200; i++)
-            animation->setPosAt(i/200.0, QPointF(0 , 3.3*i*ratio));
+            animation->setPosAt(i/200.0, QPointF(0 , 2.8*i*ratio));
     }
     else if (m_operationName.left(11) == "complementA") {
         for (int i = 0; i < 200; i++)
@@ -404,8 +404,12 @@ void ExerciceOperation::slotInitQuestionEntered()
 
     float ratio = abeApp->getAbeApplicationDecorRatio();
     //instanciation d'une baudruche et connexion aux autres objets
-    if (m_operationName == "addition") m_depart = new QPoint(0,boiteTetes->y()-400*ratio);
-    else if(m_operationName.left(6)=="tableA"|| m_operationName.left(6)=="tableM") m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,0*ratio);
+    if (m_operationName == "addition"){
+        m_depart = new QPoint(0,boiteTetes->y()-400*ratio);
+    }
+    else if(m_operationName.left(6)=="tableA"|| m_operationName.left(6)=="tableM"){
+        m_depart = new QPoint(m_AireDeJeu->width()/2-120*ratio,-70*ratio);
+    }
     else if(m_operationName == "division"){
         m_depart = new QPoint(50*ratio,220*ratio);
     }
@@ -456,7 +460,7 @@ void ExerciceOperation::slotInitQuestionEntered()
 
 //    else  QMessageBox::critical(this, trUtf8("Opération inexistante"), m_operationName.append(trUtf8(", ça n'existe pas comme opération...")));
 
-    //          else {qDebug()<< "Pas d'opération portant le nom de "<<m_operationName;}//Pourquoi quand même erreur de segmentation
+    //          else {ABULEDU_LOG_DEBUG()<< "Pas d'opération portant le nom de "<<m_operationName;}//Pourquoi quand même erreur de segmentation
     if (QString::compare(m_operationName, "OdGrandeurAddition", Qt::CaseInsensitive) == 0
             || QString::compare(m_operationName, "OdGrandeurSoustraction", Qt::CaseInsensitive) == 0
             || QString::compare(m_operationName, "OdGrandeurMultiplication", Qt::CaseInsensitive) == 0
@@ -472,10 +476,6 @@ void ExerciceOperation::slotInitQuestionEntered()
 //    connect(m_baudruche, SIGNAL(destroyed()), m_ui->leResultat, SLOT(clear()));
     connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));
     connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(ajouteErreur(QString)));
-//    connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
-//    connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
-    //        connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
-    connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(pousseLogs(QString)));
     m_baudruche->emetRes();
     m_sceneAireDeJeu->addItem(m_baudruche);
     if (m_operationName == "addition") {
@@ -493,7 +493,7 @@ void ExerciceOperation::slotInitQuestionEntered()
     }
     m_operands = QPair<float,float>(m_baudruche->getMGOperande(),m_baudruche->getMDOperande());
     if(m_localDebug){
-        qDebug()<<"Calcul propose : "<<m_trace;
+        ABULEDU_LOG_DEBUG()<<"Calcul propose : "<<m_trace;
     }
 
     //affichage du nombre de ballons déjà instanciés
@@ -525,39 +525,30 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
     if(m_leResultat->text().simplified().isEmpty()){
         setAbeExerciceEvaluation(abe::evalZ);
         boiteTetes->setEtatTete(m_numExercice, getAbeExerciceEvaluation(),false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
-        setAbeTeteForResult(1,1);
         getAbeExerciceTelecommandeV1()->ui->btnCorriger->setEnabled(true);
+        /* On va logger l'appui sur Vérification en cas de champ de saisie vide comme une absence de réponse (cf temps écoulé)
+         * On pourra peut-être plutôt empêcher la vérification si le champs est vide mais pour l'instant on fait comme ça */
+        m_answers.append(QPair<QVariant,QVariant>(trUtf8("Non répondu"),m_resultatEnCours));
     }
     else {
         float proposition = m_leResultat->text().toFloat();
+        m_answers.append(QPair<QVariant,QVariant>(proposition,m_resultatEnCours));
         if(m_localDebug){
-            qDebug()<<"Valeur du ballon : "<<m_resultatEnCours<<", lache sur "<<proposition;
+            ABULEDU_LOG_DEBUG()<<"Valeur du ballon : "<<m_resultatEnCours<<", lache sur "<<proposition;
         }
         QString demande = "";
         demande = m_baudruche->getMGOperande()+m_baudruche->getMOperation()+m_baudruche->getMDOperande();
-        //    m_score =
-
         if (proposition == m_resultatEnCours) {
             m_score++;
-            /** @todo Mettre la tête de William très bien dans la boiteTetes */
-            //        QPixmap* imgO = new QPixmap(":/calculment/elements/win");
-            //        imgO->scaledToHeight(imgO->height()*factY);
-            //        m_ui->lblImgMsg->setPixmap(*imgO);
             setAbeExerciceEvaluation(abe::evalA);
         }
         else {
-            /** @todo Mettre la tête de William mal dans la boiteTetes */
             ajouteErreur("Erreur calcul");
             setAbeExerciceEvaluation(abe::evalD);
             getAbeExerciceTelecommandeV1()->ui->btnCorriger->setEnabled(true);
         }
     }
     getAbeExerciceTelecommandeV1()->ui->lblCustom2->setText(QString::number(m_score)+ " sur "+QString::number(getAbeNbTotalQuestions()));
-
-    //sauvegardeLog* envoieRes = new sauvegardeLog(QDate::currentDate(), QTime::currentTime(), utilisateur, m_baudruche->getMLigne(), m_ui->leResultat->text(), reponseAttendueEnString);
-    setAbeLineLog(m_baudruche->getMLigne(),m_leResultat->text().simplified(),m_score, m_total,getAbeExerciceEvaluation(),QString::number(m_resultatEnCours));
-    /* Décommenter la ligne ci-dessous pour voir ce qui est envoyé comme logs */
-//    qDebug()<<getPluginLogs();
 
     if (m_baudruche && !m_baudruche->getBaudrucheIsDetructionPlanified()){
             m_baudruche->detruire();
@@ -569,7 +560,7 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
         /** @todo remplacer la ligne en dessous par le bilan d'exercice */
         if(qApp->property("afficheBilanExercice").toBool())
         {
-            qDebug()<<qApp->property("utilisateur").toString();
+            ABULEDU_LOG_DEBUG()<<qApp->property("utilisateur").toString();
             m_pdfExport->abeExportPDFSetLogin(qApp->property("utilisateur").toString());
             m_pdfExport->abeExportPDFSetSoftware("Calcul Mental");
             m_pdfExport->abeExportPDFSetLogs(getPluginLogs());
@@ -593,25 +584,37 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
         config.endGroup();
     }
     boiteTetes->setEtatTete(m_numExercice, getAbeExerciceEvaluation(),false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
+    /* On ajoute une ligne de log */
+    if (m_answers.count() > 0)
+    {
+        setAbeLineLog(m_trace,
+                      m_answers.last().first.toString(),
+                      m_score,
+                      m_total,
+                      getAbeExerciceEvaluation(),
+                      m_answers.last().second.toString());
+    }
+//    if (m_localDebug)
+//    {
+        if (m_answers.count() > 0)
+        {
+            ABULEDU_LOG_DEBUG() <<__PRETTY_FUNCTION__<<" --> Correction : Envoi ligne de resultats ---------- par setAbeLineLog  ------------------";
+            ABULEDU_LOG_DEBUG()<<m_trace;
+            ABULEDU_LOG_DEBUG()<<m_answers.last().first.toString();
+            ABULEDU_LOG_DEBUG()<<m_score;
+            ABULEDU_LOG_DEBUG()<<m_total;
+            ABULEDU_LOG_DEBUG()<<abe::ABE_DONNEEVAL().value(getAbeExerciceEvaluation());
+            ABULEDU_LOG_DEBUG()<<m_answers.last().second.toString();
+        }
+        else
+            ABULEDU_LOG_DEBUG()<<"Pas de log à envoyer..."<<abe::ABE_DONNEEVAL().value(getAbeExerciceEvaluation());
+//    }
 }
 
 void ExerciceOperation::slotFinVerificationQuestionEntered()
 {
     AbstractExercise::slotFinVerificationQuestionEntered();
-    if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
-//        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
-        qDebug()<<" ---------------------------------------------------- ";
-        qDebug()<<" Je sors de "<<__PRETTY_FUNCTION__;
-        qDebug()<<" m_score "<<m_score;
-        qDebug()<<" m_total "<<m_total;
-        qDebug()<<" m_resultatEnCours "<<m_resultatEnCours;
-        qDebug()<<" m_trace "<<m_trace;
-        qDebug()<<" getAbeNumQuestion "<<getAbeNumQuestion();
-        qDebug()<<" getAbeNbTotalQuestions "<<getAbeNbTotalQuestions();
-        qDebug()<<"getAbeExerciceEvaluation" <<getAbeExerciceEvaluation();
-        qDebug()<<" ---------------------------------------------------- ";
-    }
+
 }
 
 void ExerciceOperation::slotAfficheCorrectionQuestionEntered()
@@ -639,6 +642,7 @@ void ExerciceOperation::slotBilanSequenceEntered()
 //        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
     AbstractExercise::slotBilanSequenceEntered();
+
 }
 
 bool ExerciceOperation::eventFilter(QObject *obj, QEvent *event)

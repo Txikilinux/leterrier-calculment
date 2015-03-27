@@ -39,12 +39,12 @@
         <file alias="OdGrandeur">data/images/OdGrandeur.jpg</file>
         <file alias="soustraction">data/images/soustraction.jpg</file>
         <file alias="tableA">data/images/tableA.jpg</file>
-        <file alias="tableM">data/images/tableM.jpg</file>
         <file alias="maisonDesNombres">data/images/maisonDesNombres.jpg</file>
         <file alias="empty">data/images/empty.png</file>
         <file alias="multiplication">data/images/fondSpace.jpg</file>
         <file alias="division">data/images/fondGrandHuit.jpg</file>
         <file alias="complementA">data/images/fondDragon.jpg</file>
+        <file alias="tableM">data/images/fondGrandeRoue.jpg</file>
     </qresource>
     <qresource prefix="/calculment/elements">
         <file alias="aie1">data/images/aie01.png</file>
@@ -62,12 +62,7 @@
         <file alias="ballonRose">data/images/ballonRose.png</file>
         <file alias="ballonRouge">data/images/ballonRouge.png</file>
         <file alias="ballonVert">data/images/ballonVert.png</file>
-        <file alias="cabineBleu">data/images/cabineBleu.png</file>
         <file alias="cabineJaune">data/images/cabineJaune.png</file>
-        <file alias="cabineOrange">data/images/cabineOrange.png</file>
-        <file alias="cabineRose">data/images/cabineRose.png</file>
-        <file alias="cabineRouge">data/images/cabineRouge.png</file>
-        <file alias="cabineVert">data/images/cabineVert.png</file>
         <file alias="nacelleBleu">data/images/nacelleBleu.png</file>
         <file alias="nacelleJaune">data/images/nacelleJaune.png</file>
         <file alias="nacelleOrange">data/images/nacelleOrange.png</file>
@@ -151,6 +146,11 @@
         <file alias="fantomeRose">data/images/fantomeRose.png</file>
         <file alias="fantomeJaune">data/images/fantomeVert (copie).png</file>
         <file alias="fantomeVert">data/images/fantomeVert.png</file>
+        <file alias="cabineOrange">data/images/cabineJaune (copie).png</file>
+        <file alias="cabineBleu">data/images/cabineVerte (copie).png</file>
+        <file alias="cabineVert">data/images/cabineVerte.png</file>
+        <file alias="cabineRouge">data/images/cabineViolette (copie).png</file>
+        <file alias="cabineRose">data/images/cabineViolette.png</file>
     </qresource>
     <qresource prefix="/calculmental/editor">
         <file alias="lapin">data/images/lapin.png</file>
