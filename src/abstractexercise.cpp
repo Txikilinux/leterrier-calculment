@@ -166,38 +166,54 @@ void AbstractExercise::slotSequenceEntered()
 void AbstractExercise::slotPresenteSequenceEntered()
 {
     if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<m_variations.size();
     }
     getAbeExerciceMessageV1()->setVisible(false);
     getAbeExerciceMessageV1()->abeWidgetMessageShowImageFond(false);
     getAbeExerciceMessageV1()->abeWidgetMessageSetZoneTexteVisible(true);
-    getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->setDirection(QBoxLayout::TopToBottom);
     QListIterator<AbulEduLaunchElements> iter(m_variations);
     m_boutonsChoix.clear();
-    if(m_variations.count() > 0){
+    QGridLayout* grid = new QGridLayout();
+
+    if(m_variations.count() > 0 && m_variations.count() < 6){
+        getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->setDirection(QBoxLayout::TopToBottom);
         getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
+    }
+    else{
+        getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->setDirection(QBoxLayout::LeftToRight);
+        getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding));
+        getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addLayout(grid);
+        getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding));
+
     }
     while(iter.hasNext()){
         AbulEduLaunchElements abeElement = iter.next();
         AbulEduFlatBoutonV1* btn = new AbulEduFlatBoutonV1(getAbeExerciceMessageV1());
-        m_boutonsChoix << btn;
+        btn->setTexteAlignement(Qt::AlignLeft);
+        btn->setMinimumWidth(300);
         btn->setText(abeElement.abeLaunchElementGetButtonText());
         btn->setIcon(QIcon(abeElement.abeLaunchElementGetIconPath()));
         btn->setProperty("peculiarity",abeElement.abeLaunchElementGetPeculiarity());
         btn->setIconSize(QSize(64*abeApp->getAbeApplicationDecorRatio(),64*abeApp->getAbeApplicationDecorRatio()));
         if(abeElement.abeLaunchElementGetPeculiarity().toInt() == -1){
             /* Je m'appuie pour savoir si on est dans le cas du choix multiple sur cette condition : c'est dans ce seul cas que ça vaut -1 et s'appuyer sur le texte risquerait de poser des problèmes lors de traductions */
-
-            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addWidget(btn);
-            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
             connect(btn, SIGNAL(clicked()), this, SLOT(slotOnBtnMultipleChoiceClicked()), Qt::UniqueConnection);
         }
         else{
-            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addWidget(btn);
-            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
             connect(btn, SIGNAL(clicked()), this, SLOT(slotSetPeculiarity()), Qt::UniqueConnection);
         }
+        if(m_variations.count() < 6){
+            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addWidget(btn);
+            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
+            qDebug()<<"Ajout en bas au layout";
+        }
+        else{
+            getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addLayout(grid);
+            grid->addWidget(btn,m_boutonsChoix.size()/2,m_boutonsChoix.size()%2);
+            qDebug()<<"Ajout au layout en "<<m_boutonsChoix.size()/2<<m_boutonsChoix.size()%2;
+        }
         btn->setVisible(true);
+        m_boutonsChoix << btn;
     }
     getAbeExerciceMessageV1()->ui->gvPrincipale->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     getAbeExerciceMessageV1()->ui->gvPrincipale->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -206,6 +222,8 @@ void AbstractExercise::slotPresenteSequenceEntered()
     getAbeExerciceMessageV1()->abeWidgetMessageSetTitre(trUtf8("Choisis : ")+getAbeExerciceName());
     getAbeExerciceMessageV1()->abeWidgetMessageResize();
     getAbeExerciceMessageV1()->setVisible(true);
+    getAbeExerciceMessageV1()->setMaximumHeight(m_AireDeJeu->height());
+    getAbeExerciceMessageV1()->move(m_AireDeJeu->pos());
 }
 
 void AbstractExercise::slotPresenteSequenceExited()
