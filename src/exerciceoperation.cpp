@@ -291,7 +291,7 @@ void ExerciceOperation::animeBaudruche()
     }
     else if (m_operationName == "addition") {
         for (int i = 0; i < 200; i++)
-            animation->setPosAt(i/200.0, QPointF((3.8*i*ratio) ,0 ));
+            animation->setPosAt(i/200.0, QPointF((4.2*i*ratio) ,0 ));
     }
     else if (m_operationName == "multiplication") {
         for (int i = 0; i < 200; i++)
@@ -418,7 +418,7 @@ void ExerciceOperation::slotInitQuestionEntered()
     float ratio = abeApp->getAbeApplicationDecorRatio();
     //instanciation d'une baudruche et connexion aux autres objets
     if (m_operationName == "addition"){
-        m_depart = new QPoint(0,boiteTetes->y()-400*ratio);
+        m_depart = new QPoint(0,188*ratio);
     }
     else if(m_operationName.left(6)=="tableM"){
         m_depart = new QPoint(m_AireDeJeu->width()/2-120*ratio,-70*ratio);
@@ -427,7 +427,7 @@ void ExerciceOperation::slotInitQuestionEntered()
         m_depart = new QPoint(100*ratio,5*ratio);
     }
     else if(m_operationName == "division"){
-        m_depart = new QPoint(50*ratio,220*ratio);
+        m_depart = new QPoint(50*ratio,190*ratio);
     }
     else if(m_operationName == "multiplication"){
         m_depart = new QPoint(m_AireDeJeu->width()/2 - 160*ratio,460*ratio);

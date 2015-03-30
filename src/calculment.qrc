@@ -26,6 +26,7 @@
         <file alias="complementA">data/images/fondDragon.jpg</file>
         <file alias="tableM">data/images/fondGrandeRoue.jpg</file>
         <file alias="complementM">data/images/fondTir.jpg</file>
+        <file alias="addition">data/images/fondAuto.jpg</file>
     </qresource>
     <qresource prefix="/calculment/elements">
         <file alias="aie1">data/images/aie01.png</file>

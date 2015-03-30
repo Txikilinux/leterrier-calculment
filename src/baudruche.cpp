@@ -314,7 +314,7 @@ void baudruche::dessineMoi(QString image)
         largeurIllustration=imageIllustration2.width();
         decalageCentrage = (largeurIllustration-longueurAffichage)/2;
         if (imageBase == "auto"){
-            m_texteAffiche->setPos(50*ratio,170*ratio);
+            m_texteAffiche->setPos(decalageCentrage+90*ratio,60*ratio);
         }
         else if(imageBase == "ovni"){
             m_texteAffiche->setPos(decalageCentrage,15*ratio);
