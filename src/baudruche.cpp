@@ -548,9 +548,8 @@ void baudruche::emetApprox()
 
 void baudruche::changeImage(QString nomNouvelleImage)
 {
-    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     QPixmap nouvelleImage(nomNouvelleImage);
-    QPixmap nouvelleImage2 = nouvelleImage.scaledToHeight(nouvelleImage.height()*factY, Qt::SmoothTransformation);
+    QPixmap nouvelleImage2 = nouvelleImage.scaledToHeight(m_image.pixmap().height(), Qt::SmoothTransformation);
     m_position.setX(m_position.x()-(nouvelleImage2.width()-m_image.pixmap().width())/2);
     m_position.setY(m_position.y()-((nouvelleImage2.height()-m_image.pixmap().height())/2));    //P... de Justin
 //    qDebug()<<"Taille image avant changement : "<<m_image.pixmap().width()<<" X "<<m_image.pixmap().height();
