@@ -272,22 +272,20 @@ void baudruche::dessineMoi(QString image)
     ABULEDU_LOG_DEBUG()<<__PRETTY_FUNCTION__<<image;
     float ratio = abeApp->getAbeApplicationDecorRatio();
     const int k = 100;
-        int coulAlea = rand()%(6);
+        int coulAlea = rand()%(3);
         QString illustration;
         QString imageBase = "ballon";
         if (image!=0) imageBase = image;
-        QFile* fichierImage = new QFile(":/calculment/elements/"+imageBase+"Vert");
+        QFile* fichierImage = new QFile(":/calculment/elements/"+imageBase+"Col1");
         if (fichierImage->exists()) {
                 switch (coulAlea) {
-                    case 0 : illustration = ":/calculment/elements/"+imageBase+"Vert"; break;
-                    case 1 : illustration = ":/calculment/elements/"+imageBase+"Jaune"; break;
-                    case 2 : illustration = ":/calculment/elements/"+imageBase+"Rouge"; break;
-                    case 3 : illustration = ":/calculment/elements/"+imageBase+"Orange"; break;
-                    case 4 : illustration = ":/calculment/elements/"+imageBase+"Bleu"; break;
-                    case 5 : illustration = ":/calculment/elements/"+imageBase+"Rose"; break;
+                    case 0 : illustration = ":/calculment/elements/"+imageBase+"Col1"; break;
+                    case 1 : illustration = ":/calculment/elements/"+imageBase+"Col2"; break;
+                    case 2 : illustration = ":/calculment/elements/"+imageBase+"Col3"; break;
                     }
                 }
         else illustration=":/calculment/elements/"+imageBase;
+        qDebug()<<illustration<<QFile(illustration).exists();
         QPixmap imageIllustration(illustration);
         QPixmap imageIllustration2 = imageIllustration.scaledToHeight(imageIllustration.height()*ratio, Qt::SmoothTransformation);
 //        qDebug()<<"Taille baudruche : "<<imageIllustration2.width()<<" X "<<imageIllustration2.height();

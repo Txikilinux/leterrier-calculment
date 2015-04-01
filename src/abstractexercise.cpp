@@ -48,7 +48,7 @@ AbstractExercise::AbstractExercise(QWidget *parent):
      *  si on la laissait il faudrait réimplémenter l'eventFilter
      *  par contre il faut trouver pourquoi il faut appuyer deux fois  */
 //    connect(m_leResultat, SIGNAL(returnPressed()),getAbeExerciceTelecommandeV1()->ui->btnVerifier, SLOT(click()),Qt::UniqueConnection);
-    getAbeExerciceTelecommandeV1()->setDimensionsWidget();
+    getAbeExerciceTelecommandeV1()->abeTelecommandeResize();
     /* Création de l'aire de jeu et de sa scène */
     m_AireDeJeu->setScene(m_sceneAireDeJeu);
     m_AireDeJeu->setSceneRect(m_AireDeJeu->rect());
