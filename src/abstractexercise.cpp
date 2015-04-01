@@ -203,6 +203,7 @@ void AbstractExercise::slotPresenteSequenceEntered()
             connect(btn, SIGNAL(clicked()), this, SLOT(slotSetPeculiarity()), Qt::UniqueConnection);
         }
         if(m_variations.count() < 6){
+            btn->setTextePaddingLeft(300*abeApp->getAbeApplicationDecorRatio());
             getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addWidget(btn);
             getAbeExerciceMessageV1()->abeWidgetMessageGetFrmCustomLayout()->addSpacerItem(new QSpacerItem(40,20,QSizePolicy::Expanding,QSizePolicy::Expanding));
             qDebug()<<"Ajout en bas au layout";

@@ -120,6 +120,13 @@
         <file alias="ballonBleu">data/images/ballonJaune (copie).png</file>
         <file alias="ballonOrange">data/images/ballonVert (copie).png</file>
         <file alias="ballonRouge">data/images/ballonRose (copie).png</file>
+        <file alias="fuseeRouge">data/images/fuseeOrange (copie).png</file>
+        <file alias="fuseeOrange">data/images/fuseeOrange.png</file>
+        <file alias="fuseeRose">data/images/fuseebleu (copie).png</file>
+        <file alias="fuseeBleu">data/images/fuseebleu.png</file>
+        <file alias="fuseeJaune">data/images/fuseeVert (copie).png</file>
+        <file alias="fuseeVert">data/images/fuseeVert.png</file>
+        <file alias="plouf">data/images/plouf.png</file>
     </qresource>
     <qresource prefix="/calculmental/editor">
         <file alias="lapin">data/images/lapin.png</file>

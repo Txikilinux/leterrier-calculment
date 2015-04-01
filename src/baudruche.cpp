@@ -331,7 +331,12 @@ void baudruche::dessineMoi(QString image)
         else if(imageBase == "ballon"){
             m_texteAffiche->setPos(decalageCentrage,15*ratio);
         }
-        else m_texteAffiche->setPos(decalageCentrage,75*ratio);
+        else if(imageBase == "fusee"){
+            m_texteAffiche->setPos(decalageCentrage,10*ratio);
+        }
+        else{
+            m_texteAffiche->setPos(decalageCentrage,75*ratio);
+        }
         m_texteAffiche->setZValue(k+1);
         this->addToGroup(m_texteAffiche);
         m_isMaisonSurvolee = false;
@@ -522,11 +527,18 @@ void baudruche::detruireTps()
         QPixmap image(":/calculment/elements/let");
         QPixmap imageRetaillee = image.scaledToHeight(image.height()*factY);
         emit tempsFini(imageRetaillee);
-        if (m_nomImage == "auto" || m_nomImage == "ovni")
+        if (m_nomImage == "auto" || m_nomImage == "ovni"|| m_nomImage == "fusee"){
             changeImage(":/calculment/elements/boum");
-        else if (m_nomImage == "fantome")
+        }
+        else if (m_nomImage == "fantome"){
             changeImage(":/calculment/elements/pop");
-        else changeImage(":/calculment/elements/paf");
+        }
+//        else if (m_nomImage == "pingouin"){
+//            changeImage(":/calculment/elements/plouf");
+//        }
+        else{
+            changeImage(":/calculment/elements/paf");
+        }
         removeFromGroup(m_texteAffiche);
         delete m_texteAffiche;
         QTimeLine* tiptip = new QTimeLine(1000,this);

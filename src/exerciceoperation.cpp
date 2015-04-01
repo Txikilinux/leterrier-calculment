@@ -191,10 +191,10 @@ void ExerciceOperation::setDimensionsWidgets(float ratio)
 {
     AbstractExercise::setDimensionsWidgets(ratio);
     if(m_operationName == "tableA"){
-        m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/multiplication").scaledToWidth(m_AireDeJeu->width())));
+        m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/multiplication").scaledToWidth(m_AireDeJeu->width(),Qt::SmoothTransformation)));
     }
     else {
-        m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/"+m_operationName).scaledToWidth(m_AireDeJeu->width())));
+        m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/"+m_operationName).scaledToWidth(m_AireDeJeu->width(),Qt::SmoothTransformation)));
     }
 
 }
@@ -294,12 +294,13 @@ void ExerciceOperation::animeBaudruche()
             animation->setPosAt(i/200.0, QPointF((4.2*i*ratio) ,0 ));
     }
     else if (m_operationName == "multiplication") {
-        for (int i = 0; i < 200; i++)
-            animation->setPosAt(i/200.0, QPointF(0 , (-2.4*i*ratio)));
+        for (int i = 0; i < 200; i++){
+            animation->setPosAt(i/200.0, QPointF(3.8*i*ratio, 2.5*i*ratio));
+        }
     }
     else if(m_operationName.left(6) == "tableA") {
         for (int i = 0; i < 200; i++)
-            animation->setPosAt(i/200.0, QPointF(3.8*i*ratio, 2.5*i*ratio));
+            animation->setPosAt(i/200.0, QPointF(0 , (-2.8*i*ratio)));
     }
     else if(m_operationName.left(6) == "tableM") {
         for (int i = 0; i < 200; i++)
@@ -424,13 +425,13 @@ void ExerciceOperation::slotInitQuestionEntered()
         m_depart = new QPoint(m_AireDeJeu->width()/2-120*ratio,-70*ratio);
     }
     else if(m_operationName.left(6) == "tableA"){
-        m_depart = new QPoint(100*ratio,5*ratio);
+        m_depart = new QPoint(m_AireDeJeu->width()/2 - 160*ratio,540*ratio);
     }
     else if(m_operationName == "division"){
         m_depart = new QPoint(50*ratio,190*ratio);
     }
     else if(m_operationName == "multiplication"){
-        m_depart = new QPoint(m_AireDeJeu->width()/2 - 160*ratio,460*ratio);
+        m_depart = new QPoint(100*ratio,5*ratio);
     }
     else if(m_operationName.left(11) == "complementA"){
         m_depart = new QPoint(m_AireDeJeu->width()/2 + 80*ratio,500*ratio);
@@ -459,7 +460,7 @@ void ExerciceOperation::slotInitQuestionEntered()
             /** L'idée est de piocher dans la liste des nombres attendus */
             m_minD = m_maxD = m_multipleCible.at(rand()%m_multipleCible.size());
         }
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName.left(6),*m_depart,this,"ovni");
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName.left(6),*m_depart,this,"fusee");
     }
     else if(m_operationName.left(6)=="tableM"){
         if(!m_multipleCible.isEmpty()){
