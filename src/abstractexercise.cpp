@@ -194,7 +194,7 @@ void AbstractExercise::slotPresenteSequenceEntered()
         btn->setText(abeElement.abeLaunchElementGetButtonText());
         btn->setIcon(QIcon(abeElement.abeLaunchElementGetIconPath()));
         btn->setProperty("peculiarity",abeElement.abeLaunchElementGetPeculiarity());
-        btn->setIconSize(QSize(64*abeApp->getAbeApplicationDecorRatio(),64*abeApp->getAbeApplicationDecorRatio()));
+        btn->setIconSize(QSize(30*abeApp->getAbeApplicationDecorRatio(),30*abeApp->getAbeApplicationDecorRatio()));
         if(abeElement.abeLaunchElementGetPeculiarity().toInt() == -1){
             /* Je m'appuie pour savoir si on est dans le cas du choix multiple sur cette condition : c'est dans ce seul cas que ça vaut -1 et s'appuyer sur le texte risquerait de poser des problèmes lors de traductions */
             connect(btn, SIGNAL(clicked()), this, SLOT(slotOnBtnMultipleChoiceClicked()), Qt::UniqueConnection);

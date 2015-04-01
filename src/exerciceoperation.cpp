@@ -274,7 +274,7 @@ void ExerciceOperation::chargerParametres()
 void ExerciceOperation::animeBaudruche()
 {
     if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<m_operationName;
     }
     float ratio = abeApp->getAbeApplicationDecorRatio();
     QGraphicsItemAnimation *animation = new QGraphicsItemAnimation(m_sceneAireDeJeu);
@@ -314,6 +314,10 @@ void ExerciceOperation::animeBaudruche()
         for (int i = 0; i < 200; i++)
             animation->setPosAt(i/200.0, QPointF(0 , (-2.9*i*ratio)));
     }
+    else if (m_operationName.left(10) == "OdGrandeur"){
+        for (int i = 0; i < 200; i++)
+            animation->setPosAt(i/200.0, QPointF((3.2*i*ratio) ,0 ));
+    }
     else for (int i = 0; i < 200; i++)
         //animation->setPosAt(i/200.0, QPointF(0 , (-3*i)-(i*0.8)));
         animation->setPosAt(i/200.0, QPointF(0 , (-2.5*i*ratio)));
@@ -339,57 +343,43 @@ void ExerciceOperation::slotSequenceEntered()
 
 void ExerciceOperation::slotPresenteSequenceEntered()
 {
-    if(m_operationName == "tableM"){
-        m_variations.append(AbulEduLaunchElements("2",":/calculment/elements/aie1",2));
-        m_variations.append(AbulEduLaunchElements("3",":/calculment/elements/aie2",3));
-        m_variations.append(AbulEduLaunchElements("4",":/calculment/elements/aie3",4));
-        m_variations.append(AbulEduLaunchElements("5",":/calculment/elements/aie1",5));
-        m_variations.append(AbulEduLaunchElements("6",":/calculment/elements/aie2",6));
-        m_variations.append(AbulEduLaunchElements("7",":/calculment/elements/aie3",7));
-        m_variations.append(AbulEduLaunchElements("8",":/calculment/elements/aie1",8));
-        m_variations.append(AbulEduLaunchElements("9",":/calculment/elements/aie2",9));
-        m_variations.append(AbulEduLaunchElements(trUtf8("Choix multiple"),":/calculment/elements/aie2",-1));
+    if(m_operationName == "tableM" || m_operationName == "tableA"){
+        m_variations.append(AbulEduLaunchElements("2",":/calculment/elements/puce1",2));
+        m_variations.append(AbulEduLaunchElements("3",":/calculment/elements/puce1",3));
+        m_variations.append(AbulEduLaunchElements("4",":/calculment/elements/puce2",4));
+        m_variations.append(AbulEduLaunchElements("5",":/calculment/elements/puce2",5));
+        m_variations.append(AbulEduLaunchElements("6",":/calculment/elements/puce3",6));
+        m_variations.append(AbulEduLaunchElements("7",":/calculment/elements/puce3",7));
+        m_variations.append(AbulEduLaunchElements("8",":/calculment/elements/puce4",8));
+        m_variations.append(AbulEduLaunchElements("9",":/calculment/elements/puce4",9));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Choix multiple"),":/calculment/elements/puce5",-1));
         QList<QVariant> chiffres;
         chiffres <<2<<3<<4<<5<<6<<7<<8<<9;
-        m_variations.append(AbulEduLaunchElements(trUtf8("Tous ces nombres"),":/calculment/elements/aie3",chiffres));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Tous ces nombres"),":/calculment/elements/puce5",chiffres));
     }
     else if(m_operationName == "complementA"){
-        m_variations.append(AbulEduLaunchElements("10",":/calculment/elements/aie1",10));
-        m_variations.append(AbulEduLaunchElements("100",":/calculment/elements/aie2",100));
-        m_variations.append(AbulEduLaunchElements("1000",":/calculment/elements/aie3",1000));
+        m_variations.append(AbulEduLaunchElements("10",":/calculment/elements/puce1",10));
+        m_variations.append(AbulEduLaunchElements("100",":/calculment/elements/puce2",100));
+        m_variations.append(AbulEduLaunchElements("1000",":/calculment/elements/puce3",1000));
         /** @todo Ajouter la maison des nombres */
     }
     else if(m_operationName == "complementM"){
-        m_variations.append(AbulEduLaunchElements("5",":/calculment/elements/aie1",5));
-        m_variations.append(AbulEduLaunchElements("10",":/calculment/elements/aie2",10));
-        m_variations.append(AbulEduLaunchElements("15",":/calculment/elements/aie3",15));
-        m_variations.append(AbulEduLaunchElements("20",":/calculment/elements/aie1",20));
-        m_variations.append(AbulEduLaunchElements("25",":/calculment/elements/aie2",25));
-        m_variations.append(AbulEduLaunchElements("50",":/calculment/elements/aie3",50));
-    }
-    else if(m_operationName == "tableA"){
-        m_variations.append(AbulEduLaunchElements("2",":/calculment/elements/aie1",2));
-        m_variations.append(AbulEduLaunchElements("3",":/calculment/elements/aie2",3));
-        m_variations.append(AbulEduLaunchElements("4",":/calculment/elements/aie3",4));
-        m_variations.append(AbulEduLaunchElements("5",":/calculment/elements/aie1",5));
-        m_variations.append(AbulEduLaunchElements("6",":/calculment/elements/aie2",6));
-        m_variations.append(AbulEduLaunchElements("7",":/calculment/elements/aie3",7));
-        m_variations.append(AbulEduLaunchElements("8",":/calculment/elements/aie1",8));
-        m_variations.append(AbulEduLaunchElements("9",":/calculment/elements/aie2",9));
-        m_variations.append(AbulEduLaunchElements(trUtf8("Choix multiple"),":/calculment/elements/aie2",-1));
-        QList<QVariant> chiffres;
-        chiffres <<2<<3<<4<<5<<6<<7<<8<<9;
-        m_variations.append(AbulEduLaunchElements(trUtf8("Tous ces nombres"),":/calculment/elements/aie3",chiffres));
+        m_variations.append(AbulEduLaunchElements("5",":/calculment/elements/puce1",5));
+        m_variations.append(AbulEduLaunchElements("10",":/calculment/elements/puce6",10));
+        m_variations.append(AbulEduLaunchElements("15",":/calculment/elements/puce3",15));
+        m_variations.append(AbulEduLaunchElements("20",":/calculment/elements/puce4",20));
+        m_variations.append(AbulEduLaunchElements("25",":/calculment/elements/puce5",25));
+        m_variations.append(AbulEduLaunchElements("50",":/calculment/elements/puce2",50));
     }
     else if(m_operationName == "OdGrandeur"){
-        m_variations.append(AbulEduLaunchElements(trUtf8("Additions"),":/calculment/elements/nausee1","Addition"));
-        m_variations.append(AbulEduLaunchElements(trUtf8("Soustractions"),":/calculment/elements/nausee2","Soustraction"));
-        m_variations.append(AbulEduLaunchElements(trUtf8("Multiplications"),":/calculment/elements/nausee3","Multiplication"));
-        m_variations.append(AbulEduLaunchElements(trUtf8("Divisions"),":/calculment/elements/nausee1","Division"));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Additions"),":/calculment/elements/puce1","Addition"));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Soustractions"),":/calculment/elements/puce2","Soustraction"));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Multiplications"),":/calculment/elements/puce3","Multiplication"));
+        m_variations.append(AbulEduLaunchElements(trUtf8("Divisions"),":/calculment/elements/puce4","Division"));
     }
     else if(m_operationName == "maisonDesNombres"){
-        m_variations.append(AbulEduLaunchElements(trUtf8("de 1 à 10"),":/calculment/elements/nausee1",0));
-        m_variations.append(AbulEduLaunchElements(trUtf8("de 11 à 20"),":/calculment/elements/nausee2",10));
+        m_variations.append(AbulEduLaunchElements(trUtf8("de 1 à 10"),":/calculment/elements/puce1",0));
+        m_variations.append(AbulEduLaunchElements(trUtf8("de 11 à 20"),":/calculment/elements/puce2",10));
     }
     else {
         ABULEDU_LOG_DEBUG()  << "Problème : je ne devrais pas pouvoir arriver ici ...";
@@ -439,6 +429,12 @@ void ExerciceOperation::slotInitQuestionEntered()
     else if(m_operationName.left(11) == "complementM"){
         m_depart = new QPoint(m_AireDeJeu->width()/2 -250*ratio,550*ratio);
     }
+    else if (m_operationName=="OdGrandeurAddition"
+             || m_operationName=="OdGrandeurSoustraction"
+             || m_operationName=="OdGrandeurMultiplication"
+             || m_operationName == "OdGrandeurDivision"){
+        m_depart = new QPoint(180*ratio,260*ratio);
+    }
     else m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,500*ratio);
 
     //m_depart = new QPoint(m_ui->vue->width()/2,0); --> pour la faire tomber
@@ -474,12 +470,9 @@ void ExerciceOperation::slotInitQuestionEntered()
     else if (m_operationName.left(11)=="complementM")
         m_baudruche = new baudruche(m_minG,m_temps,m_operationName.left(11), *m_depart,this);
 
-    else if (m_operationName=="OdGrandeurAddition"
-             || m_operationName=="OdGrandeurSoustraction"
-             || m_operationName=="OdGrandeurMultiplication"
-             || m_operationName == "OdGrandeurDivision")
+    else if (m_operationName.left(10) == "OdGrandeur")
     {
-        m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operationName, *m_depart,this);
+        m_baudruche = new baudruche(m_maxG,m_maxD,m_temps,m_operationName, *m_depart,this, "pingouin");
     }
 
 //    else  QMessageBox::critical(this, trUtf8("Opération inexistante"), m_operationName.append(trUtf8(", ça n'existe pas comme opération...")));

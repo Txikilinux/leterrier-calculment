@@ -332,6 +332,9 @@ void baudruche::dessineMoi(QString image)
         else if(imageBase == "fusee"){
             m_texteAffiche->setPos(decalageCentrage,10*ratio);
         }
+        else if(imageBase == "pingouin"){
+            m_texteAffiche->setPos(decalageCentrage,10*ratio);
+        }
         else{
             m_texteAffiche->setPos(decalageCentrage,75*ratio);
         }
@@ -531,9 +534,9 @@ void baudruche::detruireTps()
         else if (m_nomImage == "fantome"){
             changeImage(":/calculment/elements/pop");
         }
-//        else if (m_nomImage == "pingouin"){
-//            changeImage(":/calculment/elements/plouf");
-//        }
+        else if (m_nomImage == "pingouin"){
+            changeImage(":/calculment/elements/plouf");
+        }
         else{
             changeImage(":/calculment/elements/paf");
         }
