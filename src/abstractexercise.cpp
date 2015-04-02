@@ -606,7 +606,6 @@ void AbstractExercise::setAireDeJeuBackground()
     else if(m_operationName.left(11) == "complementM"){
         backgroundName = "complementM";
     }
-
     else if(m_operationName.left(10) == "OdGrandeur"){
         backgroundName = "OdGrandeur";
     }

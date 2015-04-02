@@ -72,20 +72,12 @@ Editeur::Editeur(QWidget *parent) :
         intitulesExercices.append(m_settings->value("NomPourAffichage").toString());
         m_settings->endGroup();
     }
+    m_ui->cbOperation->addItems(intitulesExercices);
 
     m_ui->cbNiveau->addItem("1", 1);
     m_ui->cbNiveau->addItem("2", 2);
     m_ui->cbNiveau->addItem("3", 3);
     m_ui->cbNiveau->addItem(trUtf8("Personnel"),4);
-
-    //        m_ui->cbOperation->addItem("Addition", 1);
-    //            m_ui->cbOperation->addItem("Multiplication", 2);
-    //            m_ui->cbOperation->addItem("Soustraction",3);
-    //            m_ui->cbOperation->addItem("OdGrandeurAddition",4);
-    //            m_ui->cbOperation->addItem("OdGrandeurSoustraction",4);
-    //            m_ui->cbOperation->addItem("OdGrandeurMultiplication",4);
-
-    m_ui->cbOperation->addItems(intitulesExercices);//remplace le bloc au-dessus
 
     m_ui->cbMaxG->addItem("10",1);
     m_ui->cbMaxG->addItem("100",2);
@@ -142,7 +134,7 @@ int Editeur::getNiveauEnCours()
 void Editeur::initialiserOperation(QString operation)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     config.beginGroup(operation);
     config.beginGroup("1");
     config.setValue("MinGauche", 0);
@@ -185,7 +177,7 @@ void Editeur::initialiserOperation(QString operation)
 void Editeur::initialiserApproche(QString operation)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     config.beginGroup(operation);
     config.beginGroup("1");
     config.setValue("MaxGauche", 100);
@@ -218,7 +210,7 @@ void Editeur::initialiserApproche(QString operation)
 void Editeur::initialiserApprocheM(QString operation)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     config.beginGroup(operation);
     config.beginGroup("1");
     config.setValue("MaxGauche", 100);
@@ -248,7 +240,7 @@ void Editeur::initialiserApprocheM(QString operation)
 void Editeur::initialiserApprocheD(QString operation)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     config.beginGroup(operation);
     config.beginGroup("1");
     config.setValue("MaxGauche", 10000);
@@ -275,14 +267,14 @@ void Editeur::initialiserApprocheD(QString operation)
     config.setValue("TempsAccorde",8);
     config.endGroup();
     config.setValue("NiveauEnCours"+operation, "1");
-    config.setValue("NomPourAffichage", trUtf8("OdG Multiplications"));
+    config.setValue("NomPourAffichage", trUtf8("OdG Divisions"));
     config.endGroup();
 }
 
 void Editeur::initialiserComplement(QString operation)
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     config.beginGroup(operation);
     config.beginGroup("1");
     config.setValue("TempsAccorde",8);
@@ -335,7 +327,7 @@ void Editeur::initialiserComplement(QString operation)
 void Editeur::initialiserDivision()
 {
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     config.beginGroup("division");
     config.beginGroup("1");
     config.setValue("MinGauche", 2);
@@ -377,7 +369,7 @@ void Editeur::initialiser()
 
     //On initialise donc directement dans le /home de l'utilisateur
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     config.setValue("NombreBallons", 10);
     config.setValue("version",VER_UNITVERSION_STR);
     initialiserOperation("addition");
@@ -398,7 +390,6 @@ void Editeur::initialiser()
     for (int i=2;i<=9;i++) initialiserComplement("tableM"+QString::number(i));
     for (int i=2;i<=9;i++) initialiserComplement("tableA"+QString::number(i));
     initialiserComplement("maisonDesNombres");
-
 }
 
 void Editeur::sauverNiveau(QString niveau)
@@ -407,7 +398,7 @@ void Editeur::sauverNiveau(QString niveau)
         qDebug()  << __PRETTY_FUNCTION__<<niveau<<" dans "<<*m_operationEnCours;
     }
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
     config.beginGroup(*m_operationEnCours);
     config.beginGroup(niveau);
@@ -445,7 +436,7 @@ void Editeur::chargerNiveau(QString niveau)
     m_ui->spbGMax->setMinimum(0);
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     m_ui->spbNombreBallons->setValue(config.value("NombreBallons",10).toInt());
     config.beginGroup(*m_operationEnCours);
     config.beginGroup(niveau);
@@ -493,7 +484,7 @@ void Editeur::sauverOperation(QString operation)
         qDebug()  << __PRETTY_FUNCTION__<<operation<<" dans "<<m_niveauEnCours;
     }
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
     config.beginGroup(operation);
     config.beginGroup(QString::number(m_niveauEnCours));
@@ -569,7 +560,7 @@ void Editeur::chargerOperation(QString operation)
     }
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    config.setIniCodec("UTF-8");
+
     m_ui->spbNombreBallons->setValue(config.value("NombreBallons",10).toInt());
     config.beginGroup(operation);
     config.beginGroup(QString::number(m_niveauEnCours));
