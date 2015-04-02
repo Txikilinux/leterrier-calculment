@@ -335,6 +335,9 @@ void baudruche::dessineMoi(QString image)
         else if(imageBase == "pingouin"){
             m_texteAffiche->setPos(decalageCentrage,10*ratio);
         }
+        else if(imageBase == "boule"){
+            m_texteAffiche->setPos(decalageCentrage,140*ratio);
+        }
         else{
             m_texteAffiche->setPos(decalageCentrage,75*ratio);
         }
@@ -528,8 +531,11 @@ void baudruche::detruireTps()
         QPixmap image(":/calculment/elements/let");
         QPixmap imageRetaillee = image.scaledToHeight(image.height()*factY);
         emit tempsFini(imageRetaillee);
-        if (m_nomImage == "auto" || m_nomImage == "ovni"|| m_nomImage == "fusee"){
+        if (m_nomImage == "auto" || m_nomImage == "fusee"){
             changeImage(":/calculment/elements/boum");
+        }
+        else if (m_nomImage == "ovni"){
+            changeImage(":/calculment/elements/zap");
         }
         else if (m_nomImage == "fantome"){
             changeImage(":/calculment/elements/pop");

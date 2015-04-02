@@ -36,7 +36,7 @@ ExerciceMaisonNombres::ExerciceMaisonNombres(QString exo,QWidget *parent,int val
     m_operationName = exo;
     m_valeurBase = val;
     float ratio = abeApp->getAbeApplicationDecorRatio();
-    m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,500*ratio);
+    m_depart = new QPoint(562*ratio,400*ratio);
     chargerParametres();
 }
 
@@ -46,21 +46,78 @@ void ExerciceMaisonNombres::dessinePixmapMaisons()
         ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
     }
     float ratio = abeApp->getAbeApplicationDecorRatio();
-    int ordonneMaison = 0;
-    int nombreMaisons = 5;
     for (int i=1;i<=10;i++)
     {
-        QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(i+m_valeurBase));
-        QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*ratio, dessinBouton.height()*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QString cardName = ":/calculment/elements/";
         QColor color;
-        if(i%2 == 0){
-            color.setRgb(255,0,0);
+        int sortCarte = rand()%4;
+        switch(sortCarte){
+        case 0:
+            cardName.append("trefle");
+            break;
+        case 1:
+            cardName.append("carreau");
+            color.setRgb(255,79,92);
+            break;
+        case 2:
+            cardName.append("coeur");
+            color.setRgb(255,79,92);
+            break;
+        case 3:
+            cardName.append("pique");
+            break;
         }
+
+        QPixmap dessinBouton (cardName);
+        QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*ratio, dessinBouton.height()*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         PixmapMaison* maison = new PixmapMaison(i,dessinBouton2,color);
         maison->setToolTip("Maison du "+QString::number(i+m_valeurBase));
         maison->setProperty("Valeur",i+m_valeurBase);
-        ordonneMaison = qFloor((i-1)/2)*(dessinBouton2.height()-1 + ((m_AireDeJeu->height()-nombreMaisons*dessinBouton2.height())/nombreMaisons-1));
-        maison->setPos(((1+qPow(-1,i))/2)*(m_AireDeJeu->width() - dessinBouton2.width()),ordonneMaison);
+        maison->setProperty("pixmap",cardName);
+        QPointF cardPosition;
+        float scaleGap = 1.4;
+        float x1 = 0;
+        float x2 = dessinBouton2.width()*scaleGap;
+        float x3 = m_AireDeJeu->width() - dessinBouton2.width()*(1+scaleGap);
+        float x4 = m_AireDeJeu->width() - dessinBouton2.width();
+        float y1 = 0;
+        float y2 = (m_AireDeJeu->height() - dessinBouton2.height())/2;
+        float y3 = m_AireDeJeu->height() - dessinBouton2.height();
+        switch(i){
+        case 1:
+            cardPosition = QPointF(x1,y1);
+            break;
+        case 2:
+            cardPosition = QPointF(x2,y1);
+            break;
+        case 3:
+            cardPosition = QPointF(x3,y1);
+            break;
+        case 4:
+            cardPosition = QPointF(x4,y1);
+            break;
+        case 5:
+            cardPosition = QPointF(x1,y2);
+            break;
+        case 6:
+            cardPosition = QPointF(x4,y2);
+            break;
+        case 7:
+            cardPosition = QPointF(x1,y3);
+            break;
+        case 8:
+            cardPosition = QPointF(x2,y3);
+            break;
+        case 9:
+            cardPosition = QPointF(x3,y3);
+            break;
+        case 10:
+            cardPosition = QPointF(x4,y3);
+            break;
+        }
+
+        qDebug()<<"carte "<<i<<" en "<<cardPosition;
+        maison->setPos(cardPosition);
         m_sceneAireDeJeu->addItem(maison);
     }
 }
@@ -133,7 +190,8 @@ void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
         PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
         if (itemMaison->toolTip() == bulleAide)
         {
-            QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(itemMaison->property("Valeur").toInt())+"Hover");
+            QString pixmapHover = itemMaison->property("pixmap").toString()+"Hover";
+            QPixmap dessinBouton (pixmapHover);
             QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*ratio, dessinBouton.height()*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             itemMaison->pixmapMaisonSetPixmap(dessinBouton2);
             m_valeurSurvolee = itemMaison->property("Valeur").toInt();
@@ -149,11 +207,9 @@ void ExerciceMaisonNombres::zeroMaisonSurvolee()
     m_valeurSurvolee = 0;
     foreach(QGraphicsItem * item, m_sceneAireDeJeu->items())
     {
-        qDebug()<<item->toolTip();
         if (item->toolTip().left(6) == "Maison"){
             PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
             itemMaison->pixmapMaisonSetPixmap(itemMaison->getMPixmapInitial());
-            qDebug()<<"redessin de "<<item->toolTip();
         }
     }
 }
@@ -191,9 +247,10 @@ void ExerciceMaisonNombres::slotInitQuestionEntered()
     setAbeExerciceEvaluation(abe::evalY);
     boiteTetes->setEtatTete(m_numExercice, abe::evalY,false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
 
+    zeroMaisonSurvolee();
     bool inferieurA11 = false;
     while (!inferieurA11) {
-        m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_sceneAireDeJeu,"fantome");
+        m_baudruche = new baudruche(0,9,0,9,m_temps,"addition",*m_depart,m_sceneAireDeJeu,"boule");
         m_valeurSurvolee = 0;
         this->m_resultatEnCours=m_baudruche->getMResultat();
 //        qDebug()<<" Ballon créé avec comme résultat "<<m_resultatEnCours<<" et comme parent "<<m_scene<<" euh "<<m_baudruche.data()->parent();
