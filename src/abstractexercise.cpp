@@ -59,6 +59,7 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_AireDeJeu->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_AireDeJeu->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     /* On lui donne un fond transparent et pas de bordure */
+    m_AireDeJeu->setStyleSheet("background:transparent;");
     m_AireDeJeu->setFrameShape(QFrame::NoFrame);
     m_AireDeJeu->setVisible(true);
 
@@ -105,7 +106,9 @@ void AbstractExercise::setDimensionsWidgets(float ratio)
     m_AireDeJeu->setSceneRect(m_AireDeJeu->rect());
     m_AireDeJeu->move(100 * ratio, 140 * ratio);
     m_AireDeJeu->scene()->setSceneRect(m_AireDeJeu->rect());
-
+    if(sequenceMachine->configuration().contains(realisationExercice)){
+        setAireDeJeuBackground();
+    }
     /* Placement des têtes */
     boiteTetes->setPos((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - boiteTetes->geometry().width())/2,
                        getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - boiteTetes->geometry().height() -30*ratio);
@@ -524,9 +527,10 @@ bool AbstractExercise::eventFilter(QObject *obj, QEvent *event)
 void AbstractExercise::slotSetPeculiarity()
 {
     if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
+        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<m_operationName;
     }
     m_niveau = -1;
+    setDimensionsWidgets();
     AbulEduFlatBoutonV1* fromBtn = (AbulEduFlatBoutonV1*) sender();
     if(fromBtn->property("peculiarity").type() == QVariant::String){
         m_operationName = m_operationName.append(fromBtn->property("peculiarity").toString());
@@ -582,4 +586,32 @@ void AbstractExercise::slotNumericPadKeyPressed(Qt::Key key)
     else{
         m_leResultat->setText(value+num);
     }
+}
+
+
+void AbstractExercise::setAireDeJeuBackground()
+{
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__<<m_operationName;
+    QString backgroundName;
+    if(m_operationName.left(6) == "tableA"){
+        /* Pour les tables d'addition on utilise le même fond que pour les multiplications */
+        backgroundName = "multiplication";
+    }
+    else if(m_operationName.left(6) == "tableM"){
+        backgroundName = "tableM";
+    }
+    else if(m_operationName.left(11) == "complementA"){
+        backgroundName = "complementA";
+    }
+    else if(m_operationName.left(11) == "complementM"){
+        backgroundName = "complementM";
+    }
+
+    else if(m_operationName.left(10) == "OdGrandeur"){
+        backgroundName = "OdGrandeur";
+    }
+    else {
+        backgroundName = m_operationName;
+    }
+    m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/"+backgroundName).scaledToWidth(m_AireDeJeu->width(),Qt::SmoothTransformation)));
 }

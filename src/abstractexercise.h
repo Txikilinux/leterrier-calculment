@@ -162,6 +162,8 @@ protected:
     ///
     QList<AbulEduFlatBoutonV1*> m_boutonsChoix;
 
+    void setAireDeJeuBackground();
+
 protected slots:
 
     void slotNumericPadKeyPressed(Qt::Key key);

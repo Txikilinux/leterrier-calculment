@@ -190,12 +190,6 @@ int ExerciceOperation::donneReponse()
 void ExerciceOperation::setDimensionsWidgets(float ratio)
 {
     AbstractExercise::setDimensionsWidgets(ratio);
-    if(m_operationName == "tableA"){
-        m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/multiplication").scaledToWidth(m_AireDeJeu->width(),Qt::SmoothTransformation)));
-    }
-    else {
-        m_AireDeJeu->setBackgroundBrush(QBrush(QPixmap(":/calculment/backgrounds/"+m_operationName).scaledToWidth(m_AireDeJeu->width(),Qt::SmoothTransformation)));
-    }
 
 }
 
@@ -395,6 +389,7 @@ void ExerciceOperation::slotRealisationExerciceEntered()
     }
     AbstractExercise::slotRealisationExerciceEntered();
     chargerParametres();
+    setAireDeJeuBackground();
 }
 
 void ExerciceOperation::slotInitQuestionEntered()
