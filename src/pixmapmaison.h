@@ -24,21 +24,24 @@
 #ifndef PIXMAPMAISON_H
 #define PIXMAPMAISON_H
 
-#include <QGraphicsPixmapItem>
+#include <QGraphicsItemGroup>
 
-class PixmapMaison : public QObject, public QGraphicsPixmapItem
+class PixmapMaison : public QObject, public QGraphicsItemGroup
 {
     Q_OBJECT
 public:
-    PixmapMaison(QPixmap image = QPixmap());
+    PixmapMaison(int number,QPixmap image = QPixmap(),QColor color= QColor(0,0,0));
     QPixmap getMPixmapInitial();
     void setMPixmapInitial();
+    void pixmapMaisonSetPixmap(QPixmap pixmap);
 protected:
 //    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
 //    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 //    bool m_isChangeableAuSurvol;
 private:
     QPixmap m_pixmapInitial;
+    QGraphicsPixmapItem* m_picture;
+    QGraphicsTextItem* m_number;
 private slots:
 //    void rendSelectionnable();
 //    void rendNonSelectionnable();

@@ -24,13 +24,35 @@
 #include "pixmapmaison.h"
 #include <QGraphicsSceneHoverEvent>
 #include <QDebug>
+#include <QFontMetrics>
 
-/* Il est possible qu'AUCUNE des fonctions ci-dessous ne servent, à présent !! */
-
-PixmapMaison::PixmapMaison(QPixmap image)
-    :QGraphicsPixmapItem(image)
+PixmapMaison::PixmapMaison(int number, QPixmap image, QColor color)
+    :QGraphicsItemGroup(),
+      m_pixmapInitial(image),
+      m_picture(new QGraphicsPixmapItem(image)),
+      m_number(new QGraphicsTextItem(QString::number(number)))
 {
-    m_pixmapInitial = image;
+    addToGroup(m_picture);
+    addToGroup(m_number);
+    if(color.isValid()){
+        m_number->setDefaultTextColor(color);
+    }
+    QFont currentFont(m_number->font());
+    currentFont.setBold(true);
+    QFontMetrics f1(currentFont);
+    int currentSize = currentFont.pointSize();
+    int currentWidth = f1.boundingRect(QString::number(number)).width();
+    qDebug()<<currentSize<<currentWidth;
+    do{
+        currentSize++;
+        currentFont.setPointSize(currentSize);
+        QFontMetrics f1(currentFont);
+        currentWidth = f1.boundingRect(QString::number(number)).width();
+    }
+    while(currentWidth < m_pixmapInitial.width()/5);
+    m_number->setFont(currentFont);
+    QFontMetrics fm(m_number->font());
+    m_number->setPos((m_pixmapInitial.width()- fm.boundingRect(QString::number(number)).width())/2,(m_pixmapInitial.height() - fm.boundingRect(QString::number(number)).height())/2);
 //    setAcceptHoverEvents(true);
 //    m_isChangeableAuSurvol = false;
 }
@@ -93,5 +115,10 @@ QPixmap PixmapMaison::getMPixmapInitial()
 
 void PixmapMaison::setMPixmapInitial()
 {
-    setPixmap(m_pixmapInitial);
+    m_picture->setPixmap(m_pixmapInitial);
+}
+
+void PixmapMaison::pixmapMaisonSetPixmap(QPixmap pixmap)
+{
+    m_picture->setPixmap(pixmap);
 }
