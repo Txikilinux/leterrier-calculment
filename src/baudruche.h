@@ -52,7 +52,7 @@ public:
     void emetRes();
     void emetApprox();
     void emetMort();
-    void changeImage(QString);
+    void changeImage(QString, int newHeight = -1, int newY = -1);
     QGraphicsTextItem* m_texteAffiche;
     QGraphicsPixmapItem m_image;
     QPoint m_position;
@@ -73,7 +73,6 @@ signals:
      void destroyed(bool);
      void destroyed();
      void tempsFini(QString msg);
-     void tempsFini(QPixmap pix);
      void baudrucheSurvole(QString nom);
      void baudrucheSurvoleRien();
 

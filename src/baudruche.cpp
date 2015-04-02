@@ -338,6 +338,9 @@ void baudruche::dessineMoi(QString image)
         else if(imageBase == "boule"){
             m_texteAffiche->setPos(decalageCentrage,140*ratio);
         }
+        else if(imageBase == "chenille"){
+            m_texteAffiche->setPos(decalageCentrage,185*ratio);
+        }
         else{
             m_texteAffiche->setPos(decalageCentrage,75*ratio);
         }
@@ -528,9 +531,6 @@ void baudruche::detruireTps()
         }
 
         emit tempsFini(tr("TROP TARD..."));
-        QPixmap image(":/calculment/elements/let");
-        QPixmap imageRetaillee = image.scaledToHeight(image.height()*factY);
-        emit tempsFini(imageRetaillee);
         if (m_nomImage == "auto" || m_nomImage == "fusee"){
             changeImage(":/calculment/elements/boum");
         }
@@ -542,6 +542,9 @@ void baudruche::detruireTps()
         }
         else if (m_nomImage == "pingouin"){
             changeImage(":/calculment/elements/plouf");
+        }
+        else if (m_nomImage == "chenille"){
+            changeImage(":/calculment/elements/paf",QPixmap(":/calculment/elements/paf").height()*0.9,m_texteAffiche->pos().y());
         }
         else{
             changeImage(":/calculment/elements/paf");
@@ -565,12 +568,26 @@ void baudruche::emetApprox()
     emit valueChanged(m_approximation.first());
 }
 
-void baudruche::changeImage(QString nomNouvelleImage)
+void baudruche::changeImage(QString nomNouvelleImage, int newHeight, int newY)
 {
+    qDebug()<<nomNouvelleImage<<newHeight<<newY;
     QPixmap nouvelleImage(nomNouvelleImage);
-    QPixmap nouvelleImage2 = nouvelleImage.scaledToHeight(m_image.pixmap().height(), Qt::SmoothTransformation);
+    QPixmap nouvelleImage2;
+    if(newHeight == -1){
+        qDebug()<<"cas -1 pour la hauteur";
+        nouvelleImage2 = nouvelleImage.scaledToHeight(m_image.pixmap().height(), Qt::SmoothTransformation);
+    }
+    else{
+        nouvelleImage2 = nouvelleImage.scaledToHeight(newHeight, Qt::SmoothTransformation);
+    }
     m_position.setX(m_position.x()-(nouvelleImage2.width()-m_image.pixmap().width())/2);
-    m_position.setY(m_position.y()-((nouvelleImage2.height()-m_image.pixmap().height())/2));    //P... de Justin
+    if(newY == -1){
+        qDebug()<<"cas -1 pour la position";
+        m_position.setY(m_position.y()-((nouvelleImage2.height()-m_image.pixmap().height())/2));
+    }
+    else {
+        m_position.setY(newY);
+    }
 //    qDebug()<<"Taille image avant changement : "<<m_image.pixmap().width()<<" X "<<m_image.pixmap().height();
 //    qDebug()<<"Position image avant changement : "<<m_image.x()<<" X "<<m_image.y();
     m_image.setPixmap(nouvelleImage2);

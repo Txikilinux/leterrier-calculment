@@ -66,6 +66,9 @@
         <file alias="bouleCol1">data/images/bouleCristal.png</file>
         <file alias="bouleCol2">data/images/bouleCristal2.png</file>
         <file alias="bouleCol3">data/images/bouleCristal3.png</file>
+        <file alias="chenilleCol2">data/images/chenilleJaune.png</file>
+        <file alias="chenilleCol3">data/images/chenilleRouge.png</file>
+        <file alias="chenilleCol1">data/images/chenilleVert.png</file>
         <file alias="boum">data/images/boum.png</file>
         <file alias="paf">data/images/paf.png</file>
         <file alias="pop">data/images/pop.png</file>

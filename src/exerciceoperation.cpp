@@ -292,6 +292,11 @@ void ExerciceOperation::animeBaudruche()
             animation->setPosAt(i/200.0, QPointF(3.8*i*ratio, 2.5*i*ratio));
         }
     }
+//    else if (m_operationName == "soustraction") {
+//        for (int i = 0; i < 200; i++){
+//            animation->setPosAt(i/200.0, QPointF(3.8*i*ratio, 2.5*i*ratio));
+//        }
+//    }
     else if(m_operationName.left(6) == "tableA") {
         for (int i = 0; i < 200; i++)
             animation->setPosAt(i/200.0, QPointF(0 , (-2.8*i*ratio)));
@@ -406,6 +411,9 @@ void ExerciceOperation::slotInitQuestionEntered()
     if (m_operationName == "addition"){
         m_depart = new QPoint(0,188*ratio);
     }
+    if (m_operationName == "soustraction"){
+        m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,330*ratio);
+    }
     else if(m_operationName.left(6)=="tableM"){
         m_depart = new QPoint(m_AireDeJeu->width()/2-120*ratio,-70*ratio);
     }
@@ -438,7 +446,7 @@ void ExerciceOperation::slotInitQuestionEntered()
     }
     else if(m_operationName==""
             || m_operationName=="soustraction"){
-        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this);
+        m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"chenille");
     }
     else if(m_operationName == "multiplication"){
         m_baudruche = new baudruche(m_minG,m_maxG,m_minD,m_maxD,m_temps,m_operationName,*m_depart,this,"ovni");

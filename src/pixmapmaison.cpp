@@ -41,18 +41,21 @@ PixmapMaison::PixmapMaison(int number, QPixmap image, QColor color)
     currentFont.setBold(true);
     QFontMetrics f1(currentFont);
     int currentSize = currentFont.pointSize();
-    int currentWidth = f1.boundingRect(QString::number(number)).width();
-    qDebug()<<currentSize<<currentWidth;
+    int currentHeight = f1.boundingRect(QString::number(number)).height();
     do{
         currentSize++;
         currentFont.setPointSize(currentSize);
         QFontMetrics f1(currentFont);
-        currentWidth = f1.boundingRect(QString::number(number)).width();
+        currentHeight = f1.boundingRect(QString::number(number)).height();
     }
-    while(currentWidth < m_pixmapInitial.width()/5);
+    while(currentHeight < m_pixmapInitial.height()/3);
     m_number->setFont(currentFont);
     QFontMetrics fm(m_number->font());
-    m_number->setPos((m_pixmapInitial.width()- fm.boundingRect(QString::number(number)).width())/2,(m_pixmapInitial.height() - fm.boundingRect(QString::number(number)).height())/2);
+    int isUnChiffre = 0;
+    if(number < 10){
+        isUnChiffre = 1;
+    }
+    m_number->setPos((m_pixmapInitial.width()- fm.boundingRect(QString::number(number)).width())/2-5*isUnChiffre,(m_pixmapInitial.height() - fm.boundingRect(QString::number(number)).height())/2);
 //    setAcceptHoverEvents(true);
 //    m_isChangeableAuSurvol = false;
 }
