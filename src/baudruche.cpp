@@ -160,12 +160,12 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
     if (operation=="OdGrandeurAddition") m_op = "+";
         else if (operation=="OdGrandeurSoustraction") m_op = "-";
              else if (operation=="OdGrandeurMultiplication") m_op = "x";
-                else if (operation=="OdGrandeurDivision") m_op = ":";
+                else if (operation=="OdGrandeurDivision") m_op = QString::fromUtf8("÷");
     m_position.setX(pos.x());
     m_position.setY(pos.y());
 
     g_operande = rand()%(intMaxG);
-    if(m_op == ":"){
+    if(m_op == QString::fromUtf8("÷")){
         ExerciceOperation* ex = (ExerciceOperation*) parent;
         int alea = rand()%3;
         d_operande = ex->getMultipleCible().at(alea);
@@ -183,11 +183,11 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
 
     /* Calcul de la valeur approchée à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*") */
 
-    if(m_op == ":"){
+    if(m_op == QString::fromUtf8("÷")){
         int gauche = arrondis(g_operande,false);
         int droite = arrondis(d_operande,false);
         m_approximation <<gauche/d_operande<<gauche<<droite;
-        if(m_localDebug) qDebug()<<gauche<<" : "<<droite<<" = "<<m_approximation;
+        if(m_localDebug) qDebug()<<gauche<<" ÷ "<<droite<<" = "<<m_approximation;
     }
 
     else if (m_op=="x"){

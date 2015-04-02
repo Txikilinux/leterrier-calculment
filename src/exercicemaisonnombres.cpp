@@ -133,7 +133,7 @@ void ExerciceMaisonNombres::trouveMaisonSurvolee(QString bulleAide)
         PixmapMaison* itemMaison = static_cast<PixmapMaison*>(item);
         if (itemMaison->toolTip() == bulleAide)
         {
-            QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(itemMaison->property("Valeur").toInt())+"b");
+            QPixmap dessinBouton (":/calculment/elements/maison"+QString::number(itemMaison->property("Valeur").toInt())+"Hover");
             QPixmap dessinBouton2 = dessinBouton.scaled(dessinBouton.width()*ratio, dessinBouton.height()*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             itemMaison->pixmapMaisonSetPixmap(dessinBouton2);
             m_valeurSurvolee = itemMaison->property("Valeur").toInt();

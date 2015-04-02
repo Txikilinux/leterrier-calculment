@@ -159,14 +159,14 @@ void AbuleduLanceurV1::fillCbNiveau(QString)
 
 void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
 {
+    /* Attention : vérifier si les espaces avant et après ajoutés au moment de l'enfournage des signes d'opération ne pose pas problème  */
     Q_UNUSED(jsaispasquoi)
-    qDebug()<<"AbuleduLanceurV1::fillCbNombre(1)"<<m_nomExercice ;
+    ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__<<m_nomExercice ;
     ui->cbNombre->hide();
     ui->lblNombre->hide();
     ui->cbNombre->clear();
     bool trouve = false;
     QSettings configExo(m_nomFichierConfExercices, QSettings::IniFormat);
-     configExo.setIniCodec("UTF-8");
     configExo.beginGroup("Exercices");
     QStringListIterator iter(m_listeExercices);
     while (iter.hasNext() && trouve==false){
@@ -176,7 +176,10 @@ void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
         if (configExo.value("nom").toString() == m_nomExercice) {
             trouve=true;
             QString val = configExo.value("liste").toString();
-            QStringList listeVal = val.split(";");
+            QStringList listeVal;
+            foreach(QString elt,val.split(";")){
+                listeVal << " "+elt+" ";
+            }
             if (val.isEmpty())
             {
                 ui->cbNombre->hide();
@@ -231,14 +234,17 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
         i->slotInterfaceLaunchExercise(val,"Maisons",niveau);
     }
     else if(m_nomExercice == "OdGrandeur"){
-        if(ui->cbNombre->currentText() == "+"){
+        if(ui->cbNombre->currentText().simplified() == "+"){
             nom = "OdGrandeurAddition";
         }
-        else if(ui->cbNombre->currentText() == "-"){
+        else if(ui->cbNombre->currentText().simplified() == "-"){
             nom = "OdGrandeurSoustraction";
         }
-        else if(ui->cbNombre->currentText() == "x"){
+        else if(ui->cbNombre->currentText().simplified() == "x"){
             nom = "OdGrandeurMultiplication";
+        }
+        else if(ui->cbNombre->currentText().simplified() == QString::fromUtf8("÷")){
+            nom = "OdGrandeurDivision";
         }
         else{
             qDebug()<<"Incohérence dans le lanceur";
