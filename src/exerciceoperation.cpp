@@ -411,7 +411,7 @@ void ExerciceOperation::slotInitQuestionEntered()
     if (m_operationName == "addition"){
         m_depart = new QPoint(0,188*ratio);
     }
-    if (m_operationName == "soustraction"){
+    else if (m_operationName == "soustraction"){
         m_depart = new QPoint(m_AireDeJeu->width()/2-80*ratio,330*ratio);
     }
     else if(m_operationName.left(6)=="tableM"){

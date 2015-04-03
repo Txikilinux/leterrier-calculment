@@ -597,7 +597,7 @@ void AbstractExercise::setAireDeJeuBackground()
         /* Pour les tables d'addition on utilise le même fond que pour les multiplications */
         backgroundName = "multiplication";
     }
-    if(m_operationName == "soustraction"){
+    else if(m_operationName == "soustraction"){
         /* Pour la soustraction on utilise le même fond que pour les tables de multiplication */
         backgroundName = "tableM";
     }
