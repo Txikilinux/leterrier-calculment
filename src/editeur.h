@@ -26,6 +26,7 @@
 
 #include <QWidget>
 #include <QSettings>
+#include "abuleduboxfilemanagerv1.h"
 
 namespace Ui {
     class Editeur;
@@ -38,7 +39,9 @@ public:
     explicit Editeur(QWidget *parent = 0);
     virtual ~Editeur();
     int getNiveauEnCours();
-    static void initialiser();
+    void initialiser();
+    void abeEditeurSetMainWindow(QWidget *mw);
+    QSharedPointer<AbulEduFileV1> abeEditeurGetAbulEduFile();
 
 protected:
     virtual void changeEvent(QEvent *e);
@@ -47,21 +50,27 @@ protected:
 
 private:
     Ui::Editeur *m_ui;
-    bool m_localDebug;
     int m_niveauEnCours;
     QString *m_operationEnCours;
     QString *m_nomOperationEnCours;
-    QSettings* m_settings;
+    QString m_settingsTempPath;
     int m_minG;
     int m_maxG;
     int m_minD;
     int m_maxD;
-    static void initialiserOperation(QString);
-    static void initialiserApproche(QString operation);
-    static void initialiserApprocheM(QString operation);
-    static void initialiserApprocheD(QString operation);
-    static void initialiserComplement(QString operation);
-    static void initialiserDivision();
+
+    /** Variable membre de type AbulEduFileV1* qui ... */
+    QSharedPointer<AbulEduFileV1> m_abuleduFile;
+
+    /** Variable membre de type AbulEduFileV1* qui représente le module ouvert dans l'application */
+    AbulEduBoxFileManagerV1* m_boxFileManager;
+
+    void initialiserOperation(QString);
+    void initialiserApproche(QString operation);
+    void initialiserApprocheM(QString operation);
+    void initialiserApprocheD(QString operation);
+    void initialiserComplement(QString operation);
+    void initialiserDivision();
     QString associeNomIntitule(QString intitule);
     ///
     /// \brief Fonction qui installe les eventFilter sur les objects à surveiller
@@ -78,6 +87,11 @@ private slots:
     void ajusterValeurs(int);
 
     ///
+    /// \brief Ecrase le fichier de conf qui se trouve dans l'abeBoxPerso par celui qui se trouve dans le dossier temporaire
+    ///
+    void editeurSyncroAbeBoxPerso();
+
+    ///
     /// \brief Enregistre les modifications dans l'éditeur et affiche la page d'accueil
     ///
     void on_btnEditeurOK_clicked();
@@ -86,6 +100,15 @@ private slots:
     /// \brief Annule les modifications dans l'éditeur et affiche la page d'accueil
     ///
     void on_btnEditeurAnnuler_clicked();
+
+    /**  */
+    ///
+    /// \brief Slot qui gère le retour d'information de l'upload d'un fichier
+    /// \param location parmi abePC, abeBoxPerso, ...
+    /// \param name le nom sous lequel le fichier a été enregistré
+    /// \param success true si la sauvegarde a réussi
+    ///
+    void slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location,QString name,bool success);
 
 signals:
     void signalEditeurExited();

@@ -25,7 +25,6 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-#include <QMainWindow>
 #include "editeur.h"
 #include "abuledupageaccueilv1.h"
 #include "leterrierstringtransition.h"
@@ -66,6 +65,9 @@ protected:
 
     /** Page d'accueil dont le fichier de paramètres, settings.conf, doit être créé grâce au logiciel AbulEduEditeurPageAccueil */
     AbulEduPageAccueilV1    *m_abuleduPageAccueil;
+
+
+
 
     /** La stateMachine gère le passage d'une page à l'autre dans le stackedWidget
      *  elle gère aussi la visibilité des éléments d'interface
@@ -111,8 +113,8 @@ private:
     QState          *m_editorState;
     /** Etat permettant de quitter proprement la StateMAchine */
     QFinalState     *m_finalState;
-    /** Etat dans lequel on choisit les fichiers .abe */
-    QState          *m_boxFileManagerState;
+//    /** Etat dans lequel on choisit les fichiers .abe */
+//    QState          *m_boxFileManagerState;
     /** PseudoEtat pour HistoryState */
     QHistoryState   *m_historyState;
 
@@ -198,6 +200,12 @@ private slots:
     void on_actionAfficher_le_lanceur_d_exercice_triggered();
 
     void on_actionPav_num_rique_lin_aire_toggled(bool checked);
+
+    /** Met comme fichier de paramètres celui qui se trouve sur l'abeBoxPero */
+    void slotSetAbeBoxPersoSettings();
+
+    /** Met comme fichier de paramètres celui qui se trouve dans le dossier /leterrier/calcul-mental/conf.perso de l'ordinateur */
+    void slotSetPCSettings();
 
 signals:
     void signalAbeLTMWSMexerciseClosed();

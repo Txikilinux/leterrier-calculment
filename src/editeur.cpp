@@ -25,9 +25,9 @@
 #include "editeur.h"
 #include "ui_editeur.h"
 #include "version.h"
+#include "interface.h"
 #include <QComboBox>
 #include <QCloseEvent>
-#include <QDebug>
 #include <QFile>
 #include <QDir>
 #include <QMessageBox>
@@ -35,44 +35,13 @@
 
 Editeur::Editeur(QWidget *parent) :
     QWidget(parent),
-    m_ui(new Ui::Editeur),
-    m_localDebug(false)
+    m_ui(new Ui::Editeur)
 {
+    m_abuleduFile.clear();
     this->setWindowModality(Qt::ApplicationModal);
     m_ui->setupUi(this);
-    if(m_localDebug){
-        qDebug()  << __PRETTY_FUNCTION__;
-    }
-    m_settings = new QSettings(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-    m_settings->setIniCodec("UTF-8");
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__;
 
-    QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
-    if (!fichierConf->exists()){
-        initialiser();
-    }
-    else {
-        QSettings conf(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-        if(conf.value("version").toFloat() > 1){
-            if(m_localDebug){
-                qDebug()  << trUtf8("Fichier paramètres déjà présent");
-            }
-        }
-        else {
-            /* Comme j'ai changé le nom des niveaux dans la version-2.0, si le fichier de paramètres est plus ancien je le supprime et le recrée */
-            if(m_localDebug){
-                qDebug()  << trUtf8("Fichier paramètres déjà présent mais à écraser");
-            }
-            fichierConf->remove();
-            initialiser();
-        }
-    }
-    QStringList intitulesExercices;
-    foreach (QString section,m_settings->childGroups()) {
-        m_settings->beginGroup(section);
-        intitulesExercices.append(m_settings->value("NomPourAffichage").toString());
-        m_settings->endGroup();
-    }
-    m_ui->cbOperation->addItems(intitulesExercices);
 
     m_ui->cbNiveau->addItem("1", 1);
     m_ui->cbNiveau->addItem("2", 2);
@@ -133,7 +102,7 @@ int Editeur::getNiveauEnCours()
 
 void Editeur::initialiserOperation(QString operation)
 {
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     config.beginGroup(operation);
     config.beginGroup("1");
@@ -176,7 +145,7 @@ void Editeur::initialiserOperation(QString operation)
 
 void Editeur::initialiserApproche(QString operation)
 {
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     config.beginGroup(operation);
     config.beginGroup("1");
@@ -209,7 +178,7 @@ void Editeur::initialiserApproche(QString operation)
 
 void Editeur::initialiserApprocheM(QString operation)
 {
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     config.beginGroup(operation);
     config.beginGroup("1");
@@ -239,7 +208,7 @@ void Editeur::initialiserApprocheM(QString operation)
 
 void Editeur::initialiserApprocheD(QString operation)
 {
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     config.beginGroup(operation);
     config.beginGroup("1");
@@ -273,7 +242,7 @@ void Editeur::initialiserApprocheD(QString operation)
 
 void Editeur::initialiserComplement(QString operation)
 {
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     config.beginGroup(operation);
     config.beginGroup("1");
@@ -295,7 +264,7 @@ void Editeur::initialiserComplement(QString operation)
         {
             if (operation.length() == 13) {
                 config.setValue("NomPourAffichage", trUtf8("Compléments à 10"));
-                qDebug()<<"-------------- ecriture : Compléments à 10";
+                ABULEDU_LOG_DEBUG()<<"-------------- ecriture : Compléments à 10";
             }
             else if (operation.length() == 14)
                 config.setValue("NomPourAffichage", trUtf8("Compléments à 100"));
@@ -326,7 +295,7 @@ void Editeur::initialiserComplement(QString operation)
 
 void Editeur::initialiserDivision()
 {
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     config.beginGroup("division");
     config.beginGroup("1");
@@ -364,11 +333,7 @@ void Editeur::initialiserDivision()
 
 void Editeur::initialiser()
 {
-    //On aurait pu initialiser dans le répertoire conf de l'application, mais l'utilisateur n'aurait pas eu les droits
-    //QSettings config("./conf/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
-
-    //On initialise donc directement dans le /home de l'utilisateur
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     config.setValue("NombreBallons", 10);
     config.setValue("version",VER_UNITVERSION_STR);
@@ -390,14 +355,70 @@ void Editeur::initialiser()
     for (int i=2;i<=9;i++) initialiserComplement("tableM"+QString::number(i));
     for (int i=2;i<=9;i++) initialiserComplement("tableA"+QString::number(i));
     initialiserComplement("maisonDesNombres");
+
+}
+
+void Editeur::abeEditeurSetMainWindow(QWidget *mw)
+{
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__;
+    interface* parent = (interface*) mw;
+
+    /* Pour l'instant on n'utilise pas de modules dans Calcul mental ... */
+//    //Si on a déjà un fichier abe ouvert c'est lui qu'on édite
+//    if (!parent->abeGetMyAbulEduFile()->abeFileGetFileName().baseName().isEmpty()) {
+//        m_abuleduFile = parent->abeGetMyAbulEduFile();
+//    }
+//    else {
+        m_abuleduFile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
+//        m_abuleduFile->setObjectName("depuis editeur");
+//        parent->abeSetMyAbulEduFile(m_abuleduFile);
+//    }
+
+        m_boxFileManager = new AbulEduBoxFileManagerV1(this);
+        m_boxFileManager->setVisible(false);
+        m_boxFileManager->abeBoxFileManagerSetSavingLocation(AbulEduBoxFileManagerV1::abeBoxPerso);
+    //    connect(ui->abeBoxFileManager,SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)),this,SLOT(slotOpenMaBoitamots(QSharedPointer<AbulEduFileV1>)),Qt::UniqueConnection);
+        m_boxFileManager->ouvertureFichier("calculmentSettings.abe");
+        m_boxFileManager->abeSetFile(m_abuleduFile);
+    m_settingsTempPath = m_abuleduFile->abeFileGetDirectoryTemp().absolutePath()+"/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf";
+
+    QFile* fichierConf = new QFile(m_settingsTempPath);
+    if (!fichierConf->exists()){
+        ABULEDU_LOG_DEBUG()<<"C'est là que je le crée ...";
+        initialiser();
+    }
+    else {
+        QSettings conf(m_settingsTempPath, QSettings::IniFormat);
+        if(conf.value("version").toFloat() > 1){
+            ABULEDU_LOG_DEBUG()  << trUtf8("Fichier paramètres déjà présent");
+        }
+        else {
+            /* Comme j'ai changé le nom des niveaux dans la version-2.0, si le fichier de paramètres est plus ancien je le supprime et le recrée */
+                ABULEDU_LOG_DEBUG()  << trUtf8("Fichier paramètres déjà présent mais à écraser");
+            fichierConf->remove();
+            initialiser();
+        }
+    }
+    QStringList intitulesExercices;
+    QSettings* config = new QSettings(m_settingsTempPath, QSettings::IniFormat,this);
+    foreach (QString section,config->childGroups()) {
+        config->beginGroup(section);
+        intitulesExercices.append(config->value("NomPourAffichage").toString());
+        config->endGroup();
+    }
+    m_ui->cbOperation->addItems(intitulesExercices);
+}
+
+QSharedPointer<AbulEduFileV1> Editeur::abeEditeurGetAbulEduFile()
+{
+    return m_abuleduFile;
 }
 
 void Editeur::sauverNiveau(QString niveau)
 {
-    if(m_localDebug){
-        qDebug()  << __PRETTY_FUNCTION__<<niveau<<" dans "<<*m_operationEnCours;
-    }
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__<<niveau<<" dans "<<*m_operationEnCours;
+
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
     config.beginGroup(*m_operationEnCours);
@@ -427,15 +448,14 @@ void Editeur::sauverNiveau(QString niveau)
 
 void Editeur::chargerNiveau(QString niveau)
 {
-    if(m_localDebug){
-        qDebug()  << __PRETTY_FUNCTION__<<niveau<<" dans "<<*m_operationEnCours;
-    }
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__<<niveau<<" dans "<<*m_operationEnCours;
+
     m_ui->spbDMin->setMaximum(1000);
     m_ui->spbGMin->setMaximum(1000);
     m_ui->spbDMax->setMinimum(0);
     m_ui->spbGMax->setMinimum(0);
 
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     m_ui->spbNombreBallons->setValue(config.value("NombreBallons",10).toInt());
     config.beginGroup(*m_operationEnCours);
@@ -480,10 +500,9 @@ void Editeur::changerNiveau(QString chaine)
 
 void Editeur::sauverOperation(QString operation)
 {
-    if(m_localDebug){
-        qDebug()  << __PRETTY_FUNCTION__<<operation<<" dans "<<m_niveauEnCours;
-    }
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__<<operation<<" dans "<<m_niveauEnCours;
+
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     config.setValue("NombreBallons", m_ui->spbNombreBallons->value());
     config.beginGroup(operation);
@@ -515,9 +534,8 @@ void Editeur::sauverOperation(QString operation)
 
 void Editeur::chargerOperation(QString operation)
 {
-    if(m_localDebug){
-        qDebug()  << __PRETTY_FUNCTION__<<operation<<" dans "<<m_niveauEnCours;
-    }
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__<<operation<<" dans "<<m_niveauEnCours;
+
     if (operation.left(10)=="OdGrandeur") {
         m_ui->spbGMin->setEnabled(false);
         m_ui->spbDMin->setEnabled(false);
@@ -559,7 +577,7 @@ void Editeur::chargerOperation(QString operation)
         m_ui->cbMaxD->setEnabled(false);
     }
 
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     m_ui->spbNombreBallons->setValue(config.value("NombreBallons",10).toInt());
     config.beginGroup(operation);
@@ -599,9 +617,8 @@ void Editeur::chargerOperation(QString operation)
 
 void Editeur::changerOperation(QString operation)
 {
-    if(m_localDebug){
-        qDebug()  << __PRETTY_FUNCTION__<<operation<<" dans "<<m_niveauEnCours;
-    }
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__<<operation<<" dans "<<m_niveauEnCours;
+
     this->sauverOperation(*m_operationEnCours);
     this->chargerOperation(associeNomIntitule(operation));
     *m_operationEnCours = associeNomIntitule(operation);
@@ -678,23 +695,57 @@ void Editeur::changeEvent(QEvent *e)
 void Editeur::ajusterValeurs(int valeurNouvelle)
 {
     Q_UNUSED(valeurNouvelle)
-    if(m_localDebug){
-        qDebug()  << __PRETTY_FUNCTION__;
-    }
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__;
+
     m_ui->spbDMin->setMaximum(m_ui->spbDMax->value());
     m_ui->spbGMin->setMaximum(m_ui->spbGMax->value());
     m_ui->spbDMax->setMinimum(m_ui->spbDMin->value());
     m_ui->spbGMax->setMinimum(m_ui->spbGMin->value());
 }
 
+void Editeur::editeurSyncroAbeBoxPerso()
+{
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__;
+
+    QStringList listeFichiersMots;
+    listeFichiersMots.append(m_settingsTempPath);
+    ABULEDU_LOG_DEBUG()<<listeFichiersMots;
+    ABULEDU_LOG_DEBUG()<<m_abuleduFile->abeFileExportPrepare(listeFichiersMots,m_settingsTempPath,QString("abe"));
+    ABULEDU_LOG_DEBUG()<<m_abuleduFile->abeFileSave("calculmentSettings.abe",
+                                                          listeFichiersMots,
+                                                          m_abuleduFile->abeFileGetDirectoryTemp().absolutePath(),
+                                                          QString("abe"));
+    if(abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() > 0)
+    {
+        ABULEDU_LOG_DEBUG()<<m_abuleduFile->abeFileGetFileName().filePath();
+        ABULEDU_LOG_DEBUG()<<m_abuleduFile->abeFileGetFileName().fileName();
+        ABULEDU_LOG_DEBUG()<<m_boxFileManager->abeBoxFileManagerGetSavingLocation();
+        ABULEDU_LOG_DEBUG()<<abeApp->getAbeIdentite()->abeGetLogin();
+        AbulEduLoadingAnimationV1::getInstance()->start(this,trUtf8("Sauvegarde en cours dans abeBoxPerso"));
+//        m_boxFileManager->slotUploadFile(m_abuleduFile->abeFileGetFileName().filePath(),"","calculmentSettings.abe");
+        connect(m_boxFileManager, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
+                this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),Qt::UniqueConnection);
+    }
+    /* Faut il mettre à jour sur le PC ou prévenir que ça n'a pas marché ? */
+//    else
+//    {
+//        ABULEDU_LOG_DEBUG()<<m_abuleduFile->abeFileSave(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/calculmentSettings.abe",
+//                                                        listeFichiersMots,
+//                                                        m_abuleduFile->abeFileGetDirectoryTemp().absolutePath(),
+//                                                        QString("abe"));
+//    }
+        else
+        {
+            ABULEDU_LOG_DEBUG()<<"Impossible de synchroniser : pas d'utilisateur connecté";
+        }
+}
+
 QString Editeur::associeNomIntitule(QString intitule)
 {
-    if(m_localDebug){
-        qDebug()  << __PRETTY_FUNCTION__;
-    }
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__;
     QString nomExerciceCorrespondantIntitule;
     //QString locale = QLocale::system().name().section('_', 0, 0);
-    QSettings configExo(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings configExo(m_settingsTempPath, QSettings::IniFormat);
     configExo.setIniCodec("UTF-8");
     int i=1;
     bool trouve = false;
@@ -702,16 +753,16 @@ QString Editeur::associeNomIntitule(QString intitule)
     while (iterateur.hasNext() && !trouve) {
         QString exercice = iterateur.next();
         configExo.beginGroup(exercice);
-        if(m_localDebug){
-            qDebug()<<"exercice"<<exercice;
-            qDebug()<<"intitule : "<<QString::fromUtf8((configExo.value("NomPourAffichage").toString()).toStdString().c_str());
-        }
+
+        ABULEDU_LOG_DEBUG()<<"exercice"<<exercice;
+        ABULEDU_LOG_DEBUG()<<"intitule : "<<QString::fromUtf8((configExo.value("NomPourAffichage").toString()).toStdString().c_str());
+
         if (QString::fromUtf8((configExo.value("NomPourAffichage").toString()).toStdString().c_str())==intitule) {
-            if(m_localDebug){
-                qDebug()<<"Nom : "<<exercice;
-                qDebug()<<"Intitule"<<QString::fromUtf8((configExo.value("NomPourAffichage").toString()).toStdString().c_str());
-                qDebug()<<"............... variable trouve = true..................";
-            }
+
+            ABULEDU_LOG_DEBUG()<<"Nom : "<<exercice;
+            ABULEDU_LOG_DEBUG()<<"Intitule"<<QString::fromUtf8((configExo.value("NomPourAffichage").toString()).toStdString().c_str());
+            ABULEDU_LOG_DEBUG()<<"............... variable trouve = true..................";
+
             trouve = true;
             nomExerciceCorrespondantIntitule = exercice;
             //return;
@@ -742,13 +793,20 @@ void Editeur::installEventFilters()
 
 void Editeur::on_btnEditeurOK_clicked()
 {
+
     sauverNiveau(QString::number(m_niveauEnCours));
     sauverOperation(*m_operationEnCours);
+    editeurSyncroAbeBoxPerso();
     emit signalEditeurExited();
 }
 
 void Editeur::on_btnEditeurAnnuler_clicked()
 {
-    QFile::rename(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/copieModule.conf",QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
+    QFile::rename(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/copieModule.conf",m_settingsTempPath);
     emit signalEditeurExited();
+}
+
+void Editeur::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString name, bool success)
+{
+    ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__<<location<<name<<success;
 }

@@ -213,12 +213,14 @@ void ExerciceOperation::chargerParametres()
     if(m_localDebug){
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__<<":: niveau "<<m_niveau;
     }
-    if(!QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf").exists()){
-        Editeur::initialiser();
-        if(m_localDebug){
-            ABULEDU_LOG_DEBUG()  << "Le fichier de conf n'existait pas : je le crée à la volée ";
-        }
-    }
+
+    /* J'abandonne cette idée pour l'instant, le fait de déclarer la méthode initialiser static m'empêche d'utiliser un attribut dedans */
+//    if(!QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf").exists()){
+//        Editeur::initialiser();
+//        if(m_localDebug){
+//            ABULEDU_LOG_DEBUG()  << "Le fichier de conf n'existait pas : je le crée à la volée ";
+//        }
+//    }
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     setAbeNbTotalQuestions(config.value("NombreBallons",10).toInt());
     config.beginGroup(m_operationName);
