@@ -311,33 +311,43 @@ void baudruche::dessineMoi(QString image)
         longueurAffichage=mesureur.width(m_affichage);
         largeurIllustration=imageIllustration2.width();
         decalageCentrage = (largeurIllustration-longueurAffichage)/2;
+        /* Addition */
         if (imageBase == "auto"){
             m_texteAffiche->setPos(decalageCentrage+90*ratio,60*ratio);
         }
+        /* Multiplication */
         else if(imageBase == "ovni"){
             m_texteAffiche->setPos(decalageCentrage,15*ratio);
         }
+        /* Division */
         else if(imageBase == "voiture"){
             m_texteAffiche->setPos(decalageCentrage - 10*ratio,10*ratio);
         }
+        /* Compléments additifs */
         else if(imageBase == "fantome"){
             m_texteAffiche->setPos(decalageCentrage,30*ratio);
         }
+        /* Tables de multiplication */
         else if(imageBase == "cabine"){
             m_texteAffiche->setPos(decalageCentrage,125*ratio);
         }
+        /* Multiples (Compléments multiplicatifs) */
         else if(imageBase == "ballon"){
             m_texteAffiche->setPos(decalageCentrage,15*ratio);
         }
+        /* Tables d'addition */
         else if(imageBase == "fusee"){
             m_texteAffiche->setPos(decalageCentrage,10*ratio);
         }
+        /* Ordre de grandeur */
         else if(imageBase == "pingouin"){
             m_texteAffiche->setPos(decalageCentrage,10*ratio);
         }
+        /* Maison des nombres */
         else if(imageBase == "boule"){
             m_texteAffiche->setPos(decalageCentrage,140*ratio);
         }
+        /* Soustraction */
         else if(imageBase == "chenille"){
             m_texteAffiche->setPos(decalageCentrage,185*ratio);
         }
@@ -531,23 +541,32 @@ void baudruche::detruireTps()
         }
 
         emit tempsFini(tr("TROP TARD..."));
-        if (m_nomImage == "auto" || m_nomImage == "fusee"){
-            changeImage(":/calculment/elements/boum");
+        if (m_nomImage == "auto"){
+            changeImage(":/calculment/elements/boum",QPixmap(":/calculment/elements/boum").height()*1.2,m_texteAffiche->pos().x()*0.5,m_texteAffiche->pos().y());
+        }
+        else if (m_nomImage == "fusee"){
+            changeImage(":/calculment/elements/boum",QPixmap(":/calculment/elements/boum").height()*1.2);
         }
         else if (m_nomImage == "ovni"){
-            changeImage(":/calculment/elements/zap");
+            changeImage(":/calculment/elements/zap",QPixmap(":/calculment/elements/zap").height()*1.1);
+        }
+        else if (m_nomImage == "cabine"){
+            changeImage(":/calculment/elements/paf",QPixmap(":/calculment/elements/paf").height()*1.1);
+        }
+        else if (m_nomImage == "boule"){
+            changeImage(":/calculment/elements/pop");
         }
         else if (m_nomImage == "fantome"){
-            changeImage(":/calculment/elements/pop");
+            changeImage(":/calculment/elements/pop",-1,-1,m_texteAffiche->pos().y()*1.05);
         }
         else if (m_nomImage == "pingouin"){
             changeImage(":/calculment/elements/plouf");
         }
         else if (m_nomImage == "chenille"){
-            changeImage(":/calculment/elements/paf",QPixmap(":/calculment/elements/paf").height()*0.9,m_texteAffiche->pos().y());
+            changeImage(":/calculment/elements/paf",QPixmap(":/calculment/elements/paf").height()*1.2,m_texteAffiche->pos().x()*0.8,m_texteAffiche->pos().y()*0.95);
         }
         else{
-            changeImage(":/calculment/elements/paf");
+            changeImage(":/calculment/elements/paf",QPixmap(":/calculment/elements/paf").height()*1.2);
         }
         removeFromGroup(m_texteAffiche);
         delete m_texteAffiche;
@@ -568,26 +587,34 @@ void baudruche::emetApprox()
     emit valueChanged(m_approximation.first());
 }
 
-void baudruche::changeImage(QString nomNouvelleImage, int newHeight, int newY)
+void baudruche::changeImage(QString nomNouvelleImage, int newHeight, int newX, int newY)
 {
     qDebug()<<nomNouvelleImage<<newHeight<<newY;
     QPixmap nouvelleImage(nomNouvelleImage);
     QPixmap nouvelleImage2;
+    int abscisse;
+    int ordonnee;
     if(newHeight == -1){
         qDebug()<<"cas -1 pour la hauteur";
         nouvelleImage2 = nouvelleImage.scaledToHeight(m_image.pixmap().height(), Qt::SmoothTransformation);
     }
     else{
-        nouvelleImage2 = nouvelleImage.scaledToHeight(newHeight, Qt::SmoothTransformation);
+        nouvelleImage2 = nouvelleImage.scaledToHeight(newHeight*abeApp->getAbeApplicationDecorRatio(), Qt::SmoothTransformation);
     }
-    m_position.setX(m_position.x()-(nouvelleImage2.width()-m_image.pixmap().width())/2);
+    if(newX == -1){
+        abscisse = m_position.x()-(nouvelleImage2.width()-m_image.pixmap().width())/2;
+    }
+    else{
+        abscisse = newX;
+    }
     if(newY == -1){
         qDebug()<<"cas -1 pour la position";
-        m_position.setY(m_position.y()-((nouvelleImage2.height()-m_image.pixmap().height())/2));
+        ordonnee = m_position.y()-((nouvelleImage2.height()-m_image.pixmap().height())/2);
     }
     else {
-        m_position.setY(newY);
+        ordonnee = newY;
     }
+    m_position = QPoint(abscisse,ordonnee);
 //    qDebug()<<"Taille image avant changement : "<<m_image.pixmap().width()<<" X "<<m_image.pixmap().height();
 //    qDebug()<<"Position image avant changement : "<<m_image.x()<<" X "<<m_image.y();
     m_image.setPixmap(nouvelleImage2);

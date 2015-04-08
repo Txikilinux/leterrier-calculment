@@ -52,7 +52,7 @@ public:
     void emetRes();
     void emetApprox();
     void emetMort();
-    void changeImage(QString, int newHeight = -1, int newY = -1);
+    void changeImage(QString, int newHeight = -1, int newX = -1, int newY = -1);
     QGraphicsTextItem* m_texteAffiche;
     QGraphicsPixmapItem m_image;
     QPoint m_position;
