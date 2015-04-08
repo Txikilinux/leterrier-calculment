@@ -273,12 +273,7 @@ void ExerciceMaisonNombres::slotInitQuestionEntered()
     connect(m_baudruche, SIGNAL(destroyed(bool)), m_leResultat, SLOT(setDisabled(bool)));
     connect(m_baudruche->m_timer, SIGNAL(finished()),m_baudruche, SLOT(detruireTps()));
     connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(ajouteErreur(QString)));
-    ///connect(m_baudruche, SIGNAL(tempsFini(QString)), m_ui->lblMsg, SLOT(setText(QString)));
-    ///connect(m_baudruche, SIGNAL(tempsFini(QPixmap)), m_ui->lblImgMsg, SLOT(setPixmap(QPixmap)));
-    connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(afficheResultat(QString)));
-    connect(m_baudruche, SIGNAL(tempsFini(QString)), this, SLOT(pousseLogs(QString)));
     connect(m_baudruche, SIGNAL(lacheIci(QPoint)), this, SLOT(affichePosBaudruche(QPoint)));
-
     connect(m_baudruche, SIGNAL(baudrucheSurvole(QString)), this, SLOT(trouveMaisonSurvolee(QString)));
     connect(m_baudruche, SIGNAL(baudrucheSurvoleRien()), this, SLOT(zeroMaisonSurvolee()));
 

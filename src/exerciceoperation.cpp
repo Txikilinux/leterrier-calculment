@@ -679,7 +679,7 @@ void ExerciceOperation::ajouteErreur(QString msg)
         ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
 //        ABULEDU_LOG_DEBUG() << sequenceMachine->configuration().toList();
     }
-    if(m_leResultat->text().simplified().isEmpty()){
+    if(m_leResultat->text().simplified().isEmpty() || msg == "temps"){
         sequenceMachine->postEvent(new StringEvent("QuestionVerifieEmpty"));
     }
     m_listeEchecs.append(QString::number(m_baudruche->getMGOperande())+";"+m_baudruche->getMOperation()+";"+QString::number(m_baudruche->getMDOperande())+";"+QString::number(m_resultatEnCours)+";"+m_baudruche->m_nomImage);

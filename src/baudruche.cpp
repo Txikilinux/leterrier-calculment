@@ -528,7 +528,6 @@ void baudruche::detruire()
 
 void baudruche::detruireTps()
 {
-    float factY= static_cast<float> (QApplication::desktop()->screenGeometry().height())/1050;
     if (this!=NULL)
     {
         if (m_nomOperation.left(10) == "OdGrandeur") {
@@ -540,7 +539,7 @@ void baudruche::detruireTps()
             //qDebug()<<"A la destruction le résultat vaut "<<m_resultat;
         }
 
-        emit tempsFini(tr("TROP TARD..."));
+        emit tempsFini("temps");
         if (m_nomImage == "auto"){
             changeImage(":/calculment/elements/boum",QPixmap(":/calculment/elements/boum").height()*1.2,m_texteAffiche->pos().x()*0.5,m_texteAffiche->pos().y());
         }
