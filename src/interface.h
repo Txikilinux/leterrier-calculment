@@ -65,9 +65,6 @@ protected:
     /** Page d'accueil dont le fichier de paramètres, settings.conf, doit être créé grâce au logiciel AbulEduEditeurPageAccueil */
     AbulEduPageAccueilV1    *m_abuleduPageAccueil;
 
-
-
-
     /** La stateMachine gère le passage d'une page à l'autre dans le stackedWidget
      *  elle gère aussi la visibilité des éléments d'interface
      */
@@ -117,7 +114,6 @@ private:
     /** PseudoEtat pour HistoryState */
     QHistoryState   *m_historyState;
 
-
     /** Crée la stateMachine */
     void createStateMachine();
 
@@ -136,7 +132,6 @@ public slots:
     /** Cache les zones et bulles de lancement des exercices
       * Appelée par slotInterfaceDemo() après 4 secondes d'affichage */
     virtual void slotInterfaceEndDemo();
-
 
     void mousePressEvent(QMouseEvent *event);
 

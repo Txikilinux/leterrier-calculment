@@ -77,7 +77,7 @@ void AbuleduLanceurV1::abeLanceurSetIdentite(AbulEduIdentitesV1 *identite)
     }
 }
 
-void AbuleduLanceurV1::abeLanceurSetInterface(QObject *interface)
+void AbuleduLanceurV1::abeLanceurSetInterface(QMainWindow *interface)
 {
     m_interface = interface;
 }
