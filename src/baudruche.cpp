@@ -317,7 +317,7 @@ void baudruche::dessineMoi(QString image)
         }
         /* Multiplication */
         else if(imageBase == "ovni"){
-            m_texteAffiche->setPos(decalageCentrage,15*ratio);
+            m_texteAffiche->setPos(decalageCentrage,10*ratio);
         }
         /* Division */
         else if(imageBase == "voiture"){
