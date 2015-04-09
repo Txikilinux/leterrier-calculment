@@ -30,7 +30,6 @@
 #include "leterrierstringtransition.h"
 #include "activityfilter.h"
 #include "exercicemaisonnombres.h"
-//#include "ui_exercice.h"
 #include "editeur.h"
 #include "boutonspolygone.h"
 #include "abuledulanceurv1.h"

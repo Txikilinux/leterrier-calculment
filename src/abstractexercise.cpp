@@ -39,14 +39,10 @@ AbstractExercise::AbstractExercise(QWidget *parent):
     m_leResultat(0),
     m_niveau(-1)
 {
-    m_leResultat = new QLineEdit(QString(),getAbeExerciceTelecommandeV1());
+    m_leResultat = new AbulEduLineEditV0(getAbeExerciceTelecommandeV1());
     m_leResultat->setObjectName("leResultat");
     QRegExp expressionReguliere("[0-9][0-9]{0,"+QString::number(3)+"}");
     m_leResultat->setValidator(new QRegExpValidator(expressionReguliere, this));
-    /** @todo gratter un peu : la ligne ci-dessous n'est plus utile parce que l'eventFilter fait que le clic sur Entrée équivaut à BtnVerification
-     *  du coup si on la laisse la vérification déclenche aussitôt l'envoi d'un autre ballon
-     *  si on la laissait il faudrait réimplémenter l'eventFilter
-     *  par contre il faut trouver pourquoi il faut appuyer deux fois  */
 //    connect(m_leResultat, SIGNAL(returnPressed()),getAbeExerciceTelecommandeV1()->ui->btnVerifier, SLOT(click()),Qt::UniqueConnection);
     getAbeExerciceTelecommandeV1()->abeTelecommandeResize();
     /* Création de l'aire de jeu et de sa scène */

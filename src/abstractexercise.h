@@ -25,6 +25,7 @@
 
 #include "abuledunumericlinearpadv1.h"
 #include "abuleducommonstatesv1.h"
+#include "abuledulineeditv0.h"
 #include "abuledumessageboxv1.h"
 #include "baudruche.h"
 #include <QCheckBox>
@@ -132,7 +133,7 @@ protected:
     ///
     /// \brief QLineEdit ajouté à la télécommande pour écrire les réponses
     ///
-    QLineEdit* m_leResultat;
+    AbulEduLineEditV0* m_leResultat;
 
     ///
     /// \brief Opérations dont la réponse est erronée. Leur stockage permet de les reproposer
