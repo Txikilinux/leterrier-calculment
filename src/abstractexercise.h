@@ -171,8 +171,6 @@ protected:
     ///
     QString m_settingsDirectory;
 
-
-
     void setAireDeJeuBackground();
 
 protected slots:
