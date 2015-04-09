@@ -32,6 +32,7 @@ interfaceClass::interfaceClass(QWidget *parent)
 {
     m_localDebug = false;
     m_isEditorRunning = false;
+    setAttribute(Qt::WA_DeleteOnClose);
 
     //Langue
     //m_locale = QLocale::system().name().section('_', 0, 0);
@@ -290,6 +291,7 @@ void interfaceClass::slotInterfaceLaunchExercise(int number, QString name, int l
     else if (m_exerciceNames.key(name.simplified()) == "maisonDesNombres" && !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         ExerciceMaisonNombres* ex = new ExerciceMaisonNombres(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil,number,level);
+        ex->setAbeSettingsDirectory(m_editeur->abeEditeurGetAbulEduFile()->abeFileGetDirectoryTemp().absolutePath());
         connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
     }
     /** @todo Gérer les traductions */
@@ -297,10 +299,12 @@ void interfaceClass::slotInterfaceLaunchExercise(int number, QString name, int l
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         if(m_exerciceNames.values().contains(name.simplified())&& !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
             ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil,number,level);
+            ex->setAbeSettingsDirectory(m_editeur->abeEditeurGetAbulEduFile()->abeFileGetDirectoryTemp().absolutePath());
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else if(m_exerciceNames.keys().contains(name.simplified())&& !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
             ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil,number,level);
+            ex->setAbeSettingsDirectory(m_editeur->abeEditeurGetAbulEduFile()->abeFileGetDirectoryTemp().absolutePath());
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else {
@@ -314,15 +318,18 @@ void interfaceClass::slotInterfaceLaunchExercise(int number, QString name, int l
         m_leterrierStateMachine.postEvent(new LeterrierStringEvent("launchExercise"));
         if(m_exerciceNames.values().contains(name.simplified()) && !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
             ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),m_abuleduPageAccueil,0,level);
+            ex->setAbeSettingsDirectory(m_editeur->abeEditeurGetAbulEduFile()->abeFileGetDirectoryTemp().absolutePath());
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else if(m_exerciceNames.keys().contains(name.simplified())&& !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
             ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil,0,level);
+            ex->setAbeSettingsDirectory(m_editeur->abeEditeurGetAbulEduFile()->abeFileGetDirectoryTemp().absolutePath());
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         /* Gros cas particulier mais je n'ai pas trouvé pour l'instant de façon de faire élégante : c'est pour le cas de l'appel des ordres de grandeur par AbuleduLanceurV1 */
         else if(name.left(3) == "OdG" && !m_leterrierStateMachine.configuration().toList().contains(m_exerciseState)){
             ExerciceOperation* ex = new ExerciceOperation(name.simplified(),m_abuleduPageAccueil,0,level);
+            ex->setAbeSettingsDirectory(m_editeur->abeEditeurGetAbulEduFile()->abeFileGetDirectoryTemp().absolutePath());
             connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceBackFromExercise()),Qt::UniqueConnection);
         }
         else {

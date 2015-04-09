@@ -111,6 +111,16 @@ void AbstractExercise::setDimensionsWidgets(float ratio)
     m_numericPad->move((getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->width() - m_numericPad->width())/2,
                        getAbeExerciceAireDeTravailV1()->ui->gvPrincipale->height() - m_numericPad->height() -30*ratio);
 }
+QString AbstractExercise::getAbeSettingsDirectory() const
+{
+    return m_settingsDirectory;
+}
+
+void AbstractExercise::setAbeSettingsDirectory(const QString &settingsDirectory)
+{
+    m_settingsDirectory = settingsDirectory;
+}
+
 
 void AbstractExercise::slotSequenceEntered()
 {
@@ -292,11 +302,12 @@ void AbstractExercise::slotCancelMultipleChoice()
 
 void AbstractExercise::slotDecreaseLevel()
 {
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(getAbeSettingsDirectory()+"/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     m_niveau--;
     config.beginGroup(m_operationName);
     config.setValue("NiveauEnCours"+m_operationName,m_niveau);
     config.endGroup();
+    config.deleteLater();
 }
 
 void AbstractExercise::slotRealisationExerciceEntered()
@@ -446,7 +457,7 @@ void AbstractExercise::slotBilanSequenceEntered()
                                     ((getAbeExerciceAireDeTravailV1()->height() - getAbeExerciceMessageV1()->height())/2) - 200*abeApp->getAbeApplicationDecorRatio());
     getAbeExerciceMessageV1()->setVisible(true);
 
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(getAbeSettingsDirectory()+"/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     config.beginGroup(m_operationName);
     if (m_score == m_total) {
         m_niveau++;
@@ -462,6 +473,7 @@ void AbstractExercise::slotBilanSequenceEntered()
     //m_level = config.value("NiveauEnCours"+opCourante).toString();
 
     config.endGroup();
+    config.deleteLater();
 }
 
 bool AbstractExercise::eventFilter(QObject *obj, QEvent *event)

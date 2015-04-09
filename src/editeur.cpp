@@ -333,6 +333,7 @@ void Editeur::initialiserDivision()
 
 void Editeur::initialiser()
 {
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__;
     QSettings config(m_settingsTempPath, QSettings::IniFormat);
 
     config.setValue("NombreBallons", 10);
@@ -369,17 +370,17 @@ void Editeur::abeEditeurSetMainWindow(QWidget *mw)
 //        m_abuleduFile = parent->abeGetMyAbulEduFile();
 //    }
 //    else {
-        m_abuleduFile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
+    m_abuleduFile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1(this), &QObject::deleteLater);
 //        m_abuleduFile->setObjectName("depuis editeur");
 //        parent->abeSetMyAbulEduFile(m_abuleduFile);
 //    }
 
-        m_boxFileManager = new AbulEduBoxFileManagerV1(this);
-        m_boxFileManager->setVisible(false);
-        m_boxFileManager->abeBoxFileManagerSetSavingLocation(AbulEduBoxFileManagerV1::abeBoxPerso);
-    //    connect(ui->abeBoxFileManager,SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)),this,SLOT(slotOpenMaBoitamots(QSharedPointer<AbulEduFileV1>)),Qt::UniqueConnection);
-        m_boxFileManager->ouvertureFichier("calculmentSettings.abe");
-        m_boxFileManager->abeSetFile(m_abuleduFile);
+//        m_boxFileManager = new AbulEduBoxFileManagerV1(this);
+//        m_boxFileManager->setVisible(false);
+//        m_boxFileManager->abeBoxFileManagerSetSavingLocation(AbulEduBoxFileManagerV1::abeBoxPerso);
+//    //    connect(ui->abeBoxFileManager,SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)),this,SLOT(slotOpenMaBoitamots(QSharedPointer<AbulEduFileV1>)),Qt::UniqueConnection);
+//        m_boxFileManager->ouvertureFichier("calculmentSettings.abe");
+//        m_boxFileManager->abeSetFile(m_abuleduFile);
     m_settingsTempPath = m_abuleduFile->abeFileGetDirectoryTemp().absolutePath()+"/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf";
 
     QFile* fichierConf = new QFile(m_settingsTempPath);
@@ -406,7 +407,9 @@ void Editeur::abeEditeurSetMainWindow(QWidget *mw)
         intitulesExercices.append(config->value("NomPourAffichage").toString());
         config->endGroup();
     }
+    m_ui->cbOperation->blockSignals(true);
     m_ui->cbOperation->addItems(intitulesExercices);
+    m_ui->cbOperation->blockSignals(false);
 }
 
 QSharedPointer<AbulEduFileV1> Editeur::abeEditeurGetAbulEduFile()

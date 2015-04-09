@@ -59,7 +59,8 @@ void ExerciceOperation::factorisation(QString exerciseName, int niveau)
         setAbeLevel(QString::number(m_niveau-1));
     }
     m_score = 0;
-    chargerParametres();
+    /* 20150409 Philippe : Le fait d'avoir deux fois l'appel de charger paramètres m'empêchait de lire le fichier de conf - Je me contente de commenter pour le moment... */
+//    chargerParametres();
     setNameAndSkill();
     m_pdfExport = new AbulEduExportPDFV1();
     if(m_localDebug){
@@ -221,7 +222,7 @@ void ExerciceOperation::chargerParametres()
 //            ABULEDU_LOG_DEBUG()  << "Le fichier de conf n'existait pas : je le crée à la volée ";
 //        }
 //    }
-    QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+    QSettings config(getAbeSettingsDirectory()+"/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     setAbeNbTotalQuestions(config.value("NombreBallons",10).toInt());
     config.beginGroup(m_operationName);
     if (m_niveau == -1) {
@@ -247,7 +248,6 @@ void ExerciceOperation::chargerParametres()
     m_minD = config.value("MinDroite",0).toInt();
     m_temps = config.value("TempsAccorde",10).toInt();
     if(m_localDebug){
-        ABULEDU_LOG_DEBUG()  << __PRETTY_FUNCTION__;
         ABULEDU_LOG_DEBUG()<<"Lecture des paramètres dans "<<config.fileName()<<" - "<<m_operationName<<" - "<<getAbeLevel();
         ABULEDU_LOG_DEBUG() << "MaxGauche : " << m_maxG << "MinGauche : " << m_minG << "MaxDroite : " << m_maxD << "MinDroite : " << m_minD<< "Mon niveau : "<<getAbeLevel()<<"Tps : "<<m_temps;
     }
@@ -265,6 +265,7 @@ void ExerciceOperation::chargerParametres()
     }
     setAbeNbTotalQuestions(config.value("NombreBallons").toInt());
     getAbeExerciceTelecommandeV1()->ui->lblCustom2->setText(QString::number(m_score)+ " sur "+QString::number(getAbeNbTotalQuestions()));
+    config.deleteLater();
 }
 
 void ExerciceOperation::animeBaudruche()
@@ -592,7 +593,7 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
 
         /** @todo discuter de la pertinence de l'augmentation automatique de niveau */
         //mise à jour ou pas du niveau
-        QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
+        QSettings config(getAbeSettingsDirectory()+"/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
         config.beginGroup(m_operationName);
         if (m_score == m_total) {
             if (getAbeLevel() == "1") config.setValue("NiveauEnCours"+m_operationName, "2");
@@ -604,6 +605,7 @@ void ExerciceOperation::slotAfficheVerificationQuestionEntered()
         //m_level = config.value("NiveauEnCours"+opCourante).toString();
 
         config.endGroup();
+        config.deleteLater();
     }
     boiteTetes->setEtatTete(m_numExercice, getAbeExerciceEvaluation(),false,getAbeNbTotalQuestions()-getAbeNumQuestion()+1);
     /* On ajoute une ligne de log */

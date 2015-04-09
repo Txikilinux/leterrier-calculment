@@ -63,6 +63,9 @@ public:
     inline int cible() const {return m_cible;}
     inline void setCible(int cible) {m_cible = cible;}
 
+    QString getAbeSettingsDirectory() const;
+    void setAbeSettingsDirectory(const QString &settingsDirectory);
+
 protected:
     /** Contrôle la possibilité d'affichage des debugs
      * Pour avoir des debugs en sortie, il faut les activer dans le fichier localdebug.pri, faire un qmake et recompiler
@@ -162,6 +165,13 @@ protected:
     /// \brief Liste maintenue des boutons de choix proposés pour pouvoir les détruire sûrement
     ///
     QList<AbulEduFlatBoutonV1*> m_boutonsChoix;
+
+    ///
+    /// \brief Le répertoire de travail passé depuis l'interface
+    ///
+    QString m_settingsDirectory;
+
+
 
     void setAireDeJeuBackground();
 
