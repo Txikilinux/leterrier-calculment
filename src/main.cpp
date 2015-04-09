@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
         AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true);
         splash->show();
         abeApp->processEvents();
-        splash->setMainWindow(new interface(0));
+        splash->setMainWindow(new interfaceClass(0));
         splash->launch(1000);
     }
     else {

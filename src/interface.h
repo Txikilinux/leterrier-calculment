@@ -42,13 +42,13 @@ namespace Ui
     class interfaceClass;
 }
 
-class interface : public QMainWindow
+class interfaceClass : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    interface(QWidget *parent = 0);
-    ~interface();
+    interfaceClass(QWidget *parent = 0);
+    ~interfaceClass();
     Editeur* m_editeur;
     int m_hauteurMax;
     /** Appelle la fonction setDimensionsWidget de la page d'accueil */

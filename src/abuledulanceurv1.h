@@ -31,6 +31,7 @@
 #include <QDebug>
 #include <QSettings>
 #include <QDesktopWidget>
+#include <QMainWindow>
 
 namespace Ui {
     class AbuleduLanceurV1;
@@ -43,8 +44,8 @@ class AbuleduLanceurV1 : public QWidget
 public:
     explicit AbuleduLanceurV1(QWidget *parent = 0);
     ~AbuleduLanceurV1();
+    void abeLanceurSetInterface(QMainWindow *i);
     void abeLanceurSetIdentite(AbulEduIdentitesV1* identite);
-    void abeLanceurSetInterface(QMainWindow *interface);
 
 private:
     Ui::AbuleduLanceurV1 *ui;

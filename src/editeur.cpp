@@ -361,7 +361,7 @@ void Editeur::initialiser()
 void Editeur::abeEditeurSetMainWindow(QWidget *mw)
 {
     ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__;
-    interface* parent = (interface*) mw;
+    interfaceClass* parent = (interfaceClass*) mw;
 
     /* Pour l'instant on n'utilise pas de modules dans Calcul mental ... */
 //    //Si on a déjà un fichier abe ouvert c'est lui qu'on édite

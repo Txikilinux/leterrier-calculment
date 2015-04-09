@@ -27,7 +27,7 @@
 
 
 
-interface::interface(QWidget *parent)
+interfaceClass::interfaceClass(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::interfaceClass)
 {
     m_localDebug = false;
@@ -36,7 +36,7 @@ interface::interface(QWidget *parent)
     //Langue
     //m_locale = QLocale::system().name().section('_', 0, 0);
     m_locale = qApp->property("langageUtilise").toString();
-    if(m_localDebug) qDebug()<<"interface::constructeur (1) - "<<m_locale;
+    if(m_localDebug) qDebug()<<"interfaceClass::constructeur (1) - "<<m_locale;
     /* Un 1er qtTranslator pour prendre les traductions QT Systeme
        c'est d'ailleurs grâce à ça qu'on est en RTL */
     qtTranslator.load("qt_" + m_locale,
@@ -102,17 +102,17 @@ interface::interface(QWidget *parent)
 
 }
 
-interface::~interface()
+interfaceClass::~interfaceClass()
 {
     delete ui;
 }
 
-void interface::resizeEvent(QResizeEvent *)
+void interfaceClass::resizeEvent(QResizeEvent *)
 {
     m_abuleduPageAccueil->setDimensionsWidgets();
 }
 
-void interface::creeMenuLangue()
+void interfaceClass::creeMenuLangue()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -139,12 +139,12 @@ void interface::creeMenuLangue()
          ui->menuLangues->setEnabled(true);
      }
 }
-QMap<QString, QString> interface::abeInterfaceGetExerciceNames() const
+QMap<QString, QString> interfaceClass::abeInterfaceGetExerciceNames() const
 {
     return m_exerciceNames;
 }
 
-void interface::createStateMachine()
+void interfaceClass::createStateMachine()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -237,7 +237,7 @@ void interface::createStateMachine()
     /*     pour FinalState */
 }
 
-void interface::slotSessionAuthenticated(bool enable)
+void interfaceClass::slotSessionAuthenticated(bool enable)
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__<<enable;
 
@@ -253,7 +253,7 @@ void interface::slotSessionAuthenticated(bool enable)
     connect(abeApp->getAbeNetworkAccessManager(), SIGNAL(ssoAuthStatus(int)), this,SLOT(setTitle(int)));
 }
 
-void interface::slotInterfaceLaunchExercise(int number, QString name, int level)
+void interfaceClass::slotInterfaceLaunchExercise(int number, QString name, int level)
 {
     slotInterfaceShowMainPage();
     /* Dans le cas d'un appel par le menuExercice ou une zone de l'interface, je mets la valeur number à -1 */
@@ -331,7 +331,7 @@ void interface::slotInterfaceLaunchExercise(int number, QString name, int level)
     }
 }
 
-void interface::slotInterfaceBackFromExercise()
+void interfaceClass::slotInterfaceBackFromExercise()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -339,7 +339,7 @@ void interface::slotInterfaceBackFromExercise()
     emit signalAbeLTMWSMexerciseClosed();
 }
 
-void interface::slotInterfaceDemo()
+void interfaceClass::slotInterfaceDemo()
 {
     if (m_localDebug){
 //        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
@@ -358,7 +358,7 @@ void interface::slotInterfaceDemo()
     m_demoTimeLine->start();
 }
 
-void interface::slotInterfaceEndDemo()
+void interfaceClass::slotInterfaceEndDemo()
 {
     if(sender()->objectName() == "demoActivityFilter"){
         if(m_demoTimeLine->state() != QTimeLine::Running){
@@ -375,7 +375,7 @@ void interface::slotInterfaceEndDemo()
     }
 }
 
-void interface::mousePressEvent(QMouseEvent *event)
+void interfaceClass::mousePressEvent(QMouseEvent *event)
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -386,7 +386,7 @@ void interface::mousePressEvent(QMouseEvent *event)
     }
 }
 
-void interface::mouseReleaseEvent(QMouseEvent *event)
+void interfaceClass::mouseReleaseEvent(QMouseEvent *event)
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -397,7 +397,7 @@ void interface::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-void interface::slotInterfaceInitialStateEntered()
+void interfaceClass::slotInterfaceInitialStateEntered()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
     m_exerciceNames.insert("tableM","Tables de multiplication");
@@ -449,22 +449,22 @@ void interface::slotInterfaceInitialStateEntered()
     /* Pas de module dans ce logiciel, les zones sensibles sont activées */
 }
 
-void interface::slotInterfaceInitialStateExited()
+void interfaceClass::slotInterfaceInitialStateExited()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 }
 
-void interface::slotInterfaceGlobalStateEntered()
+void interfaceClass::slotInterfaceGlobalStateEntered()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 }
 
-void interface::slotInterfaceGlobalStateExited()
+void interfaceClass::slotInterfaceGlobalStateExited()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 }
 
-void interface::slotInterfaceHomeStateEntered()
+void interfaceClass::slotInterfaceHomeStateEntered()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -475,26 +475,26 @@ void interface::slotInterfaceHomeStateEntered()
     m_isDemoAvailable = true;
 }
 
-void interface::slotInterfaceHomeStateExited()
+void interfaceClass::slotInterfaceHomeStateExited()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
     m_isDemoAvailable = false;
 }
 
-void interface::slotInterfaceExerciseStateEntered()
+void interfaceClass::slotInterfaceExerciseStateEntered()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
 }
 
-void interface::slotInterfaceExerciseStateExited()
+void interfaceClass::slotInterfaceExerciseStateExited()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
 }
 
-void interface::slotInterfaceEditorStateEntered()
+void interfaceClass::slotInterfaceEditorStateEntered()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -504,7 +504,7 @@ void interface::slotInterfaceEditorStateEntered()
     m_isEditorRunning = true;
 }
 
-void interface::slotInterfaceEditorStateExited()
+void interfaceClass::slotInterfaceEditorStateExited()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -516,7 +516,7 @@ void interface::slotInterfaceEditorStateExited()
     ui->stackedWidget->setCurrentWidget(ui->mainPage);
 }
 
-void interface::slotInterfaceFinalStateEntered()
+void interfaceClass::slotInterfaceFinalStateEntered()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -525,13 +525,13 @@ void interface::slotInterfaceFinalStateEntered()
     close();
 }
 
-void interface::slotInterfaceFinalStateExited()
+void interfaceClass::slotInterfaceFinalStateExited()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
 }
 
-void interface::changelangue(QString langue)
+void interfaceClass::changelangue(QString langue)
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -539,35 +539,35 @@ void interface::changelangue(QString langue)
     myappTranslator.load("leterrier-calculment_"+langue, "lang");
 
     qApp->installTranslator(&myappTranslator);
-    interface* nouvelleInterface = new interface();
+    interfaceClass* nouvelleInterface = new interfaceClass();
     nouvelleInterface->showMaximized();
     nouvelleInterface->setWindowTitle(QObject::trUtf8("Calcul Mental"));
     this->close();
     nouvelleInterface->activateWindow();
 }
 
-void interface::paintEvent(QPaintEvent* e )
+void interfaceClass::paintEvent(QPaintEvent* e )
 {
     QMainWindow::paintEvent(e);
 }
-void interface::on_actionQuitter_triggered()
+void interfaceClass::on_actionQuitter_triggered()
 {
     this->close();
 }
 
-void interface::on_actionAfficher_l_diteur_triggered()
+void interfaceClass::on_actionAfficher_l_diteur_triggered()
 {
 
 }
 
-void interface::on_btnInitialise_clicked()
+void interfaceClass::on_btnInitialise_clicked()
 {
     QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
     fichierConf->remove();
     m_editeur->initialiser();
 }
 
-void interface::on_actionVerrouillage_nombres_changed()
+void interfaceClass::on_actionVerrouillage_nombres_changed()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -577,28 +577,28 @@ void interface::on_actionVerrouillage_nombres_changed()
         qApp->setProperty("VerrouNombres",false);
 }
 
-void interface::on_action_Journal_de_mes_activit_s_triggered()
+void interfaceClass::on_action_Journal_de_mes_activit_s_triggered()
 {
     abeApp->getAbeIdentite()->abeGetMyLogsAsPDF();
 }
 
-void interface::on_action_Changer_d_utilisateur_triggered()
+void interfaceClass::on_action_Changer_d_utilisateur_triggered()
 {
     abeApp->getAbeNetworkAccessManager()->abeSSOLogout();
     abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
 }
 
-void interface::slotInterfaceShowMainPage()
+void interfaceClass::slotInterfaceShowMainPage()
 {
     ui->stackedWidget->setCurrentWidget(ui->mainPage);
 }
 
-void interface::slotInterfaceShowAboutPage()
+void interfaceClass::slotInterfaceShowAboutPage()
 {
     ui->stackedWidget->setCurrentWidget(ui->aboutPage);
 }
 
-void interface::setTitle(int authStatus)
+void interfaceClass::setTitle(int authStatus)
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__<<authStatus;
 
@@ -615,7 +615,7 @@ void interface::setTitle(int authStatus)
     setWindowTitle(title);
 }
 
-void interface::slotMontreLanceur()
+void interfaceClass::slotMontreLanceur()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -623,7 +623,7 @@ void interface::slotMontreLanceur()
     ui->stackedWidget->setCurrentWidget(ui->launcherPage);
 }
 
-void interface::slotMontreErreurId()
+void interfaceClass::slotMontreErreurId()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -631,7 +631,7 @@ void interface::slotMontreErreurId()
     msgError->show();
 }
 
-void interface::on_actionAfficher_le_lanceur_d_exercice_triggered()
+void interfaceClass::on_actionAfficher_le_lanceur_d_exercice_triggered()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
@@ -647,7 +647,7 @@ void interface::on_actionAfficher_le_lanceur_d_exercice_triggered()
     }
 }
 
-void interface::on_actionPav_num_rique_lin_aire_toggled(bool checked)
+void interfaceClass::on_actionPav_num_rique_lin_aire_toggled(bool checked)
 {
     if (m_localDebug){
         ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__<<checked;
@@ -655,7 +655,7 @@ void interface::on_actionPav_num_rique_lin_aire_toggled(bool checked)
     qApp->setProperty("numericPad",checked);
 }
 
-void interface::slotSetAbeBoxPersoSettings()
+void interfaceClass::slotSetAbeBoxPersoSettings()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 //    if (m_abuleduFile->abeFileOpen()){
@@ -668,7 +668,7 @@ void interface::slotSetAbeBoxPersoSettings()
 
 }
 
-void interface::slotSetPCSettings()
+void interfaceClass::slotSetPCSettings()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
     m_editeur->abeEditeurSetMainWindow(this);

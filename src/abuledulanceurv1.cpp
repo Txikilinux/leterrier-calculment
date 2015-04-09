@@ -77,9 +77,9 @@ void AbuleduLanceurV1::abeLanceurSetIdentite(AbulEduIdentitesV1 *identite)
     }
 }
 
-void AbuleduLanceurV1::abeLanceurSetInterface(QMainWindow *interface)
+void AbuleduLanceurV1::abeLanceurSetInterface(QMainWindow *i)
 {
-    m_interface = interface;
+    m_interface = i;
 }
 
 
@@ -200,7 +200,7 @@ void AbuleduLanceurV1::fillCbNombre(QString jsaispasquoi)
 
 void AbuleduLanceurV1::on_btnAnnuler_clicked()
 {
-    interface* i = (interface*) m_interface;
+    interfaceClass* i = (interfaceClass*) m_interface;
     i->slotInterfaceBackFromExercise();
 }
 
@@ -208,7 +208,7 @@ void AbuleduLanceurV1::on_btnLancer_clicked()
 {
     /** et le niveau ? */
 //    qDebug()<<parent()->parent()->parent()->parent()->objectName();
-    interface* i = (interface*) m_interface;
+    interfaceClass* i = (interfaceClass*) m_interface;
     QString nom;
     qApp->setProperty("utilisateur",ui->leNom->text());
     int val = 0;
