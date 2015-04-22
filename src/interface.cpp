@@ -32,6 +32,7 @@ interfaceClass::interfaceClass(QWidget *parent)
 {
     m_localDebug = false;
     m_isEditorRunning = false;
+    m_isChangingUser = false;
 //    m_abuleduFile.clear();
     setAttribute(Qt::WA_DeleteOnClose);
 
@@ -91,7 +92,7 @@ interfaceClass::interfaceClass(QWidget *parent)
 //    m_exerciceNames.insert("tableM",tru)
 
     m_editeur = ui->widget;
-    connect(m_editeur,SIGNAL(signalEditeurSaved()),this, SLOT(slotExitOK()),Qt::UniqueConnection);
+    connect(m_editeur,SIGNAL(signalEditeurSaved()),this, SLOT(slotSettingsSaved()),Qt::UniqueConnection);
 
     qApp->setProperty("VerrouNombres",true);
     qApp->setProperty("numericPad",false);
@@ -595,8 +596,9 @@ void interfaceClass::on_action_Journal_de_mes_activit_s_triggered()
 
 void interfaceClass::on_action_Changer_d_utilisateur_triggered()
 {
+    m_isChangingUser = true;
+    m_editeur->editeurWriteOnAbeBoxPerso();
     abeApp->getAbeNetworkAccessManager()->abeSSOLogout();
-    abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
 }
 
 void interfaceClass::slotInterfaceShowMainPage()
@@ -678,8 +680,18 @@ void interfaceClass::slotSetPCSettings()
     m_editeur->editeurCreateSettings();
 }
 
-void interfaceClass::slotExitOK()
+void interfaceClass::slotSettingsSaved()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
-    close();
+    /* Je dois fermer si j'ai demandé la fermeture, mais pas si j'ai demandé le changement d'utilisateur */
+    if(m_isChangingUser){
+        m_isChangingUser = false;
+        m_editeur->editeurClearAbeFile();
+        abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+        abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotSetAbeBoxPersoSettings()));
+        abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotSetPCSettings()));
+    }
+    else{
+        close();
+    }
 }

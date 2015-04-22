@@ -56,6 +56,8 @@ public:
     /// \brief Ecrase le fichier de conf qui se trouve dans l'abeBoxPerso par celui qui se trouve dans le dossier temporaire
     ///
     void editeurWriteOnAbeBoxPerso();
+
+    void editeurClearAbeFile();
 protected:
     virtual void changeEvent(QEvent *e);
     void closeEvent(QCloseEvent *event);
@@ -120,6 +122,11 @@ private slots:
     void slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location,QString name,bool success);
 
     void slotOpenSettings(QSharedPointer<AbulEduFileV1> abeFile);
+
+    ///
+    /// \brief Appelle slotOpenSettings() avec un pointeur null pour provoquer l'initialisation du fichier de conf
+    ///
+    void slotEditeurAbeBoxFileManagerDownloadError(QNetworkReply::NetworkError error);
 
 signals:
     void signalEditeurExited();

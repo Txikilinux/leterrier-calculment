@@ -96,6 +96,11 @@ private:
           * Signal finished()) connecté au slotFinDemo() */
     QTimeLine* m_demoTimeLine;
 
+    ///
+    /// \brief m_isChangingUser est utilisé pour que l'interface ne se ferme pas à la réception du signalEditeurSaved */
+    ///
+    bool m_isChangingUser;
+
     /* Les états de la stateMachine */
     /** Premier état permettant des initialisations */
     QState          *m_initialState;
@@ -203,7 +208,7 @@ private slots:
     ///
     /// \brief Quitte l'application à réception du signal indiquant que le fichier de conf a bien été sauvegardé
     ///
-    void slotExitOK();
+    void slotSettingsSaved();
 signals:
     void signalAbeLTMWSMexerciseClosed();
 };

@@ -720,6 +720,12 @@ void Editeur::editeurWriteOnAbeBoxPerso()
     }
 }
 
+void Editeur::editeurClearAbeFile()
+{
+    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__<<m_abuleduFile->abeFileGetFileName().filePath();
+    m_abuleduFile->deleteLater();
+}
+
 QString Editeur::associeNomIntitule(QString intitule)
 {
     ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__;
@@ -787,13 +793,18 @@ void Editeur::on_btnEditeurAnnuler_clicked()
 void Editeur::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString name, bool success)
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__<<location<<name<<success;
+    AbulEduLoadingAnimationV1::getInstance()->stop(this);
     emit signalEditeurSaved();
 }
 
 void Editeur::slotOpenSettings(QSharedPointer<AbulEduFileV1> abeFile)
 {
-    ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__<<abeFile->abeFileGetFileName().fileName();
-    if(abeFile->abeFileGetFileName().fileName().isEmpty()){
+    QString abeName;
+    if(!abeFile.isNull()){
+        abeName = abeFile->abeFileGetFileName().fileName();
+    }
+    ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__<<abeName;
+    if(abeName.isEmpty()){
         m_abuleduFile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1(this), &QObject::deleteLater);
     }
     else{
@@ -822,6 +833,12 @@ void Editeur::slotOpenSettings(QSharedPointer<AbulEduFileV1> abeFile)
     }
 }
 
+void Editeur::slotEditeurAbeBoxFileManagerDownloadError(QNetworkReply::NetworkError error)
+{
+    ABULEDU_LOG_WARN()<<"Problème de téléchargement du fichier de paramètres avec le code d'erreur "<<error;
+    slotOpenSettings(QSharedPointer<AbulEduFileV1>());
+}
+
 void Editeur::editeurCreateSettings()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
@@ -841,5 +858,6 @@ void Editeur::editeurOpenSettings()
     m_boxFileManager->setVisible(false);
     m_boxFileManager->abeBoxFileManagerSetSavingLocation(AbulEduBoxFileManagerV1::abeBoxPerso);
     connect(m_boxFileManager,SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)),this,SLOT(slotOpenSettings(QSharedPointer<AbulEduFileV1>)),Qt::UniqueConnection);
+    connect(m_boxFileManager,SIGNAL(signalAbeBoxFileManagerDownloadError(QNetworkReply::NetworkError)),this, SLOT(slotEditeurAbeBoxFileManagerDownloadError(QNetworkReply::NetworkError)),Qt::UniqueConnection);
     m_boxFileManager->ouvertureFichier("calculmentSettings.abe");
 }
