@@ -810,7 +810,6 @@ void Editeur::slotOpenSettings(QSharedPointer<AbulEduFileV1> abeFile)
     }
     else {
         QSettings conf(m_settingsTempPath, QSettings::IniFormat);
-        qDebug()<<conf.value("version");
         if(conf.value("version").toFloat() > 1){
             ABULEDU_LOG_DEBUG()  << trUtf8("Fichier paramètres déjà présent");
         }
