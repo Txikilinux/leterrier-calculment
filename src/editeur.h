@@ -40,9 +40,22 @@ public:
     virtual ~Editeur();
     int getNiveauEnCours();
     void initialiser();
-    void abeEditeurSetMainWindow(QWidget *mw);
     QSharedPointer<AbulEduFileV1> abeEditeurGetAbulEduFile();
 
+    ///
+    /// \brief Crée un fichier de paramètres dans le dossier temporaire, pour le cas où on est en mode déconnecté
+    ///
+    void editeurCreateSettings();
+
+    ///
+    /// \brief Ouvre le fichier de paramètres de l'utilisateur authentifié, ou le crée s'il n'existe pas
+    /// \note Ecrase le fichier de paramètres si sa version est inférieure à 2.0
+    ///
+    void editeurOpenSettings();
+    ///
+    /// \brief Ecrase le fichier de conf qui se trouve dans l'abeBoxPerso par celui qui se trouve dans le dossier temporaire
+    ///
+    void editeurWriteOnAbeBoxPerso();
 protected:
     virtual void changeEvent(QEvent *e);
     void closeEvent(QCloseEvent *event);
@@ -71,6 +84,7 @@ private:
     void initialiserApprocheD(QString operation);
     void initialiserComplement(QString operation);
     void initialiserDivision();
+    void initComboBoxOperations();
     QString associeNomIntitule(QString intitule);
     ///
     /// \brief Fonction qui installe les eventFilter sur les objects à surveiller
@@ -85,11 +99,6 @@ private slots:
     void chargerOperation(QString);
     void changerOperation(QString);
     void ajusterValeurs(int);
-
-    ///
-    /// \brief Ecrase le fichier de conf qui se trouve dans l'abeBoxPerso par celui qui se trouve dans le dossier temporaire
-    ///
-    void editeurSyncroAbeBoxPerso();
 
     ///
     /// \brief Enregistre les modifications dans l'éditeur et affiche la page d'accueil
@@ -110,8 +119,11 @@ private slots:
     ///
     void slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location,QString name,bool success);
 
+    void slotOpenSettings(QSharedPointer<AbulEduFileV1> abeFile);
+
 signals:
     void signalEditeurExited();
+    void signalEditeurSaved();
 };
 
 #endif // EDITEUR_H

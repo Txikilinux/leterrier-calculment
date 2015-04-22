@@ -174,7 +174,6 @@ protected slots:
     virtual void slotInterfaceFinalStateExited();
 
 private slots:
-    void on_actionAfficher_l_diteur_triggered();
     void on_btnInitialise_clicked();
     void on_actionQuitter_triggered();
     void changelangue(QString langue);
@@ -201,6 +200,10 @@ private slots:
     /** Met comme fichier de paramètres celui qui se trouve dans le dossier /leterrier/calcul-mental/conf.perso de l'ordinateur */
     void slotSetPCSettings();
 
+    ///
+    /// \brief Quitte l'application à réception du signal indiquant que le fichier de conf a bien été sauvegardé
+    ///
+    void slotExitOK();
 signals:
     void signalAbeLTMWSMexerciseClosed();
 };

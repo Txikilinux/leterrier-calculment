@@ -32,6 +32,7 @@ interfaceClass::interfaceClass(QWidget *parent)
 {
     m_localDebug = false;
     m_isEditorRunning = false;
+//    m_abuleduFile.clear();
     setAttribute(Qt::WA_DeleteOnClose);
 
     //Langue
@@ -90,6 +91,7 @@ interfaceClass::interfaceClass(QWidget *parent)
 //    m_exerciceNames.insert("tableM",tru)
 
     m_editeur = ui->widget;
+    connect(m_editeur,SIGNAL(signalEditeurSaved()),this, SLOT(slotExitOK()),Qt::UniqueConnection);
 
     qApp->setProperty("VerrouNombres",true);
     qApp->setProperty("numericPad",false);
@@ -525,11 +527,17 @@ void interfaceClass::slotInterfaceEditorStateExited()
 
 void interfaceClass::slotInterfaceFinalStateEntered()
 {
-    ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
+    ABULEDU_LOG_DEBUG()<<__PRETTY_FUNCTION__;
 
     /* OKAZOU */
     QFile::remove(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/copieModule.conf");
-    close();
+    if(abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() > 0)
+    {
+        m_editeur->editeurWriteOnAbeBoxPerso();
+    }
+    else{
+        close();
+    }
 }
 
 void interfaceClass::slotInterfaceFinalStateExited()
@@ -549,7 +557,7 @@ void interfaceClass::changelangue(QString langue)
     interfaceClass* nouvelleInterface = new interfaceClass();
     nouvelleInterface->showMaximized();
     nouvelleInterface->setWindowTitle(QObject::trUtf8("Calcul Mental"));
-    this->close();
+//    this->close();
     nouvelleInterface->activateWindow();
 }
 
@@ -559,12 +567,8 @@ void interfaceClass::paintEvent(QPaintEvent* e )
 }
 void interfaceClass::on_actionQuitter_triggered()
 {
+
     this->close();
-}
-
-void interfaceClass::on_actionAfficher_l_diteur_triggered()
-{
-
 }
 
 void interfaceClass::on_btnInitialise_clicked()
@@ -665,26 +669,17 @@ void interfaceClass::on_actionPav_num_rique_lin_aire_toggled(bool checked)
 void interfaceClass::slotSetAbeBoxPersoSettings()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
-//    if (m_abuleduFile->abeFileOpen()){
-//        ABULEDU_LOG_DEBUG()<<trUtf8("Fichier config NON trouvé");
-//    }
-//    else {
-//        ABULEDU_LOG_DEBUG()<< trUtf8("Fichier config trouvé");
-//    }
-    m_editeur->abeEditeurSetMainWindow(this);
-
+    m_editeur->editeurOpenSettings();
 }
 
 void interfaceClass::slotSetPCSettings()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
-    m_editeur->abeEditeurSetMainWindow(this);
-    QFile* fichierConf = new QFile(m_editeur->abeEditeurGetAbulEduFile()->abeFileGetDirectoryTemp().absolutePath()+"/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
-    if (!fichierConf->exists()){
-        ABULEDU_LOG_DEBUG()<<trUtf8("Fichier config NON trouvé");
-    }
-    else {
-        ABULEDU_LOG_DEBUG()<< trUtf8("Fichier config trouvé");
-        ABULEDU_LOG_DEBUG()<<fichierConf->fileName();
-    }
+    m_editeur->editeurCreateSettings();
+}
+
+void interfaceClass::slotExitOK()
+{
+    ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
+    close();
 }
