@@ -86,6 +86,13 @@ Editeur::Editeur(QWidget *parent) :
     connect(m_ui->cbNiveau, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerNiveau(QString)));
     connect(m_ui->cbOperation, SIGNAL(currentIndexChanged(QString)), this, SLOT(changerOperation(QString)));
 
+    m_boxFileManager = new AbulEduBoxFileManagerV1(this);
+    m_boxFileManager->setVisible(false);
+    m_boxFileManager->abeBoxFileManagerSetSavingLocation(AbulEduBoxFileManagerV1::abeBoxPerso);
+    connect(m_boxFileManager,SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)),this,SLOT(slotOpenSettings(QSharedPointer<AbulEduFileV1>)),Qt::UniqueConnection);
+    connect(m_boxFileManager,SIGNAL(signalAbeBoxFileManagerDownloadError(QNetworkReply::NetworkError)),this, SLOT(slotEditeurAbeBoxFileManagerDownloadError(QNetworkReply::NetworkError)),Qt::UniqueConnection);
+
+
     installEventFilters();
     m_ui->lblHelp->setFont(QApplication::font());
 }
@@ -720,12 +727,6 @@ void Editeur::editeurWriteOnAbeBoxPerso()
     }
 }
 
-void Editeur::editeurClearAbeFile()
-{
-    ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__<<m_abuleduFile->abeFileGetFileName().filePath();
-    m_abuleduFile->deleteLater();
-}
-
 QString Editeur::associeNomIntitule(QString intitule)
 {
     ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__;
@@ -806,11 +807,11 @@ void Editeur::slotOpenSettings(QSharedPointer<AbulEduFileV1> abeFile)
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__<<abeName;
     if(abeName.isEmpty()){
         m_abuleduFile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1(this), &QObject::deleteLater);
+        m_boxFileManager->abeSetFile(m_abuleduFile);
     }
     else{
         m_abuleduFile = abeFile;
     }
-//    m_boxFileManager->abeSetFile(m_abuleduFile);
     m_settingsTempPath = m_abuleduFile->abeFileGetDirectoryTemp().absolutePath()+"/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf";
     initComboBoxOperations();
 
@@ -854,10 +855,5 @@ void Editeur::editeurCreateSettings()
 void Editeur::editeurOpenSettings()
 {
     ABULEDU_LOG_TRACE()  << __PRETTY_FUNCTION__;
-    m_boxFileManager = new AbulEduBoxFileManagerV1(this);
-    m_boxFileManager->setVisible(false);
-    m_boxFileManager->abeBoxFileManagerSetSavingLocation(AbulEduBoxFileManagerV1::abeBoxPerso);
-    connect(m_boxFileManager,SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)),this,SLOT(slotOpenSettings(QSharedPointer<AbulEduFileV1>)),Qt::UniqueConnection);
-    connect(m_boxFileManager,SIGNAL(signalAbeBoxFileManagerDownloadError(QNetworkReply::NetworkError)),this, SLOT(slotEditeurAbeBoxFileManagerDownloadError(QNetworkReply::NetworkError)),Qt::UniqueConnection);
     m_boxFileManager->ouvertureFichier("calculmentSettings.abe");
 }

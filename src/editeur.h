@@ -57,7 +57,6 @@ public:
     ///
     void editeurWriteOnAbeBoxPerso();
 
-    void editeurClearAbeFile();
 protected:
     virtual void changeEvent(QEvent *e);
     void closeEvent(QCloseEvent *event);

@@ -686,7 +686,6 @@ void interfaceClass::slotSettingsSaved()
     /* Je dois fermer si j'ai demandé la fermeture, mais pas si j'ai demandé le changement d'utilisateur */
     if(m_isChangingUser){
         m_isChangingUser = false;
-        m_editeur->editeurClearAbeFile();
         abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
         abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotSetAbeBoxPersoSettings()));
         abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotSetPCSettings()));
