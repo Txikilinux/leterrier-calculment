@@ -92,9 +92,10 @@ Editeur::Editeur(QWidget *parent) :
     connect(m_boxFileManager,SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)),this,SLOT(slotOpenSettings(QSharedPointer<AbulEduFileV1>)),Qt::UniqueConnection);
     connect(m_boxFileManager,SIGNAL(signalAbeBoxFileManagerDownloadError(QNetworkReply::NetworkError)),this, SLOT(slotEditeurAbeBoxFileManagerDownloadError(QNetworkReply::NetworkError)),Qt::UniqueConnection);
 
-
     installEventFilters();
     m_ui->lblHelp->setFont(QApplication::font());
+
+    editeurCreateSettings();
 }
 
 Editeur::~Editeur()
@@ -697,9 +698,9 @@ void Editeur::editeurWriteOnAbeBoxPerso()
 
     /* Je crée un "calculmentSettings.abe" dans le dossier temporaire */
     ABULEDU_LOG_DEBUG()<<m_abuleduFile->abeFileSave("calculmentSettings.abe",
-                                                          listeFichiersMots,
-                                                          m_abuleduFile->abeFileGetDirectoryTemp().absolutePath(),
-                                                          QString("abe"));
+                                                    listeFichiersMots,
+                                                    m_abuleduFile->abeFileGetDirectoryTemp().absolutePath(),
+                                                    QString("abe"));
 
     if(abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() > 0)
     {
@@ -714,16 +715,16 @@ void Editeur::editeurWriteOnAbeBoxPerso()
                 this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),Qt::UniqueConnection);
     }
     /* Faut il mettre à jour sur le PC ou prévenir que ça n'a pas marché ? */
-//    else
-//    {
-//        ABULEDU_LOG_DEBUG()<<m_abuleduFile->abeFileSave(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/calculmentSettings.abe",
-//                                                        listeFichiersMots,
-//                                                        m_abuleduFile->abeFileGetDirectoryTemp().absolutePath(),
-//                                                        QString("abe"));
-//    }
-        else
-        {
-            ABULEDU_LOG_DEBUG()<<"Impossible de synchroniser : pas d'utilisateur connecté";
+    //    else
+    //    {
+    //        ABULEDU_LOG_DEBUG()<<m_abuleduFile->abeFileSave(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/calculmentSettings.abe",
+    //                                                        listeFichiersMots,
+    //                                                        m_abuleduFile->abeFileGetDirectoryTemp().absolutePath(),
+    //                                                        QString("abe"));
+    //    }
+    else
+    {
+        ABULEDU_LOG_DEBUG()<<"Impossible de synchroniser : pas d'utilisateur connecté";
     }
 }
 

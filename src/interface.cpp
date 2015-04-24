@@ -597,8 +597,17 @@ void interfaceClass::on_action_Journal_de_mes_activit_s_triggered()
 void interfaceClass::on_action_Changer_d_utilisateur_triggered()
 {
     m_isChangingUser = true;
-    m_editeur->editeurWriteOnAbeBoxPerso();
-    abeApp->getAbeNetworkAccessManager()->abeSSOLogout();
+    if(abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() > 0)
+    {
+        m_editeur->editeurWriteOnAbeBoxPerso();
+        abeApp->getAbeNetworkAccessManager()->abeSSOLogout();
+    }
+    else
+    {
+        abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+        abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotSetAbeBoxPersoSettings()));
+        abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotSetPCSettings()));
+    }
 }
 
 void interfaceClass::slotInterfaceShowMainPage()
