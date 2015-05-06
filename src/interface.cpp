@@ -613,11 +613,15 @@ void interfaceClass::on_action_Changer_d_utilisateur_triggered()
 void interfaceClass::slotInterfaceShowMainPage()
 {
     ui->stackedWidget->setCurrentWidget(ui->mainPage);
+    if(!ui->menuBar->isEnabled()){
+        ui->menuBar->setEnabled(true);
+    }
 }
 
 void interfaceClass::slotInterfaceShowAboutPage()
 {
     ui->stackedWidget->setCurrentWidget(ui->aboutPage);
+    ui->menuBar->setEnabled(false);
 }
 
 void interfaceClass::setTitle(int authStatus)
