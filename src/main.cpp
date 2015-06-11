@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     qDebug()<<arguments;
     if (arguments.size() == 1)
     {
-        AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true);
+        AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowMaximized);
         splash->show();
         abeApp->processEvents();
         splash->setMainWindow(new interfaceClass(0));

@@ -158,28 +158,32 @@ baudruche::baudruche(int intMaxG, int intMaxD, int tempsAccorde, QString operati
     m_nomOperation = operation;
     m_approximation.clear();
     if (operation=="OdGrandeurAddition") m_op = "+";
-        else if (operation=="OdGrandeurSoustraction") m_op = "-";
-             else if (operation=="OdGrandeurMultiplication") m_op = "x";
-                else if (operation=="OdGrandeurDivision") m_op = QString::fromUtf8("÷");
+    else if (operation=="OdGrandeurSoustraction") m_op = "-";
+    else if (operation=="OdGrandeurMultiplication") m_op = "x";
+    else if (operation=="OdGrandeurDivision") m_op = QString::fromUtf8("÷");
     m_position.setX(pos.x());
     m_position.setY(pos.y());
 
     g_operande = rand()%(intMaxG);
-    if(m_op == QString::fromUtf8("÷")){
-        ExerciceOperation* ex = (ExerciceOperation*) parent;
-        int alea = rand()%3;
-        d_operande = ex->getMultipleCible().at(alea);
+
+    do{
+        if(m_op == QString::fromUtf8("÷")){
+            ExerciceOperation* ex = (ExerciceOperation*) parent;
+            int alea = rand()%3;
+            d_operande = ex->getMultipleCible().at(alea);
+        }
+        else {
+            d_operande = rand()%(intMaxD);
+        }
     }
-    else {
-        d_operande = rand()%(intMaxD);
-    }
+    while(d_operande == 0);
 
     /* Remarque : il existe sans doute une fonction qui retourne le max mais ça me prendrait plus de temps de chercher que d'écrire 3 lignes... */
     if (d_operande>g_operande) {
         int tmp=g_operande;
         g_operande=d_operande;
         d_operande=tmp;
-        }
+    }
 
     /* Calcul de la valeur approchée à émettre (Problème si c'est la multiplication : l'utiliteur veut un "x" alors que le calculateur veut un "*") */
 
