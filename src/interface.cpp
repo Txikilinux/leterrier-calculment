@@ -76,6 +76,7 @@ interfaceClass::interfaceClass(QWidget *parent)
     m_abuleduPageAccueil = new AbulEduPageAccueilV1(ui->mainPage);
     connect(m_abuleduPageAccueil, SIGNAL(boutonPressed(int,QString)), this, SLOT(slotInterfaceLaunchExercise(int,QString)), Qt::UniqueConnection);
     connect(m_abuleduPageAccueil->abePageAccueilGetMenu(),SIGNAL(btnAideTriggered()),this, SLOT(slotInterfaceShowAboutPage()), Qt::UniqueConnection);
+    connect(m_abuleduPageAccueil, SIGNAL(signalAbePageAccueilMousePressed()), this, SLOT(slotInterfaceDemo()),Qt::UniqueConnection);
 
     m_messageAide = trUtf8("Clique sur une des zones de lancement des exercices.");
     m_demoMessageBox = new AbulEduMessageBoxV1(trUtf8("On y va ?"),m_messageAide,false,m_abuleduPageAccueil);
@@ -359,6 +360,9 @@ void interfaceClass::slotInterfaceDemo()
     }
     float ratio = abeApp->getAbeApplicationDecorRatio();
     if (m_localDebug) qDebug()<<" ++++++++ "<< __FILE__ <<  __LINE__ << __FUNCTION__;
+    QKeyEvent* pressSpace = new QKeyEvent(QEvent::KeyPress,Qt::Key_Space,Qt::NoModifier);
+    QApplication::sendEvent(m_abuleduPageAccueil,pressSpace);
+    delete pressSpace;
     m_demoMessageBox->setGeometry(10*ratio,800*ratio,400*ratio,200*ratio);
     m_demoMessageBox->show();
     m_abuleduPageAccueil->abePageAccueilMontreBulles(true,true);
@@ -383,6 +387,9 @@ void interfaceClass::slotInterfaceEndDemo()
     foreach(AbulEduZoneV1* zone, m_abuleduPageAccueil->abePageAccueilGetZones()){
         zone->abeZoneDrawRect(false);
     }
+    QKeyEvent* releaseSpace = new QKeyEvent(QEvent::KeyRelease,Qt::Key_Space,Qt::NoModifier);
+    QApplication::sendEvent(m_abuleduPageAccueil,releaseSpace);
+    delete releaseSpace;
 }
 
 void interfaceClass::mousePressEvent(QMouseEvent *event)
