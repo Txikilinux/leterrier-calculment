@@ -430,7 +430,7 @@ background-color:transparent;
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Pavé numérique linéaire</string>
+    <string>Pavé numérique tactile</string>
    </property>
   </action>
  </widget>
