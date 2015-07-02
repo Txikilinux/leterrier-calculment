@@ -15,7 +15,7 @@ bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduloggerv1/ src/lib/abule
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduloadinganimationv1/ src/lib/abuleduloadinganimationv1 revid:icham.sirat@ryxeo.com-20150319101640-31ndsxnefmavf90h
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduaproposv1/ src/lib/abuleduaproposv1 revid:icham.sirat@ryxeo.com-20150319105927-pl1jfb64g8bct744
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledustackedwidgetv1 src/lib/abuledustackedwidgetv1 revid:icham.sirat@ryxeo.com-20150319154800-jg0e28iqww35qb1w
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumultimediav1 src/lib/abuledumultimediav1 revid:icham.sirat@ryxeo.com-20150601125353-tgcwxiud6sy5nqb5
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumultimediav1 src/lib/abuledumultimediav1 revid:philippe.cadaugade@ryxeo.com-20150617103904-igvhspj9e6psmkq0
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupicottsv1/ src/lib/abuledupicottsv1 revid:philippe.cadaugade@ryxeo.com-20150417092016-m7nk6ak4f4t9ghu2
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduaudiov1/ src/lib/abuleduaudiov1 revid:icham.sirat@ryxeo.com-20150319153428-9wvmr71aanr25xkt
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupageaccueilv1/ src/lib/abuledupageaccueilv1 revid:icham.sirat@ryxeo.com-20150408125653-vxabjmng6cjfsa33
@@ -24,5 +24,5 @@ bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledulabelv1/ src/lib/abuled
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleducommonstatesv1/ src/lib/abuleducommonstatesv1 revid:icham.sirat@ryxeo.com-20150319134034-hle01uo1tbz7bwzq
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledustatemachinev1/ src/lib/abuledustatemachinev1 revid:icham.sirat@ryxeo.com-20150319134214-rj0wgvz3z7cgjcg9
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledutetev1/ src/lib/abuledutetev1 revid:icham.sirat@ryxeo.com-20150319134806-g3f3n0dz5ss0mwej
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduetiquettesv1 src/lib/abuleduetiquettesv1 revid:philippe.cadaugade@ryxeo.com-20150601143244-66kbxj4l9q5nubfw
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduetiquettesv1 src/lib/abuleduetiquettesv1 revid:philippe.cadaugade@ryxeo.com-20150623132820-qcjuy1symgzq7v8k
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledunumericlinearpadv1 src/lib/abuledunumericlinearpadv1 revid:philippe.cadaugade@ryxeo.com-20150216102717-y0tdmd66pdb3ajjc
