@@ -660,7 +660,7 @@ void interfaceClass::slotMontreErreurId()
 {
     ABULEDU_LOG_TRACE()<<__PRETTY_FUNCTION__;
 
-    AbulEduMessageBoxV1* msgError = new AbulEduMessageBoxV1(trUtf8("Problème !"),trUtf8("Accès impossible au lanceur d'activité sans identification correcte"));
+    AbulEduMessageBoxV1* msgError = new AbulEduMessageBoxV1(trUtf8("Problème !"),trUtf8("Accès impossible au lanceur d'activité sans identification correcte"),true,this);
     msgError->show();
 }
 

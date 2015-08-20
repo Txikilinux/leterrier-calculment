@@ -31,7 +31,8 @@
 #include "activityfilter.h"
 #include "exercicemaisonnombres.h"
 #include "editeur.h"
-#include "boutonspolygone.h"
+/** @deprecated
+#include "boutonspolygone.h" */
 #include "abuledulanceurv1.h"
 #include "exerciceoperation.h"
 #include <QApplication>
