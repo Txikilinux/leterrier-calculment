@@ -31,6 +31,7 @@ protected:
 
 signals:
     void sortie();
+    void signalBoutonPolygonePressed(int,QString);
 
 private:
     QPoint* m_base;

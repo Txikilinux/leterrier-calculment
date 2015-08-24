@@ -31,6 +31,7 @@
 #include "boutonspolygone.h"
 #include "abuleduaproposv1.h"
 #include "abuledulanceurv1.h"
+#include "exerciceoperation.h"
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QDesktopServices>
@@ -39,17 +40,17 @@
 interface::interface(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::interfaceClass)
 {
-    m_localDebug = false;
+    m_localDebug = true;
     //Langue
     //m_locale = QLocale::system().name().section('_', 0, 0);
     m_locale = qApp->property("langageUtilise").toString();
     if(m_localDebug) qDebug()<<"interface::constructeur (1) - "<<m_locale;
-    //Un 1er qtTranslator pour prendre les traductions QT Systeme
-    //c'est d'ailleurs grâce à ça qu'on est en RTL
+    /* Un 1er qtTranslator pour prendre les traductions QT Systeme
+       c'est d'ailleurs grâce à ça qu'on est en RTL */
     qtTranslator.load("qt_" + m_locale,
                       QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     qApp->installTranslator(&qtTranslator);
-    //Et un second qtTranslator pour les traductions spécifiques du logiciel
+    /* Et un second qtTranslator pour les traductions spécifiques du logiciel */
     myappTranslator.load("leterrier-calculment_" + m_locale, "lang");
     if(m_localDebug) qDebug()<<trUtf8("Langue chargée : ")<<m_locale;
     qApp->installTranslator(&myappTranslator);
@@ -65,139 +66,59 @@ interface::interface(QWidget *parent)
     connect(m_signalMapper, SIGNAL(mapped(QString)), this, SLOT(changelangue(QString)) );
     creeMenuLangue();
 
-    QRect ecran;
-    ecran = QApplication::desktop()->availableGeometry();
-    /* Pour tester en 1024x600, commentez les deux lignes précédentes et décommentez la ligne suivante */
-//    QRect ecran(0,0,1024,600);
+    m_activityFilter = new ActivityFilter(abeApp);
+    m_activityFilter->setInterval(6000);
+    m_activityFilter->setObjectName("demoActivityFilter");
+    abeApp->installEventFilter(m_activityFilter);
+    QObject::connect(m_activityFilter, SIGNAL(userActive()),   this,  SLOT(slotInterfaceEndDemo()), Qt::UniqueConnection);
+    QObject::connect(m_activityFilter, SIGNAL(userInactive()),this,  SLOT(slotInterfaceDemo()), Qt::UniqueConnection);
+
+    /* Création de la page d'accueil et insertion dans la stackedWidget */
+    m_abuleduPageAccueil = new AbulEduPageAccueilV1(ui->mainPage);
+    connect(m_abuleduPageAccueil, SIGNAL(boutonPressed(int,QString)), this, SLOT(slotInterfaceLaunchExercise(int,QString)), Qt::UniqueConnection);
+    connect(m_abuleduPageAccueil->abePageAccueilGetMenu(), SIGNAL(btnBoxTriggered()), this, SLOT(slotAskLanceur()),Qt::UniqueConnection);
+
+    m_messageAide = trUtf8("Clique sur une des zones de lancement des exercices.");
+    m_demoMessageBox = new AbulEduMessageBoxV1(trUtf8("On y va ?"),m_messageAide,false,m_abuleduPageAccueil);
+    m_demoMessageBox->abeSetModeEnum(AbulEduMessageBoxV1::abeNoButton);
+    m_demoMessageBox->setWink();
+    //    m_demoMessageBox->hideCloseButton();
+    m_demoMessageBox->hide();
+    m_demoTimeLine = new QTimeLine(6000,this);
+    connect(m_demoTimeLine, SIGNAL(finished()),this, SLOT(slotInterfaceEndDemo()),Qt::UniqueConnection);
 
     QFile* fichierConf = new QFile(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf");
-    if (!fichierConf->exists()) if(m_localDebug) qDebug()<<trUtf8("Fichier config NON trouvé");
-    else if(m_localDebug) qDebug() << trUtf8("Fichier config trouvé");
-    m_hauteurMax = ecran.height();
-    if(m_localDebug) qDebug() << "Taille ecran : " << ecran.width()<< " X "<<ecran.height();
-    this->resize(ecran.width(),ecran.height());
-    ui->fete->resize(ecran.width(),m_hauteurMax);
+    if (!fichierConf->exists()){
+        if(m_localDebug) qDebug()<<trUtf8("Fichier config NON trouvé");
+    }
+    else {
+        if(m_localDebug) qDebug() << trUtf8("Fichier config trouvé");
+    }
 
-    QPixmap imgFond(":/calculment/backgrounds/backgroundInterface");
-    QPixmap imgFond2=imgFond.scaled(ecran.width(),m_hauteurMax,Qt::KeepAspectRatio,Qt::SmoothTransformation);
-    QBrush* fond = new QBrush(imgFond2);
-    ui->fete->setBackgroundBrush(*fond);
-    this->setFixedSize(imgFond2.width(),imgFond2.height());
-    ui->btnInitialise->setGeometry(imgFond2.width()-180,10,170,30);
+    ui->btnInitialise->setGeometry(10,10,170,30);
     ui->btnInitialise->hide();
 
-    double kw=static_cast<double>(imgFond2.width())/static_cast<double>(imgFond.width());
-    double kh=static_cast<double>(imgFond2.height())/static_cast<double>(imgFond.height());
-
-    QGraphicsScene* dessin = new QGraphicsScene(this);
-    ui->fete->setScene(dessin);
-    dessin->setSceneRect(0, 0, ecran.width(),m_hauteurMax);
+//    m_exerciceNames.insert("tableM",tru)
 
     m_editeur = new Editeur();
 
-    //Bouton sur les auto-tamponneuses
-    boutonsPolygone* btnPoly1 = new boutonsPolygone("addition");
-    btnPoly1->deplace(0*kw,440*kh);
-    btnPoly1->retaille(630*kw,235*kh);
-    //btnPoly1->tourne(-20);
-    btnPoly1->QGraphicsItem::setToolTip(trUtf8("Faire des additions"));
-    btnPoly1->setTexte(trUtf8("Additions"));
-    dessin->addItem(btnPoly1);
-    connect(btnPoly1, SIGNAL(clicked()), this, SLOT(close()));
-
-    //Bouton sur le manège
-    boutonsPolygone* btnPoly2 = new boutonsPolygone("multiplication");
-    btnPoly2->deplace(635*kw,550*kh);
-    btnPoly2->retaille(430*kw,410*kh);
-    btnPoly2->QGraphicsItem::setToolTip(trUtf8("Faire des multiplications"));
-    btnPoly2->setTexte(trUtf8("Multiplications"));
-    dessin->addItem(btnPoly2);
-
-    //Bouton sur la barbapapa
-    boutonsPolygone* btnPoly3 = new boutonsPolygone("editeur");
-    btnPoly3->deplace(60*kw,680*kh);
-    btnPoly3->retaille(190*kw,285*kh);
-    btnPoly3->QGraphicsItem::setToolTip(trUtf8("Lancer l'éditeur"));
-    dessin->addItem(btnPoly3);
-
-    //Bouton sur le panneau sortie
-    boutonsPolygone* btnPoly4 = new boutonsPolygone("sortie");
-    btnPoly4->setImage(QPixmap(":/calculment/backgrounds/exitSign_"+m_locale));
-    btnPoly4->deplace(1340*kw,723*kh);
-    btnPoly4->retaille(170*kw,40*kh);
-    btnPoly4->QGraphicsItem::setToolTip(trUtf8("Quitter"));
-    connect(btnPoly4, SIGNAL(sortie()), this, SLOT(close()));
-    dessin->addItem(btnPoly4);
-
-    //Bouton sur la grande roue
-    boutonsPolygone* btnPoly5 = new boutonsPolygone("1tableM");
-    btnPoly5->deplace(40*kw,15*kh);
-    btnPoly5->retaille(340*kw,365*kh);
-    btnPoly5->QGraphicsItem::setToolTip(trUtf8("Tables de multiplication"));
-    btnPoly5->setTexte(trUtf8("Tables de multiplication"));
-    dessin->addItem(btnPoly5);
-
-    //Bouton sur le train fantôme
-    boutonsPolygone* btnPoly6 = new boutonsPolygone("2complementA");
-    btnPoly6->deplace(765*kw,275*kh);
-    btnPoly6->retaille(395*kw,200*kh);
-    btnPoly6->tourne(12);
-    btnPoly6->QGraphicsItem::setToolTip(trUtf8("Compléments additifs"));
-    btnPoly6->setTexte(trUtf8("Compléments additifs"));
-    dessin->addItem(btnPoly6);
-
-    //Bouton sur le stand de tir
-    boutonsPolygone* btnPoly7 = new boutonsPolygone("3complementM");
-    btnPoly7->deplace(1135*kw,510*kh);
-    btnPoly7->retaille(180*kw,120*kh);
-    btnPoly7->tourne(10);
-    btnPoly7->QGraphicsItem::setToolTip(trUtf8("Multiples"));
-    btnPoly7->setTexte(trUtf8("Multiples"));
-    dessin->addItem(btnPoly7);
-
-    //Bouton sur la chenille
-    boutonsPolygone* btnPoly8 = new boutonsPolygone("soustraction");
-    btnPoly8->deplace(515*kw,220*kh);
-    btnPoly8->retaille(220*kw,220*kh);
-    btnPoly8->QGraphicsItem::setToolTip(trUtf8("Faire des soustractions"));
-    btnPoly8->setTexte(trUtf8("Soustractions"));
-    dessin->addItem(btnPoly8);
-
-    //Bouton sur le "rooster"
-    boutonsPolygone* btnPoly9 = new boutonsPolygone("4tableA");
-    btnPoly9->deplace(425*kw,185*kh);
-    btnPoly9->retaille(300*kw,50*kh);
-    btnPoly9->tourne(-35);
-    btnPoly9->QGraphicsItem::setToolTip(trUtf8("Tables d'addition"));
-    btnPoly9->setTexte(trUtf8("Tables d'addition"));
-    dessin->addItem(btnPoly9);
-
-    //Bouton sur le palais des glaces
-    boutonsPolygone* btnPoly10 = new boutonsPolygone("5OdGrandeur",100);
-    btnPoly10->deplace(1315*kw,560*kh);
-    btnPoly10->retaille(280*kw,150*kh);
-    btnPoly10->QGraphicsItem::setToolTip(trUtf8("Ordres de grandeur"));
-    dessin->addItem(btnPoly10);
-
-    //Bouton l'avion
-    boutonsPolygone* btnPoly11 = new boutonsPolygone("lanceur");
-    btnPoly11->deplace(1470*kw, 70*kh);
-    btnPoly11->retaille(85*kw,50*kh);
-    btnPoly11->QGraphicsItem::setToolTip(trUtf8("Choisir son exercice"));
-    dessin->addItem(btnPoly11);
-
     qApp->setProperty("VerrouNombres",true);
-    QDesktopWidget *widget = QApplication::desktop();
-    int desktop_width = widget->width();
-    int desktop_height = widget->height();
-    this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
 
     setTitle(abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus());
+    // On est prêt à démarrer
+    createStateMachine();
+    m_leterrierStateMachine.start();
+    ui->exercicePage->abeWidgetSetBackgroundPixmap(":/calculment/backgrounds/backgroundInterface");
 }
 
 interface::~interface()
 {
     delete ui;
+}
+
+void interface::resizeEvent(QResizeEvent *)
+{
+    m_abuleduPageAccueil->setDimensionsWidgets();
 }
 
 void interface::creeMenuLangue()
@@ -224,6 +145,95 @@ void interface::creeMenuLangue()
      }
 }
 
+void interface::createStateMachine()
+{
+    if (m_localDebug) qDebug()<< __FUNCTION__;
+    // Les états
+    m_initialState      = new QState();
+    m_initialState      ->setObjectName("initialState");
+    m_globalState       = new QState();
+    m_globalState       ->setObjectName("globalState");
+    m_homeState         = new QState(m_globalState);
+    m_homeState         ->setObjectName("homeState");
+    m_exerciseState     = new QState(m_globalState);
+    m_exerciseState     ->setObjectName("exerciseState");
+    m_editorState       = new QState(m_globalState);
+    m_editorState       ->setObjectName("editorState");
+    m_historyState      = new QHistoryState(QHistoryState::DeepHistory, m_globalState);
+    m_historyState->setDefaultState(m_homeState);
+    m_historyState      ->setObjectName("historyState");
+    m_boxFileManagerState   = new QState();
+    m_boxFileManagerState   ->setObjectName("boxFileManagerState");
+    m_finalState        = new QFinalState();
+    m_finalState        ->setObjectName("finalState");
+    m_leterrierStateMachine.addState        (m_initialState);
+    m_leterrierStateMachine.setInitialState (m_initialState);
+    m_leterrierStateMachine.addState        (m_globalState);
+
+    m_leterrierStateMachine.addState        (m_boxFileManagerState);
+    m_leterrierStateMachine.addState        (m_finalState);
+
+    m_globalState->setInitialState(m_homeState);
+
+    // Les transitions
+    m_initialState->addTransition(m_initialState, SIGNAL(entered()), m_globalState);
+
+    m_globalState->addTransition(ui->actionQuitter, SIGNAL(triggered()), m_finalState);
+    m_globalState->addTransition(m_abuleduPageAccueil->abePageAccueilGetMenu(), SIGNAL(btnQuitterTriggered()), m_finalState);
+
+    m_homeState->addTransition(ui->actionAfficher_l_diteur, SIGNAL(triggered()), m_editorState);
+    m_homeState->addTransition(m_abuleduPageAccueil->abePageAccueilGetMenu(), SIGNAL(btnBoxTriggered()), m_boxFileManagerState);
+    m_homeState->addTransition(m_abuleduPageAccueil->abePageAccueilGetMenu(), SIGNAL(btnQuitterTriggered()), m_finalState);
+    m_homeState->addTransition(m_abuleduPageAccueil->abePageAccueilGetBtnRevenirEditeur(), SIGNAL(clicked()), m_editorState);
+
+    /* Les transitions liées à l'éditeur seront installées lors de la création de celui-ci */
+
+    m_exerciseState->addTransition(this, SIGNAL(signalAbeLTMWSMexerciseClosed()), m_homeState);
+    // Transitions gardées
+    LeterrierStringTransition *toExerciseState = new LeterrierStringTransition("launchExercise");
+    toExerciseState->setTargetState(m_exerciseState);
+    m_homeState->addTransition(toExerciseState);
+    LeterrierStringTransition *toAbeBoxFileManager = new LeterrierStringTransition("toAbeBoxFileManager");
+    toAbeBoxFileManager->setTargetState(m_boxFileManagerState);
+    m_homeState->addTransition(toAbeBoxFileManager);
+
+    // Les connexions
+    connect(m_initialState,     SIGNAL(entered()),  this, SLOT(slotInterfaceInitialStateEntered()),  Qt::UniqueConnection);
+    connect(m_initialState,     SIGNAL(exited()),   this, SLOT(slotInterfaceInitialStateExited()),   Qt::UniqueConnection);
+    connect(m_globalState,      SIGNAL(entered()),  this, SLOT(slotInterfaceGlobalStateEntered()),   Qt::UniqueConnection);
+    connect(m_globalState,      SIGNAL(exited()),   this, SLOT(slotInterfaceGlobalStateExited()),    Qt::UniqueConnection);
+    connect(m_homeState,        SIGNAL(entered()),  this, SLOT(slotInterfaceHomeStateEntered()),     Qt::UniqueConnection);
+    connect(m_homeState,        SIGNAL(exited()),   this, SLOT(slotInterfaceHomeStateExited()),      Qt::UniqueConnection);
+    connect(m_exerciseState,    SIGNAL(entered()),  this, SLOT(slotInterfaceExerciseStateEntered()), Qt::UniqueConnection);
+    connect(m_exerciseState,    SIGNAL(exited()),   this, SLOT(slotInterfaceExerciseStateExited()),  Qt::UniqueConnection);
+    connect(m_editorState,      SIGNAL(entered()),  this, SLOT(slotInterfaceEditorStateEntered()),   Qt::UniqueConnection);
+    connect(m_editorState,      SIGNAL(exited()),   this, SLOT(slotInterfaceEditorStateExited()),    Qt::UniqueConnection);
+    connect(m_finalState,       SIGNAL(entered()),  this, SLOT(slotInterfaceFinalStateEntered()),    Qt::UniqueConnection);
+    connect(m_finalState,       SIGNAL(exited()),   this, SLOT(slotInterfaceFinalStateExited()),     Qt::UniqueConnection);
+
+    //! Les assignProperty
+
+    // globalState
+
+    // homeState
+    m_homeState->assignProperty(ui->menuExercices,                  "enabled", true);
+    m_homeState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetMenu(), "visible", true);
+
+    // editorState
+    m_editorState->assignProperty(ui->menuExercices,                "enabled", false);
+    m_editorState->assignProperty(ui->actionAfficher_l_diteur,    "enabled", false);
+
+    // exerciseState
+    m_exerciseState->assignProperty(ui->actionAfficher_l_diteur,  "enabled", false);
+    m_exerciseState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetMenu(), "visible", false);
+    m_exerciseState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetBtnRevenirEditeur(), "visible", false);
+    m_exerciseState->assignProperty(ui->menuExercices,              "enabled", false);
+
+    // waitForAbeState
+
+    // FinalState
+}
+
 void interface::slotSessionAuthenticated(bool enable)
 {
     if(m_localDebug) qDebug()<<__FUNCTION__<<enable;
@@ -231,6 +241,262 @@ void interface::slotSessionAuthenticated(bool enable)
         abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
 
     connect(abeApp->getAbeNetworkAccessManager(), SIGNAL(ssoAuthStatus(int)), this,SLOT(setTitle(int)));
+}
+
+void interface::slotInterfaceLaunchExercise(int number,QString name)
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<number<<" ------ "<< __PRETTY_FUNCTION__<<" -> "<<name;
+    }
+    /*" Tables de multiplication"
+    " Tables d'addition"
+    "Soustractions"
+    "Compléments"
+     "Multiples"
+    "Ordres de grandeur"
+    "Divisions"
+    "Editeur"
+    "Multiplications"
+    "Additions" */
+
+    if (name == "Editeur") {
+        Editeur* ed = new Editeur;
+        ed->show();
+    }
+
+    /** @todo Gérer les traductions */
+    else if (name.simplified().left(6) == "Tables" || name.simplified().left(6) == "Ordres" || name.simplified() == "Compléments" || name.simplified() == "Multiples"){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+        ui->stackedWidget->setCurrentWidget(ui->transitionalPage);
+        InterfaceCompetence* inter = new InterfaceCompetence(m_exerciceNames.key(name.simplified()),ui->transitionalPage);
+        connect(inter,SIGNAL(signalInterfaceCompetenceClose()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
+        inter->show();
+    }
+    /* ça c'est la bonne façon de faire */
+    else{
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+        ui->stackedWidget->setCurrentWidget(ui->exercicePage);
+        ExerciceOperation* ex = new ExerciceOperation(m_exerciceNames.key(name.simplified()),ui->exercicePage);
+        connect(ex,SIGNAL(signalExerciseExited()),this, SLOT(slotInterfaceShowMainPage()),Qt::UniqueConnection);
+    }
+
+    //    else if (*m_action=="lanceur") {
+    //        if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
+    //        {
+
+    //            abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
+    //            abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
+    //            abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+    //        }
+    //        else
+    //        {
+    //            slotMontreLanceur();
+    //        }
+    //    }
+
+    //    else if (*m_action == "maisonDesNombres") {
+    //        ExerciceMaisonNombres* maisonNombres = new ExerciceMaisonNombres(*m_action,0,m_val);
+    //        maisonNombres->show();
+    //    }
+//    else {
+//        ui->stackedWidget->setCurrentWidget(ui->exercicePage);
+//        exercice* ex = new exercice(m_exerciceNames.key(name.simplified()),ui->widgetContainer,0);
+//        ex->show();
+//    }
+
+}
+
+void interface::slotInterfaceBackFromExercise()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+}
+
+void interface::slotInterfaceDemo()
+{
+    if (m_localDebug){
+//        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    if (m_isDemoAvailable == false || ui->stackedWidget->currentWidget() != ui->mainPage || m_demoTimeLine->state() == QTimeLine::Running){
+        return;
+    }
+    float ratio = abeApp->getAbeApplicationDecorRatio();
+    if (m_localDebug) qDebug()<<" ++++++++ "<< __FILE__ <<  __LINE__ << __FUNCTION__;
+    m_demoMessageBox->setGeometry(10*ratio,800*ratio,400*ratio,200*ratio);
+    m_demoMessageBox->show();
+    m_abuleduPageAccueil->abePageAccueilMontreBulles(true,true);
+    foreach(AbulEduZoneV1* zone, m_abuleduPageAccueil->abePageAccueilGetZones()){
+        zone->abeZoneDrawRect(true,QColor("#dcdcdc"),4);
+    }
+    m_demoTimeLine->start();
+}
+
+void interface::slotInterfaceEndDemo()
+{
+    if(sender()->objectName() == "demoActivityFilter"){
+        if(m_demoTimeLine->state() != QTimeLine::Running){
+            return;
+        }
+    }
+    m_demoTimeLine->stop();
+    if(m_demoMessageBox){
+            m_demoMessageBox->setVisible(false);
+        }
+    m_abuleduPageAccueil->abePageAccueilMontreBulles(false,true);
+    foreach(AbulEduZoneV1* zone, m_abuleduPageAccueil->abePageAccueilGetZones()){
+        zone->abeZoneDrawRect(false);
+    }
+}
+
+void interface::mousePressEvent(QMouseEvent *event)
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    if(event->button() == Qt::RightButton)
+    {
+        QKeyEvent* pressSpace = new QKeyEvent(QEvent::KeyPress,Qt::Key_Space,Qt::NoModifier);
+        QApplication::sendEvent(m_abuleduPageAccueil,pressSpace);
+    }
+}
+
+void interface::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    if(event->button() == Qt::RightButton)
+    {
+        QKeyEvent* releaseSpace = new QKeyEvent(QEvent::KeyRelease,Qt::Key_Space,Qt::NoModifier);
+        QApplication::sendEvent(m_abuleduPageAccueil,releaseSpace);
+    }
+}
+
+void interface::slotInterfaceInitialStateEntered()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    m_isDemoAvailable = true;
+    // On va mettre à jour les textes dans les bulles car ils sont initialisés après la page d'accueil
+    QList<AbulEduZoneV1 *> listeZone = m_abuleduPageAccueil->abePageAccueilGetZones();
+
+    // On crée les entrées du menu exercices
+    for(int i = 0; i < listeZone.count(); i++)
+    {
+        QAction *actionExercice = new QAction(listeZone[i]->abeZoneGetBulle()->abeBulleGetText(), this);
+        actionExercice->setObjectName(QString::number(i));
+        /* J'ai utilisé le debug ci-dessous et l'ancien code d'appel des boutonsPolygones pour peupler ma QMap */
+//        qDebug()<<i<<" ---> "<<listeZone[i]->abeZoneGetBulle()->abeBulleGetText();
+        actionExercice->setShortcut(QKeySequence("Ctrl+"+QString::number(i+1)));
+        actionExercice->setEnabled(false);
+        connect(actionExercice, SIGNAL(triggered()), this, SLOT(slotInterfaceLaunchExercise()), Qt::UniqueConnection);
+        ui->menuExercices->addAction(actionExercice);
+    }
+    m_exerciceNames.insert("tableM","Tables de multiplication");
+    m_exerciceNames.insert("addition","Additions");
+    m_exerciceNames.insert("multiplication","Multiplications");
+    m_exerciceNames.insert("editeur","Editeur");
+    m_exerciceNames.insert("complementA","Compléments");
+    m_exerciceNames.insert("complementM","Multiples");
+    m_exerciceNames.insert("soustraction","Soustractions");
+    m_exerciceNames.insert("tableA","Tables d'addition");
+    m_exerciceNames.insert("OdGrandeur","Ordres de grandeur");
+    m_exerciceNames.insert("lanceur","Lanceur");
+
+    /* Pas de module dans ce logiciel, les zones sensibles sont activées */
+}
+
+void interface::slotInterfaceInitialStateExited()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+
+}
+
+void interface::slotInterfaceGlobalStateEntered()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+
+}
+
+void interface::slotInterfaceGlobalStateExited()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+
+}
+
+void interface::slotInterfaceHomeStateEntered()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    ui->stackedWidget->setCurrentWidget(ui->mainPage);
+    /* Si on est entrain d'éditer un module, on affiche le bouton Revenir Editeur */
+    m_homeState->assignProperty(m_abuleduPageAccueil->abePageAccueilGetBtnRevenirEditeur(), "visible", m_isEditorRunning);
+    m_homeState->assignProperty(ui->actionAfficher_l_diteur,                                "enabled", !m_isEditorRunning);
+    m_isDemoAvailable = true;
+}
+
+void interface::slotInterfaceHomeStateExited()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    m_isDemoAvailable = false;
+}
+
+void interface::slotInterfaceExerciseStateEntered()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+
+}
+
+void interface::slotInterfaceExerciseStateExited()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+
+}
+
+void interface::slotInterfaceEditorStateEntered()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+
+}
+
+void interface::slotInterfaceEditorStateExited()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+
+}
+
+void interface::slotInterfaceFinalStateEntered()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
+    close();
+}
+
+void interface::slotInterfaceFinalStateExited()
+{
+    if (m_localDebug){
+        ABULEDU_LOG_DEBUG()<<" ------ "<< __PRETTY_FUNCTION__;
+    }
 }
 
 void interface::changelangue(QString langue)
@@ -241,8 +507,7 @@ void interface::changelangue(QString langue)
 
     qApp->installTranslator(&myappTranslator);
     interface* nouvelleInterface = new interface();
-    nouvelleInterface->setGeometry(this->geometry());
-    nouvelleInterface->show();
+    nouvelleInterface->showMaximized();
     nouvelleInterface->setWindowTitle(QObject::trUtf8("Calcul Mental"));
     this->close();
     nouvelleInterface->activateWindow();
@@ -505,4 +770,31 @@ void interface::setTitle(int authStatus)
         }
     }
     setWindowTitle(title);
+}
+
+void interface::slotAskLanceur()
+{
+        if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
+        {
+
+            abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
+            abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
+            abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+        }
+        else
+        {
+            slotMontreLanceur();
+        }
+}
+
+void interface::slotMontreLanceur()
+{
+    AbuleduLanceurV1* lanceur = new AbuleduLanceurV1(abeApp->getAbeIdentite());
+    lanceur->show();
+}
+
+void interface::slotMontreErreurId()
+{
+    AbulEduMessageBoxV1* msgError = new AbulEduMessageBoxV1(trUtf8("Problème !"),trUtf8("Accès impossible au lanceur d'activité sans identification correcte"));
+    msgError->show();
 }

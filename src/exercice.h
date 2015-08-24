@@ -51,6 +51,7 @@ private:
     double m_ratioTaille;
     QTextEdit* m_consignes;
     AbulEduExportPDFV1* m_pdfExport;
+    QWidget* m_parent;
 
 protected slots:
     void on_btnAide_clicked();

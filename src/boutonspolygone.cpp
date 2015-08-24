@@ -71,7 +71,8 @@ void boutonsPolygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
 {
-    qDebug()<<"boutonsPolygone::mousePressEvent(1) où m_action = "<<*m_action;
+    qDebug()<<"boutonsPolygone::mousePressEvent(1) où m_action = "<<*m_action<<" et "<<m_val;
+    emit signalBoutonPolygonePressed(m_val,*m_action);
     QChar initialeAction;
     initialeAction=(QChar)m_action->operator [](0);
 
@@ -90,7 +91,6 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
     else if (*m_action=="lanceur") {
         if (abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus() != 1)
         {
-
             abeApp->getAbeNetworkAccessManager()->abeOnLoginSuccessGoto(this,SLOT(slotMontreLanceur()));
             abeApp->getAbeNetworkAccessManager()->abeOnLoginFailureGoto(this,SLOT(slotMontreErreurId()));
             abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
@@ -106,8 +106,9 @@ void boutonsPolygone::mousePressEvent(QGraphicsSceneMouseEvent* e)
         maisonNombres->show();
     }
     else {
-        exercice* ex = new exercice(*m_action,0,m_val);
-        ex->show();
+
+//        exercice* ex = new exercice(*m_action,0,m_val);
+//        ex->show();
     }
     e->accept();
     switch (m_transformable) {

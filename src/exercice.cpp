@@ -44,15 +44,17 @@ exercice::exercice(QString exo,QWidget *parent,int val, QString niveau) :
     AbulEduExerciceV0(parent),
     m_ui(new Ui::exercice)
 {
-    //qDebug()<<"exercice::constructeur (1)";
+    qDebug()<<__PRETTY_FUNCTION__<<exo<<" :: "<<val<<" :: "<<niveau;
+    m_parent = parent;
     m_ui->setupUi(this);
-    this->setWindowModality(Qt::ApplicationModal);
+    setWindowFlags(Qt::CustomizeWindowHint);
+
     this->setAbeExerciceName(exo);
     m_ui->btnAide->hide();
     m_ui->lblMsgReponse->hide();
 
-    m_operation=exo;
-    m_cible=val;
+    m_operation = exo;
+    m_cible = val;
 
     QSettings config(QDir::homePath()+"/leterrier/calcul-mental/conf.perso/parametres_"+qApp->property("langageUtilise").toString()+".conf", QSettings::IniFormat);
     m_nbTotalQuestions = config.value("NombreBallons",10).toInt();
@@ -240,13 +242,14 @@ void exercice::setImgFond(QPixmap* image)
 
 void exercice::adapte(QPixmap cheminImage)
 {
+    if(!m_parent) return;
     qDebug()<<"exercice::adapte(1)";
     int bordure=20;
     QRect ecran;
-    ecran=QApplication::desktop()->screenGeometry();
+    ecran = QApplication::desktop()->screenGeometry();
     /* Pour tester en 1024x600, commentez les deux lignes précédentes et décommentez la ligne suivante */
 //    QRect ecran(0,0,1024,600);
-    QPixmap imgFond2 = cheminImage.scaledToHeight(ecran.height()-60 - 2*bordure, Qt::SmoothTransformation);
+    QPixmap imgFond2 = cheminImage.scaledToHeight(m_parent->height()-20 - 2*bordure, Qt::SmoothTransformation);
     //qDebug()<<"hauteur imageAvant = "<<cheminImage.height()<<" Hauteur imageApres = "<<imgFond2.height();
     //qDebug()<<"largeur imageAvant = "<<cheminImage.width()<<" Largeur imageApres = "<<imgFond2.width();
     *m_imgFond = imgFond2;

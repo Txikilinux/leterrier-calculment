@@ -37,7 +37,9 @@ int main(int argc, char *argv[])
 {
     AbulEduApplicationV1 a(argc, argv,VER_INTERNALNAME_STR, VER_PRODUCTVERSION_STR, VER_COMPANYDOMAIN_STR, VER_COMPANYNAME_STR, VER_UNITVERSION_STR);
     a.setAbeApplicationLongName(QObject::trUtf8(VER_FILEDESCRIPTION_STR));
-
+#if QT_VERSION >= 0x050200
+    a.initCommandLineParser();
+#endif
     abeApp->setProperty("langageUtilise",QLocale::system().name().section('_', 0, 0));
     abeApp->setProperty("utilisateur","");
     abeApp->setProperty("afficheBilanExercice",false);
@@ -114,7 +116,6 @@ int main(int argc, char *argv[])
         // ================== splashscreen
     AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
         splash->show();
-	abeApp->processEvents();
         splash->launch(1000);
 	interface* w = new interface();
         splash->setMainWindow(w);
