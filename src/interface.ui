@@ -429,6 +429,9 @@ background-color:transparent;
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Pavé numérique tactile</string>
    </property>

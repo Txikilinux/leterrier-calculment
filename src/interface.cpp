@@ -96,7 +96,7 @@ interfaceClass::interfaceClass(QWidget *parent)
     connect(m_editeur,SIGNAL(signalEditeurSaved()),this, SLOT(slotSettingsSaved()),Qt::UniqueConnection);
 
     qApp->setProperty("VerrouNombres",true);
-    qApp->setProperty("numericPad",false);
+    qApp->setProperty("numericPad",true);
 
     setTitle(abeApp->getAbeNetworkAccessManager()->abeSSOAuthenticationStatus());
     // On est prêt à démarrer
