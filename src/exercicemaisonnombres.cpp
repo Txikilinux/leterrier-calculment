@@ -221,6 +221,9 @@ void ExerciceMaisonNombres::slotSequenceEntered()
     ExerciceOperation::slotSequenceEntered();
     question->assignProperty(getAbeExerciceTelecommandeV1()->ui->btnVerifier, "enabled",false);
     question->assignProperty(m_leResultat, "enabled", false);
+    /* Je repasse derrière l'appel de la méthode d'ExerciceOperation puisqu'ici je ne veux jamais le numericPad */
+    question->assignProperty(m_numericPad, "visible", false);
+    question->assignProperty(boiteTetes, "visible", true);
 }
 
 void ExerciceMaisonNombres::slotRealisationExerciceEntered()
