@@ -39,6 +39,8 @@ int main(int argc, char *argv[])
     a.setAbeApplicationLongName(QObject::trUtf8(VER_FILEDESCRIPTION_STR));
 #if QT_VERSION >= 0x050200
     a.initCommandLineParser();
+#else
+    a.initLogger();
 #endif
     abeApp->setProperty("langageUtilise",QLocale::system().name().section('_', 0, 0));
     abeApp->setProperty("utilisateur","");
