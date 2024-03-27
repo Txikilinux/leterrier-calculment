@@ -29,6 +29,8 @@
 #include "abuledumessageboxv1.h"
 #include "baudruche.h"
 #include <QCheckBox>
+#include <QRegExpValidator>
+#include <QRegExp>
 
 ///
 /// \brief La classe AbulEduLaunchElements stocke les paramètres nécessaires pour jouer un média
